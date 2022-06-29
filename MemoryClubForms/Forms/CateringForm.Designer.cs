@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CateringForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.lblNombreVista = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -47,6 +48,27 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(918, 136);
             this.panel1.TabIndex = 0;
+            // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.Maroon;
+            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
+            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnClose.BorderRadius = 17;
+            this.btnClose.BorderSize = 0;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(801, 4);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(105, 32);
+            this.btnClose.TabIndex = 1;
+            this.btnClose.Text = "Cerrar";
+            this.btnClose.TextColor = System.Drawing.Color.White;
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Clicked);
             // 
             // lblNombreVista
             // 
@@ -70,27 +92,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(894, 407);
             this.dataGridView1.TabIndex = 1;
             // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.BackColor = System.Drawing.Color.Maroon;
-            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
-            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnClose.BorderRadius = 17;
-            this.btnClose.BorderSize = 0;
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(801, 4);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(105, 32);
-            this.btnClose.TabIndex = 1;
-            this.btnClose.Text = "Cerrar";
-            this.btnClose.TextColor = System.Drawing.Color.White;
-            this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Clicked);
-            // 
             // CateringForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -99,6 +100,7 @@
             this.ClientSize = new System.Drawing.Size(918, 593);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CateringForm";
             this.Text = "CateringForm";
             this.panel1.ResumeLayout(false);
