@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,14 +47,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Botones Personalizados\OurButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BusinessBO\LoginBO.cs" />
+    <Compile Include="Data\DataTableExtension.cs" />
+    <Compile Include="Data\SQLConexionDataBase.cs" />
+    <Compile Include="Forms\CateringForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\CateringForm.Designer.cs">
+      <DependentUpon>CateringForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\HomeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\HomeForm.Designer.cs">
+      <DependentUpon>HomeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VariablesGlobales.cs" />
+    <EmbeddedResource Include="Forms\CateringForm.resx">
+      <DependentUpon>CateringForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\HomeForm.resx">
+      <DependentUpon>HomeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -62,6 +92,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -75,6 +106,56 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Icono.ico" />
+    <Content Include="Resources\adios.png" />
+    <Content Include="Resources\Alerta.png" />
+    <Content Include="Resources\apple.png" />
+    <Content Include="Resources\Aprobado.png" />
+    <Content Include="Resources\arrow_down.png" />
+    <Content Include="Resources\arrow_left.png" />
+    <Content Include="Resources\arrow_right.png" />
+    <Content Include="Resources\arrow_up.png" />
+    <Content Include="Resources\Asistencia 1.png" />
+    <Content Include="Resources\Ayuda.png" />
+    <Content Include="Resources\basura.png" />
+    <Content Include="Resources\Camara.png" />
+    <Content Include="Resources\card.png" />
+    <Content Include="Resources\cerrarS.png" />
+    <Content Include="Resources\CerrarSesion.png" />
+    <Content Include="Resources\close.png" />
+    <Content Include="Resources\ClubMemoriaLogo.png" />
+    <Content Include="Resources\ClubMemoriaLogo1.png" />
+    <Content Include="Resources\codigo-qr.png" />
+    <Content Include="Resources\comida.png" />
+    <Content Include="Resources\editar %281%29.png" />
+    <Content Include="Resources\editar %282%29.png" />
+    <Content Include="Resources\editar-codigo.png" />
+    <Content Include="Resources\editar.png" />
+    <Content Include="Resources\felicidad.png" />
+    <Content Include="Resources\felicidad1.png" />
+    <Content Include="Resources\Hola.png" />
+    <Content Include="Resources\IDBanner.png" />
+    <Content Include="Resources\imprimir.png" />
+    <Content Include="Resources\Info.png" />
+    <Content Include="Resources\llegada.png" />
+    <Content Include="Resources\online.png" />
+    <Content Include="Resources\QR.png" />
+    <Content Include="Resources\QrCode.png" />
+    <Content Include="Resources\Rechazado.png" />
+    <Content Include="Resources\restaurante.png" />
+    <Content Include="Resources\restaurante2.png" />
+    <Content Include="Resources\sandwich.png" />
+    <Content Include="Resources\signo-de-exclamacion.png" />
+    <Content Include="Resources\telefono_2.png" />
+    <Content Include="Resources\Transporte1.png" />
+    <Content Include="Resources\Transporte2.png" />
+    <Content Include="Resources\user.png" />
+    <Content Include="Resources\usuario.png" />
+    <Content Include="Resources\usuario2.png" />
+    <Content Include="Resources\volver.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
