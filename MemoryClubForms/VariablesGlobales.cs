@@ -11,6 +11,7 @@ namespace MemoryClubForms
         public static int idUsuario { get; set; }
         public static string usuario { get; set; }
         public static int sucursal { get; set; }
+        public static int Nivel { get; set; }
 
     }
 }

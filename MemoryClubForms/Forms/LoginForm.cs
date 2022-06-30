@@ -64,6 +64,7 @@ namespace MemoryClubForms
                 VariablesGlobales.idUsuario = response.Select(x => x.id_usuario).FirstOrDefault();
                 VariablesGlobales.usuario = response.Select(x => x.usuario).FirstOrDefault();
                 VariablesGlobales.sucursal = response.Select(x => x.sucursal).FirstOrDefault();
+                VariablesGlobales.Nivel = response.Select(x => x.nivel).FirstOrDefault();
 
                 //Navego a la siguiente pagina
                 // Envío el Id del Padre al FormHome                        

@@ -77,7 +77,7 @@ namespace MemoryClubForms.Data
 		}
 		public static SqlConnection BuildSqlConnection()
 		{
-			SqlConnection sqlConnString = new SqlConnection(ConfigurationManager.ConnectionStrings["DataBaseConection"].ConnectionString);
+			SqlConnection sqlConnString = new SqlConnection(ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString);
 			//SqlConnection sqlConnection = null;
 
 			//sqlConnection = new SqlConnection(sqlConnString);
