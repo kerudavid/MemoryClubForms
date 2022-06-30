@@ -56,5 +56,9 @@ namespace MemoryClubForms.Forms
             login.Show();
         }
 
+        private void asistenciaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new AsistenciaForm(null,null));
+        }
     }
 }
