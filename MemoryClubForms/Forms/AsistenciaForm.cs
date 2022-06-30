@@ -38,10 +38,15 @@ namespace MemoryClubForms.Forms
             {
                 foreach (var asistencia in asistenciaList)
                 {
-                    grdAsistencia.Rows.Add(asistencia.Id_asistencia, asistencia.Fk_id_cliente, asistencia.Fecha, asistencia.Hora, asistencia.Observacion, asistencia.Sucursal, asistencia.Usuario, asistencia.Fecha_mod);
+                    grdAsistencia.Rows.Add(asistencia.Id_asistencia, asistencia.Fk_id_cliente,asistencia.Nombre, asistencia.Fecha, asistencia.Hora, asistencia.Observacion, asistencia.Sucursal, asistencia.Usuario, asistencia.Fecha_mod);
                 }
+                grdAsistencia.ReadOnly = true;
             }
         }
 
+        private void dudHora_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
