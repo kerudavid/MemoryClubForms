@@ -24,7 +24,7 @@ namespace MemoryClubForms.BusinessBO
             //cuando no viene una fecha desde, toma la fecha de hoy menos 30 días
             {
                 fechadesde = fechadesde.AddDays(-30);
-                Pdesde = fechadesde.ToString("MM/dd/yyyy");           
+                Pdesde = fechadesde.ToString("dd/MM/yyyy");           
             }
 
 
