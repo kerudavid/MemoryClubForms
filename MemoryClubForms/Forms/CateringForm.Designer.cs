@@ -47,7 +47,7 @@
             this.panel1.Controls.Add(this.btnClose);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(918, 168);
+            this.panel1.Size = new System.Drawing.Size(918, 275);
             this.panel1.TabIndex = 1;
             // 
             // panel2

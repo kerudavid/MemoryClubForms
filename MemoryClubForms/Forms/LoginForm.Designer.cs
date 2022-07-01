@@ -132,9 +132,9 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(188)))), ((int)(((byte)(156)))));
             this.label1.Location = new System.Drawing.Point(74, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(229, 32);
+            this.label1.Size = new System.Drawing.Size(268, 32);
             this.label1.TabIndex = 16;
-            this.label1.Text = "Control Parental";
+            this.label1.Text = "Club de la Memoria";
             // 
             // pictureBox1
             // 

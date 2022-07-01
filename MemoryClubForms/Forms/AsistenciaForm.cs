@@ -16,6 +16,9 @@ namespace MemoryClubForms.Forms
     {
         public string fechaini;
         public string fechafin;
+        public int idAsistenciaSelected= 0;
+        public int idClienteSelected= 0;
+        public int filaSeleccionada=0;
         public AsistenciaForm(string fechaInicial, string fechaFinal)
         {
             InitializeComponent();
@@ -44,9 +47,48 @@ namespace MemoryClubForms.Forms
             }
         }
 
-        private void dudHora_ValueChanged(object sender, EventArgs e)
+        private void EnviarInfo_Clicked(object sender, DataGridViewCellEventArgs e)
         {
+            filaSeleccionada = e.RowIndex;
 
+            idAsistenciaSelected = 0;
+            idClienteSelected = 0;
+
+            //Valida que el clic no sea de los headers
+            if (filaSeleccionada != -1)
+            {
+                cbxNombresClientes.Items.Clear();//Limpia los valores que pueda tener
+                cbxNombresClientes.SelectedItem = (string)grdAsistencia.Rows[filaSeleccionada].Cells[2].Value;//Selecciona ese valor y lo guarda como objeto
+                cbxNombresClientes.Items.Add((string)grdAsistencia.Rows[filaSeleccionada].Cells[2].Value);//Son los valores que puede seleccionar
+                cbxNombresClientes.Text= (string)grdAsistencia.Rows[filaSeleccionada].Cells[2].Value;//Es el texto que aparece en el recuadro
+
+                string fecha = grdAsistencia.Rows[filaSeleccionada].Cells[3].Value.ToString();
+                DateTime fechaDate= DateTime.ParseExact(fecha, "dd/MM/yyyy", null);
+
+                dtmFecha.MinDate = new DateTime(1990, 1, 1);
+                dtmFecha.MaxDate = DateTime.Today;
+
+                //dtmFecha.CustomFormat = "MMMM dd, yyyy - dddd";
+                //dtmFecha.Format = DateTimePickerFormat.Custom;
+
+                dtmFecha.Value = fechaDate;
+
+                txtHora.Text = (string)grdAsistencia.Rows[filaSeleccionada].Cells[4].Value;
+
+                txtObservciones.Text = (string)grdAsistencia.Rows[filaSeleccionada].Cells[5].Value;
+
+                cbxSucursal.Items.Clear();
+                cbxSucursal.SelectedItem = (string)grdAsistencia.Rows[filaSeleccionada].Cells[6].Value.ToString();
+                _ = cbxSucursal.Items.Add((string)grdAsistencia.Rows[filaSeleccionada].Cells[6].Value.ToString());
+                cbxSucursal.Text = (string)grdAsistencia.Rows[filaSeleccionada].Cells[6].Value.ToString();
+
+                cbxUsuario.Items.Clear();
+                cbxUsuario.SelectedItem =(string)grdAsistencia.Rows[filaSeleccionada].Cells[7].Value;
+                _ = cbxUsuario.Items.Add((string)grdAsistencia.Rows[filaSeleccionada].Cells[7].Value);//Esta notacion no envia info cuando es null.
+                cbxUsuario.Text= (string)grdAsistencia.Rows[filaSeleccionada].Cells[7].Value;
+
+
+            }
         }
     }
 }
