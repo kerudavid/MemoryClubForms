@@ -51,6 +51,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="BusinessBO\AsistenciaBO.cs" />
+    <Compile Include="BusinessBO\CateringBO.cs" />
     <Compile Include="BusinessBO\LoginBO.cs" />
     <Compile Include="Data\DataTableExtension.cs" />
     <Compile Include="Data\SQLConexionDataBase.cs" />
@@ -79,6 +80,7 @@
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AsistenciaModel.cs" />
+    <Compile Include="Models\CateringModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

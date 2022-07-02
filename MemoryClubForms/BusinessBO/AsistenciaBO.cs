@@ -28,14 +28,14 @@ namespace MemoryClubForms.BusinessBO
             DateTime fechadesde = DateTime.Now;
             DateTime fechahasta = DateTime.Now;
             string query = "";
-            if (string.IsNullOrEmpty(Pdesde))
+            if (string.IsNullOrEmpty(Pdesde) || string.IsNullOrWhiteSpace(Pdesde))
             //cuando no viene una fecha desde, toma la fecha de hoy menos 30 días
             {
                 fechadesde = fechadesde.AddDays(-30);
                 Pdesde = fechadesde.ToString("dd/MM/yyyy");
             }
             //si fecha hasta es blanco o nula pone en fecha hasta la fecha de hoy
-            if (string.IsNullOrEmpty(Phasta))
+            if (string.IsNullOrEmpty(Phasta) || string.IsNullOrWhiteSpace(Phasta))
             {
                 Phasta = fechahasta.ToString("dd/MM/yyyy");
             }
@@ -43,14 +43,14 @@ namespace MemoryClubForms.BusinessBO
             if (nivel <= 1) // los usuarios que pueden gestionar todas las sucursales
             {
                 query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod " +
-                        $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE CONVERT(date,fecha,103) BETWEEN " +
-                        $"CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ORDER BY sucursal, fecha ASC";
+                        $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE CONVERT(date, A.fecha,103) BETWEEN " +
+                        $"CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ORDER BY A.sucursal, A.fecha ASC";
             }
             else
             {
                 query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod " +
                         $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE A.sucursal = {sucursal}" +
-                        $" AND (CONVERT(date,fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date)) ORDER BY fecha ASC";
+                        $" AND (CONVERT(date,A.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date)) ORDER BY A.fecha ASC";
             }
 
             List<AsistenciaModel> asistenciaModelList = new List<AsistenciaModel>();
@@ -58,6 +58,77 @@ namespace MemoryClubForms.BusinessBO
             asistenciaModelList = this.ObtenerListaSQL<AsistenciaModel>(query).ToList();
             return asistenciaModelList;
         }
+
+        /// <summary>
+        /// Recupera información de Asistencia por Id Cliente
+        /// </summary>
+        /// <param name="pfk_id_cliente"></param>
+        /// <returns></returns>
+        public List<AsistenciaModel> ConsultarIdclienteAsis(int pfk_id_cliente)
+        {
+            string query = "";
+            if (nivel <= 1) // los usuarios que pueden gestionar todas las sucursales
+            {
+                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod " +
+                        $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE A.fk_id_cliente = {pfk_id_cliente}";
+            }
+            else
+            {
+                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod " +
+                        $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE A.sucursal = {sucursal} " +
+                        $"AND A.fk_id_cliente = {pfk_id_cliente}";
+            }
+
+            List<AsistenciaModel> asistenciaModelList = new List<AsistenciaModel>();
+            //Las consultas siempre retornan el obtejo dentro de una lista.
+            asistenciaModelList = this.ObtenerListaSQL<AsistenciaModel>(query).ToList();
+            return asistenciaModelList;
+        }
+        
+        /// <summary>
+        /// RECUPERAR ASISTENCIA POR PERIODO Y ID CLIENTE
+        /// </summary>
+        /// <param name="Pdesde"></param>
+        /// <param name="Phasta"></param>
+        /// <param name="pfk_id_cliente"></param>
+        /// <returns></returns>
+        public List<AsistenciaModel> ConsultarPeriodoIdCliente(string Pdesde, string Phasta, int pfk_id_cliente)
+        {
+            DateTime fechadesde = DateTime.Now;
+            DateTime fechahasta = DateTime.Now;
+            string query = "";
+
+            if (string.IsNullOrEmpty(Pdesde) || string.IsNullOrWhiteSpace(Pdesde))
+            //cuando no viene una fecha desde, toma la fecha de hoy menos 30 días
+            {
+                fechadesde = fechadesde.AddDays(-30);
+                Pdesde = fechadesde.ToString("dd/MM/yyyy");
+            }
+            //si fecha hasta es blanco o nula pone en fecha hasta la fecha de hoy
+            if (string.IsNullOrEmpty(Phasta) || string.IsNullOrWhiteSpace(Phasta))
+            {
+                Phasta = fechahasta.ToString("dd/MM/yyyy");
+            }
+            if (nivel <= 1) // los usuarios que pueden gestionar todas las sucursales
+            {
+                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod " +
+                        $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE CONVERT(date, A.fecha,103) BETWEEN " +
+                        $"CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) AND A.fk_id_cliente = {pfk_id_cliente}  ORDER BY A.sucursal, A.fecha ASC";
+            }
+            else
+            {
+                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod " +
+                        $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE CONVERT(date, A.fecha,103) BETWEEN " +
+                        $"CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) AND A.sucursal = {sucursal} AND A.fk_id_cliente = {pfk_id_cliente} " +
+                        $"ORDER BY A.fecha ASC";
+            }
+
+            List<AsistenciaModel> asistenciaModelList = new List<AsistenciaModel>();
+            //Las consultas siempre retornan el obtejo dentro de una lista.
+            asistenciaModelList = this.ObtenerListaSQL<AsistenciaModel>(query).ToList();
+            return asistenciaModelList;
+        }
+
 
         /// <summary>
         /// Método para convertir una lista DataTable a un TModel(Modelo genérico)

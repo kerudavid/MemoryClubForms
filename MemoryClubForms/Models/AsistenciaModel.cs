@@ -27,26 +27,40 @@ namespace MemoryClubForms.Models
 
             string message = string.Empty;
             DateTime hoy = DateTime.Today;
+            Boolean x = false;
+            string cadenahora = string.Empty;
 
             if (asistenciaModel.Fk_id_cliente <= 0)
             {
                 return "Por favor, debe ingresar un cliente válido";
             }
 
-            if (string.IsNullOrEmpty(asistenciaModel.Fecha))
+            if (string.IsNullOrEmpty(asistenciaModel.Fecha) || string.IsNullOrWhiteSpace(asistenciaModel.Fecha))
             {
                 return "Por favor, debe ingresar una fecha válida";
             }
 
+            x = Validafecha(asistenciaModel.Fecha);
+            if (!x)
+            {
+                return "Por favor, debe ingresar una Fecha Válida";
+            }
             DateTime ldt_date = DateTime.ParseExact(asistenciaModel.Fecha, "dd/MM/yyyy", null);
             if (ldt_date > hoy)
             {
                 return "Por favor, La fecha no puede ser mayor a hoy";
             }
 
-            if (string.IsNullOrEmpty(asistenciaModel.Hora))
+            if (string.IsNullOrEmpty(asistenciaModel.Hora) || string.IsNullOrWhiteSpace(asistenciaModel.Hora))
             {
                 return "Por favor, debe ingresar una hora válida";
+            }
+
+            cadenahora = "01/01/1900 " + asistenciaModel.Hora;
+            x = Validafecha(cadenahora);
+            if (!x)
+            {
+                return "Por favor, debe ingresar una Hora Válida Formato (24hs)";
             }
 
             if (asistenciaModel.Sucursal <= 0)
@@ -55,8 +69,24 @@ namespace MemoryClubForms.Models
             }
 
             return message;
+        }
 
-
+        /// <summary>
+        /// METODO PARA VALIDAR LA FECHA /  HORA
+        /// </summary>
+        /// <param name="pfecha"></param>
+        /// <returns></returns>
+        private Boolean Validafecha(String pfecha)
+        {
+            try
+            {
+                DateTime.Parse(pfecha);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
     }
