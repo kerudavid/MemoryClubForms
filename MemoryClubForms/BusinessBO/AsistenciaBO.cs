@@ -1,5 +1,6 @@
 ﻿using MemoryClubForms.Data;
 using MemoryClubForms.Models;
+using System.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -150,37 +151,69 @@ namespace MemoryClubForms.BusinessBO
         }
 
         /// <summary>
-        /// Vaalida que no se duplique una registro en Asistencia
+        /// Valida que no se duplique una registro en Asistencia
         /// </summary>
         /// <param name="asistenciaModel"></param>
-        /// <returns>número de regstros encontrados</returns>
-        public int ValidarDuplicadoAsis(AsistenciaModel asistenciaModel)
+        /// <returns>bool True/False</returns>
+        public bool ValidarDuplicadoAsis(AsistenciaModel asistenciaModel)
         {
             int numreg = 0;
             string query = $" SELECT COUNT(*)  {numreg}" +
-                           $" FROM Asistencia WHERE fk_id_cliente {asistenciaModel.Fk_id_cliente}" +
+                           $" FROM Asistencia WHERE fk_id_cliente = {asistenciaModel.Fk_id_cliente}" +
                            $" AND CONVERT(date, fecha,103) = CAST('{asistenciaModel.Fecha}' AS date)";
             bool execute = SQLConexionDataBase.Execute(query);
-            if (execute == false)
+
+            if (execute == false) // problemas al haacer el select
+                { return execute; } 
+            else
             {
-                numreg = -999;
+                if (numreg > 0) //se encontró un registro igual en la bdd no se puede insertar 
+                { return false; }
+                else
+                { return true; } //ok se puede insertar
             }
-            return numreg;
+        }
+
+        /// <summary>
+        /// Valida que pueda insertar asistencia dependiendo de la sucursal
+        /// </summary>
+        /// <param name="asistenciaModel"></param>
+        /// <returns>bool TRUE/FALSE</returns>
+        public bool ValidaSucursalAsis(AsistenciaModel asistenciaModel)
+        {
+            if (nivel > 1) //nivel general solo inserta registros de su misma sucursal
+            {
+                if (sucursal != asistenciaModel.Sucursal)
+                { return false; }  //error no puede insertar registro
+                else
+                { return true; }   //ok puede insertar registro
+            }
+            else
+            { return true; } //ok puede insertar para cualquier sucursal
+                
         }
 
         /// <summary>
         /// Insertar registro en Asistencia
         /// </summary>
         /// <param name="asistenciaModel"></param>
-        /// <returns>bool</returns>
+        /// <returns>true-false</returns>
         public bool InsertarAsistencia(AsistenciaModel asistenciaModel)
         {
             string query = $"INSERT INTO Asistencia (fk_id_cliente, fecha, hora, observacion, sucursal, usuario, fecha_mod) VALUES ({asistenciaModel.Fk_id_cliente}, " +
                            $" '{asistenciaModel.Fecha}', '{asistenciaModel.Hora}', '{asistenciaModel.Observacion}', {asistenciaModel.Sucursal}, '{asistenciaModel.Usuario}', " +
                            $" '{asistenciaModel.Fecha_mod}')";
-
-            bool execute = SQLConexionDataBase.Execute(query);
-            return execute;
+            try
+            {
+                bool execute = SQLConexionDataBase.Execute(query);
+                return execute;
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Error al insertar Asistencia", ex.Message);
+                return false;
+            }
+            
         }
         /// <summary>
         /// Actualizar registro en Asistencia
@@ -191,9 +224,16 @@ namespace MemoryClubForms.BusinessBO
         {
             string query = $"UPDATE Asistencia SET hora = '{asistenciaModel.Hora}', observacion = '{asistenciaModel.Observacion}', usuario = '{asistenciaModel.Usuario}', " +
                            $"fecha_mod = '{asistenciaModel.Fecha_mod}' WHERE id_asistencia = {asistenciaModel.Id_asistencia} ";
-
-            bool execute = SQLConexionDataBase.Execute(query);
-            return execute;
+            try
+            {
+                bool execute = SQLConexionDataBase.Execute(query);
+                return execute;
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Error al eliminar Asistencia ", ex.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -204,8 +244,16 @@ namespace MemoryClubForms.BusinessBO
         public bool EliminarAsistencia(int Pid_asistencia)
         {
             string query = $"DELETE FROM Asistencia WHERE id_asistencia = {Pid_asistencia} ";
-            bool execute = SQLConexionDataBase.Execute(query);
-            return execute;
+            try
+            {
+                bool execute = SQLConexionDataBase.Execute(query);
+                return execute;
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Error al actualizar Asistencia ", ex.Message);
+                return false;
+            }
         }
     }
 }
