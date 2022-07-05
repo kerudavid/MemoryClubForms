@@ -183,15 +183,15 @@ namespace MemoryClubForms.Forms
 
             action = 1;
 
-            EditElements();
+            EditElements();//Cambia de aspecto a los elementos para indicar al usuario que se realizara una accion, en este caso insertar
 
-            CleanData();
+            CleanData();//Limpia la data que se haya seleccionado del grid
 
             try
             {
                 if (!LoadNombresClientes())
                 {
-                    ResetElements();
+                    ResetElements();//Vuelve los elementos al estado original indicando al usuario que no se esta realizando ninguna accion
                     MessageBox.Show("Aviso, No se pudo cargar el nombre de los clientes. ");
                     return;
                 }
@@ -201,6 +201,7 @@ namespace MemoryClubForms.Forms
                     MessageBox.Show("Aviso, No se pudo cargar el nombre de los usuarios. ");
                     return;
                 }
+
                 //Llenar el comboBox Nombres Clientes
 
                 //cbxNombresClientes.Text = nombresClientesList.Select(x => x.nombre).FirstOrDefault();
@@ -342,10 +343,8 @@ namespace MemoryClubForms.Forms
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            
-
-            if (action == 0)
+        {         
+            if (action == 0)//Valida que se este realizando una accion, sino no ejecutara nada.
             {
                 return;
             }
@@ -397,9 +396,9 @@ namespace MemoryClubForms.Forms
                     asistenciaModel.Usuario = VariablesGlobales.usuario.ToString();
                     asistenciaModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
 
-                    int responserValidate = asistenciaBO.ValidarDuplicadoAsis(asistenciaModel);
+                    bool responserValidate = asistenciaBO.ValidarDuplicadoAsis(asistenciaModel);
 
-                    if (responserValidate != 0)
+                    if (!responserValidate)
                     {
                         MessageBox.Show("Aviso. Ya existe un registro de la misma fecha con el mismo usuario.");
                         return;
@@ -422,12 +421,16 @@ namespace MemoryClubForms.Forms
                     action = 0;
                 }
 
+                CleanData();
                 btnGuardar.Enabled = false;
+                btnGuardar.Visible = false;
 
             }
             catch (Exception ex)
             {
+                CleanData();
                 btnGuardar.Enabled = false;
+                btnGuardar.Visible = false;
                 action = 0;
                 MessageBox.Show("Alerta, No se pudo guardar el registro\n" + ex.Message);
             }

@@ -201,22 +201,21 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>bool True/False</returns>
         public bool ValidarDuplicadoAsis(AsistenciaModel asistenciaModel)
         {
-            int numreg = 0;
-            string query = $" SELECT COUNT(*)  {numreg}" +
+            string query = $"SELECT * FROM Asistencia WHERE fk_id_cliente = '{asistenciaModel.Fk_id_cliente}' AND CONVERT(date, fecha,103) = CAST('{asistenciaModel.Fecha}' AS date)";
 
-                           $" FROM Asistencia WHERE fk_id_cliente = {asistenciaModel.Fk_id_cliente}" +
-                           $" AND CONVERT(date, fecha,103) = CAST('{asistenciaModel.Fecha}' AS date)";
-            bool execute = SQLConexionDataBase.Execute(query);
+            List<AsistenciaModel> nombresList = new List<AsistenciaModel>();
+            //Las consultas siempre retornan el obtejo dentro de una lista.
+            nombresList = this.ObtenerListaSQL<AsistenciaModel>(query).ToList();
 
-            if (execute == false) // problemas al haacer el select
-                { return execute; } 
+            if (nombresList.Count > 0)
+            {
+                return false;
+            }
             else
             {
-                if (numreg > 0) //se encontró un registro igual en la bdd no se puede insertar 
-                { return false; }
-                else
-                { return true; } //ok se puede insertar
+                return true;
             }
+            
         }
 
         /// <summary>
