@@ -1,5 +1,6 @@
 ﻿using MemoryClubForms.Data;
 using MemoryClubForms.Models;
+using System.Data.SqlClient;
 using System;
 using System.Data;
 using System.Collections.Generic;
@@ -82,48 +83,7 @@ namespace MemoryClubForms.BusinessBO
                 throw;
             }
         }
-        /// <summary>
-        /// RECUPERAR CATERING POR TIPO CLIENTE
-        /// </summary>
-        /// <param name="Ptipo_cliente"></param>
-        /// <returns></returns>
-        public List<CateringModel> ConsultaTipoCliente(string Ptipo_cliente)
-        {
-            string query = "";
-            if (nivel <= 1) // los usuarios que pueden gestionar todas las sucursales
-            {
-                switch (Ptipo_cliente)
-                {
-                    case "Cliente":
-                        query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod " +
-                                $"FROM Catering C LEFT JOIN Cliente L ON C.fk_id_cliente = L.id_cliente WHERE C.tipo_cliente = '{Ptipo_cliente}' ORDER BY C.sucursal, C.fecha";
-                        break;
-                    case "Colaborador":
-                        query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod " +
-                                $"FROM Catering C LEFT JOIN Colaborador B ON C.fk_id_cliente = B.id_colaborador WHERE C.tipo_cliente = '{Ptipo_cliente}' ORDER BY C.sucursal, C.fecha";
-                        break;
-                }
-            }
-            else
-            {
-                switch (Ptipo_cliente)
-                {
-                    case "Cliente":
-                        query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod " +
-                                $"FROM Catering C LEFT JOIN Cliente L ON C.fk_id_cliente = L.id_cliente WHERE C.sucursal = {sucursal} AND C.tipo_cliente = '{Ptipo_cliente}' ORDER BY C.fecha";
-                        break;
-                    case "Colaborador":
-                        query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod " +
-                                $"FROM Catering C LEFT JOIN Colaborador B ON C.fk_id_cliente = B.id_colaborador WHERE C.sucursal = {sucursal} AND C.tipo_cliente = '{Ptipo_cliente}' ORDER BY C.fecha";
-                        break;
-                }
-            }
-            List<CateringModel> cateringModelList = new List<CateringModel>();
-            //Las consultas siempre retornan el obtejo dentro de una lista.
-            cateringModelList = this.ObtenerListaSQL<CateringModel>(query).ToList();
-            return cateringModelList;
-        }
-
+       
         /// <summary>
         /// CONSULTA GENERAL POR VARIOS PARAMETROS DE LA TABLA CATERING
         /// </summary>
@@ -133,7 +93,7 @@ namespace MemoryClubForms.BusinessBO
         /// <param name="Ptmenu"></param>
         /// <param name="Psucursal"></param>
         /// <param name="Pidcliente"></param>
-        /// <returns></returns>
+        /// <returns>Lista(CateringModel)</returns>
         public List<CateringModel> ConsultaCatering(string Pdesde, string Phasta, string Ptcliente, string Ptmenu, int Psucursal, int Pidcliente)
         {
             DateTime fechahasta = DateTime.Now;
@@ -214,5 +174,87 @@ namespace MemoryClubForms.BusinessBO
             cateringModelList = this.ObtenerListaSQL<CateringModel>(query).ToList();
             return cateringModelList;
         }
+
+        /// <summary>
+        /// Valida que pueda insertar catering dependiendo de la sucursal
+        /// </summary>
+        /// <param name="PcateringModel"></param>
+        /// <returns>bool True/False</returns>
+        public bool ValidarSucursalCate(CateringModel PcateringModel)
+        {
+            if (nivel > 1) //nivel general solo inserta registros de su misma sucursal
+            {
+                if (sucursal != PcateringModel.Sucursal)
+                { return false; }  //error no puede insertar registro
+                else
+                { return true; }   //ok puede insertar registro
+            }
+            else
+            { return true; } //ok puede insertar cualquier sucursal
+        }
+
+        /// <summary>
+        /// INSERTA UN REGISTRO DE CATERING
+        /// </summary>
+        /// <param name="PcateringModel"></param>
+        /// <returns>bool TRUE/FALSE</returns>
+        public bool InsertarCatering(CateringModel PcateringModel)
+        {
+             string query = $"INSERT INTO Catering (fk_id_cliente, tipo_cliente, tipo_menu, fecha, hora, observacion, sucursal, usuario, fecha_mod) " +
+                           $"VALUES ({PcateringModel.Fk_id_cliente}, '{PcateringModel.Tipo_cliente}', '{PcateringModel.Tipo_menu}', '{PcateringModel.Fecha}', '{PcateringModel.Hora}', " +
+                           $"'{PcateringModel.Observacion}', {PcateringModel.Sucursal}, '{PcateringModel.Usuario}', '{PcateringModel.Fecha_mod}')";
+
+            try
+            {
+                bool execute = SQLConexionDataBase.Execute(query);
+                return execute;
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Error al insertar  catering", ex.Message);
+                return false;
+            }
+            
+        }
+        /// <summary>
+        /// ACTUALIZA UN REGISTRO DE CATERING
+        /// </summary>
+        /// <param name="PcateringModel"></param>
+        /// <returns>bool True/False</returns>
+        public bool ActualizarCatering(CateringModel PcateringModel)
+        {
+            string query = $"UPDATE Catering SET tipo_menu = '{PcateringModel.Tipo_menu}', hora = '{PcateringModel.Hora}', observacion = '{PcateringModel.Observacion}', " +
+                           $"usuario = '{PcateringModel.Usuario}', fecha_mod = '{PcateringModel.Fecha_mod}' WHERE id_catering = {PcateringModel.Id_catering}";
+
+            try
+            {
+                bool execute = SQLConexionDataBase.Execute(query);
+                return execute;
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Error al actualizar catering", ex.Message);
+                return false;
+            }
+        }
+        /// <summary>
+        /// ELIMINA UN REGISTRO DE CATERING
+        /// </summary>
+        /// <param name="Pid_catering"></param>
+        /// <returns>bool True/False</returns>
+        public bool EliminarCatering(int Pid_catering)
+        {
+            string query = $"DELETE FROM Catering WHERE id_catering = {Pid_catering} ";
+            try
+            {
+                bool execute = SQLConexionDataBase.Execute(query);
+                return execute;
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Error al eliminar catering", ex.Message);
+                return false;
+            }
+        }          
     }
 }
