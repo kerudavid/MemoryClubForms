@@ -16,7 +16,51 @@ namespace MemoryClubForms.BusinessBO
     public class AsistenciaBO
     {
         int nivel = VariablesGlobales.Nivel;
-        int sucursal = VariablesGlobales.sucursal; 
+        int sucursal = VariablesGlobales.sucursal;
+
+        
+        /// <summary>
+        /// Consulta la lista de usuarios
+        /// </summary>
+        /// <returns></returns>
+        public List<NombresUsuarios> LoadUsuarios()
+        {
+            string query = $"SELECT id_usuario, usuario FROM Usuario";
+
+            List<NombresUsuarios> nombresList = new List<NombresUsuarios>();
+
+            //Las consultas siempre retornan el obtejo dentro de una lista.
+            nombresList = this.ObtenerListaSQL<NombresUsuarios>(query).ToList();
+
+            return nombresList;
+        }
+
+        /// <summary>
+        /// Consulta la lista de clientes
+        /// </summary>
+        /// <returns></returns>
+        public List<NombresClientes> LoadClientes()
+        {
+            string query = "";
+
+            if (nivel <= 1)
+            {
+                 query = $"SELECT id_Cliente, nombre FROM Cliente";
+            }
+            else
+            {
+                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE sucursal = {sucursal}";
+            }
+            
+
+            List<NombresClientes> nombresList = new List<NombresClientes>();
+
+            //Las consultas siempre retornan el obtejo dentro de una lista.
+            nombresList = this.ObtenerListaSQL<NombresClientes>(query).ToList();
+
+            return nombresList;
+        }
+
         /// <summary>
         /// recuperar información de asistencia por periodo de fechas
         /// </summary>
@@ -157,8 +201,30 @@ namespace MemoryClubForms.BusinessBO
         public int ValidarDuplicadoAsis(AsistenciaModel asistenciaModel)
         {
             int numreg = 0;
+            /*
             string query = $" SELECT COUNT(*)  {numreg}" +
-                           $" FROM Asistencia WHERE fk_id_cliente {asistenciaModel.Fk_id_cliente}" +
+                           $" FROM Asistencia WHERE fk_id_cliente  {asistenciaModel.Fk_id_cliente}" +
+                           $" AND CONVERT(date, fecha,103) = CAST('{asistenciaModel.Fecha}' AS date)";
+            */
+
+
+            
+            /* public List<ScheduleModel> ValidateSchedule(DateTime start, DateTime end, int parentId)
+            {
+                var startTime = start.ToString("HH:mm");
+                var endTime = end.ToString("HH:mm");
+
+                string query = $"SELECT * FROM Schedule WHERE CAST(ScheduleStartTime AS time) =" +
+                               $" '{startTime}' AND CAST(ScheduleEndTime AS time) = '{endTime}'" +
+                               $" AND ParentId = {parentId}";
+
+                List<ScheduleModel> scheduleModelList = this.ObtenerListaSQL<ScheduleModel>(query).ToList();
+
+                return scheduleModelList;
+            }*/
+
+            string query = $" SELECT COUNT(*)" +
+                           $" FROM Asistencia WHERE fk_id_cliente = {asistenciaModel.Fk_id_cliente}" +
                            $" AND CONVERT(date, fecha,103) = CAST('{asistenciaModel.Fecha}' AS date)";
             bool execute = SQLConexionDataBase.Execute(query);
             if (execute == false)
@@ -206,6 +272,18 @@ namespace MemoryClubForms.BusinessBO
             string query = $"DELETE FROM Asistencia WHERE id_asistencia = {Pid_asistencia} ";
             bool execute = SQLConexionDataBase.Execute(query);
             return execute;
+        }
+
+        public class NombresClientes
+        {
+            public int Id_Cliente { get; set; }
+            public string nombre { get; set; }
+        }
+
+        public class NombresUsuarios
+        {
+            public int id_usuario { get; set; }
+            public string usuario { get; set; }
         }
     }
 }

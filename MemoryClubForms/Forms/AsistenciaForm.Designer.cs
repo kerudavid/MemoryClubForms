@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grdAsistencia = new System.Windows.Forms.DataGridView();
             this.id_asistencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,7 +41,6 @@
             this.sucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha_mod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblNombreVista = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -53,27 +52,28 @@
             this.txtHora = new System.Windows.Forms.TextBox();
             this.txtObservciones = new System.Windows.Forms.TextBox();
             this.cbxSucursal = new System.Windows.Forms.ComboBox();
-            this.cbxUsuario = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
+            this.pnlActions = new System.Windows.Forms.Panel();
+            this.lblAction = new System.Windows.Forms.Label();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.btnEditar = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnEditar = new System.Windows.Forms.Button();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
+            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             ((System.ComponentModel.ISupportInitialize)(this.grdAsistencia)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel5.SuspendLayout();
+            this.pnlActions.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // grdAsistencia
@@ -89,14 +89,14 @@
             this.grdAsistencia.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.grdAsistencia.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.grdAsistencia.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.MidnightBlue;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.MidnightBlue;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdAsistencia.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.MidnightBlue;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.MidnightBlue;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdAsistencia.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.grdAsistencia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdAsistencia.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id_asistencia,
@@ -113,17 +113,17 @@
             this.grdAsistencia.Location = new System.Drawing.Point(12, 281);
             this.grdAsistencia.Name = "grdAsistencia";
             this.grdAsistencia.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdAsistencia.RowHeadersDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdAsistencia.RowHeadersDefaultCellStyle = dataGridViewCellStyle17;
             this.grdAsistencia.RowHeadersVisible = false;
             this.grdAsistencia.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.Navy;
-            this.grdAsistencia.RowsDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.Navy;
+            this.grdAsistencia.RowsDefaultCellStyle = dataGridViewCellStyle18;
             this.grdAsistencia.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdAsistencia.Size = new System.Drawing.Size(894, 300);
             this.grdAsistencia.TabIndex = 1;
@@ -176,27 +176,6 @@
             this.fecha_mod.HeaderText = "Fecha Modificación";
             this.fecha_mod.Name = "fecha_mod";
             // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.BackColor = System.Drawing.Color.Maroon;
-            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
-            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnClose.BorderRadius = 17;
-            this.btnClose.BorderSize = 0;
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(814, 7);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(92, 32);
-            this.btnClose.TabIndex = 2;
-            this.btnClose.Text = "Cerrar";
-            this.btnClose.TextColor = System.Drawing.Color.White;
-            this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Clicked);
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.lblNombreVista);
@@ -230,6 +209,7 @@
             // 
             // cbxNombresClientes
             // 
+            this.cbxNombresClientes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxNombresClientes.FormattingEnabled = true;
             this.cbxNombresClientes.Location = new System.Drawing.Point(3, 33);
             this.cbxNombresClientes.Name = "cbxNombresClientes";
@@ -238,10 +218,11 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(139)))), ((int)(((byte)(170)))));
-            this.btnGuardar.FlatAppearance.BorderColor = System.Drawing.Color.SteelBlue;
+            this.btnGuardar.BackColor = System.Drawing.Color.DarkBlue;
+            this.btnGuardar.Enabled = false;
+            this.btnGuardar.FlatAppearance.BorderColor = System.Drawing.Color.Navy;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
             this.btnGuardar.Location = new System.Drawing.Point(3, 79);
             this.btnGuardar.Name = "btnGuardar";
@@ -249,15 +230,18 @@
             this.btnGuardar.TabIndex = 8;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Visible = false;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnEliminar
             // 
-            this.btnEliminar.BackColor = System.Drawing.Color.Maroon;
-            this.btnEliminar.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.btnEliminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(188)))), ((int)(((byte)(156)))));
+            this.btnEliminar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(171)))), ((int)(((byte)(142)))));
+            this.btnEliminar.FlatAppearance.BorderSize = 2;
             this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminar.ForeColor = System.Drawing.Color.Snow;
-            this.btnEliminar.Location = new System.Drawing.Point(3, 3);
+            this.btnEliminar.Location = new System.Drawing.Point(3, 6);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 23);
             this.btnEliminar.TabIndex = 10;
@@ -266,14 +250,18 @@
             // 
             // btnInsertar
             // 
-            this.btnInsertar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(188)))), ((int)(((byte)(156)))));
+            this.btnInsertar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(188)))), ((int)(((byte)(156)))));
+            this.btnInsertar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(171)))), ((int)(((byte)(142)))));
+            this.btnInsertar.FlatAppearance.BorderSize = 2;
             this.btnInsertar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInsertar.ForeColor = System.Drawing.Color.White;
             this.btnInsertar.Location = new System.Drawing.Point(3, 3);
             this.btnInsertar.Name = "btnInsertar";
             this.btnInsertar.Size = new System.Drawing.Size(75, 23);
             this.btnInsertar.TabIndex = 11;
             this.btnInsertar.Text = "Insertar";
-            this.btnInsertar.UseVisualStyleBackColor = true;
+            this.btnInsertar.UseVisualStyleBackColor = false;
+            this.btnInsertar.Click += new System.EventHandler(this.btnInsertar_Click);
             // 
             // dtmFecha
             // 
@@ -285,7 +273,7 @@
             // txtHora
             // 
             this.txtHora.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.txtHora.Location = new System.Drawing.Point(345, 82);
+            this.txtHora.Location = new System.Drawing.Point(344, 80);
             this.txtHora.Name = "txtHora";
             this.txtHora.Size = new System.Drawing.Size(52, 20);
             this.txtHora.TabIndex = 23;
@@ -293,34 +281,26 @@
             // txtObservciones
             // 
             this.txtObservciones.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.txtObservciones.Location = new System.Drawing.Point(414, 82);
+            this.txtObservciones.Location = new System.Drawing.Point(484, 80);
             this.txtObservciones.Name = "txtObservciones";
-            this.txtObservciones.Size = new System.Drawing.Size(207, 20);
+            this.txtObservciones.Size = new System.Drawing.Size(291, 20);
             this.txtObservciones.TabIndex = 24;
             // 
             // cbxSucursal
             // 
             this.cbxSucursal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxSucursal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxSucursal.FormattingEnabled = true;
-            this.cbxSucursal.Location = new System.Drawing.Point(640, 82);
+            this.cbxSucursal.Location = new System.Drawing.Point(414, 80);
             this.cbxSucursal.Name = "cbxSucursal";
             this.cbxSucursal.Size = new System.Drawing.Size(50, 21);
             this.cbxSucursal.TabIndex = 25;
-            // 
-            // cbxUsuario
-            // 
-            this.cbxUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbxUsuario.FormattingEnabled = true;
-            this.cbxUsuario.Location = new System.Drawing.Point(708, 82);
-            this.cbxUsuario.Name = "cbxUsuario";
-            this.cbxUsuario.Size = new System.Drawing.Size(72, 21);
-            this.cbxUsuario.TabIndex = 26;
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.panel3);
+            this.panel1.Controls.Add(this.pnlActions);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.btnClose);
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -328,119 +308,38 @@
             this.panel1.Size = new System.Drawing.Size(918, 275);
             this.panel1.TabIndex = 0;
             // 
-            // panel3
+            // pnlActions
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.pnlActions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.Controls.Add(this.panel6);
-            this.panel3.Controls.Add(this.panel5);
-            this.panel3.Controls.Add(this.panel4);
-            this.panel3.Controls.Add(this.label6);
-            this.panel3.Controls.Add(this.label5);
-            this.panel3.Controls.Add(this.label4);
-            this.panel3.Controls.Add(this.label3);
-            this.panel3.Controls.Add(this.cbxUsuario);
-            this.panel3.Controls.Add(this.cbxSucursal);
-            this.panel3.Controls.Add(this.txtObservciones);
-            this.panel3.Controls.Add(this.txtHora);
-            this.panel3.Location = new System.Drawing.Point(12, 165);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(894, 107);
-            this.panel3.TabIndex = 2;
+            this.pnlActions.BackColor = System.Drawing.Color.White;
+            this.pnlActions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlActions.Controls.Add(this.lblAction);
+            this.pnlActions.Controls.Add(this.panel6);
+            this.pnlActions.Controls.Add(this.panel5);
+            this.pnlActions.Controls.Add(this.label5);
+            this.pnlActions.Controls.Add(this.cbxSucursal);
+            this.pnlActions.Controls.Add(this.panel4);
+            this.pnlActions.Controls.Add(this.label4);
+            this.pnlActions.Controls.Add(this.label3);
+            this.pnlActions.Controls.Add(this.txtObservciones);
+            this.pnlActions.Controls.Add(this.txtHora);
+            this.pnlActions.Location = new System.Drawing.Point(12, 165);
+            this.pnlActions.Name = "pnlActions";
+            this.pnlActions.Size = new System.Drawing.Size(894, 107);
+            this.pnlActions.TabIndex = 2;
             // 
-            // label6
+            // lblAction
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(706, 53);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 17);
-            this.label6.TabIndex = 31;
-            this.label6.Text = "Usuario";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(637, 53);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(63, 17);
-            this.label5.TabIndex = 30;
-            this.label5.Text = "Sucursal";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(462, 53);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(103, 17);
-            this.label4.TabIndex = 29;
-            this.label4.Text = "Observaciones";
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(342, 53);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 17);
-            this.label3.TabIndex = 28;
-            this.label3.Text = "Hora";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(180, 4);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 17);
-            this.label2.TabIndex = 27;
-            this.label2.Text = "Fecha Ingreso";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(33, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 17);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Clientes";
-            // 
-            // btnEditar
-            // 
-            this.btnEditar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(139)))), ((int)(((byte)(170)))));
-            this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditar.Location = new System.Drawing.Point(122, 3);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(75, 23);
-            this.btnEditar.TabIndex = 9;
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.btnInsertar);
-            this.panel4.Controls.Add(this.btnEditar);
-            this.panel4.Location = new System.Drawing.Point(3, 3);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(200, 34);
-            this.panel4.TabIndex = 6;
-            // 
-            // panel5
-            // 
-            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel5.Controls.Add(this.btnEliminar);
-            this.panel5.Controls.Add(this.btnGuardar);
-            this.panel5.Location = new System.Drawing.Point(802, 0);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(82, 107);
-            this.panel5.TabIndex = 6;
+            this.lblAction.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblAction.AutoSize = true;
+            this.lblAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAction.ForeColor = System.Drawing.Color.Navy;
+            this.lblAction.Location = new System.Drawing.Point(409, 4);
+            this.lblAction.Name = "lblAction";
+            this.lblAction.Size = new System.Drawing.Size(0, 25);
+            this.lblAction.TabIndex = 32;
+            this.lblAction.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel6
             // 
@@ -452,6 +351,130 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(335, 61);
             this.panel6.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(33, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(58, 17);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Clientes";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(180, 4);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 17);
+            this.label2.TabIndex = 27;
+            this.label2.Text = "Fecha Ingreso";
+            // 
+            // panel5
+            // 
+            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel5.Controls.Add(this.btnCancel);
+            this.panel5.Controls.Add(this.btnEliminar);
+            this.panel5.Controls.Add(this.btnGuardar);
+            this.panel5.Location = new System.Drawing.Point(800, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(82, 107);
+            this.panel5.TabIndex = 6;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.BackColor = System.Drawing.Color.Maroon;
+            this.btnCancel.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.ForeColor = System.Drawing.SystemColors.Info;
+            this.btnCancel.Location = new System.Drawing.Point(3, 44);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 6;
+            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // panel4
+            // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.Controls.Add(this.btnInsertar);
+            this.panel4.Controls.Add(this.btnEditar);
+            this.panel4.Location = new System.Drawing.Point(578, 3);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(200, 34);
+            this.panel4.TabIndex = 6;
+            // 
+            // btnEditar
+            // 
+            this.btnEditar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(188)))), ((int)(((byte)(156)))));
+            this.btnEditar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(171)))), ((int)(((byte)(142)))));
+            this.btnEditar.FlatAppearance.BorderSize = 2;
+            this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditar.ForeColor = System.Drawing.Color.White;
+            this.btnEditar.Location = new System.Drawing.Point(122, 3);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(75, 23);
+            this.btnEditar.TabIndex = 9;
+            this.btnEditar.Text = "Editar";
+            this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEdit_Clicked);
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(411, 51);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(63, 17);
+            this.label5.TabIndex = 30;
+            this.label5.Text = "Sucursal";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(532, 51);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(103, 17);
+            this.label4.TabIndex = 29;
+            this.label4.Text = "Observaciones";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(341, 51);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(39, 17);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "Hora";
+            // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.Maroon;
+            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
+            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnClose.BorderRadius = 17;
+            this.btnClose.BorderSize = 0;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(814, 7);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(92, 32);
+            this.btnClose.TabIndex = 2;
+            this.btnClose.Text = "Cerrar";
+            this.btnClose.TextColor = System.Drawing.Color.White;
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Clicked);
             // 
             // AsistenciaForm
             // 
@@ -469,12 +492,12 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel5.ResumeLayout(false);
+            this.pnlActions.ResumeLayout(false);
+            this.pnlActions.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -502,12 +525,10 @@
         private System.Windows.Forms.TextBox txtHora;
         private System.Windows.Forms.TextBox txtObservciones;
         private System.Windows.Forms.ComboBox cbxSucursal;
-        private System.Windows.Forms.ComboBox cbxUsuario;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel pnlActions;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
@@ -515,5 +536,7 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label lblAction;
     }
 }
