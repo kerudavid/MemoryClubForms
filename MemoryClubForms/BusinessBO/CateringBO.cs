@@ -15,54 +15,76 @@ namespace MemoryClubForms.BusinessBO
     {
         int nivel = VariablesGlobales.Nivel;
         int sucursal = VariablesGlobales.sucursal;
+
         /// <summary>
-        /// ´RECUPERA INFORMACION DE CATERING POR PERIODO
+        /// Recupera en una lista los nombres de los clientes Activos
         /// </summary>
-        /// <param name="Pdesde"></param>
-        /// <param name="Phasta"></param>
-        /// <returns></returns>
-        public List<CateringModel> ConsultaPeriodoCater(string Pdesde, string Phasta)
+        /// <returns>Lista </returns>
+        public List<NombresClientes> LoadClientes()
         {
-            DateTime fechadesde = DateTime.Now;
-            DateTime fechahasta = DateTime.Now;
             string query = "";
 
-            if (string.IsNullOrEmpty(Pdesde) || string.IsNullOrWhiteSpace(Pdesde))
-            //cuando no viene una fecha desde, toma la fecha de hoy menos 30 días
+            if (nivel <= 1)
             {
-                fechadesde = fechadesde.AddDays(-30);
-                Pdesde = fechadesde.ToString("dd/MM/yyyy");
+                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE estado = \'A\'";
             }
-            //si fecha hasta es blanco o nula pone en fecha hasta la fecha de hoy
-            if (string.IsNullOrEmpty(Phasta) || string.IsNullOrWhiteSpace(Phasta))
+            else
             {
-                Phasta = fechahasta.ToString("dd/MM/yyyy");
+                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE sucursal = {sucursal} AND estado = \'A\'";
             }
-            //
-            if (nivel <= 1) // los usuarios que pueden gestionar todas las sucursales
-            {
-                query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod " +
-                        $"FROM Catering C LEFT JOIN Cliente L ON C.fk_id_cliente = L.id_cliente WHERE CONVERT(date, C.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) " +
-                        $"AND C.tipo_cliente = \'Cliente\' " +
-                        $"UNION " +
-                        $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod " +
-                        $"FROM Catering C LEFT JOIN Colaborador B ON C.fk_id_cliente = B.id_colaborador WHERE CONVERT(date, C.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) " +
-                        $"AND C.tipo_cliente = \'Colaborador\' ORDER BY C.sucursal";
-            }
-            else //se recupera de acuerdo a la sucursal del usuario que está consultando
-            {
-                query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod " +
-                        $"FROM Catering C LEFT JOIN Cliente L ON C.fk_id_cliente = L.id_cliente WHERE CONVERT(date, C.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) " +
-                        $"AND C.sucursal = {sucursal} AND C.tipo_cliente = \'Cliente\' " +
-                        $"UNION " +
-                        $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod " +
-                        $"FROM Catering C LEFT JOIN Colaborador B ON C.fk_id_cliente = B.id_colaborador WHERE CONVERT(date, C.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) " +
-                        $"AND C.sucursal = {sucursal} AND C.tipo_cliente = \'Colaborador\' ORDER BY C.sucursal";
-            }
-            List<CateringModel> cateringModelList = new List<CateringModel>();
+
+            List<NombresClientes> nombresList = new List<NombresClientes>();
+
             //Las consultas siempre retornan el obtejo dentro de una lista.
-            cateringModelList = this.ObtenerListaSQL<CateringModel>(query).ToList();
-            return cateringModelList;
+            nombresList = this.ObtenerListaSQL<NombresClientes>(query).ToList();
+            return nombresList;
+        }
+        /// <summary>
+        /// Retorna una lista de Tipos de Clientes
+        /// </summary>
+        /// <returns></returns>
+        public List<TiposClientes> LoadTiposClientes()
+        {
+            string query = "";
+
+            query = $"SELECT elemento FROM Codigo WHERE grupo = \'GEN\' AND subgrupo = \'TCLIENTE\' " +
+                    $"AND elemento <> \'\' AND estado = \'A\'";
+
+            List<TiposClientes> tiposclientesList = new List<TiposClientes>();
+
+            //Las consultas siempre retornan el obtejo dentro de una lista.
+            tiposclientesList = this.ObtenerListaSQL<TiposClientes>(query).ToList();
+            return tiposclientesList;
+        }
+        /// <summary>
+        /// Devuelve una lista con los Tipos de Menús
+        /// </summary>
+        /// <returns>List</returns>
+        public List<TiposMenus> LoadTiposMenus()
+        {
+            string query = "";
+
+            query = $"SELECT elemento FROM Codigo WHERE grupo = \'CAT\' AND subgrupo = \'TMENU\' " +
+                    $"AND elemento <> \'\' AND estado = \'A\'";
+
+            List<TiposMenus> tiposmenusList = new List<TiposMenus>();
+
+            //Las consultas siempre retornan el obtejo dentro de una lista.
+            tiposmenusList = this.ObtenerListaSQL<TiposMenus>(query).ToList();
+            return tiposmenusList;
+        }
+        /// <summary>
+        /// Consulta la Lista de Códigos de las Sucursales
+        /// </summary>
+        /// <returns></returns>
+        public List<CodigosSucursales> LoadSucursales()
+        {
+            string query = "";
+            query = $"SELECT valor1 FROM Codigo WHERE grupo = \'SUC\' AND subgrupo = \'SUC\' AND elemento <> \'\' AND estado = \'A\'";
+            List<CodigosSucursales> codigosSucursaleslist = new List<CodigosSucursales>();
+            codigosSucursaleslist = this.ObtenerListaSQL<CodigosSucursales>(query).ToList();
+
+            return codigosSucursaleslist;
         }
 
         /// <summary>
@@ -145,23 +167,23 @@ namespace MemoryClubForms.BusinessBO
             if (string.IsNullOrEmpty(Ptcliente)) //Cuando la consulta NO es por Tipo Cliente
             {
                 query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod " +
-                        $"FROM Catering C LEFT JOIN Cliente L ON C.fk_id_cliente = L.id_cliente WHERE C.tipo_cliente = \'Cliente\' " +
+                        $"FROM Catering C LEFT JOIN Cliente L ON C.fk_id_cliente = L.id_cliente WHERE C.tipo_cliente = \'CLIENTE\' " +
                         $"'{condiciones}'" +
                         $"UNION " +
                         $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod " +
-                        $"FROM Catering C LEFT JOIN Colaborador B ON C.fk_id_cliente = B.id_colaborador WHERE C.tipo_cliente = \'Colaborador\' " +
+                        $"FROM Catering C LEFT JOIN Colaborador B ON C.fk_id_cliente = B.id_colaborador WHERE C.tipo_cliente = \'COLABORADOR\' " +
                         $"'{condiciones}' ORDER BY C.sucursal";
             }
             else //cuando se consulta por tipo cliente
             {
                 switch (Ptcliente)
                 {
-                    case "Cliente":
+                    case "CLIENTE":
                         query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod " +
                                 $"FROM Catering C LEFT JOIN Cliente L ON C.fk_id_cliente = L.id_cliente WHERE C.id_catering > 0 " +
                                 $"'{condiciones}' ORDER BY C.sucursal, C.fecha";
                         break;
-                    case "Colaborador":
+                    case "COLABORADOR":
                         query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod " +
                                 $"FROM Catering C LEFT JOIN Colaborador B ON C.fk_id_cliente = B.id_colaborador WHERE C.id_catering > 0 " +
                                 $"'{condiciones}' ORDER BY C.sucursal, C.fecha";
@@ -255,6 +277,33 @@ namespace MemoryClubForms.BusinessBO
                 Console.WriteLine("Error al eliminar catering", ex.Message);
                 return false;
             }
-        }          
+        }
+
+        /// <summary>
+        /// Model List para los nombres de los clientes
+        /// </summary>
+        public class NombresClientes
+        {
+            public int Id_Cliente { get; set; }
+            public string nombre { get; set; }
+        }
+        /// <summary>
+        /// Model List para los tipos de clientes
+        /// </summary>
+        public class TiposClientes
+        {
+            public string TipoCliente { get; set; }
+        }
+        /// <summary>
+        /// Model List para los tipos de menús
+        /// </summary>
+        public class TiposMenus
+        {
+            public string TipoMenu { get; set; }
+        }
+        public class CodigosSucursales
+        {
+            public int Codigos_sucursales { get; set; }
+        }
     }
 }

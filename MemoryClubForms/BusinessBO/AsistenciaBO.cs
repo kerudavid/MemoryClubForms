@@ -46,20 +46,31 @@ namespace MemoryClubForms.BusinessBO
 
             if (nivel <= 1)
             {
-                 query = $"SELECT id_Cliente, nombre FROM Cliente";
+                 query = $"SELECT id_Cliente, nombre FROM Cliente WHERE estado = \'A\'";
             }
             else
             {
-                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE sucursal = {sucursal}";
+                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE sucursal = {sucursal} AND estado = \'A\'";
             }
             
-
             List<NombresClientes> nombresList = new List<NombresClientes>();
-
             //Las consultas siempre retornan el obtejo dentro de una lista.
             nombresList = this.ObtenerListaSQL<NombresClientes>(query).ToList();
 
             return nombresList;
+        }
+        /// <summary>
+        /// Consulta la Lista de Códigos de las Sucursales
+        /// </summary>
+        /// <returns></returns>
+        public List<CodigosSucursales> LoadSucursales()
+        {
+            string query = "";
+            query = $"SELECT valor1 FROM Codigo WHERE grupo = \'SUC\' AND subgrupo = \'SUC\' AND elemento <> \'\' AND estado = \'A\'";
+            List<CodigosSucursales> codigosSucursaleslist = new List<CodigosSucursales>();
+            codigosSucursaleslist = this.ObtenerListaSQL<CodigosSucursales>(query).ToList();
+
+            return codigosSucursaleslist;
         }
 
         /// <summary>
@@ -308,6 +319,11 @@ namespace MemoryClubForms.BusinessBO
         {
             public int id_usuario { get; set; }
             public string usuario { get; set; }
+        }
+
+        public class CodigosSucursales
+        {
+            public int Codigos_sucursales { get; set; }
         }
     }
 }

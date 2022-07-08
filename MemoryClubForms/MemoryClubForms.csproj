@@ -52,6 +52,7 @@
     </Compile>
     <Compile Include="BusinessBO\AsistenciaBO.cs" />
     <Compile Include="BusinessBO\CateringBO.cs" />
+    <Compile Include="BusinessBO\ColaboradorBO.cs" />
     <Compile Include="BusinessBO\LoginBO.cs" />
     <Compile Include="BusinessBO\TransporteBO.cs" />
     <Compile Include="Data\DataTableExtension.cs" />
@@ -82,6 +83,7 @@
     </Compile>
     <Compile Include="Models\AsistenciaModel.cs" />
     <Compile Include="Models\CateringModel.cs" />
+    <Compile Include="Models\ColaboradorModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\TransporteModel.cs" />
     <Compile Include="Program.cs" />
