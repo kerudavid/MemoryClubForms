@@ -13,7 +13,7 @@ namespace MemoryClubForms.Models
     {
         public int Id_catering { get; set; }
         public int Fk_id_cliente { get; set; }
-        public string Nombre_cliente { get; set; }
+        public string Nombre { get; set; }
         public string Tipo_cliente { get; set; }
         public string Tipo_menu { get; set; }
         public string Fecha { get; set; }
@@ -22,6 +22,8 @@ namespace MemoryClubForms.Models
         public int Sucursal { get; set; }
         public string Usuario { get; set; }
         public string Fecha_mod { get; set; }
+        public string Estado { get; set; }
+        public DateTime Fechahora { get; set; }
 
         /// <summary>
         /// VALIDAR DATOS DE CATERING

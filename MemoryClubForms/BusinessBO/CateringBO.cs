@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 namespace MemoryClubForms.BusinessBO
 {
     //Para gestionar la tabla Catering
-    internal class CateringBO
+    public class CateringBO
     {
         int nivel = VariablesGlobales.Nivel;
         int sucursal = VariablesGlobales.sucursal;
 
         /// <summary>
-        /// Recupera en una lista los nombres de los clientes Activos
+        /// Recupera en una lista los nombres de los clientes NO INACTIVOS
         /// </summary>
         /// <returns>Lista </returns>
         public List<NombresClientes> LoadClientes()
@@ -26,11 +26,11 @@ namespace MemoryClubForms.BusinessBO
 
             if (nivel <= 1)
             {
-                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE estado = \'A\'";
+                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE estado <> \'I\'";
             }
             else
             {
-                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE sucursal = {sucursal} AND estado = \'A\'";
+                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE sucursal = {sucursal} AND estado <> \'I\'";
             }
 
             List<NombresClientes> nombresList = new List<NombresClientes>();
@@ -118,75 +118,83 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>Lista(CateringModel)</returns>
         public List<CateringModel> ConsultaCatering(string Pdesde, string Phasta, string Ptcliente, string Ptmenu, int Psucursal, int Pidcliente)
         {
+            DateTime fechadesde = DateTime.Now;
             DateTime fechahasta = DateTime.Now;
             string query = "";
             string condiciones = "";
 
-            //valido las fechas
-            if (!(string.IsNullOrEmpty(Pdesde)) & !(string.IsNullOrWhiteSpace(Pdesde)))
-            //cuando viene una fecha desde
+            //valido las fechas - cuando no viene una fecha desde busco 30 días atrás
+            if (string.IsNullOrEmpty(Pdesde) || string.IsNullOrWhiteSpace(Pdesde))
             {
-                //si no viene la fecha hasta pongo la fecha de hoy
-                if (string.IsNullOrEmpty(Phasta) || string.IsNullOrWhiteSpace(Phasta))
-                {
-                    Phasta = fechahasta.ToString("dd/MM/yyyy");
-                }
-                condiciones += " AND CONVERT(date, C.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ";
+                fechadesde = fechadesde.AddDays(-30);
+                Pdesde = fechadesde.ToString("dd/MM/yyyy");
             }
+            
+            //si no viene la fecha hasta pongo la fecha de hoy
+            if (string.IsNullOrEmpty(Phasta) || string.IsNullOrWhiteSpace(Phasta))
+            {
+                Phasta = fechahasta.ToString("dd/MM/yyyy");
+            }
+
+            if (!(string.IsNullOrEmpty(Pdesde)) & !(string.IsNullOrEmpty(Phasta)))
+            { 
+                condiciones += $" AND CONVERT(date, C.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ";
+            }
+                        
             //valido el tipo cliente
             if (!(string.IsNullOrEmpty(Ptcliente)) & !(string.IsNullOrWhiteSpace(Ptcliente)))
             {
-                condiciones += " AND C.tipo_cliente = '{Ptcliente}' ";
+                condiciones += $" AND C.tipo_cliente = '{Ptcliente}' ";
             }
             //valido el tipo menu
             if (!(string.IsNullOrEmpty(Ptmenu)) & !(string.IsNullOrWhiteSpace(Ptmenu)))
             {
-                condiciones += " AND C.tipo_menu = '{Ptmenu}' ";
+                condiciones += $" AND C.tipo_menu = '{Ptmenu}' ";
             }
             //valido la sucursal
             if (Psucursal > 0)
             {
                 if (nivel <= 1) //solo el nivel administrador puede consultar cualquier sucursal
-                { condiciones += " AND C.sucursal = {Psucursal} "; }
+                { condiciones += $" AND C.sucursal = {Psucursal} "; }
                 else
-                { condiciones += " AND C.sucursal = {sucursal} "; } //los otros niveles solo consultan su propia sucursal
+                { condiciones += $" AND C.sucursal = {sucursal} "; } //los otros niveles solo consultan su propia sucursal
             }
             else //no se ha seleccionado sucursal
             {
                 if (nivel > 1)  //para cualquier otro nivel de usuario se envia su propia sucursal
-                { condiciones += " AND C.sucursal = {sucursal} "; }
+                { condiciones += $" AND C.sucursal = {sucursal} "; }
             }
             //valido el Id cliente
             if (Pidcliente > 0)
             {
-                condiciones += " AND C.fk_id_cliente = {Pidcliente} ";
+                condiciones += $" AND C.fk_id_cliente = {Pidcliente} ";
             }
 
             //armo el select con las opciones dadas
 
             if (string.IsNullOrEmpty(Ptcliente)) //Cuando la consulta NO es por Tipo Cliente
             {
-                query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod " +
+                query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, L.estado, CONVERT(date, C.fecha,103) fechahora " + 
                         $"FROM Catering C LEFT JOIN Cliente L ON C.fk_id_cliente = L.id_cliente WHERE C.tipo_cliente = \'CLIENTE\' " +
-                        $"'{condiciones}'" +
+                        $"{condiciones}" +
                         $"UNION " +
-                        $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod " +
+                        $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, B.estado, CONVERT(date, C.fecha,103) fechahora " +
                         $"FROM Catering C LEFT JOIN Colaborador B ON C.fk_id_cliente = B.id_colaborador WHERE C.tipo_cliente = \'COLABORADOR\' " +
-                        $"'{condiciones}' ORDER BY C.sucursal";
+                        $"{condiciones}";
             }
             else //cuando se consulta por tipo cliente
             {
                 switch (Ptcliente)
                 {
                     case "CLIENTE":
-                        query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod " +
+                        query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, L.estado, CONVERT(date, C.fecha,103) fechahora " +
                                 $"FROM Catering C LEFT JOIN Cliente L ON C.fk_id_cliente = L.id_cliente WHERE C.id_catering > 0 " +
-                                $"'{condiciones}' ORDER BY C.sucursal, C.fecha";
+                                $"{condiciones} ORDER BY C.sucursal, C.fecha";
                         break;
                     case "COLABORADOR":
-                        query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod " +
+                        query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, B.estado, CONVERT(date, C.fecha,103) fechahora " +
                                 $"FROM Catering C LEFT JOIN Colaborador B ON C.fk_id_cliente = B.id_colaborador WHERE C.id_catering > 0 " +
-                                $"'{condiciones}' ORDER BY C.sucursal, C.fecha";
+                                $"{condiciones} ORDER BY C.sucursal, C.fecha";
                         break;
                 }
             }
@@ -194,7 +202,7 @@ namespace MemoryClubForms.BusinessBO
             List<CateringModel> cateringModelList = new List<CateringModel>();
             //Las consultas siempre retornan el obtejo dentro de una lista.
             cateringModelList = this.ObtenerListaSQL<CateringModel>(query).ToList();
-            return cateringModelList;
+            return cateringModelList.OrderBy(x=>x.Fechahora).ToList();
         }
 
         /// <summary>

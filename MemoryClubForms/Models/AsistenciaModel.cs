@@ -20,6 +20,10 @@ namespace MemoryClubForms.Models
         public int Sucursal { get; set; }
         public string Usuario { get; set; }
         public string Fecha_mod { get; set; }
+        public string Estado { get; set; }
+        public DateTime Fechahora { get; set; }
+
+
 
         //metodo para validar datos
         public string Validate(AsistenciaModel asistenciaModel)

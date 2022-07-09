@@ -67,40 +67,39 @@ namespace MemoryClubForms.BusinessBO
         /// <param name="Pidcolaborador"></param>
         /// <param name="Pestado"></param>
         /// <returns></returns>
-       /* public List<TransporteModel> ConsultaColaborador(int Pidcolaborador, string Pestado)
+        public List<TransporteModel> ConsultaColaborador(int Pidcolaborador, string Pestado)
         {
             string query = "";
             string condiciones = "";
 
+            //valido el id_colaborador
+            if (Pidcolaborador > 0)
+            {
+                condiciones += " AND id_colaborador = '{Pidcolaborador}' ";
+            }
+            //valido el estado
+            if (!(string.IsNullOrEmpty(Pestado)))
+            {
+                condiciones += " AND estado = {Pestado} ";
+            }
+
+            //armo el select con las opciones dadas          
+            query = $"SELECT id_colaborador, sucursal, cedula, nombre, direccion, telefono, cargo, estado, observacion, " +
+                    $"usuario, fecha_mod FROM Colaborador WHERE id_colaborador >= 0";
+                       
+            List<TransporteModel> transporteModelList = new List<TransporteModel>();
+            //Las consultas siempre retornan el obtejo dentro de una lista.
+            transporteModelList = this.ObtenerListaSQL<TransporteModel>(query).ToList();
+
             //Consulta habilitada solo para usuario administrador
             if (nivel <= 1)
-            { 
-                //valido el id_colaborador
-                if (Pidcolaborador > 0)
-                {
-                    condiciones += " AND T.id_transportista = '{Pidtransportista}' ";
-                }
-                //valido el estado
-                if (!(string.IsNullOrEmpty(Pestado)))
-                {
-                    condiciones += " AND T.fk_id_cliente = {Pidcliente} ";
-                }
-
-                //armo el select con las opciones dadas          
-                query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod " +
-                        $"FROM Transporte T LEFT JOIN Cliente C ON T.fk_id_cliente = C.id_cliente  WHERE tipo_cliente = 'CLIENTE' " +
-                        $"'{condiciones}'" +
-                        $"UNION " +
-                        $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, B.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod " +
-                        $"FROM Transporte T LEFT JOIN Colaborador B ON T.fk_id_cliente = B.id_colaborador  WHERE tipo_cliente = 'COLABORADOR' " +
-                        $"'{condiciones}' ";
-                       
-                List<TransporteModel> transporteModelList = new List<TransporteModel>();
-                //Las consultas siempre retornan el obtejo dentro de una lista.
-                transporteModelList = this.ObtenerListaSQL<TransporteModel>(query).ToList();
+            { return transporteModelList; }
+            else
+            {
+                transporteModelList.Clear(); //caso contrario devuelve la lista en blanco
                 return transporteModelList;
             }
-        }*/
+        }
 
         /// <summary>
         /// List Model de los códigos de sucursales

@@ -1,4 +1,6 @@
 ﻿using System;
+using MemoryClubForms.Models;
+using MemoryClubForms.BusinessBO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +18,22 @@ namespace MemoryClubForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            CateringBO catering = new CateringBO();
+           /* CateringModel model = new CateringModel();
+            model.Id_catering = 18;
+            model.Fk_id_cliente = 0;
+            model.Tipo_cliente = "";
+            model.Tipo_menu = "";
+            model.Fecha = "";
+            model.Hora = "";
+            model.Observacion = "";
+            model.Sucursal = 0;
+            model.Usuario = "";
+            model.Fecha_mod = "";
+            catering.EliminarCatering(55);*/
+       
             Application.Run(new LoginForm());
+       
         }
     }
 }

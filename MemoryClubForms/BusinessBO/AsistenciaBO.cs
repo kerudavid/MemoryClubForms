@@ -46,11 +46,11 @@ namespace MemoryClubForms.BusinessBO
 
             if (nivel <= 1)
             {
-                 query = $"SELECT id_Cliente, nombre FROM Cliente WHERE estado = \'A\'";
+                 query = $"SELECT id_Cliente, nombre FROM Cliente WHERE estado <> \'I\'";
             }
             else
             {
-                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE sucursal = {sucursal} AND estado = \'A\'";
+                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE sucursal = {sucursal} AND estado <> \'I\'";
             }
             
             List<NombresClientes> nombresList = new List<NombresClientes>();
@@ -98,15 +98,15 @@ namespace MemoryClubForms.BusinessBO
             //
             if (nivel <= 1) // los usuarios que pueden gestionar todas las sucursales
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod " +
+                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,103) fechahora " +
                         $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE CONVERT(date, A.fecha,103) BETWEEN " +
-                        $"CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ORDER BY A.sucursal, A.fecha ASC";
+                        $"CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ORDER BY A.sucursal, fechahora ASC";
             }
             else
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod " +
+                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,103) fechahora " +
                         $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE A.sucursal = {sucursal}" +
-                        $" AND (CONVERT(date,A.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date)) ORDER BY A.fecha ASC";
+                        $" AND (CONVERT(date,A.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date)) ORDER BY fechahora ASC";
             }
 
             List<AsistenciaModel> asistenciaModelList = new List<AsistenciaModel>();
@@ -125,14 +125,14 @@ namespace MemoryClubForms.BusinessBO
             string query = "";
             if (nivel <= 1) // los usuarios que pueden gestionar todas las sucursales
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod " +
-                        $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE A.fk_id_cliente = {pfk_id_cliente}";
+                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,103) fechahora " +
+                        $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE A.fk_id_cliente = {pfk_id_cliente}  ORDER BY fechahora ASC";
             }
             else
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod " +
+                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,103) fechahora " +
                         $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE A.sucursal = {sucursal} " +
-                        $"AND A.fk_id_cliente = {pfk_id_cliente}";
+                        $"AND A.fk_id_cliente = {pfk_id_cliente} ORDER BY fechahora ASC";
             }
 
             List<AsistenciaModel> asistenciaModelList = new List<AsistenciaModel>();
@@ -167,16 +167,16 @@ namespace MemoryClubForms.BusinessBO
             }
             if (nivel <= 1) // los usuarios que pueden gestionar todas las sucursales
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod " +
+                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,103) fechahora " +
                         $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE CONVERT(date, A.fecha,103) BETWEEN " +
-                        $"CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) AND A.fk_id_cliente = {pfk_id_cliente}  ORDER BY A.sucursal, A.fecha ASC";
+                        $"CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) AND A.fk_id_cliente = {pfk_id_cliente}  ORDER BY A.sucursal, fechahora ASC";
             }
             else
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod " +
+                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,103) fechahora " +
                         $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE CONVERT(date, A.fecha,103) BETWEEN " +
                         $"CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) AND A.sucursal = {sucursal} AND A.fk_id_cliente = {pfk_id_cliente} " +
-                        $"ORDER BY A.fecha ASC";
+                        $"ORDER BY fechahora ASC";
             }
 
             List<AsistenciaModel> asistenciaModelList = new List<AsistenciaModel>();
