@@ -13,6 +13,7 @@ namespace MemoryClubForms.Models
     {
         public int Id_transporte {get; set;}
         public int Fk_id_cliente {get; set;}
+        public string Nombre { get; set; }
         public string Tipo_cliente { get; set;}
         public string Fecha { get; set;}
         public string Hora { get; set;}

@@ -18,20 +18,24 @@ namespace MemoryClubForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            CateringBO catering = new CateringBO();
-           /* CateringModel model = new CateringModel();
-            model.Id_catering = 18;
-            model.Fk_id_cliente = 0;
-            model.Tipo_cliente = "";
-            model.Tipo_menu = "";
-            model.Fecha = "";
-            model.Hora = "";
-            model.Observacion = "";
-            model.Sucursal = 0;
-            model.Usuario = "";
-            model.Fecha_mod = "";
-            catering.EliminarCatering(55);*/
-       
+
+            ColaboradorBO colaborador = new ColaboradorBO();
+            ColaboradorModel model = new ColaboradorModel();
+            /*  model.Id_colaborador =  10005;
+              model.Sucursal = 2;
+              model.Nombre= "Lucia Pazmiño";
+              model.Cedula = "1708952587";
+              model.Direccion = "Miraflores";
+              model.Telefono = "2125-565";
+              model.Cargo = "Coordinadora Temporal";
+              model.Estado = "A";
+              model.Observacion = "prueba modificar";
+              model.Usuario = "mmoreta";
+              model.Fecha_mod = "11/07/2022";*/
+
+            //colaborador.ConsultaColaborador(10003, 0, "");
+           // colaborador.EliminarColaborador(10004);
+
             Application.Run(new LoginForm());
        
         }

@@ -116,12 +116,13 @@ namespace MemoryClubForms.BusinessBO
         /// <param name="Psucursal"></param>
         /// <param name="Pidcliente"></param>
         /// <returns>Lista(CateringModel)</returns>
-        public List<CateringModel> ConsultaCatering(string Pdesde, string Phasta, string Ptcliente, string Ptmenu, int Psucursal, int Pidcliente)
+        public List<CateringModel> ConsultaCatering(string Pdesde, string Phasta, string Ptcliente, string Ptmenu, int Psucursal, int Pidcliente, string Pestado)
         {
             DateTime fechadesde = DateTime.Now;
             DateTime fechahasta = DateTime.Now;
             string query = "";
             string condiciones = "";
+            string condiciones_aux = "";
 
             //valido las fechas - cuando no viene una fecha desde busco 30 días atrás
             if (string.IsNullOrEmpty(Pdesde) || string.IsNullOrWhiteSpace(Pdesde))
@@ -169,6 +170,15 @@ namespace MemoryClubForms.BusinessBO
             {
                 condiciones += $" AND C.fk_id_cliente = {Pidcliente} ";
             }
+            //******asigno al final a condiciones_aux el valor de condiciones antes de añadir el estado
+            condiciones_aux = condiciones;
+
+            //valido el ESTADO
+            if (!(string.IsNullOrEmpty(Pestado)))
+            {
+                condiciones += $" AND L.estado = '{Pestado}' ";
+                condiciones_aux  += $" AND B.estado = '{Pestado}' ";
+            }
 
             //armo el select con las opciones dadas
 
@@ -180,7 +190,7 @@ namespace MemoryClubForms.BusinessBO
                         $"UNION " +
                         $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, B.estado, CONVERT(date, C.fecha,103) fechahora " +
                         $"FROM Catering C LEFT JOIN Colaborador B ON C.fk_id_cliente = B.id_colaborador WHERE C.tipo_cliente = \'COLABORADOR\' " +
-                        $"{condiciones}";
+                        $"{condiciones_aux}";
             }
             else //cuando se consulta por tipo cliente
             {
@@ -188,13 +198,13 @@ namespace MemoryClubForms.BusinessBO
                 {
                     case "CLIENTE":
                         query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, L.estado, CONVERT(date, C.fecha,103) fechahora " +
-                                $"FROM Catering C LEFT JOIN Cliente L ON C.fk_id_cliente = L.id_cliente WHERE C.id_catering > 0 " +
+                                $"FROM Catering C LEFT JOIN Cliente L ON C.fk_id_cliente = L.id_cliente WHERE C.id_catering >= 0 " +
                                 $"{condiciones} ORDER BY C.sucursal, C.fecha";
                         break;
                     case "COLABORADOR":
                         query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, B.estado, CONVERT(date, C.fecha,103) fechahora " +
-                                $"FROM Catering C LEFT JOIN Colaborador B ON C.fk_id_cliente = B.id_colaborador WHERE C.id_catering > 0 " +
-                                $"{condiciones} ORDER BY C.sucursal, C.fecha";
+                                $"FROM Catering C LEFT JOIN Colaborador B ON C.fk_id_cliente = B.id_colaborador WHERE C.id_catering >= 0 " +
+                                $"{condiciones_aux} ORDER BY C.sucursal, C.fecha";
                         break;
                 }
             }

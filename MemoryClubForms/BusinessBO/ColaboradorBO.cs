@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace MemoryClubForms.BusinessBO
 {
     //Gestiona la tabla Colaborador
-    internal class ColaboradorBO
+    public class ColaboradorBO
     {
         int nivel = VariablesGlobales.Nivel;
         int sucursal = VariablesGlobales.sucursal;
@@ -67,7 +67,7 @@ namespace MemoryClubForms.BusinessBO
         /// <param name="Pidcolaborador"></param>
         /// <param name="Pestado"></param>
         /// <returns></returns>
-        public List<TransporteModel> ConsultaColaborador(int Pidcolaborador, string Pestado)
+        public List<ColaboradorModel> ConsultaColaborador(int Pidcolaborador, int Psucursal, string Pestado)
         {
             string query = "";
             string condiciones = "";
@@ -75,29 +75,98 @@ namespace MemoryClubForms.BusinessBO
             //valido el id_colaborador
             if (Pidcolaborador > 0)
             {
-                condiciones += " AND id_colaborador = '{Pidcolaborador}' ";
+                condiciones += $" AND id_colaborador = {Pidcolaborador} ";
             }
             //valido el estado
             if (!(string.IsNullOrEmpty(Pestado)))
             {
-                condiciones += " AND estado = {Pestado} ";
+                condiciones += $" AND estado = '{Pestado}' ";
+            }
+            //valido la sucursal
+            if (Psucursal > 0)
+            {
+                if (nivel <= 1) //solo el nivel administrador puede consultar cualquier sucursal
+                { condiciones += $" AND sucursal = {Psucursal} "; }
+                else
+                { condiciones += $" AND sucursal = {sucursal} "; } //los otros niveles solo consultan su propia sucursal
+            }
+            else //no se ha seleccionado sucursal
+            {
+                if (nivel > 1)  //para cualquier otro nivel de usuario se envia su propia sucursal
+                { condiciones += $" AND sucursal = {sucursal} "; }
             }
 
             //armo el select con las opciones dadas          
             query = $"SELECT id_colaborador, sucursal, cedula, nombre, direccion, telefono, cargo, estado, observacion, " +
-                    $"usuario, fecha_mod FROM Colaborador WHERE id_colaborador >= 0";
+                    $"usuario, fecha_mod FROM Colaborador WHERE id_colaborador >= 0 {condiciones}";
                        
-            List<TransporteModel> transporteModelList = new List<TransporteModel>();
+            List<ColaboradorModel> colaboradorModelList = new List<ColaboradorModel>();
             //Las consultas siempre retornan el obtejo dentro de una lista.
-            transporteModelList = this.ObtenerListaSQL<TransporteModel>(query).ToList();
+            colaboradorModelList = this.ObtenerListaSQL<ColaboradorModel>(query).ToList();
+            return colaboradorModelList; 
+        }
+        /// <summary>
+        /// Inserta registro de Colaborador
+        /// </summary>
+        /// <param name="PcolaboradorModel"></param>
+        /// <returns>True/False</returns>
+        public bool InsertaColaborador(ColaboradorModel PcolaboradorModel)
+        {
+            string query = $"INSERT INTO Colaborador (sucursal, cedula, nombre, direccion, telefono, cargo, estado, observacion, usuario, fecha_mod ) " +
+                           $" VALUES ({PcolaboradorModel.Sucursal}, '{PcolaboradorModel.Cedula}', '{PcolaboradorModel.Nombre}', '{PcolaboradorModel.Direccion}', " +
+                           $"'{PcolaboradorModel.Telefono}', '{PcolaboradorModel.Cargo}', '{PcolaboradorModel.Estado}', '{PcolaboradorModel.Observacion}', " +
+                           $"'{PcolaboradorModel.Usuario}', '{PcolaboradorModel.Fecha_mod}')";
 
-            //Consulta habilitada solo para usuario administrador
-            if (nivel <= 1)
-            { return transporteModelList; }
-            else
+            try
             {
-                transporteModelList.Clear(); //caso contrario devuelve la lista en blanco
-                return transporteModelList;
+                bool execute = SQLConexionDataBase.Execute(query);
+                return execute;
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Error al insertar  Colaborador", ex.Message);
+                return false;
+            }
+        }
+        /// <summary>
+        /// Actualiza registro de Colaborador (direcc, tfno, cargo, estado, obs, usuario, fecha_mod)
+        /// </summary>
+        /// <param name="PcolaboradorModel"></param>
+        /// <returns>true/false</returns>
+        public bool ActualizarColaborador(ColaboradorModel PcolaboradorModel)
+        {
+            string query = $"UPDATE Colaborador SET direccion = '{PcolaboradorModel.Direccion}', telefono = '{PcolaboradorModel.Telefono}', " +
+                           $"cargo = '{PcolaboradorModel.Cargo}', estado = '{PcolaboradorModel.Estado}', observacion = '{PcolaboradorModel.Observacion}', " +
+                           $"usuario = '{PcolaboradorModel.Usuario}', fecha_mod = '{PcolaboradorModel.Fecha_mod}' WHERE id_colaborador = {PcolaboradorModel.Id_colaborador}";
+
+            try
+            {
+                bool execute = SQLConexionDataBase.Execute(query);
+                return execute;
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Error al actualizar Colaborador", ex.Message);
+                return false;
+            }
+        }
+        /// <summary>
+        /// Eliminar registro de Colaborador
+        /// </summary>
+        /// <param name="Pid_colaborador"></param>
+        /// <returns>True/False</returns>
+        public bool EliminarColaborador(int Pid_colaborador)
+        {
+            string query = $"DELETE FROM Colaborador WHERE id_colaborador = {Pid_colaborador} ";
+            try
+            {
+                bool execute = SQLConexionDataBase.Execute(query);
+                return execute;
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Error al eliminar Colaborador", ex.Message);
+                return false;
             }
         }
 

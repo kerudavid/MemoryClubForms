@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MemoryClubForms.Models
 {
-    internal class ColaboradorModel
+    public class ColaboradorModel
     {
         public int Id_colaborador { get; set; }
         public int Sucursal { get; set; }

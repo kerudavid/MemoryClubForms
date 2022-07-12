@@ -72,6 +72,77 @@ namespace MemoryClubForms.BusinessBO
 
             return codigosSucursaleslist;
         }
+        /// <summary>
+        /// CONSULTA GENERAL DE ASISTENCIA POR TODOS LOS PARAMETROS
+        /// </summary>
+        /// <param name="Pdesde"></param>
+        /// <param name="Phasta"></param>
+        /// <param name="Psucursal"></param>
+        /// <param name="Pidcliente"></param>
+        /// <param name="Pestado"></param>
+        /// <returns>lista</returns>
+        public List<AsistenciaModel> ConsultaAsistencia(string Pdesde, string Phasta, int Psucursal, int Pidcliente, string Pestado)
+        {
+            DateTime fechadesde = DateTime.Now;
+            DateTime fechahasta = DateTime.Now;
+            string query = "";
+            string condiciones = "";
+            
+            //valido las fechas - cuando no viene una fecha desde busco 30 días atrás
+            if (string.IsNullOrEmpty(Pdesde) || string.IsNullOrWhiteSpace(Pdesde))
+            {
+                fechadesde = fechadesde.AddDays(-30);
+                Pdesde = fechadesde.ToString("dd/MM/yyyy");
+            }
+
+            //si no viene la fecha hasta pongo la fecha de hoy
+            if (string.IsNullOrEmpty(Phasta) || string.IsNullOrWhiteSpace(Phasta))
+            {
+                Phasta = fechahasta.ToString("dd/MM/yyyy");
+            }
+
+            if (!(string.IsNullOrEmpty(Pdesde)) & !(string.IsNullOrEmpty(Phasta)))
+            {
+                condiciones += $" WHERE CONVERT(date, A.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ";
+            }
+
+            //valido la sucursal
+            if (Psucursal > 0)
+            {
+                if (nivel <= 1) //solo el nivel administrador puede consultar cualquier sucursal
+                { condiciones += $" AND A.sucursal = {Psucursal} "; }
+                else
+                { condiciones += $" AND A.sucursal = {sucursal} "; } //los otros niveles solo consultan su propia sucursal
+            }
+            else //no se ha seleccionado sucursal
+            {
+                if (nivel > 1)  //para cualquier otro nivel de usuario se envia su propia sucursal
+                { condiciones += $" AND A.sucursal = {sucursal} "; }
+            }
+            //valido el Id cliente
+            if (Pidcliente > 0)
+            {
+                condiciones += $" AND A.fk_id_cliente = {Pidcliente} ";
+            }
+           
+            //valido el ESTADO
+            if (!(string.IsNullOrEmpty(Pestado)))
+            {
+                condiciones += $" AND C.estado = '{Pestado}' ";
+            }
+
+            //armo el select con las opciones dadas
+            query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,103) fechahora " +
+            $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente " +
+            $"{condiciones}";
+
+
+            List<AsistenciaModel> asistenciaModelList = new List<AsistenciaModel>();
+            //Las consultas siempre retornan el obtejo dentro de una lista.
+            asistenciaModelList = this.ObtenerListaSQL<AsistenciaModel>(query).ToList();
+            return asistenciaModelList.OrderBy(x => x.Fechahora).ToList();
+
+        }
 
         /// <summary>
         /// recuperar información de asistencia por periodo de fechas

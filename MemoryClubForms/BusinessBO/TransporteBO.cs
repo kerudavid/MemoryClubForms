@@ -26,11 +26,11 @@ namespace MemoryClubForms.BusinessBO
 
             if (nivel <= 1)
             {
-                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE estado = \'A\'";
+                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE estado <> \'I\'";
             }
             else
             {
-                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE sucursal = {sucursal} AND estado = \'A\'";
+                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE sucursal = {sucursal} AND estado <> \'I\'";
             }
 
             List<NombresClientes> nombresList = new List<NombresClientes>();
@@ -132,84 +132,104 @@ namespace MemoryClubForms.BusinessBO
         /// <param name="Psucursal"></param>
         /// <param name="Pidcliente"></param>
         /// <returns>lista Trasportemodel</returns>
-        public List<TransporteModel> ConsultaTransporte(string Pdesde, string Phasta, string Ptcliente, int Pidtransportista, int Psucursal, int Pidcliente)
+        public List<TransporteModel> ConsultaTransporte(string Pdesde, string Phasta, string Ptcliente, int Pidtransportista, int Psucursal, int Pidcliente, string Pestado)
         {
+            DateTime fechadesde = DateTime.Now;
             DateTime fechahasta = DateTime.Now;
             string query = "";
             string condiciones = "";
+            string condiciones_aux = "";
 
-            //valido las fechas
-            if (!(string.IsNullOrEmpty(Pdesde)) & !(string.IsNullOrWhiteSpace(Pdesde)))
-            //cuando viene una fecha desde
+            //valido las fechas - cuando no viene una fecha desde busco 30 días atrás
+            if (string.IsNullOrEmpty(Pdesde) || string.IsNullOrWhiteSpace(Pdesde))
             {
-                //si no viene la fecha hasta pongo la fecha de hoy
-                if (string.IsNullOrEmpty(Phasta) || string.IsNullOrWhiteSpace(Phasta))
-                {
-                    Phasta = fechahasta.ToString("dd/MM/yyyy");
-                }
-                condiciones += " AND CONVERT(date, T.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ";
+                fechadesde = fechadesde.AddDays(-30);
+                Pdesde = fechadesde.ToString("dd/MM/yyyy");
             }
+
+            //si no viene la fecha hasta pongo la fecha de hoy
+            if (string.IsNullOrEmpty(Phasta) || string.IsNullOrWhiteSpace(Phasta))
+            {
+                Phasta = fechahasta.ToString("dd/MM/yyyy");
+            }
+            //armo condiciones con las fechas
+            
+            if (!(string.IsNullOrEmpty(Pdesde)) & !(string.IsNullOrEmpty(Phasta)))
+            {
+                condiciones += $" WHERE CONVERT(date, T.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ";
+            }
+
             //valido el tipo cliente
             if (!(string.IsNullOrEmpty(Ptcliente)) & !(string.IsNullOrWhiteSpace(Ptcliente)))
             {
-                condiciones += " AND T.tipo_cliente = '{Ptcliente}' ";
+                condiciones += $" AND T.tipo_cliente = '{Ptcliente}' ";
             }
             //valido el id_transportista
             if (Pidtransportista > 0)
             {
-                condiciones += " AND T.id_transportista = '{Pidtransportista}' ";
+                condiciones += $" AND T.id_transportista = '{Pidtransportista}' ";
             }
             //valido la sucursal
             if (Psucursal > 0)
             {
                 if (nivel <= 1) //solo el nivel administrador puede consultar cualquier sucursal
-                { condiciones += " AND T.sucursal = {Psucursal} "; }
+                { condiciones += $" AND T.sucursal = {Psucursal} "; }
                 else
-                { condiciones += " AND T.sucursal = {sucursal} "; } //los otros niveles solo consultan su propia sucursal
+                { condiciones += $" AND T.sucursal = {sucursal} "; } //los otros niveles solo consultan su propia sucursal
             }
             else //no se ha seleccionado sucursal
             {
                 if (nivel > 1)  //para cualquier otro nivel de usuario se envia su propia sucursal
-                { condiciones += " AND T.sucursal = {sucursal} "; }
+                { condiciones += $" AND T.sucursal = {sucursal} "; }
             }
             //valido el Id cliente
             if (Pidcliente > 0)
             {
-                condiciones += " AND T.fk_id_cliente = {Pidcliente} ";
+                condiciones += $" AND T.fk_id_cliente = {Pidcliente} ";
+            }
+
+            //******asigno al final a condiciones_aux el valor de condiciones antes de añadir el estado ********************
+            condiciones_aux = condiciones;
+
+            //valido el ESTADO
+            if (!(string.IsNullOrEmpty(Pestado)))
+            {
+                condiciones += $" AND C.estado = '{Pestado}' ";
+                condiciones_aux += $" AND B.estado = '{Pestado}' ";
             }
 
             //armo el select con las opciones dadas
 
             if (string.IsNullOrEmpty(Ptcliente)) //Cuando la consulta NO es por Tipo Cliente
             {
-                query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod " +
+                query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, C.estado, CONVERT(date, T.fecha,103) fechahora " +
                         $"FROM Transporte T LEFT JOIN Cliente C ON T.fk_id_cliente = C.id_cliente  WHERE tipo_cliente = 'CLIENTE' " +
-                        $"'{condiciones}'" +
+                        $"{condiciones}" +
                         $"UNION " +
-                        $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, B.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod " +
+                        $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, B.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, B.estado, CONVERT(date, T.fecha,103) fechahora " +
                         $"FROM Transporte T LEFT JOIN Colaborador B ON T.fk_id_cliente = B.id_colaborador  WHERE tipo_cliente = 'COLABORADOR' " +
-                        $"'{condiciones}' ";
+                        $"{condiciones_aux} ";
             }
             else //cuando se consulta por tipo cliente
             {
                 switch (Ptcliente)
                 {
-                    case "Cliente":
-                        query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod " +
-                                $"FROM Transporte T LEFT JOIN Cliente C ON T.fk_id_cliente = C.id_cliente  WHERE tipo_cliente = 'CLIENTE' " +
-                                $"'{condiciones}' ORDER BY T.sucursal, T.fecha";
+                    case "CLIENTE":
+                        query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, C.estado, CONVERT(date, T.fecha,103) fechahora " +
+                                $"FROM Transporte T LEFT JOIN Cliente C ON T.fk_id_cliente = C.id_cliente " +
+                                $"{condiciones} ORDER BY T.sucursal";
                         break;
-                    case "Colaborador":
-                        query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, B.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod " +
-                                $"FROM Transporte T LEFT JOIN Colaborador B ON T.fk_id_cliente = B.id_colaborador  WHERE tipo_cliente = 'COLABORADOR' " +
-                                $"'{condiciones}' ORDER BY T.sucursal, T.fecha";                   
+                    case "COLABORADOR":
+                        query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, B.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, B.estado, CONVERT(date, T.fecha,103) fechahora " +
+                                $"FROM Transporte T LEFT JOIN Colaborador B ON T.fk_id_cliente = B.id_colaborador " +
+                                $"{condiciones_aux} ORDER BY T.sucursal";                   
                         break;
                 }
             }
             List<TransporteModel> transporteModelList = new List<TransporteModel>();
             //Las consultas siempre retornan el obtejo dentro de una lista.
             transporteModelList = this.ObtenerListaSQL<TransporteModel>(query).ToList();
-            return transporteModelList;
+            return transporteModelList.OrderBy(x => x.Fechahora).ToList();
         }
 
         /// <summary>
@@ -239,7 +259,7 @@ namespace MemoryClubForms.BusinessBO
         {
            string query = $"INSERT INTO Transporte (fk_id_cliente, tipo_cliente, fecha, hora, id_transportista, entrada_salida, observacion, sucursal, usuario, fecha_mod) " +
                           $"VALUES ({PtransporteModel.Fk_id_cliente}, '{PtransporteModel.Tipo_cliente}', '{PtransporteModel.Fecha}', '{PtransporteModel.Hora}', " +
-                          $"{PtransporteModel.Id_transportista}, '{PtransporteModel.Entrada_salida}' '{PtransporteModel.Observacion}', {PtransporteModel.Sucursal}, " +
+                          $"{PtransporteModel.Id_transportista}, '{PtransporteModel.Entrada_salida}', '{PtransporteModel.Observacion}', {PtransporteModel.Sucursal}, " +
                           $"'{PtransporteModel.Usuario}', '{PtransporteModel.Fecha_mod}')";
 
             try
@@ -249,14 +269,14 @@ namespace MemoryClubForms.BusinessBO
             }
             catch (SqlException ex)
             {
-                Console.WriteLine("Error al insertar  Trasnporte", ex.Message);
+                Console.WriteLine("Error al insertar  Transporte", ex.Message);
                 return false;
             }
 
         }
       
         /// <summary>
-        /// Actualiza un registro de Transporte
+        /// Actualiza un registro de Transporte, fecha, hora, entrada/salida, observación, usuario, fecha_mod
         /// </summary>
         /// <param name="PtransporteModel"></param>
         /// <returns></returns>
