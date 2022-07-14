@@ -77,7 +77,7 @@ namespace MemoryClubForms.Forms
                 grdCatering.Rows.Clear();
 
                 CateringBO cateringBO = new CateringBO();
-                List<CateringModel> cateringList = cateringBO.ConsultaCatering(null, null,null,null, sucursalUser, 0,null);
+                List<CateringModel> cateringList = cateringBO.ConsultaCatering(null, null,null,null, 0, 0,null);
 
                 if (cateringList.Count > 0)
                 {

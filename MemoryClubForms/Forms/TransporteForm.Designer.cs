@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TransporteForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnlActions = new System.Windows.Forms.Panel();
@@ -74,6 +77,18 @@
             this.lblNombreVista = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
+            this.grdTransporte = new System.Windows.Forms.DataGridView();
+            this.Id_catering = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fk_id_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tipo_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tipo_menu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hora = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.observaciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha_mod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.pnlActions.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -82,6 +97,7 @@
             this.pnlFiltro.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdTransporte)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -598,12 +614,125 @@
             this.btnClose.TextColor = System.Drawing.Color.White;
             this.btnClose.UseVisualStyleBackColor = false;
             // 
+            // grdTransporte
+            // 
+            this.grdTransporte.AllowUserToAddRows = false;
+            this.grdTransporte.AllowUserToDeleteRows = false;
+            this.grdTransporte.AllowUserToResizeColumns = false;
+            this.grdTransporte.AllowUserToResizeRows = false;
+            this.grdTransporte.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grdTransporte.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.grdTransporte.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.grdTransporte.BackgroundColor = System.Drawing.Color.White;
+            this.grdTransporte.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.grdTransporte.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.grdTransporte.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.MidnightBlue;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.MidnightBlue;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdTransporte.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.grdTransporte.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdTransporte.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id_catering,
+            this.Fk_id_cliente,
+            this.nombre_cliente,
+            this.Tipo_cliente,
+            this.Tipo_menu,
+            this.fecha,
+            this.hora,
+            this.observaciones,
+            this.sucursal,
+            this.usuario,
+            this.fecha_mod});
+            this.grdTransporte.EnableHeadersVisualStyles = false;
+            this.grdTransporte.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.grdTransporte.Location = new System.Drawing.Point(9, 340);
+            this.grdTransporte.Name = "grdTransporte";
+            this.grdTransporte.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdTransporte.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.grdTransporte.RowHeadersVisible = false;
+            this.grdTransporte.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Navy;
+            this.grdTransporte.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.grdTransporte.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grdTransporte.Size = new System.Drawing.Size(894, 241);
+            this.grdTransporte.TabIndex = 3;
+            // 
+            // Id_catering
+            // 
+            this.Id_catering.HeaderText = "ID Catering";
+            this.Id_catering.Name = "Id_catering";
+            this.Id_catering.Visible = false;
+            // 
+            // Fk_id_cliente
+            // 
+            this.Fk_id_cliente.HeaderText = "Id Cliente";
+            this.Fk_id_cliente.Name = "Fk_id_cliente";
+            this.Fk_id_cliente.Visible = false;
+            // 
+            // nombre_cliente
+            // 
+            this.nombre_cliente.HeaderText = "Nombre Cliente";
+            this.nombre_cliente.Name = "nombre_cliente";
+            // 
+            // Tipo_cliente
+            // 
+            this.Tipo_cliente.HeaderText = "Tipo Cliente";
+            this.Tipo_cliente.Name = "Tipo_cliente";
+            // 
+            // Tipo_menu
+            // 
+            this.Tipo_menu.HeaderText = "Menú";
+            this.Tipo_menu.Name = "Tipo_menu";
+            // 
+            // fecha
+            // 
+            this.fecha.HeaderText = "Fecha";
+            this.fecha.Name = "fecha";
+            // 
+            // hora
+            // 
+            this.hora.HeaderText = "Hora";
+            this.hora.Name = "hora";
+            // 
+            // observaciones
+            // 
+            this.observaciones.HeaderText = "Observaciones";
+            this.observaciones.Name = "observaciones";
+            // 
+            // sucursal
+            // 
+            this.sucursal.HeaderText = "Sucursal";
+            this.sucursal.Name = "sucursal";
+            // 
+            // usuario
+            // 
+            this.usuario.HeaderText = "Usuario";
+            this.usuario.Name = "usuario";
+            // 
+            // fecha_mod
+            // 
+            this.fecha_mod.HeaderText = "Fecha Modificación";
+            this.fecha_mod.Name = "fecha_mod";
+            // 
             // TransporteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(918, 593);
+            this.Controls.Add(this.grdTransporte);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TransporteForm";
@@ -620,6 +749,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdTransporte)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -671,5 +801,17 @@
         private System.Windows.Forms.Label lblNombreVista;
         private System.Windows.Forms.PictureBox pictureBox1;
         private Botones_Personalizados.OurButton btnClose;
+        private System.Windows.Forms.DataGridView grdTransporte;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id_catering;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Fk_id_cliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombre_cliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo_cliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo_menu;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hora;
+        private System.Windows.Forms.DataGridViewTextBoxColumn observaciones;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sucursal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
     }
 }
