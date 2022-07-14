@@ -53,6 +53,16 @@
             this.txtObservciones = new System.Windows.Forms.TextBox();
             this.cbxSucursal = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlFiltro = new System.Windows.Forms.Panel();
+            this.btnReiniciarFiltro = new System.Windows.Forms.Button();
+            this.ckbFiltrarFechas = new System.Windows.Forms.CheckBox();
+            this.btnFiltrar = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.dtmHasta = new System.Windows.Forms.DateTimePicker();
+            this.dtpDesde = new System.Windows.Forms.DateTimePicker();
+            this.cbxFiltroNombreCliente = new System.Windows.Forms.ComboBox();
             this.pnlActions = new System.Windows.Forms.Panel();
             this.lblAction = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -66,10 +76,13 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cbxEstadoCliente = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdAsistencia)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
+            this.pnlFiltro.SuspendLayout();
             this.pnlActions.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -248,6 +261,7 @@
             this.btnEliminar.TabIndex = 10;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = false;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Clicked);
             // 
             // btnInsertar
             // 
@@ -266,6 +280,7 @@
             // 
             // dtmFecha
             // 
+            this.dtmFecha.Enabled = false;
             this.dtmFecha.Location = new System.Drawing.Point(130, 33);
             this.dtmFecha.Name = "dtmFecha";
             this.dtmFecha.Size = new System.Drawing.Size(200, 20);
@@ -274,6 +289,7 @@
             // txtHora
             // 
             this.txtHora.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.txtHora.Enabled = false;
             this.txtHora.Location = new System.Drawing.Point(344, 80);
             this.txtHora.Name = "txtHora";
             this.txtHora.Size = new System.Drawing.Size(52, 20);
@@ -282,6 +298,7 @@
             // txtObservciones
             // 
             this.txtObservciones.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtObservciones.Enabled = false;
             this.txtObservciones.Location = new System.Drawing.Point(484, 80);
             this.txtObservciones.Name = "txtObservciones";
             this.txtObservciones.Size = new System.Drawing.Size(291, 20);
@@ -301,6 +318,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.pnlFiltro);
             this.panel1.Controls.Add(this.pnlActions);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.btnClose);
@@ -308,6 +326,121 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(918, 275);
             this.panel1.TabIndex = 0;
+            // 
+            // pnlFiltro
+            // 
+            this.pnlFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlFiltro.Controls.Add(this.cbxEstadoCliente);
+            this.pnlFiltro.Controls.Add(this.label9);
+            this.pnlFiltro.Controls.Add(this.btnReiniciarFiltro);
+            this.pnlFiltro.Controls.Add(this.ckbFiltrarFechas);
+            this.pnlFiltro.Controls.Add(this.btnFiltrar);
+            this.pnlFiltro.Controls.Add(this.label8);
+            this.pnlFiltro.Controls.Add(this.label7);
+            this.pnlFiltro.Controls.Add(this.label6);
+            this.pnlFiltro.Controls.Add(this.dtmHasta);
+            this.pnlFiltro.Controls.Add(this.dtpDesde);
+            this.pnlFiltro.Controls.Add(this.cbxFiltroNombreCliente);
+            this.pnlFiltro.Location = new System.Drawing.Point(12, 50);
+            this.pnlFiltro.Name = "pnlFiltro";
+            this.pnlFiltro.Size = new System.Drawing.Size(894, 109);
+            this.pnlFiltro.TabIndex = 6;
+            // 
+            // btnReiniciarFiltro
+            // 
+            this.btnReiniciarFiltro.BackColor = System.Drawing.Color.Maroon;
+            this.btnReiniciarFiltro.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.btnReiniciarFiltro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReiniciarFiltro.ForeColor = System.Drawing.SystemColors.Info;
+            this.btnReiniciarFiltro.Location = new System.Drawing.Point(819, 20);
+            this.btnReiniciarFiltro.Name = "btnReiniciarFiltro";
+            this.btnReiniciarFiltro.Size = new System.Drawing.Size(75, 23);
+            this.btnReiniciarFiltro.TabIndex = 11;
+            this.btnReiniciarFiltro.Text = "Reiniciar";
+            this.btnReiniciarFiltro.UseVisualStyleBackColor = false;
+            this.btnReiniciarFiltro.Click += new System.EventHandler(this.btnReiniciarFiltro_Click);
+            // 
+            // ckbFiltrarFechas
+            // 
+            this.ckbFiltrarFechas.AutoSize = true;
+            this.ckbFiltrarFechas.Checked = true;
+            this.ckbFiltrarFechas.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ckbFiltrarFechas.Location = new System.Drawing.Point(391, 89);
+            this.ckbFiltrarFechas.Name = "ckbFiltrarFechas";
+            this.ckbFiltrarFechas.Size = new System.Drawing.Size(107, 17);
+            this.ckbFiltrarFechas.TabIndex = 32;
+            this.ckbFiltrarFechas.Text = "Filtrar con fechas";
+            this.ckbFiltrarFechas.UseVisualStyleBackColor = true;
+            this.ckbFiltrarFechas.CheckedChanged += new System.EventHandler(this.cbkFechasChanged);
+            // 
+            // btnFiltrar
+            // 
+            this.btnFiltrar.BackColor = System.Drawing.Color.DarkBlue;
+            this.btnFiltrar.FlatAppearance.BorderColor = System.Drawing.Color.Navy;
+            this.btnFiltrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFiltrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFiltrar.ForeColor = System.Drawing.Color.White;
+            this.btnFiltrar.Location = new System.Drawing.Point(819, 57);
+            this.btnFiltrar.Name = "btnFiltrar";
+            this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
+            this.btnFiltrar.TabIndex = 11;
+            this.btnFiltrar.Text = "Filtrar";
+            this.btnFiltrar.UseVisualStyleBackColor = false;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(608, 11);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(49, 17);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "Hasta:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(388, 14);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(53, 17);
+            this.label7.TabIndex = 30;
+            this.label7.Text = "Desde:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(37, 14);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(58, 17);
+            this.label6.TabIndex = 28;
+            this.label6.Text = "Clientes";
+            // 
+            // dtmHasta
+            // 
+            this.dtmHasta.Location = new System.Drawing.Point(602, 46);
+            this.dtmHasta.Name = "dtmHasta";
+            this.dtmHasta.Size = new System.Drawing.Size(200, 20);
+            this.dtmHasta.TabIndex = 29;
+            // 
+            // dtpDesde
+            // 
+            this.dtpDesde.Location = new System.Drawing.Point(382, 45);
+            this.dtpDesde.Name = "dtpDesde";
+            this.dtpDesde.Size = new System.Drawing.Size(200, 20);
+            this.dtpDesde.TabIndex = 28;
+            // 
+            // cbxFiltroNombreCliente
+            // 
+            this.cbxFiltroNombreCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFiltroNombreCliente.FormattingEnabled = true;
+            this.cbxFiltroNombreCliente.Location = new System.Drawing.Point(7, 47);
+            this.cbxFiltroNombreCliente.Name = "cbxFiltroNombreCliente";
+            this.cbxFiltroNombreCliente.Size = new System.Drawing.Size(121, 21);
+            this.cbxFiltroNombreCliente.TabIndex = 28;
             // 
             // pnlActions
             // 
@@ -477,6 +610,25 @@
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Clicked);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(199, 14);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(99, 17);
+            this.label9.TabIndex = 33;
+            this.label9.Text = "Estado Cliente";
+            // 
+            // cbxEstadoCliente
+            // 
+            this.cbxEstadoCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxEstadoCliente.FormattingEnabled = true;
+            this.cbxEstadoCliente.Location = new System.Drawing.Point(187, 47);
+            this.cbxEstadoCliente.Name = "cbxEstadoCliente";
+            this.cbxEstadoCliente.Size = new System.Drawing.Size(121, 21);
+            this.cbxEstadoCliente.TabIndex = 34;
+            // 
             // AsistenciaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -493,6 +645,8 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.pnlFiltro.ResumeLayout(false);
+            this.pnlFiltro.PerformLayout();
             this.pnlActions.ResumeLayout(false);
             this.pnlActions.PerformLayout();
             this.panel6.ResumeLayout(false);
@@ -505,15 +659,6 @@
 
         #endregion
         private System.Windows.Forms.DataGridView grdAsistencia;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_asistencia;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombre_cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hora;
-        private System.Windows.Forms.DataGridViewTextBoxColumn observaciones;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sucursal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
         private Botones_Personalizados.OurButton btnClose;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblNombreVista;
@@ -539,5 +684,26 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblAction;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_asistencia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_cliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombre_cliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hora;
+        private System.Windows.Forms.DataGridViewTextBoxColumn observaciones;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sucursal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
+        private System.Windows.Forms.Panel pnlFiltro;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker dtmHasta;
+        private System.Windows.Forms.DateTimePicker dtpDesde;
+        private System.Windows.Forms.ComboBox cbxFiltroNombreCliente;
+        private System.Windows.Forms.Button btnFiltrar;
+        private System.Windows.Forms.CheckBox ckbFiltrarFechas;
+        private System.Windows.Forms.Button btnReiniciarFiltro;
+        private System.Windows.Forms.ComboBox cbxEstadoCliente;
+        private System.Windows.Forms.Label label9;
     }
 }
