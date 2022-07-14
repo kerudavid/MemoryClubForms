@@ -933,7 +933,7 @@ namespace MemoryClubForms.Forms
 
             cbxEstadoCliente.Items.Clear();
 
-            ckbFiltrarFechas.Checked = true;
+            ckbFiltrarFechas.Checked = false;
 
             ReloadInformation();
 

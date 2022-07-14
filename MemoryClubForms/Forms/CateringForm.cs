@@ -523,7 +523,7 @@ namespace MemoryClubForms.Forms
 
             cbxFiltroEstadoCliente.Items.Clear();
 
-            ckbFiltrarFechas.Checked = true;
+            ckbFiltrarFechas.Checked = false;
           
             LoadInformation();
 
@@ -551,12 +551,15 @@ namespace MemoryClubForms.Forms
                         cateringModel.Fk_id_cliente = nombresColaboradoresList.Where(x => x.nombre == nombreCliente).Select(x => x.Id_colaborador).FirstOrDefault();
                     }
 
-                    if (nombresClientesList.Select(x => x.nombre == nombreCliente).FirstOrDefault())
+                    string cliente = nombresClientesList.Where(x => x.nombre == nombreCliente).Select(x=>x.nombre).FirstOrDefault();
+                    string colaborador = nombresColaboradoresList.Where(x => x.nombre == nombreCliente).Select(x=>x.nombre).FirstOrDefault();
+
+                    if (!string.IsNullOrEmpty(cliente))
                     {
                         cateringModel.Tipo_cliente = tiposClientesList.Where(x => x.TipoCliente == "CLIENTE").Select(x => x.TipoCliente).FirstOrDefault();
 
                     }
-                    else if (nombresColaboradoresList.Select(x => x.nombre == nombreCliente).FirstOrDefault())
+                    else if (!string.IsNullOrEmpty(colaborador))
                     {
                         cateringModel.Tipo_cliente = tiposClientesList.Where(x => x.TipoCliente == "COLABORADOR").Select(x => x.TipoCliente).FirstOrDefault();
                     }
@@ -591,14 +594,19 @@ namespace MemoryClubForms.Forms
                     cateringModel.Fk_id_cliente = idClienteSelected;
                     cateringModel.Nombre = nombreCliente;
 
-                    if(nombresClientesList.Select(x=>x.nombre== nombreCliente).FirstOrDefault())
-                    {
-                        cateringModel.Tipo_cliente = tiposClientesList.Where(x=>x.TipoCliente=="CLIENTE").Select(x=>x.TipoCliente).FirstOrDefault();
+                    string cliente = nombresClientesList.Where(x => x.nombre == nombreCliente).Select(x => x.nombre).FirstOrDefault();
+                    string colaborador = nombresColaboradoresList.Where(x => x.nombre == nombreCliente).Select(x => x.nombre).FirstOrDefault();
 
-                    }else if (nombresColaboradoresList.Select(x=>x.nombre==nombreCliente).FirstOrDefault())
+                    if (!string.IsNullOrEmpty(cliente))
+                    {
+                        cateringModel.Tipo_cliente = tiposClientesList.Where(x => x.TipoCliente == "CLIENTE").Select(x => x.TipoCliente).FirstOrDefault();
+
+                    }
+                    else if (!string.IsNullOrEmpty(colaborador))
                     {
                         cateringModel.Tipo_cliente = tiposClientesList.Where(x => x.TipoCliente == "COLABORADOR").Select(x => x.TipoCliente).FirstOrDefault();
                     }
+                
 
                     cateringModel.Tipo_menu = cbxMenu.SelectedItem.ToString();
                     cateringModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");

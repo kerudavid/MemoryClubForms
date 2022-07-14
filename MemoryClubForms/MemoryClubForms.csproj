@@ -83,6 +83,12 @@
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\TransporteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TransporteForm.Designer.cs">
+      <DependentUpon>TransporteForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AsistenciaModel.cs" />
     <Compile Include="Models\CateringModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
@@ -104,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TransporteForm.resx">
+      <DependentUpon>TransporteForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

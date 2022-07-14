@@ -1,6 +1,6 @@
 ﻿namespace MemoryClubForms.Forms
 {
-    partial class CateringForm
+    partial class TransporteForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CateringForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TransporteForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnlActions = new System.Windows.Forms.Panel();
             this.lblAction = new System.Windows.Forms.Label();
@@ -77,18 +74,6 @@
             this.lblNombreVista = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
-            this.grdCatering = new System.Windows.Forms.DataGridView();
-            this.Id_catering = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fk_id_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tipo_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tipo_menu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hora = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.observaciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha_mod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.pnlActions.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -97,7 +82,6 @@
             this.pnlFiltro.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdCatering)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -111,7 +95,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(918, 334);
-            this.panel1.TabIndex = 1;
+            this.panel1.TabIndex = 2;
             // 
             // pnlActions
             // 
@@ -240,7 +224,6 @@
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnEliminar
             // 
@@ -256,7 +239,6 @@
             this.btnEliminar.TabIndex = 10;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = false;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnGuardar
             // 
@@ -273,7 +255,6 @@
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Visible = false;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // label9
             // 
@@ -319,7 +300,6 @@
             this.btnInsertar.TabIndex = 11;
             this.btnInsertar.Text = "Insertar";
             this.btnInsertar.UseVisualStyleBackColor = false;
-            this.btnInsertar.Click += new System.EventHandler(this.btnInsertarClicked);
             // 
             // btnEditar
             // 
@@ -334,7 +314,6 @@
             this.btnEditar.TabIndex = 9;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = false;
-            this.btnEditar.Click += new System.EventHandler(this.btnEdit_Clicked);
             // 
             // label10
             // 
@@ -490,7 +469,6 @@
             this.btnReiniciarFiltro.TabIndex = 11;
             this.btnReiniciarFiltro.Text = "Reiniciar";
             this.btnReiniciarFiltro.UseVisualStyleBackColor = false;
-            this.btnReiniciarFiltro.Click += new System.EventHandler(this.btnReiniciarFiltro_Click);
             // 
             // ckbFiltrarFechas
             // 
@@ -515,7 +493,6 @@
             this.btnFiltrar.TabIndex = 11;
             this.btnFiltrar.Text = "Filtrar";
             this.btnFiltrar.UseVisualStyleBackColor = false;
-            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
             // 
             // label8
             // 
@@ -587,13 +564,13 @@
             this.lblNombreVista.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblNombreVista.Location = new System.Drawing.Point(89, 14);
             this.lblNombreVista.Name = "lblNombreVista";
-            this.lblNombreVista.Size = new System.Drawing.Size(78, 22);
+            this.lblNombreVista.Size = new System.Drawing.Size(98, 22);
             this.lblNombreVista.TabIndex = 3;
-            this.lblNombreVista.Text = "Catering";
+            this.lblNombreVista.Text = "Transporte";
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::MemoryClubForms.Properties.Resources.restaurante;
+            this.pictureBox1.Image = global::MemoryClubForms.Properties.Resources.Transporte2;
             this.pictureBox1.Location = new System.Drawing.Point(23, 8);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(60, 32);
@@ -620,132 +597,17 @@
             this.btnClose.Text = "Cerrar";
             this.btnClose.TextColor = System.Drawing.Color.White;
             this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Clicked);
             // 
-            // grdCatering
-            // 
-            this.grdCatering.AllowUserToAddRows = false;
-            this.grdCatering.AllowUserToDeleteRows = false;
-            this.grdCatering.AllowUserToResizeColumns = false;
-            this.grdCatering.AllowUserToResizeRows = false;
-            this.grdCatering.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grdCatering.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.grdCatering.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.grdCatering.BackgroundColor = System.Drawing.Color.White;
-            this.grdCatering.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.grdCatering.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.grdCatering.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.MidnightBlue;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.MidnightBlue;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdCatering.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.grdCatering.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdCatering.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Id_catering,
-            this.Fk_id_cliente,
-            this.nombre_cliente,
-            this.Tipo_cliente,
-            this.Tipo_menu,
-            this.fecha,
-            this.hora,
-            this.observaciones,
-            this.sucursal,
-            this.usuario,
-            this.fecha_mod});
-            this.grdCatering.EnableHeadersVisualStyles = false;
-            this.grdCatering.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            this.grdCatering.Location = new System.Drawing.Point(9, 340);
-            this.grdCatering.Name = "grdCatering";
-            this.grdCatering.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdCatering.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.grdCatering.RowHeadersVisible = false;
-            this.grdCatering.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Navy;
-            this.grdCatering.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.grdCatering.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdCatering.Size = new System.Drawing.Size(894, 241);
-            this.grdCatering.TabIndex = 2;
-            this.grdCatering.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.RowGrid_Clicked);
-            // 
-            // Id_catering
-            // 
-            this.Id_catering.HeaderText = "ID Catering";
-            this.Id_catering.Name = "Id_catering";
-            this.Id_catering.Visible = false;
-            // 
-            // Fk_id_cliente
-            // 
-            this.Fk_id_cliente.HeaderText = "Id Cliente";
-            this.Fk_id_cliente.Name = "Fk_id_cliente";
-            this.Fk_id_cliente.Visible = false;
-            // 
-            // nombre_cliente
-            // 
-            this.nombre_cliente.HeaderText = "Nombre Cliente";
-            this.nombre_cliente.Name = "nombre_cliente";
-            // 
-            // Tipo_cliente
-            // 
-            this.Tipo_cliente.HeaderText = "Tipo Cliente";
-            this.Tipo_cliente.Name = "Tipo_cliente";
-            // 
-            // Tipo_menu
-            // 
-            this.Tipo_menu.HeaderText = "Menú";
-            this.Tipo_menu.Name = "Tipo_menu";
-            // 
-            // fecha
-            // 
-            this.fecha.HeaderText = "Fecha";
-            this.fecha.Name = "fecha";
-            // 
-            // hora
-            // 
-            this.hora.HeaderText = "Hora";
-            this.hora.Name = "hora";
-            // 
-            // observaciones
-            // 
-            this.observaciones.HeaderText = "Observaciones";
-            this.observaciones.Name = "observaciones";
-            // 
-            // sucursal
-            // 
-            this.sucursal.HeaderText = "Sucursal";
-            this.sucursal.Name = "sucursal";
-            // 
-            // usuario
-            // 
-            this.usuario.HeaderText = "Usuario";
-            this.usuario.Name = "usuario";
-            // 
-            // fecha_mod
-            // 
-            this.fecha_mod.HeaderText = "Fecha Modificación";
-            this.fecha_mod.Name = "fecha_mod";
-            // 
-            // CateringForm
+            // TransporteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(918, 593);
-            this.Controls.Add(this.grdCatering);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "CateringForm";
-            this.Text = "CateringForm";
+            this.Name = "TransporteForm";
+            this.Text = "TransporteForm";
             this.panel1.ResumeLayout(false);
             this.pnlActions.ResumeLayout(false);
             this.pnlActions.PerformLayout();
@@ -758,7 +620,6 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdCatering)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -766,45 +627,15 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label lblNombreVista;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private Botones_Personalizados.OurButton btnClose;
-        private System.Windows.Forms.Panel pnlFiltro;
-        private System.Windows.Forms.Button btnReiniciarFiltro;
-        private System.Windows.Forms.CheckBox ckbFiltrarFechas;
-        private System.Windows.Forms.Button btnFiltrar;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DateTimePicker dtmHasta;
-        private System.Windows.Forms.DateTimePicker dtpDesde;
-        private System.Windows.Forms.ComboBox cbxFiltroNombreCliente;
-        private System.Windows.Forms.ComboBox cbxFiltroMenu;
-        private System.Windows.Forms.ComboBox cbxFiltroTipoCli;
-        private System.Windows.Forms.ComboBox cbxFiltroSucursal;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView grdCatering;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id_catering;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Fk_id_cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombre_cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo_cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo_menu;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hora;
-        private System.Windows.Forms.DataGridViewTextBoxColumn observaciones;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sucursal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
         private System.Windows.Forms.Panel pnlActions;
         private System.Windows.Forms.Label lblAction;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker dtmFecha;
-        private System.Windows.Forms.ComboBox cbxNombresClientes;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox cbxMenu;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cbxNombresClientes;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnEliminar;
@@ -818,9 +649,27 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtObservciones;
         private System.Windows.Forms.TextBox txtHora;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox cbxMenu;
+        private System.Windows.Forms.Panel pnlFiltro;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ComboBox cbxFiltroEstadoCliente;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cbxFiltroMenu;
+        private System.Windows.Forms.ComboBox cbxFiltroTipoCli;
+        private System.Windows.Forms.ComboBox cbxFiltroSucursal;
+        private System.Windows.Forms.Button btnReiniciarFiltro;
+        private System.Windows.Forms.CheckBox ckbFiltrarFechas;
+        private System.Windows.Forms.Button btnFiltrar;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker dtmHasta;
+        private System.Windows.Forms.DateTimePicker dtpDesde;
+        private System.Windows.Forms.ComboBox cbxFiltroNombreCliente;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label lblNombreVista;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private Botones_Personalizados.OurButton btnClose;
     }
 }

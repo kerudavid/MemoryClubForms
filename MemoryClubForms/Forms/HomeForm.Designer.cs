@@ -129,6 +129,7 @@
             this.transporteToolStripMenuItem.Name = "transporteToolStripMenuItem";
             this.transporteToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
             this.transporteToolStripMenuItem.Text = "Transporte";
+            this.transporteToolStripMenuItem.Click += new System.EventHandler(this.transporteToolStripMenuItem_Click);
             // 
             // colaboradoresToolStripMenuItem
             // 
