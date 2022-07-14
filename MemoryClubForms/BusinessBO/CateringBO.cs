@@ -47,7 +47,7 @@ namespace MemoryClubForms.BusinessBO
         {
             string query = "";
 
-            query = $"SELECT elemento FROM Codigo WHERE grupo = \'GEN\' AND subgrupo = \'TCLIENTE\' " +
+            query = $"SELECT elemento as tipoCliente  FROM Codigo WHERE grupo = \'GEN\' AND subgrupo = \'TCLIENTE\' " +
                     $"AND elemento <> \'\' AND estado = \'A\'";
 
             List<TiposClientes> tiposclientesList = new List<TiposClientes>();
@@ -64,7 +64,7 @@ namespace MemoryClubForms.BusinessBO
         {
             string query = "";
 
-            query = $"SELECT elemento FROM Codigo WHERE grupo = \'CAT\' AND subgrupo = \'TMENU\' " +
+            query = $"SELECT elemento as tipoMenu FROM Codigo WHERE grupo = \'CAT\' AND subgrupo = \'TMENU\' " +
                     $"AND elemento <> \'\' AND estado = \'A\'";
 
             List<TiposMenus> tiposmenusList = new List<TiposMenus>();
@@ -80,12 +80,42 @@ namespace MemoryClubForms.BusinessBO
         public List<CodigosSucursales> LoadSucursales()
         {
             string query = "";
-            query = $"SELECT valor1 FROM Codigo WHERE grupo = \'SUC\' AND subgrupo = \'SUC\' AND elemento <> \'\' AND estado = \'A\'";
+            query = $"SELECT valor1 as sucursales FROM Codigo WHERE grupo = \'SUC\' AND subgrupo = \'SUC\' AND elemento <> \'\' AND estado = \'A\'";
             List<CodigosSucursales> codigosSucursaleslist = new List<CodigosSucursales>();
             codigosSucursaleslist = this.ObtenerListaSQL<CodigosSucursales>(query).ToList();
 
             return codigosSucursaleslist;
         }
+
+
+        /// <summary>
+        /// Devuelve lista de id colaboradores y sus nombres
+        /// </summary>
+        /// <returns></returns>
+        public List<NombresColaboradores> LoadNombresColaboradores()
+        {
+            string query = "";
+            query = $"SELECT id_colaborador, nombre FROM Colaborador WHERE estado = \'A\'";
+            List<NombresColaboradores> nombrescolaboradoresList = new List<NombresColaboradores>();
+            nombrescolaboradoresList = this.ObtenerListaSQL<NombresColaboradores>(query).ToList();
+
+            return nombrescolaboradoresList;
+        }
+
+        /// <summary>
+        /// Devuelve la lista de los estados y descripción para los clientes (A, I, P = prueba)
+        /// </summary>
+        /// <returns></returns>
+        public List<CodigosEstados> LoadEstados()
+        {
+            string query = "";
+            query = $"SELECT elemento as estados, descripcion from Codigo WHERE grupo = \'CLI\' AND subgrupo = \'ESTADO\' AND elemento <> \'\' AND estado = \'A\'";
+            List<CodigosEstados> codigosEstadoslist = new List<CodigosEstados>();
+            codigosEstadoslist = this.ObtenerListaSQL<CodigosEstados>(query).ToList();
+
+            return codigosEstadoslist;
+        }
+
 
         /// <summary>
         /// Método para convertir una lista DataTable a un TModel(Modelo genérico)
@@ -240,20 +270,26 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>bool TRUE/FALSE</returns>
         public bool InsertarCatering(CateringModel PcateringModel)
         {
-             string query = $"INSERT INTO Catering (fk_id_cliente, tipo_cliente, tipo_menu, fecha, hora, observacion, sucursal, usuario, fecha_mod) " +
-                           $"VALUES ({PcateringModel.Fk_id_cliente}, '{PcateringModel.Tipo_cliente}', '{PcateringModel.Tipo_menu}', '{PcateringModel.Fecha}', '{PcateringModel.Hora}', " +
-                           $"'{PcateringModel.Observacion}', {PcateringModel.Sucursal}, '{PcateringModel.Usuario}', '{PcateringModel.Fecha_mod}')";
+            bool aux = ValidarSucursalCate(PcateringModel); //valida que colaborador pueda registrar catering si es de la misma sucursal si no es de nivel <= 1
+            if (aux == true)
+            {
+                string query = $"INSERT INTO Catering (fk_id_cliente, tipo_cliente, tipo_menu, fecha, hora, observacion, sucursal, usuario, fecha_mod) " +
+                              $"VALUES ({PcateringModel.Fk_id_cliente}, '{PcateringModel.Tipo_cliente}', '{PcateringModel.Tipo_menu}', '{PcateringModel.Fecha}', '{PcateringModel.Hora}', " +
+                              $"'{PcateringModel.Observacion}', {PcateringModel.Sucursal}, '{PcateringModel.Usuario}', '{PcateringModel.Fecha_mod}')";
 
-            try
-            {
-                bool execute = SQLConexionDataBase.Execute(query);
-                return execute;
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    return execute;
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Error al insertar  catering", ex.Message);
+                    return false;
+                }
             }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Error al insertar  catering", ex.Message);
-                return false;
-            }
+            else
+            { return false; }
             
         }
         /// <summary>
@@ -263,19 +299,25 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>bool True/False</returns>
         public bool ActualizarCatering(CateringModel PcateringModel)
         {
-            string query = $"UPDATE Catering SET tipo_menu = '{PcateringModel.Tipo_menu}', hora = '{PcateringModel.Hora}', observacion = '{PcateringModel.Observacion}', " +
+            bool aux = ValidarSucursalCate(PcateringModel); //valida que colaborador pueda modificar catering si es de la misma sucursal si no es de nivel <= 1
+            if (aux == true)
+            {
+                string query = $"UPDATE Catering SET tipo_menu = '{PcateringModel.Tipo_menu}', hora = '{PcateringModel.Hora}', observacion = '{PcateringModel.Observacion}', " +
                            $"usuario = '{PcateringModel.Usuario}', fecha_mod = '{PcateringModel.Fecha_mod}' WHERE id_catering = {PcateringModel.Id_catering}";
 
-            try
-            {
-                bool execute = SQLConexionDataBase.Execute(query);
-                return execute;
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    return execute;
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Error al actualizar catering", ex.Message);
+                    return false;
+                }
             }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Error al actualizar catering", ex.Message);
-                return false;
-            }
+            else
+            { return false; }
         }
         /// <summary>
         /// ELIMINA UN REGISTRO DE CATERING
@@ -284,17 +326,23 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>bool True/False</returns>
         public bool EliminarCatering(int Pid_catering)
         {
-            string query = $"DELETE FROM Catering WHERE id_catering = {Pid_catering} ";
-            try
+            if (nivel <= 1) //solo usuario administrador elimina catering
             {
-                bool execute = SQLConexionDataBase.Execute(query);
-                return execute;
+                string query = $"DELETE FROM Catering WHERE id_catering = {Pid_catering} ";
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    return execute;
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Error al eliminar catering", ex.Message);
+                    return false;
+                }
             }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Error al eliminar catering", ex.Message);
-                return false;
-            }
+            else
+            { return false; }
+
         }
 
         /// <summary>
@@ -321,7 +369,19 @@ namespace MemoryClubForms.BusinessBO
         }
         public class CodigosSucursales
         {
-            public int Codigos_sucursales { get; set; }
+            public int Sucursales { get; set; }
+        }
+        public class NombresColaboradores
+        {
+            public int Id_colaborador { get; set; }
+            public string nombre { get; set; }
+        }
+        //List Model de los códigos de estado de clientes
+        public class CodigosEstados
+        {
+            public string Estados { get; set; }
+
+            public string Descripcion { get; set; }
         }
     }
 }

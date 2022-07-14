@@ -66,12 +66,27 @@ namespace MemoryClubForms.BusinessBO
         public List<CodigosSucursales> LoadSucursales()
         {
             string query = "";
-            query = $"SELECT valor1 FROM Codigo WHERE grupo = \'SUC\' AND subgrupo = \'SUC\' AND elemento <> \'\' AND estado = \'A\'";
+            query = $"SELECT valor1 as sucursales FROM Codigo WHERE grupo = \'SUC\' AND subgrupo = \'SUC\' AND elemento <> \'\' AND estado = \'A\'";
             List<CodigosSucursales> codigosSucursaleslist = new List<CodigosSucursales>();
             codigosSucursaleslist = this.ObtenerListaSQL<CodigosSucursales>(query).ToList();
 
             return codigosSucursaleslist;
         }
+
+        /// <summary>
+        /// Devuelve la lista de los estados y descripción para los clientes (A, I, P = prueba)
+        /// </summary>
+        /// <returns></returns>
+        public List<CodigosEstados> LoadEstados()
+        {
+            string query = "";
+            query = $"SELECT elemento as estados, descripcion from Codigo WHERE grupo = \'CLI\' AND subgrupo = \'ESTADO\' AND elemento <> \'\' AND estado = \'A\'";
+            List<CodigosEstados> codigosEstadoslist = new List<CodigosEstados>();
+            codigosEstadoslist = this.ObtenerListaSQL<CodigosEstados>(query).ToList();
+
+            return codigosEstadoslist;
+        }
+
         /// <summary>
         /// CONSULTA GENERAL DE ASISTENCIA POR TODOS LOS PARAMETROS
         /// </summary>
@@ -326,21 +341,33 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>true-false</returns>
         public bool InsertarAsistencia(AsistenciaModel asistenciaModel)
         {
-            string query = $"INSERT INTO Asistencia (fk_id_cliente, fecha, hora, observacion, sucursal, usuario, fecha_mod) VALUES ({asistenciaModel.Fk_id_cliente}, " +
-                           $" '{asistenciaModel.Fecha}', '{asistenciaModel.Hora}', '{asistenciaModel.Observacion}', {asistenciaModel.Sucursal}, '{asistenciaModel.Usuario}', " +
-                           $" '{asistenciaModel.Fecha_mod}')";
-            try
+            bool valida = this.ValidarDuplicadoAsis(asistenciaModel);
+            if (valida)
             {
-                bool execute = SQLConexionDataBase.Execute(query);
-                return execute;
+                bool aux = this.ValidaSucursalAsis(asistenciaModel); //solo añade si es de la misma sucursal o es de nivel administrador
+                if (aux == true)
+                {
+                    string query = $"INSERT INTO Asistencia (fk_id_cliente, fecha, hora, observacion, sucursal, usuario, fecha_mod) VALUES ({asistenciaModel.Fk_id_cliente}, " +
+                                   $" '{asistenciaModel.Fecha}', '{asistenciaModel.Hora}', '{asistenciaModel.Observacion}', {asistenciaModel.Sucursal}, '{asistenciaModel.Usuario}', " +
+                                   $" '{asistenciaModel.Fecha_mod}')";
+                    try
+                    {
+                        bool execute = SQLConexionDataBase.Execute(query);
+                        return execute;
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine("Error al insertar Asistencia", ex.Message);
+                        return false;
+                    }
+                }
+                else
+                { return false; }
             }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Error al insertar Asistencia", ex.Message);
-                return false;
-            }
-            
+            else
+            { return false; }
         }
+
         /// <summary>
         /// Actualizar registro en Asistencia
         /// </summary>
@@ -348,18 +375,24 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>true-false</returns>
         public bool ActualizarAsistencia(AsistenciaModel asistenciaModel)
         {
-            string query = $"UPDATE Asistencia SET hora = '{asistenciaModel.Hora}', observacion = '{asistenciaModel.Observacion}', usuario = '{asistenciaModel.Usuario}', " +
-                           $"fecha_mod = '{asistenciaModel.Fecha_mod}' WHERE id_asistencia = {asistenciaModel.Id_asistencia} ";
-            try
+            bool aux = this.ValidaSucursalAsis(asistenciaModel); //solo modifica si es de la misma sucursal o si es de nivel administrador
+            if (aux == true)
             {
-                bool execute = SQLConexionDataBase.Execute(query);
-                return execute;
+                string query = $"UPDATE Asistencia SET hora = '{asistenciaModel.Hora}', observacion = '{asistenciaModel.Observacion}', usuario = '{asistenciaModel.Usuario}', " +
+                               $"fecha_mod = '{asistenciaModel.Fecha_mod}' WHERE id_asistencia = {asistenciaModel.Id_asistencia} ";
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    return execute;
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Error al eliminar Asistencia ", ex.Message);
+                    return false;
+                }
             }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Error al eliminar Asistencia ", ex.Message);
-                return false;
-            }
+            else
+            { return false; }
         }
 
         /// <summary>
@@ -369,17 +402,22 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>true-false</returns>
         public bool EliminarAsistencia(int Pid_asistencia)
         {
-            string query = $"DELETE FROM Asistencia WHERE id_asistencia = {Pid_asistencia} ";
-            try
-            {
-                bool execute = SQLConexionDataBase.Execute(query);
-                return execute;
+            if (nivel <= 1) //solo elimina asistencia nivel administrador
+                {
+                string query = $"DELETE FROM Asistencia WHERE id_asistencia = {Pid_asistencia} ";
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    return execute;
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Error al actualizar Asistencia ", ex.Message);
+                    return false;
+                }
             }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Error al actualizar Asistencia ", ex.Message);
-                return false;
-            }
+            else
+            { return false; }
         }
         public class NombresClientes
         {
@@ -394,7 +432,14 @@ namespace MemoryClubForms.BusinessBO
 
         public class CodigosSucursales
         {
-            public int Codigos_sucursales { get; set; }
+            public int Sucursales { get; set; }
+        }
+        //List Model de los códigos de estado de clientes
+        public class CodigosEstados
+        {
+            public string Estados { get; set; }
+
+            public string Descripcion { get; set; }
         }
     }
 }

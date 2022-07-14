@@ -47,7 +47,7 @@ namespace MemoryClubForms.BusinessBO
         {
             string query = "";
 
-            query = $"SELECT elemento FROM Codigo WHERE grupo = \'GEN\' AND subgrupo = \'TCLIENTE\' " +
+            query = $"SELECT elemento as tipoCliente FROM Codigo WHERE grupo = \'GEN\' AND subgrupo = \'TCLIENTE\' " +
                     $"AND elemento <> \'\' AND estado = \'A\'";
 
             List<TiposClientes> tiposclientesList = new List<TiposClientes>();
@@ -80,7 +80,7 @@ namespace MemoryClubForms.BusinessBO
         {
             string query = "";
 
-            query = $"SELECT elemento FROM Codigo WHERE grupo = \'TRA\' AND subgrupo = \'HORAES\' AND elemento <> \'\' AND estado = \'A\'";
+            query = $"SELECT elemento as horario FROM Codigo WHERE grupo = \'TRA\' AND subgrupo = \'HORAES\' AND elemento <> \'\' AND estado = \'A\'";
 
             List<HorariosTransporte> horariosTransporteList = new List<HorariosTransporte>();
 
@@ -96,11 +96,39 @@ namespace MemoryClubForms.BusinessBO
         public List<CodigosSucursales> LoadSucursales()
         {
             string query = "";
-            query = $"SELECT valor1 FROM Codigo WHERE grupo = \'SUC\' AND subgrupo = \'SUC\' AND elemento <> \'\' AND estado = \'A\'";
+            query = $"SELECT valor1 as sucursales FROM Codigo WHERE grupo = \'SUC\' AND subgrupo = \'SUC\' AND elemento <> \'\' AND estado = \'A\'";
             List<CodigosSucursales> codigosSucursaleslist = new List<CodigosSucursales>();
             codigosSucursaleslist = this.ObtenerListaSQL<CodigosSucursales>(query).ToList();
 
             return codigosSucursaleslist;
+        }
+
+        /// <summary>
+        /// Devuelve lista de id colaboradores y sus nombres
+        /// </summary>
+        /// <returns></returns>
+        public List<NombresColaboradores> LoadNombresColaboradores()
+        {
+            string query = "";
+            query = $"SELECT id_colaborador, nombre FROM Colaborador WHERE estado = \'A\'";
+            List<NombresColaboradores> nombrescolaboradoresList = new List<NombresColaboradores>();
+            nombrescolaboradoresList = this.ObtenerListaSQL<NombresColaboradores>(query).ToList();
+
+            return nombrescolaboradoresList;
+        }
+
+        /// <summary>
+        /// Devuelve la lista de los estados y descripción para los clientes (A, I, P = prueba)
+        /// </summary>
+        /// <returns></returns>
+        public List<CodigosEstados> LoadEstados()
+        {
+            string query = "";
+            query = $"SELECT elemento as estados, descripcion from Codigo WHERE grupo = \'CLI\' AND subgrupo = \'ESTADO\' AND elemento <> \'\' AND estado = \'A\'";
+            List<CodigosEstados> codigosEstadoslist = new List<CodigosEstados>();
+            codigosEstadoslist = this.ObtenerListaSQL<CodigosEstados>(query).ToList();
+
+            return codigosEstadoslist;
         }
 
         /// <summary>
@@ -237,7 +265,7 @@ namespace MemoryClubForms.BusinessBO
         /// </summary>
         /// <param name="PtransporteModel"></param>
         /// <returns></returns>
-        public bool ValidarSucursalTransp(TransporteModel PtransporteModel)
+        private bool ValidarSucursalTransp(TransporteModel PtransporteModel)
         {
             if (nivel > 1) //nivel general solo inserta registros de su misma sucursal
             {
@@ -251,27 +279,33 @@ namespace MemoryClubForms.BusinessBO
         }
 
         /// <summary>
-        /// Inserta regisro en Transporte
+        /// Inserta registro en Transporte
         /// </summary>
         /// <param name="PtransporteModel"></param>
         /// <returns></returns>
         public bool InsertarTransporte(TransporteModel PtransporteModel)
         {
-           string query = $"INSERT INTO Transporte (fk_id_cliente, tipo_cliente, fecha, hora, id_transportista, entrada_salida, observacion, sucursal, usuario, fecha_mod) " +
-                          $"VALUES ({PtransporteModel.Fk_id_cliente}, '{PtransporteModel.Tipo_cliente}', '{PtransporteModel.Fecha}', '{PtransporteModel.Hora}', " +
-                          $"{PtransporteModel.Id_transportista}, '{PtransporteModel.Entrada_salida}', '{PtransporteModel.Observacion}', {PtransporteModel.Sucursal}, " +
-                          $"'{PtransporteModel.Usuario}', '{PtransporteModel.Fecha_mod}')";
+            bool aux = ValidarSucursalTransp(PtransporteModel); //solo puede insertar si es de su misma sucursal un usuario nivel > 1
+            if (aux == true)
+            { 
+                string query = $"INSERT INTO Transporte (fk_id_cliente, tipo_cliente, fecha, hora, id_transportista, entrada_salida, observacion, sucursal, usuario, fecha_mod) " +
+                           $"VALUES ({PtransporteModel.Fk_id_cliente}, '{PtransporteModel.Tipo_cliente}', '{PtransporteModel.Fecha}', '{PtransporteModel.Hora}', " +
+                           $"{PtransporteModel.Id_transportista}, '{PtransporteModel.Entrada_salida}', '{PtransporteModel.Observacion}', {PtransporteModel.Sucursal}, " +
+                           $"'{PtransporteModel.Usuario}', '{PtransporteModel.Fecha_mod}')";
 
-            try
-            {
-                bool execute = SQLConexionDataBase.Execute(query);
-                return execute;
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    return execute;
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Error al insertar  Transporte", ex.Message);
+                    return false;
+                }
             }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Error al insertar  Transporte", ex.Message);
-                return false;
-            }
+            else
+            { return false; }
 
         }
       
@@ -282,20 +316,27 @@ namespace MemoryClubForms.BusinessBO
         /// <returns></returns>
         public bool ActualizarTransporte(TransporteModel PtransporteModel)
         {
-            string query = $"UPDATE Transporte SET fecha = '{PtransporteModel.Fecha}', hora = '{PtransporteModel.Hora}', entrada_salida = '{PtransporteModel.Entrada_salida}', " +
-                           $"observacion = '{PtransporteModel.Observacion}', usuario = '{PtransporteModel.Usuario}', fecha_mod = '{PtransporteModel.Fecha_mod}' " +
-                           $"WHERE id_transporte = {PtransporteModel.Id_transporte}";
-            try
+            bool aux = ValidarSucursalTransp(PtransporteModel); //solo puede insertar si es de su misma sucursal un usuario nivel > 1
+            if (aux == true)
             {
-                bool execute = SQLConexionDataBase.Execute(query);
-                return execute;
+                string query = $"UPDATE Transporte SET fecha = '{PtransporteModel.Fecha}', hora = '{PtransporteModel.Hora}', entrada_salida = '{PtransporteModel.Entrada_salida}', " +
+                               $"observacion = '{PtransporteModel.Observacion}', usuario = '{PtransporteModel.Usuario}', fecha_mod = '{PtransporteModel.Fecha_mod}' " +
+                               $"WHERE id_transporte = {PtransporteModel.Id_transporte}";
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    return execute;
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Error al actualizar Transporte", ex.Message);
+                    return false;
+                }
             }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Error al actualizar Transporte", ex.Message);
-                return false;
-            }
+            else
+            { return false;  }
         }
+
         /// <summary>
         /// Eliminar registro de Transporte
         /// </summary>
@@ -303,17 +344,22 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>True-False</returns>
         public bool EliminarTransporte(int Pid_transporte)
         {
-            string query = $"DELETE FROM Transporte WHERE id_transporte = {Pid_transporte} ";
-            try
+            if (nivel <= 1) //solo usuario administrador elimina transporte
             {
-                bool execute = SQLConexionDataBase.Execute(query);
-                return execute;
+                string query = $"DELETE FROM Transporte WHERE id_transporte = {Pid_transporte} ";
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    return execute;
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Error al eliminar Transporte", ex.Message);
+                    return false;
+                }
             }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Error al eliminar Transporte", ex.Message);
-                return false;
-            }
+            else
+            { return false;  }
         }
 
         /// <summary>
@@ -337,18 +383,31 @@ namespace MemoryClubForms.BusinessBO
         public class NombresTransportistas
         {
             public int Id_transportista { get; set; }
-            public string Nombre_transportista { get; set; }
+            public string Nombre { get; set; }
         }
         public class CodigosSucursales
         {
-            public int Codigos_sucursales { get; set; }
+            public int Sucursales { get; set; }
         }
         /// <summary>
         /// Model List de los horarios de transporte (Entrada/Salida)
         /// </summary>
         public class HorariosTransporte
         {
-            public string HorariosES { get; set; }
+            public string Horario { get; set; }
+        }
+        //List Model de los nombres de los colaboradores
+        public class NombresColaboradores
+        {
+            public int Id_colaborador { get; set; }
+            public string nombre { get; set; }
+        }
+        //List Model de los códigos de estado de clientes
+        public class CodigosEstados
+        {
+            public string Estados { get; set; }
+
+            public string Descripcion { get; set; }
         }
     }
 }

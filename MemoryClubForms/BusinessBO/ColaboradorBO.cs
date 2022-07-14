@@ -23,7 +23,7 @@ namespace MemoryClubForms.BusinessBO
         public List<CodigosSucursales> LoadSucursales()
         {
             string query = "";
-            query = $"SELECT valor1 FROM Codigo WHERE grupo = \'SUC\' AND subgrupo = \'SUC\' AND elemento <> \'\' AND estado = \'A\'";
+            query = $"SELECT valor1 as sucursales FROM Codigo WHERE grupo = \'SUC\' AND subgrupo = \'SUC\' AND elemento <> \'\' AND estado = \'A\'";
             List<CodigosSucursales> codigosSucursaleslist = new List<CodigosSucursales>();
             codigosSucursaleslist = this.ObtenerListaSQL<CodigosSucursales>(query).ToList();
 
@@ -36,7 +36,7 @@ namespace MemoryClubForms.BusinessBO
         public List<CodigosEstados> LoadEstados()
         {
             string query = "";
-            query = $"SELECT elemento FROM Codigo WHERE grupo = \'GEN\' AND subgrupo = \'ESTADO\' AND elemento <> \'\' AND estado = \'A\'";
+            query = $"SELECT elemento as estados, descripcion FROM Codigo WHERE grupo = \'GEN\' AND subgrupo = \'ESTADO\' AND elemento <> \'\' AND estado = \'A\'";
             List<CodigosEstados> codigosEstadoslist = new List<CodigosEstados>();
             codigosEstadoslist = this.ObtenerListaSQL<CodigosEstados>(query).ToList();
 
@@ -105,6 +105,42 @@ namespace MemoryClubForms.BusinessBO
             colaboradorModelList = this.ObtenerListaSQL<ColaboradorModel>(query).ToList();
             return colaboradorModelList; 
         }
+
+        /// <summary>
+        /// Valida si se duplica la cédula del colaborador al añadir un registro (cedula)
+        /// </summary>
+        /// <param name="Pcedula"></param>
+        /// <returns>TRUE/FALSE</returns>
+        public bool ValidaDuplicadoColab(ColaboradorModel PcolaboradorModel)
+        {
+            string query = $"SELECT * FROM Colaborador WHERE cedula = '{PcolaboradorModel.Cedula}'";
+
+            List<ColaboradorModel> validalist = new List<ColaboradorModel>();
+            //Las consultas siempre retornan el obtejo dentro de una lista.
+            validalist = this.ObtenerListaSQL<ColaboradorModel>(query).ToList();
+
+            if (validalist.Count > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Valida que solo un usuario nivel 0 o 1 pueda añadir, modificar o eliminar en la tabla Colaborador
+        /// </summary>
+        /// <returns>TRUE/FALSE</returns>
+        private bool ValidaNivelColab()
+        {
+            if (nivel <= 1) //solo usuario admonistrador inserta, modifica o elimina colaborador
+            { return true; }
+            else
+            { return false; }
+        }
+
         /// <summary>
         /// Inserta registro de Colaborador
         /// </summary>
@@ -112,22 +148,36 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>True/False</returns>
         public bool InsertaColaborador(ColaboradorModel PcolaboradorModel)
         {
-            string query = $"INSERT INTO Colaborador (sucursal, cedula, nombre, direccion, telefono, cargo, estado, observacion, usuario, fecha_mod ) " +
-                           $" VALUES ({PcolaboradorModel.Sucursal}, '{PcolaboradorModel.Cedula}', '{PcolaboradorModel.Nombre}', '{PcolaboradorModel.Direccion}', " +
-                           $"'{PcolaboradorModel.Telefono}', '{PcolaboradorModel.Cargo}', '{PcolaboradorModel.Estado}', '{PcolaboradorModel.Observacion}', " +
-                           $"'{PcolaboradorModel.Usuario}', '{PcolaboradorModel.Fecha_mod}')";
+            bool valida = this.ValidaNivelColab(); //solo nivel administrador puede insertar colaborador
+            if (valida)
+            {
+                bool aux = this.ValidaDuplicadoColab(PcolaboradorModel); //valida q' no se duplique la cedula
+                if (aux)
+                {
+                    string query = $"INSERT INTO Colaborador (sucursal, cedula, nombre, direccion, telefono, cargo, estado, observacion, usuario, fecha_mod ) " +
+                                   $" VALUES ({PcolaboradorModel.Sucursal}, '{PcolaboradorModel.Cedula}', '{PcolaboradorModel.Nombre}', '{PcolaboradorModel.Direccion}', " +
+                                   $"'{PcolaboradorModel.Telefono}', '{PcolaboradorModel.Cargo}', '{PcolaboradorModel.Estado}', '{PcolaboradorModel.Observacion}', " +
+                                   $"'{PcolaboradorModel.Usuario}', '{PcolaboradorModel.Fecha_mod}')";
 
-            try
-            {
-                bool execute = SQLConexionDataBase.Execute(query);
-                return execute;
+                    try
+                    {
+                        bool execute = SQLConexionDataBase.Execute(query);
+                        return execute;
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine("Error al insertar  Colaborador", ex.Message);
+                        return false;
+                    }
+                }
+                else
+                { return false; }
             }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Error al insertar  Colaborador", ex.Message);
-                return false;
-            }
+            else
+            {return false; }
+
         }
+
         /// <summary>
         /// Actualiza registro de Colaborador (direcc, tfno, cargo, estado, obs, usuario, fecha_mod)
         /// </summary>
@@ -135,21 +185,28 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>true/false</returns>
         public bool ActualizarColaborador(ColaboradorModel PcolaboradorModel)
         {
-            string query = $"UPDATE Colaborador SET direccion = '{PcolaboradorModel.Direccion}', telefono = '{PcolaboradorModel.Telefono}', " +
-                           $"cargo = '{PcolaboradorModel.Cargo}', estado = '{PcolaboradorModel.Estado}', observacion = '{PcolaboradorModel.Observacion}', " +
-                           $"usuario = '{PcolaboradorModel.Usuario}', fecha_mod = '{PcolaboradorModel.Fecha_mod}' WHERE id_colaborador = {PcolaboradorModel.Id_colaborador}";
+            bool valida = this.ValidaNivelColab(); //solo nivel administrador puede modificar colaborador
+            if (valida)
+            {
+                string query = $"UPDATE Colaborador SET direccion = '{PcolaboradorModel.Direccion}', telefono = '{PcolaboradorModel.Telefono}', " +
+                               $"cargo = '{PcolaboradorModel.Cargo}', estado = '{PcolaboradorModel.Estado}', observacion = '{PcolaboradorModel.Observacion}', " +
+                               $"usuario = '{PcolaboradorModel.Usuario}', fecha_mod = '{PcolaboradorModel.Fecha_mod}' WHERE id_colaborador = {PcolaboradorModel.Id_colaborador}";
 
-            try
-            {
-                bool execute = SQLConexionDataBase.Execute(query);
-                return execute;
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    return execute;
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Error al actualizar Colaborador", ex.Message);
+                    return false;
+                }
             }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Error al actualizar Colaborador", ex.Message);
-                return false;
-            }
+            else
+            { return false;  }
         }
+
         /// <summary>
         /// Eliminar registro de Colaborador
         /// </summary>
@@ -157,17 +214,23 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>True/False</returns>
         public bool EliminarColaborador(int Pid_colaborador)
         {
-            string query = $"DELETE FROM Colaborador WHERE id_colaborador = {Pid_colaborador} ";
-            try
+            bool aux = this.ValidaNivelColab(); //solo administrador puede eliminar
+            if (aux)    
             {
-                bool execute = SQLConexionDataBase.Execute(query);
-                return execute;
+                string query = $"DELETE FROM Colaborador WHERE id_colaborador = {Pid_colaborador} ";
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    return execute;
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Error al eliminar Colaborador", ex.Message);
+                    return false;
+                }
             }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Error al eliminar Colaborador", ex.Message);
-                return false;
-            }
+            else
+            { return false; }   
         }
 
         /// <summary>
@@ -175,12 +238,13 @@ namespace MemoryClubForms.BusinessBO
         /// </summary>
         public class CodigosSucursales
         {
-            public int Codigos_sucursales { get; set; }
+            public int Sucursales { get; set; }
         }
 
         public class CodigosEstados
         {
-            public string Codigos_estados { get; set; }
+            public string Estados { get; set; }
+            public string Descripcion { get; set; }
         }
     }
 }
