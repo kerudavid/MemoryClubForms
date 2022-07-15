@@ -149,9 +149,9 @@ namespace MemoryClubForms.BusinessBO
                 throw;
             }
         }
-        
+
         /// <summary>
-        /// Consulta general por varios parámetros de la tabla Transporte
+        /// Consulta general de Transporte (fecha desde, f hasta, tipo cliente, id transportista, sucursal, Id cliente, estado, Parametro(T=todos, O=otros, R=recorrido))
         /// </summary>
         /// <param name="Pdesde"></param>
         /// <param name="Phasta"></param>
@@ -159,8 +159,10 @@ namespace MemoryClubForms.BusinessBO
         /// <param name="Pidtransportista"></param>
         /// <param name="Psucursal"></param>
         /// <param name="Pidcliente"></param>
-        /// <returns>lista Trasportemodel</returns>
-        public List<TransporteModel> ConsultaTransporte(string Pdesde, string Phasta, string Ptcliente, int Pidtransportista, int Psucursal, int Pidcliente, string Pestado)
+        /// <param name="Pestado"></param>
+        /// <param name="Pparametro" (T=Todos, O=Otros, R=Recorrido)></param>
+        /// <returns>Lista Transporte</returns>
+        public List<TransporteModel> ConsultaTransporte(string Pdesde, string Phasta, string Ptcliente, int Pidtransportista, int Psucursal, int Pidcliente, string Pestado, string Pparametro)
         {
             DateTime fechadesde = DateTime.Now;
             DateTime fechahasta = DateTime.Now;
@@ -216,7 +218,22 @@ namespace MemoryClubForms.BusinessBO
                 condiciones += $" AND T.fk_id_cliente = {Pidcliente} ";
             }
 
-            //******asigno al final a condiciones_aux el valor de condiciones antes de añadir el estado ********************
+            //valido el Parametro (sirve para consultar los registros con Id transportista, o los que no tienen transportista, o ambos
+            if (!(string.IsNullOrEmpty(Pparametro)))
+            {
+                switch (Pparametro)
+                {
+                    case "R":   //recuperar los recorridos con transportistas
+                        condiciones += $" AND T.id_transportista <> 0 ";
+                        break;
+                    case "O":   //recuperar los registros sin transportista
+                        condiciones += $" AND T.id_transportista = 0 ";
+                        break;
+                }
+            }
+
+
+            //********  asigno al FINAL de los parámetros el valor de condiciones a 'condiciones_aux' antes de añadir el estado ********************
             condiciones_aux = condiciones;
 
             //valido el ESTADO
