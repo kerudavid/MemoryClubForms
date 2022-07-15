@@ -19,7 +19,7 @@ namespace MemoryClubForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            ClienteBO cliente = new ClienteBO();
+            TransporteBO cliente = new TransporteBO();
             /*ClienteModel model = new ClienteModel();
              model.Id_cliente = 12;
             // model.Cedula = "1727374757";
@@ -60,7 +60,7 @@ namespace MemoryClubForms
 
             cliente.EliminarCliente(model);*/
 
-            cliente.LoadEstados();
+            cliente.ConsultaTransporte("", "", "", 0, 0, 0, "");
 
 
 

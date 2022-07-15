@@ -176,34 +176,42 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>TRUE/FALSE</returns>
         public bool InsertaTransportista(TransportistaModel PtransportistaModel)
         {
-            bool valida = this.ValidaNivelTransportista(); //solo administrador puede insertar transportista
-            if (valida)
+            string msg = PtransportistaModel.Validate(PtransportistaModel);
+            if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
             {
-                //valida que no haya uno o mas registros para el mismo transportista con estado Activo
-                bool aux = this.ValidaTransportistas(PtransportistaModel);
-                if (aux)
+                return false;
+            }
+            else
+            {
+                bool valida = this.ValidaNivelTransportista(); //solo administrador puede insertar transportista
+                if (valida)
                 {
-                    string query = $"INSERT INTO Transportista (sucursal, cedula, nombre, ruta, sector, placa_veh, telefono, direccion, estado, observacion, usuario, fecha_mod ) " +
-                                   $" VALUES ({PtransportistaModel.Sucursal}, '{PtransportistaModel.Cedula}', '{PtransportistaModel.Nombre}', {PtransportistaModel.Ruta}, '{PtransportistaModel.Sector}', " +
-                                   $"'{PtransportistaModel.Placa_veh}', '{PtransportistaModel.Telefono}', '{PtransportistaModel.Direccion}', '{PtransportistaModel.Estado}', '{PtransportistaModel.Observacion}', " +
-                                   $"'{PtransportistaModel.Usuario}', '{PtransportistaModel.Fecha_mod}')";
+                    //valida que no haya uno o mas registros para el mismo transportista con estado Activo
+                    bool aux = this.ValidaTransportistas(PtransportistaModel);
+                    if (aux)
+                    {
+                        string query = $"INSERT INTO Transportista (sucursal, cedula, nombre, ruta, sector, placa_veh, telefono, direccion, estado, observacion, usuario, fecha_mod ) " +
+                                       $" VALUES ({PtransportistaModel.Sucursal}, '{PtransportistaModel.Cedula}', '{PtransportistaModel.Nombre}', {PtransportistaModel.Ruta}, '{PtransportistaModel.Sector}', " +
+                                       $"'{PtransportistaModel.Placa_veh}', '{PtransportistaModel.Telefono}', '{PtransportistaModel.Direccion}', '{PtransportistaModel.Estado}', '{PtransportistaModel.Observacion}', " +
+                                       $"'{PtransportistaModel.Usuario}', '{PtransportistaModel.Fecha_mod}')";
 
-                    try
-                    {
-                        bool execute = SQLConexionDataBase.Execute(query);
-                        return execute;
+                        try
+                        {
+                            bool execute = SQLConexionDataBase.Execute(query);
+                            return execute;
+                        }
+                        catch (SqlException ex)
+                        {
+                            Console.WriteLine("Error al insertar  Transportista", ex.Message);
+                            return false;
+                        }
                     }
-                    catch (SqlException ex)
-                    {
-                        Console.WriteLine("Error al insertar  Transportista", ex.Message);
-                        return false;
-                    }
+                    else
+                    { return false; }
                 }
                 else
                 { return false; }
             }
-            else
-            {return false; }    
         }
 
         /// <summary>
@@ -213,27 +221,35 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>TRUE/FALSE</returns>
         public bool ActualizarTransportista(TransportistaModel PtransportistaModel) //no actualiza ruta, ni sector. Se deberia crear transportista dando de baja 'I' el otro registro
         {
-            bool valida = this.ValidaNivelTransportista(); //solo administrador puede modificar transportista
-            if (valida)
+            string msg = PtransportistaModel.Validate(PtransportistaModel);
+            if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
             {
-                string query = $"UPDATE Transportista SET ruta = {PtransportistaModel.Ruta}, sector = '{PtransportistaModel.Sector}', placa_veh  = '{PtransportistaModel.Placa_veh}', " +
-                               $"telefono = '{PtransportistaModel.Telefono}', direccion = '{PtransportistaModel.Direccion}', estado = '{PtransportistaModel.Estado}', " +
-                               $"observacion = '{PtransportistaModel.Observacion}', usuario = '{PtransportistaModel.Usuario}', fecha_mod = '{PtransportistaModel.Fecha_mod}' " +
-                               $"WHERE id_transportista = {PtransportistaModel.Id_transportista}";
-
-                try
-                {
-                    bool execute = SQLConexionDataBase.Execute(query);
-                    return execute;
-                }
-                catch (SqlException ex)
-                {
-                    Console.WriteLine("Error al actualizar Transportista", ex.Message);
-                    return false;
-                }
+                return false;
             }
             else
-            { return false; }
+            {
+                bool valida = this.ValidaNivelTransportista(); //solo administrador puede modificar transportista
+                if (valida)
+                {
+                    string query = $"UPDATE Transportista SET ruta = {PtransportistaModel.Ruta}, sector = '{PtransportistaModel.Sector}', placa_veh  = '{PtransportistaModel.Placa_veh}', " +
+                                   $"telefono = '{PtransportistaModel.Telefono}', direccion = '{PtransportistaModel.Direccion}', estado = '{PtransportistaModel.Estado}', " +
+                                   $"observacion = '{PtransportistaModel.Observacion}', usuario = '{PtransportistaModel.Usuario}', fecha_mod = '{PtransportistaModel.Fecha_mod}' " +
+                                   $"WHERE id_transportista = {PtransportistaModel.Id_transportista}";
+
+                    try
+                    {
+                        bool execute = SQLConexionDataBase.Execute(query);
+                        return execute;
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine("Error al actualizar Transportista", ex.Message);
+                        return false;
+                    }
+                }
+                else
+                { return false; }
+            }
         }
 
         /// <summary>

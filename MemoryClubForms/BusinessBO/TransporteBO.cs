@@ -26,11 +26,11 @@ namespace MemoryClubForms.BusinessBO
 
             if (nivel <= 1)
             {
-                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE estado <> \'I\'";
+                query = $"SELECT id_Cliente, nombre, sucursal FROM Cliente WHERE estado <> \'I\'";
             }
             else
             {
-                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE sucursal = {sucursal} AND estado <> \'I\'";
+                query = $"SELECT id_Cliente, nombre, sucursal FROM Cliente WHERE sucursal = {sucursal} AND estado <> \'I\'";
             }
 
             List<NombresClientes> nombresList = new List<NombresClientes>();
@@ -110,7 +110,7 @@ namespace MemoryClubForms.BusinessBO
         public List<NombresColaboradores> LoadNombresColaboradores()
         {
             string query = "";
-            query = $"SELECT id_colaborador, nombre FROM Colaborador WHERE estado = \'A\'";
+            query = $"SELECT id_colaborador, nombre, sucursal FROM Colaborador WHERE estado = \'A\'";
             List<NombresColaboradores> nombrescolaboradoresList = new List<NombresColaboradores>();
             nombrescolaboradoresList = this.ObtenerListaSQL<NombresColaboradores>(query).ToList();
 
@@ -184,7 +184,7 @@ namespace MemoryClubForms.BusinessBO
             
             if (!(string.IsNullOrEmpty(Pdesde)) & !(string.IsNullOrEmpty(Phasta)))
             {
-                condiciones += $" WHERE CONVERT(date, T.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ";
+                condiciones += $" AND CONVERT(date, T.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ";
             }
 
             //valido el tipo cliente
@@ -230,12 +230,16 @@ namespace MemoryClubForms.BusinessBO
 
             if (string.IsNullOrEmpty(Ptcliente)) //Cuando la consulta NO es por Tipo Cliente
             {
-                query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, C.estado, CONVERT(date, T.fecha,103) fechahora " +
-                        $"FROM Transporte T LEFT JOIN Cliente C ON T.fk_id_cliente = C.id_cliente  WHERE tipo_cliente = 'CLIENTE' " +
+                query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre, " +
+                        $"T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, C.estado, CONVERT(date, T.fecha,103) fechahora " +
+                        $"FROM Transporte T LEFT JOIN Cliente C ON T.fk_id_cliente = C.id_cliente  " +
+                        $"LEFT JOIN Transportista X ON T.id_transportista = X.id_transportista WHERE tipo_cliente = 'CLIENTE' " +
                         $"{condiciones}" +
                         $"UNION " +
-                        $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, B.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, B.estado, CONVERT(date, T.fecha,103) fechahora " +
-                        $"FROM Transporte T LEFT JOIN Colaborador B ON T.fk_id_cliente = B.id_colaborador  WHERE tipo_cliente = 'COLABORADOR' " +
+                        $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, B.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre, " +
+                        $"T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, B.estado, CONVERT(date, T.fecha,103) fechahora " +
+                        $"FROM Transporte T LEFT JOIN Colaborador B ON T.fk_id_cliente = B.id_colaborador " +
+                        $"LEFT JOIN Transportista X ON T.id_transportista = X.id_transportista WHERE tipo_cliente = 'COLABORADOR' " +
                         $"{condiciones_aux} ";
             }
             else //cuando se consulta por tipo cliente
@@ -243,13 +247,17 @@ namespace MemoryClubForms.BusinessBO
                 switch (Ptcliente)
                 {
                     case "CLIENTE":
-                        query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, C.estado, CONVERT(date, T.fecha,103) fechahora " +
+                        query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre, " +
+                            $"T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, C.estado, CONVERT(date, T.fecha,103) fechahora " +
                                 $"FROM Transporte T LEFT JOIN Cliente C ON T.fk_id_cliente = C.id_cliente " +
+                                $"LEFT JOIN Transportista X ON T.id_transportista = X.id_transportista  WHERE id_transporte >= 0 " +
                                 $"{condiciones} ORDER BY T.sucursal";
                         break;
                     case "COLABORADOR":
-                        query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, B.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, B.estado, CONVERT(date, T.fecha,103) fechahora " +
+                        query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, B.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre, " +
+                            $"T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, B.estado, CONVERT(date, T.fecha,103) fechahora " +
                                 $"FROM Transporte T LEFT JOIN Colaborador B ON T.fk_id_cliente = B.id_colaborador " +
+                                $"LEFT JOIN Transportista X ON T.id_transportista = X.id_transportista WHERE id_transporte >= 0 " +
                                 $"{condiciones_aux} ORDER BY T.sucursal";                   
                         break;
                 }
@@ -285,28 +293,35 @@ namespace MemoryClubForms.BusinessBO
         /// <returns></returns>
         public bool InsertarTransporte(TransporteModel PtransporteModel)
         {
-            bool aux = ValidarSucursalTransp(PtransporteModel); //solo puede insertar si es de su misma sucursal un usuario nivel > 1
-            if (aux == true)
-            { 
-                string query = $"INSERT INTO Transporte (fk_id_cliente, tipo_cliente, fecha, hora, id_transportista, entrada_salida, observacion, sucursal, usuario, fecha_mod) " +
-                           $"VALUES ({PtransporteModel.Fk_id_cliente}, '{PtransporteModel.Tipo_cliente}', '{PtransporteModel.Fecha}', '{PtransporteModel.Hora}', " +
-                           $"{PtransporteModel.Id_transportista}, '{PtransporteModel.Entrada_salida}', '{PtransporteModel.Observacion}', {PtransporteModel.Sucursal}, " +
-                           $"'{PtransporteModel.Usuario}', '{PtransporteModel.Fecha_mod}')";
-
-                try
-                {
-                    bool execute = SQLConexionDataBase.Execute(query);
-                    return execute;
-                }
-                catch (SqlException ex)
-                {
-                    Console.WriteLine("Error al insertar  Transporte", ex.Message);
-                    return false;
-                }
+            string msg = PtransporteModel.Validate(PtransporteModel);
+            if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
+            {
+                return false;
             }
             else
-            { return false; }
+            {
+                bool aux = ValidarSucursalTransp(PtransporteModel); //solo puede insertar si es de su misma sucursal un usuario nivel > 1
+                if (aux == true)
+                {
+                    string query = $"INSERT INTO Transporte (fk_id_cliente, tipo_cliente, fecha, hora, id_transportista, entrada_salida, observacion, sucursal, usuario, fecha_mod) " +
+                               $"VALUES ({PtransporteModel.Fk_id_cliente}, '{PtransporteModel.Tipo_cliente}', '{PtransporteModel.Fecha}', '{PtransporteModel.Hora}', " +
+                               $"{PtransporteModel.Id_transportista}, '{PtransporteModel.Entrada_salida}', '{PtransporteModel.Observacion}', {PtransporteModel.Sucursal}, " +
+                               $"'{PtransporteModel.Usuario}', '{PtransporteModel.Fecha_mod}')";
 
+                    try
+                    {
+                        bool execute = SQLConexionDataBase.Execute(query);
+                        return execute;
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine("Error al insertar  Transporte", ex.Message);
+                        return false;
+                    }
+                }
+                else
+                { return false; }
+            }
         }
       
         /// <summary>
@@ -316,25 +331,33 @@ namespace MemoryClubForms.BusinessBO
         /// <returns></returns>
         public bool ActualizarTransporte(TransporteModel PtransporteModel)
         {
-            bool aux = ValidarSucursalTransp(PtransporteModel); //solo puede insertar si es de su misma sucursal un usuario nivel > 1
-            if (aux == true)
+            string msg = PtransporteModel.Validate(PtransporteModel);
+            if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
             {
-                string query = $"UPDATE Transporte SET fecha = '{PtransporteModel.Fecha}', hora = '{PtransporteModel.Hora}', entrada_salida = '{PtransporteModel.Entrada_salida}', " +
-                               $"observacion = '{PtransporteModel.Observacion}', usuario = '{PtransporteModel.Usuario}', fecha_mod = '{PtransporteModel.Fecha_mod}' " +
-                               $"WHERE id_transporte = {PtransporteModel.Id_transporte}";
-                try
-                {
-                    bool execute = SQLConexionDataBase.Execute(query);
-                    return execute;
-                }
-                catch (SqlException ex)
-                {
-                    Console.WriteLine("Error al actualizar Transporte", ex.Message);
-                    return false;
-                }
+                return false;
             }
             else
-            { return false;  }
+            {
+                bool aux = ValidarSucursalTransp(PtransporteModel); //solo puede insertar si es de su misma sucursal un usuario nivel > 1
+                if (aux == true)
+                {
+                    string query = $"UPDATE Transporte SET fecha = '{PtransporteModel.Fecha}', hora = '{PtransporteModel.Hora}', entrada_salida = '{PtransporteModel.Entrada_salida}', " +
+                                   $"observacion = '{PtransporteModel.Observacion}', usuario = '{PtransporteModel.Usuario}', fecha_mod = '{PtransporteModel.Fecha_mod}' " +
+                                   $"WHERE id_transporte = {PtransporteModel.Id_transporte}";
+                    try
+                    {
+                        bool execute = SQLConexionDataBase.Execute(query);
+                        return execute;
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine("Error al actualizar Transporte", ex.Message);
+                        return false;
+                    }
+                }
+                else
+                { return false; }
+            }
         }
 
         /// <summary>
@@ -369,6 +392,7 @@ namespace MemoryClubForms.BusinessBO
         {
             public int Id_Cliente { get; set; }
             public string nombre { get; set; }
+            public int Sucursal { get; set; }
         }
         /// <summary>
         /// Model List de los Tipos de Clientes
@@ -401,6 +425,7 @@ namespace MemoryClubForms.BusinessBO
         {
             public int Id_colaborador { get; set; }
             public string nombre { get; set; }
+            public int Sucursal { get; set; }
         }
         //List Model de los códigos de estado de clientes
         public class CodigosEstados

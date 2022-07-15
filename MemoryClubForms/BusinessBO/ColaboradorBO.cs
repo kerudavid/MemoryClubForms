@@ -148,34 +148,41 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>True/False</returns>
         public bool InsertaColaborador(ColaboradorModel PcolaboradorModel)
         {
-            bool valida = this.ValidaNivelColab(); //solo nivel administrador puede insertar colaborador
-            if (valida)
+            string msg = PcolaboradorModel.Validate(PcolaboradorModel);
+            if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
             {
-                bool aux = this.ValidaDuplicadoColab(PcolaboradorModel); //valida q' no se duplique la cedula
-                if (aux)
+                return false;
+            }
+            else
+            {
+                bool valida = this.ValidaNivelColab(); //solo nivel administrador puede insertar colaborador
+                if (valida)
                 {
-                    string query = $"INSERT INTO Colaborador (sucursal, cedula, nombre, direccion, telefono, cargo, estado, observacion, usuario, fecha_mod ) " +
-                                   $" VALUES ({PcolaboradorModel.Sucursal}, '{PcolaboradorModel.Cedula}', '{PcolaboradorModel.Nombre}', '{PcolaboradorModel.Direccion}', " +
-                                   $"'{PcolaboradorModel.Telefono}', '{PcolaboradorModel.Cargo}', '{PcolaboradorModel.Estado}', '{PcolaboradorModel.Observacion}', " +
-                                   $"'{PcolaboradorModel.Usuario}', '{PcolaboradorModel.Fecha_mod}')";
+                    bool aux = this.ValidaDuplicadoColab(PcolaboradorModel); //valida q' no se duplique la cedula
+                    if (aux)
+                    {
+                        string query = $"INSERT INTO Colaborador (sucursal, cedula, nombre, direccion, telefono, cargo, estado, observacion, usuario, fecha_mod ) " +
+                                       $" VALUES ({PcolaboradorModel.Sucursal}, '{PcolaboradorModel.Cedula}', '{PcolaboradorModel.Nombre}', '{PcolaboradorModel.Direccion}', " +
+                                       $"'{PcolaboradorModel.Telefono}', '{PcolaboradorModel.Cargo}', '{PcolaboradorModel.Estado}', '{PcolaboradorModel.Observacion}', " +
+                                       $"'{PcolaboradorModel.Usuario}', '{PcolaboradorModel.Fecha_mod}')";
 
-                    try
-                    {
-                        bool execute = SQLConexionDataBase.Execute(query);
-                        return execute;
+                        try
+                        {
+                            bool execute = SQLConexionDataBase.Execute(query);
+                            return execute;
+                        }
+                        catch (SqlException ex)
+                        {
+                            Console.WriteLine("Error al insertar  Colaborador", ex.Message);
+                            return false;
+                        }
                     }
-                    catch (SqlException ex)
-                    {
-                        Console.WriteLine("Error al insertar  Colaborador", ex.Message);
-                        return false;
-                    }
+                    else
+                    { return false; }
                 }
                 else
                 { return false; }
             }
-            else
-            {return false; }
-
         }
 
         /// <summary>
@@ -185,26 +192,34 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>true/false</returns>
         public bool ActualizarColaborador(ColaboradorModel PcolaboradorModel)
         {
-            bool valida = this.ValidaNivelColab(); //solo nivel administrador puede modificar colaborador
-            if (valida)
+            string msg = PcolaboradorModel.Validate(PcolaboradorModel);
+            if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
             {
-                string query = $"UPDATE Colaborador SET direccion = '{PcolaboradorModel.Direccion}', telefono = '{PcolaboradorModel.Telefono}', " +
-                               $"cargo = '{PcolaboradorModel.Cargo}', estado = '{PcolaboradorModel.Estado}', observacion = '{PcolaboradorModel.Observacion}', " +
-                               $"usuario = '{PcolaboradorModel.Usuario}', fecha_mod = '{PcolaboradorModel.Fecha_mod}' WHERE id_colaborador = {PcolaboradorModel.Id_colaborador}";
-
-                try
-                {
-                    bool execute = SQLConexionDataBase.Execute(query);
-                    return execute;
-                }
-                catch (SqlException ex)
-                {
-                    Console.WriteLine("Error al actualizar Colaborador", ex.Message);
-                    return false;
-                }
+                return false;
             }
             else
-            { return false;  }
+            {
+                bool valida = this.ValidaNivelColab(); //solo nivel administrador puede modificar colaborador
+                if (valida)
+                {
+                    string query = $"UPDATE Colaborador SET direccion = '{PcolaboradorModel.Direccion}', telefono = '{PcolaboradorModel.Telefono}', " +
+                                   $"cargo = '{PcolaboradorModel.Cargo}', estado = '{PcolaboradorModel.Estado}', observacion = '{PcolaboradorModel.Observacion}', " +
+                                   $"usuario = '{PcolaboradorModel.Usuario}', fecha_mod = '{PcolaboradorModel.Fecha_mod}' WHERE id_colaborador = {PcolaboradorModel.Id_colaborador}";
+
+                    try
+                    {
+                        bool execute = SQLConexionDataBase.Execute(query);
+                        return execute;
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine("Error al actualizar Colaborador", ex.Message);
+                        return false;
+                    }
+                }
+                else
+                { return false; }
+            }
         }
 
         /// <summary>

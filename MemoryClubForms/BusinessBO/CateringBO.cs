@@ -26,11 +26,11 @@ namespace MemoryClubForms.BusinessBO
 
             if (nivel <= 1)
             {
-                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE estado <> \'I\'";
+                query = $"SELECT id_Cliente, nombre, sucursal FROM Cliente WHERE estado <> \'I\'";
             }
             else
             {
-                query = $"SELECT id_Cliente, nombre FROM Cliente WHERE sucursal = {sucursal} AND estado <> \'I\'";
+                query = $"SELECT id_Cliente, nombre, sucursal FROM Cliente WHERE sucursal = {sucursal} AND estado <> \'I\'";
             }
 
             List<NombresClientes> nombresList = new List<NombresClientes>();
@@ -95,7 +95,7 @@ namespace MemoryClubForms.BusinessBO
         public List<NombresColaboradores> LoadNombresColaboradores()
         {
             string query = "";
-            query = $"SELECT id_colaborador, nombre FROM Colaborador WHERE estado = \'A\'";
+            query = $"SELECT id_colaborador, nombre, sucursal FROM Colaborador WHERE estado = \'A\'";
             List<NombresColaboradores> nombrescolaboradoresList = new List<NombresColaboradores>();
             nombrescolaboradoresList = this.ObtenerListaSQL<NombresColaboradores>(query).ToList();
 
@@ -270,27 +270,34 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>bool TRUE/FALSE</returns>
         public bool InsertarCatering(CateringModel PcateringModel)
         {
-            bool aux = ValidarSucursalCate(PcateringModel); //valida que colaborador pueda registrar catering si es de la misma sucursal si no es de nivel <= 1
-            if (aux == true)
+            string msg = PcateringModel.Validate(PcateringModel);
+            if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
             {
-                string query = $"INSERT INTO Catering (fk_id_cliente, tipo_cliente, tipo_menu, fecha, hora, observacion, sucursal, usuario, fecha_mod) " +
-                              $"VALUES ({PcateringModel.Fk_id_cliente}, '{PcateringModel.Tipo_cliente}', '{PcateringModel.Tipo_menu}', '{PcateringModel.Fecha}', '{PcateringModel.Hora}', " +
-                              $"'{PcateringModel.Observacion}', {PcateringModel.Sucursal}, '{PcateringModel.Usuario}', '{PcateringModel.Fecha_mod}')";
-
-                try
-                {
-                    bool execute = SQLConexionDataBase.Execute(query);
-                    return execute;
-                }
-                catch (SqlException ex)
-                {
-                    Console.WriteLine("Error al insertar  catering", ex.Message);
-                    return false;
-                }
+                return false;
             }
             else
-            { return false; }
-            
+            {
+                bool aux = ValidarSucursalCate(PcateringModel); //valida que colaborador pueda registrar catering si es de la misma sucursal si no es de nivel <= 1
+                if (aux == true)
+                {
+                    string query = $"INSERT INTO Catering (fk_id_cliente, tipo_cliente, tipo_menu, fecha, hora, observacion, sucursal, usuario, fecha_mod) " +
+                                  $"VALUES ({PcateringModel.Fk_id_cliente}, '{PcateringModel.Tipo_cliente}', '{PcateringModel.Tipo_menu}', '{PcateringModel.Fecha}', '{PcateringModel.Hora}', " +
+                                  $"'{PcateringModel.Observacion}', {PcateringModel.Sucursal}, '{PcateringModel.Usuario}', '{PcateringModel.Fecha_mod}')";
+
+                    try
+                    {
+                        bool execute = SQLConexionDataBase.Execute(query);
+                        return execute;
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine("Error al insertar  catering", ex.Message);
+                        return false;
+                    }
+                }
+                else
+                { return false; }
+            }
         }
         /// <summary>
         /// ACTUALIZA UN REGISTRO DE CATERING
@@ -299,25 +306,33 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>bool True/False</returns>
         public bool ActualizarCatering(CateringModel PcateringModel)
         {
-            bool aux = ValidarSucursalCate(PcateringModel); //valida que colaborador pueda modificar catering si es de la misma sucursal si no es de nivel <= 1
-            if (aux == true)
+            string msg = PcateringModel.Validate(PcateringModel);
+            if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
             {
-                string query = $"UPDATE Catering SET tipo_menu = '{PcateringModel.Tipo_menu}', hora = '{PcateringModel.Hora}', observacion = '{PcateringModel.Observacion}', " +
-                           $"usuario = '{PcateringModel.Usuario}', fecha_mod = '{PcateringModel.Fecha_mod}' WHERE id_catering = {PcateringModel.Id_catering}";
-
-                try
-                {
-                    bool execute = SQLConexionDataBase.Execute(query);
-                    return execute;
-                }
-                catch (SqlException ex)
-                {
-                    Console.WriteLine("Error al actualizar catering", ex.Message);
-                    return false;
-                }
+                return false;
             }
             else
-            { return false; }
+            {
+                bool aux = ValidarSucursalCate(PcateringModel); //valida que colaborador pueda modificar catering si es de la misma sucursal si no es de nivel <= 1
+                if (aux == true)
+                {
+                    string query = $"UPDATE Catering SET tipo_menu = '{PcateringModel.Tipo_menu}', hora = '{PcateringModel.Hora}', observacion = '{PcateringModel.Observacion}', " +
+                               $"usuario = '{PcateringModel.Usuario}', fecha_mod = '{PcateringModel.Fecha_mod}' WHERE id_catering = {PcateringModel.Id_catering}";
+
+                    try
+                    {
+                        bool execute = SQLConexionDataBase.Execute(query);
+                        return execute;
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine("Error al actualizar catering", ex.Message);
+                        return false;
+                    }
+                }
+                else
+                { return false; }
+            }
         }
         /// <summary>
         /// ELIMINA UN REGISTRO DE CATERING
@@ -352,6 +367,7 @@ namespace MemoryClubForms.BusinessBO
         {
             public int Id_Cliente { get; set; }
             public string nombre { get; set; }
+            public int Sucursal { get; set; }
         }
         /// <summary>
         /// Model List para los tipos de clientes
@@ -375,6 +391,7 @@ namespace MemoryClubForms.BusinessBO
         {
             public int Id_colaborador { get; set; }
             public string nombre { get; set; }
+            public int Sucursal { get; set; }
         }
         //List Model de los códigos de estado de clientes
         public class CodigosEstados
