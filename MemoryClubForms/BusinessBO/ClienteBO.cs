@@ -303,26 +303,34 @@ namespace MemoryClubForms.BusinessBO
             bool valida = this.ValidaNivelCliente();
             if (valida == true)
             {
-                string query = $"UPDATE Cliente SET apodo = '{clienteModel.Apodo}', fecha_free = '{clienteModel.Fecha_free}', estado = '{clienteModel.Estado}', aula = {clienteModel.Aula}, " +
-                               $"dia_nacim = {clienteModel.Dia_nacim}, mes_nacim = {clienteModel.Mes_nacim}, anio_nacim = {clienteModel.Anio_nacim}, telefono = '{clienteModel.Telefono}', " +
-                               $"nombre_contacto = '{clienteModel.Nombre_contacto}', parentesco_contacto = '{clienteModel.Parentesco_contacto}', telefono_contacto = '{clienteModel.Telefono_contacto}', " +
-                               $"celular_contacto = '{clienteModel.Celular_contacto}', encargado_pago = '{clienteModel.Encargado_pago}', parentesco_pago = '{clienteModel.Parentesco_pago}', " +
-                               $"telefono_pago = '{clienteModel.Telefono_pago}', cedula_pago = '{clienteModel.Cedula_pago}', celular_pago = '{clienteModel.Celular_pago}', email_pago = '{clienteModel.Email_pago}', " +
-                               $"medio_pago = '{clienteModel.Medio_pago}', pariente_transp = '{clienteModel.Pariente_transp}', direccion = '{clienteModel.Direccion}', toma_transp = '{clienteModel.Toma_transp}', " +
-                               $"id_transportista = '{clienteModel.Id_transportista}', retirarse_solo = '{clienteModel.Retirarse_solo}', nombre_factu = '{clienteModel.Nombre_factu}', " +
-                               $"cedula_factu = '{clienteModel.Cedula_factu}', direccion_factu = '{clienteModel.Direccion_factu}', email_factu = '{clienteModel.Email_factu}', sucursal = {clienteModel.Sucursal}, " +
-                               $"observacion = '{clienteModel.Observacion}', usuario = '{clienteModel.Usuario}', fecha_mod = '{clienteModel.Fecha_mod}' " +
-                               $"WHERE id_cliente = {clienteModel.Id_cliente}";
-
-                try
+                string msg = clienteModel.Validate(clienteModel);
+                if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
                 {
-                    bool execute = SQLConexionDataBase.Execute(query);
-                    return execute;
-                }
-                catch (SqlException ex)
-                {
-                    Console.WriteLine("Error al actualizar catering", ex.Message);
                     return false;
+                }
+                else
+                {
+                    string query = $"UPDATE Cliente SET apodo = '{clienteModel.Apodo}', fecha_free = '{clienteModel.Fecha_free}', estado = '{clienteModel.Estado}', aula = {clienteModel.Aula}, " +
+                                   $"dia_nacim = {clienteModel.Dia_nacim}, mes_nacim = {clienteModel.Mes_nacim}, anio_nacim = {clienteModel.Anio_nacim}, telefono = '{clienteModel.Telefono}', " +
+                                   $"nombre_contacto = '{clienteModel.Nombre_contacto}', parentesco_contacto = '{clienteModel.Parentesco_contacto}', telefono_contacto = '{clienteModel.Telefono_contacto}', " +
+                                   $"celular_contacto = '{clienteModel.Celular_contacto}', encargado_pago = '{clienteModel.Encargado_pago}', parentesco_pago = '{clienteModel.Parentesco_pago}', " +
+                                   $"telefono_pago = '{clienteModel.Telefono_pago}', cedula_pago = '{clienteModel.Cedula_pago}', celular_pago = '{clienteModel.Celular_pago}', email_pago = '{clienteModel.Email_pago}', " +
+                                   $"medio_pago = '{clienteModel.Medio_pago}', pariente_transp = '{clienteModel.Pariente_transp}', direccion = '{clienteModel.Direccion}', toma_transp = '{clienteModel.Toma_transp}', " +
+                                   $"id_transportista = '{clienteModel.Id_transportista}', retirarse_solo = '{clienteModel.Retirarse_solo}', nombre_factu = '{clienteModel.Nombre_factu}', " +
+                                   $"cedula_factu = '{clienteModel.Cedula_factu}', direccion_factu = '{clienteModel.Direccion_factu}', email_factu = '{clienteModel.Email_factu}', sucursal = {clienteModel.Sucursal}, " +
+                                   $"observacion = '{clienteModel.Observacion}', usuario = '{clienteModel.Usuario}', fecha_mod = '{clienteModel.Fecha_mod}' " +
+                                   $"WHERE id_cliente = {clienteModel.Id_cliente}";
+
+                    try
+                    {
+                        bool execute = SQLConexionDataBase.Execute(query);
+                        return execute;
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine("Error al actualizar catering", ex.Message);
+                        return false;
+                    }
                 }
             }
             else

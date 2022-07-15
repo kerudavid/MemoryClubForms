@@ -50,6 +50,7 @@
     <Compile Include="Botones Personalizados\OurButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="BusinessBO\AlimentacionBO.cs" />
     <Compile Include="BusinessBO\AsistenciaBO.cs" />
     <Compile Include="BusinessBO\CateringBO.cs" />
     <Compile Include="BusinessBO\ClienteBO.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Forms\TransporteForm.Designer.cs">
       <DependentUpon>TransporteForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\AlimentacionModel.cs" />
     <Compile Include="Models\AsistenciaModel.cs" />
     <Compile Include="Models\CateringModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />

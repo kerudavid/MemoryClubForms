@@ -197,7 +197,7 @@ namespace MemoryClubForms.BusinessBO
             //valido el id_transportista
             if (Pidtransportista > 0)
             {
-                condiciones += $" AND T.id_transportista = '{Pidtransportista}' ";
+                condiciones += $" AND T.id_transportista = {Pidtransportista} ";
             }
             //valido la sucursal
             if (Psucursal > 0)

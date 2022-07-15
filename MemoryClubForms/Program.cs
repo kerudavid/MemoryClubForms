@@ -19,26 +19,21 @@ namespace MemoryClubForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            TransporteBO cliente = new TransporteBO();
-            TransporteModel model = new TransporteModel();
-            //model.Id_transporte = 
-            model.Fk_id_cliente = 4;
-            model.Tipo_cliente = "CLIENTE";
-            model.Fecha = "14/07/2022";
-            model.Hora = "";
-            model.Id_transportista = 0;
-            model.Entrada_salida = "ENTRADA";
-            model.Observacion = "Prueba";
-            model.Sucursal = 0;
+            AlimentacionBO alimentacion = new AlimentacionBO();
+            AlimentacionModel model = new AlimentacionModel();
+            //model.Id_alimentacion = 
+           /* model.Fk_id_cliente = 2;
+            model.Alimento_restringido = "MARISCOS";
+            model.Observacion = "Prueba insertar";
             model.Usuario = "mmoreta";
-            model.Fecha_mod = "14/07/2022";
-                      
-
-            cliente.InsertarTransporte(model);
+            model.Fecha_mod = "15/07/2022";*/
 
 
+            alimentacion.ConsultaAlimentacion(1, "");
 
-            Application.Run(new LoginForm());
+
+
+           // Application.Run(new LoginForm());
        
         }
     }
