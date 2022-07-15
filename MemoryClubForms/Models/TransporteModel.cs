@@ -18,6 +18,7 @@ namespace MemoryClubForms.Models
         public string Fecha { get; set;}
         public string Hora { get; set;}
         public int Id_transportista { get; set;}
+        public string Nombre_tra { get; set; }
         public string Entrada_salida { get; set;}
         public string Observacion { get; set;}
         public int Sucursal { get; set;}

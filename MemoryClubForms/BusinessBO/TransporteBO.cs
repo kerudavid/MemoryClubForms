@@ -230,13 +230,13 @@ namespace MemoryClubForms.BusinessBO
 
             if (string.IsNullOrEmpty(Ptcliente)) //Cuando la consulta NO es por Tipo Cliente
             {
-                query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre, " +
+                query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre as nombre_tra, " +
                         $"T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, C.estado, CONVERT(date, T.fecha,103) fechahora " +
                         $"FROM Transporte T LEFT JOIN Cliente C ON T.fk_id_cliente = C.id_cliente  " +
                         $"LEFT JOIN Transportista X ON T.id_transportista = X.id_transportista WHERE tipo_cliente = 'CLIENTE' " +
                         $"{condiciones}" +
                         $"UNION " +
-                        $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, B.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre, " +
+                        $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, B.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre as nombre_tra, " +
                         $"T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, B.estado, CONVERT(date, T.fecha,103) fechahora " +
                         $"FROM Transporte T LEFT JOIN Colaborador B ON T.fk_id_cliente = B.id_colaborador " +
                         $"LEFT JOIN Transportista X ON T.id_transportista = X.id_transportista WHERE tipo_cliente = 'COLABORADOR' " +
@@ -247,14 +247,14 @@ namespace MemoryClubForms.BusinessBO
                 switch (Ptcliente)
                 {
                     case "CLIENTE":
-                        query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre, " +
+                        query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre as nombre_tra, " +
                             $"T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, C.estado, CONVERT(date, T.fecha,103) fechahora " +
                                 $"FROM Transporte T LEFT JOIN Cliente C ON T.fk_id_cliente = C.id_cliente " +
                                 $"LEFT JOIN Transportista X ON T.id_transportista = X.id_transportista  WHERE id_transporte >= 0 " +
                                 $"{condiciones} ORDER BY T.sucursal";
                         break;
                     case "COLABORADOR":
-                        query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, B.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre, " +
+                        query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, B.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre as nombre_tra, " +
                             $"T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, B.estado, CONVERT(date, T.fecha,103) fechahora " +
                                 $"FROM Transporte T LEFT JOIN Colaborador B ON T.fk_id_cliente = B.id_colaborador " +
                                 $"LEFT JOIN Transportista X ON T.id_transportista = X.id_transportista WHERE id_transporte >= 0 " +

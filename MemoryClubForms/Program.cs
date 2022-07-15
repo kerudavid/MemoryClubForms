@@ -60,7 +60,7 @@ namespace MemoryClubForms
 
             cliente.EliminarCliente(model);*/
 
-            cliente.ConsultaTransporte("", "", "", 0, 0, 0, "");
+            cliente.ConsultaTransporte("", "", "CLIENTE", 0, 0, 0, "");
 
 
 
