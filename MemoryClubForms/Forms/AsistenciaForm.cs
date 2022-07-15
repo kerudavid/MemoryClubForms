@@ -40,6 +40,12 @@ namespace MemoryClubForms.Forms
 
         public static List<NombresUsuarios> nombresUsuariosList = new List<NombresUsuarios>();
 
+        public static List<CodigosSucursales> codigosSucursalesList = new List<CodigosSucursales>();
+
+        public static List<CodigosEstados> codigosEstadosList = new List<CodigosEstados>();
+
+        public static int sucursalUser = VariablesGlobales.sucursal;
+
         public static bool actionsUse = true;
 
         //Contiene los datos de la ultima consulta de asistencia.
@@ -91,22 +97,7 @@ namespace MemoryClubForms.Forms
                     grdAsistencia.ReadOnly = true;
                 }
 
-                bool response = LoadNombresClientes();
-
-                if (!response)
-                {
-                    MessageBox.Show("No se pudo cargar el nombre de los clientes para realizar filtros","Aviso",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
-                    return;
-                }
-                foreach (var item in nombresClientesList)
-                {
-                    cbxFiltroNombreCliente.Items.Add(item.nombre);
-                }
-
-                cbxEstadoCliente.Items.Add("Activo");
-                cbxEstadoCliente.Items.Add("Prueba");
-                cbxEstadoCliente.Items.Add("Inactivo");
-
+                CargarFilterElements();
 
             }
             catch (Exception ex)
@@ -114,6 +105,36 @@ namespace MemoryClubForms.Forms
                 MessageBox.Show("No se pudo cargar el nombre de los clientes para realizar filtros"+ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
                 
+        }
+
+        private void CargarFilterElements()
+        {
+            bool response = LoadNombresClientes();
+
+            bool responseSucursal = LoadSucursales();
+
+            bool responseEstado = LoadEstados();
+
+            if (!response||!responseSucursal|| !responseEstado)
+            {
+                MessageBox.Show("No se pudo cargar la información para realizar filtros", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            foreach (var item in nombresClientesList)
+            {
+                cbxFiltroNombreCliente.Items.Add(item.nombre);
+            }
+           
+            foreach (var item in codigosSucursalesList)
+            {
+                cbxSucursal.Items.Add(item.Sucursales);
+            }
+
+            foreach (var item in codigosEstadosList)
+            {
+                cbxEstadoCliente.Items.Add(item.Descripcion);
+            }
         }
 
         /// <summary>
@@ -172,7 +193,14 @@ namespace MemoryClubForms.Forms
 
             cbxEstadoCliente.Items.Clear();
 
+            cbxSucursal.Items.Clear();
+            cbxSucursal.Text = "";
+
             ckbFiltrarFechas.Checked = false;
+
+            dtpDesde.Value = DateTime.Today;
+
+            dtmHasta.Value = DateTime.Today;
         }
 
         /// <summary>
@@ -199,21 +227,7 @@ namespace MemoryClubForms.Forms
                     grdAsistencia.ReadOnly = true;
                 }
 
-                bool response = LoadNombresClientes();
-
-                if (!response)
-                {
-                    MessageBox.Show("Aviso, no se pudo cargar el nombre de los clientes para realizar filtros");
-                    return;
-                }
-                foreach (var item in nombresClientesList)
-                {
-                    cbxFiltroNombreCliente.Items.Add(item.nombre);
-                }
-
-                cbxEstadoCliente.Items.Add("Activo");
-                cbxEstadoCliente.Items.Add("Prueba");
-                cbxEstadoCliente.Items.Add("Inactivo");
+                CargarFilterElements();
             } 
             catch (Exception ex)
             {
@@ -264,6 +278,37 @@ namespace MemoryClubForms.Forms
             }
 
         }
+
+        public bool LoadSucursales()
+        {
+            
+            try
+            {
+                codigosSucursalesList = new List<CodigosSucursales>();
+                AsistenciaBO asistenciaBO = new AsistenciaBO();
+                codigosSucursalesList = asistenciaBO.LoadSucursales();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool LoadEstados()
+        {
+            try
+            {
+                codigosEstadosList = new List<CodigosEstados>();
+                AsistenciaBO asistenciaBO = new AsistenciaBO();
+                codigosEstadosList = asistenciaBO.LoadEstados();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         #endregion
 
         #region limpiar / resetear elementos visibles
@@ -306,8 +351,7 @@ namespace MemoryClubForms.Forms
 
             txtObservciones.Text = "";
 
-            cbxSucursal.Items.Clear();
-            cbxSucursal.Text = "";
+            
 
         }
 
@@ -416,7 +460,7 @@ namespace MemoryClubForms.Forms
         /// 
         private bool ValidarInformacion()
         {
-            if (VariablesGlobales.Nivel > 1 && VariablesGlobales.sucursal != int.Parse(cbxSucursal.SelectedItem.ToString()))
+            if (VariablesGlobales.Nivel > 1)
             {
                 MessageBox.Show("Su usuario no tiene privilegios necesarios para ingresar asistencias de otra sucursal.","Aviso",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
                 return false;
@@ -424,12 +468,6 @@ namespace MemoryClubForms.Forms
             if (cbxNombresClientes.SelectedItem == null)
             {
                 MessageBox.Show("Seleccione el nombre del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-            }
-
-            if (cbxSucursal.SelectedItem == null)
-            {
-                MessageBox.Show("Seleccione la sucursal.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
 
@@ -521,12 +559,12 @@ namespace MemoryClubForms.Forms
                     AsistenciaModel asistenciaModel = new AsistenciaModel();
 
                     var nombreCliente = cbxNombresClientes.SelectedItem.ToString();
-
+                    
                     asistenciaModel.Fk_id_cliente = nombresClientesList.Where(x => x.nombre == nombreCliente).Select(x => x.Id_Cliente).FirstOrDefault();
                     asistenciaModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");
                     asistenciaModel.Hora = txtHora.Text;
                     asistenciaModel.Observacion = txtObservciones.Text;
-                    asistenciaModel.Sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
+                    asistenciaModel.Sucursal = nombresClientesList.Where(x => x.nombre == nombreCliente).Select(x => x.Sucursal).FirstOrDefault();
                     asistenciaModel.Usuario = VariablesGlobales.usuario.ToString();
                     asistenciaModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
 
@@ -562,7 +600,7 @@ namespace MemoryClubForms.Forms
                     asistenciaModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");
                     asistenciaModel.Hora = txtHora.Text;
                     asistenciaModel.Observacion = txtObservciones.Text;
-                    asistenciaModel.Sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
+                    asistenciaModel.Sucursal = nombresClientesList.Where(x => x.nombre == nombreCliente).Select(x => x.Sucursal).FirstOrDefault();
                     asistenciaModel.Usuario = VariablesGlobales.usuario.ToString();
                     asistenciaModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
 
@@ -650,9 +688,6 @@ namespace MemoryClubForms.Forms
 
                 txtHora.Text = "08:15";
 
-                //La sucursal deberia tener su propia tabla no datos quemados
-                cbxSucursal.Items.Add("1");
-
 
             }
             catch (Exception ex)
@@ -678,16 +713,7 @@ namespace MemoryClubForms.Forms
                     AsistenciaBO asistenciaBO = new AsistenciaBO();
                     AsistenciaModel asistenciaModel = new AsistenciaModel();
 
-                    string nombreCliente = cbxNombresClientes.SelectedItem.ToString();
                     asistenciaModel.Id_asistencia = idAsistenciaSelected;
-                    asistenciaModel.Fk_id_cliente = idClienteSelected;
-                    asistenciaModel.Nombre = nombreCliente;
-                    asistenciaModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");
-                    asistenciaModel.Hora = txtHora.Text;
-                    asistenciaModel.Observacion = txtObservciones.Text;
-                    asistenciaModel.Sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
-                    asistenciaModel.Usuario = VariablesGlobales.usuario.ToString();
-                    asistenciaModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
 
                     bool responseDB = asistenciaBO.EliminarAsistencia(idAsistenciaSelected);
                     if (!responseDB)
@@ -715,200 +741,64 @@ namespace MemoryClubForms.Forms
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-
-            AsistenciaBO asistenciaBO = new AsistenciaBO();
-
-            List<AsistenciaModel> asistenciaList = new List<AsistenciaModel>();
-
-            bool check = ckbFiltrarFechas.Checked;
-
-            asistenciaList = new List<AsistenciaModel>();
-            if (check && cbxFiltroNombreCliente.SelectedItem!=null && cbxEstadoCliente.SelectedItem != null)
+            try
             {
-                string nombre = cbxFiltroNombreCliente.SelectedItem.ToString();
+                AsistenciaBO asistenciaBO = new AsistenciaBO();
 
-                int idCliente = nombresClientesList.Where(x => x.nombre == nombre).Select(x => x.Id_Cliente).FirstOrDefault();
+                List<AsistenciaModel> asistenciaList = new List<AsistenciaModel>();
 
-                if (idCliente > 0)
-                {
-                    string estado = cbxEstadoCliente.SelectedItem.ToString();
+                bool check = ckbFiltrarFechas.Checked;
 
-                    string pEstado = null;
-
-                    if (estado == "Activo")
-                    {
-                        pEstado = "A";
-
-                    }
-                    else if (estado == "Prueba")
-                    {
-                        pEstado = "P";
-                    }
-                    else //estado = Inactivo
-                    {
-                        pEstado = "I";
-                    }
-
-                    asistenciaList = asistenciaBO.ConsultaAsistencia(dtpDesde.Value.ToString("dd/MM/yyyy"), dtmHasta.Value.ToString("dd/MM/yyyy"), 0, idCliente, pEstado);
-                    CargarInformacionFiltrada(asistenciaList);
-                }            
-            }
-            else if (cbxFiltroNombreCliente.SelectedItem == null && !check && cbxEstadoCliente.SelectedItem == null)
-            {
-                MessageBox.Show("No ha seleccionado parámetros para filtrar la información.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-            }else if (cbxFiltroNombreCliente.SelectedItem != null && !check && cbxEstadoCliente.SelectedItem == null)
-            {
-                string nombre = cbxFiltroNombreCliente.SelectedItem.ToString();
-
-                int idCliente = nombresClientesList.Where(x => x.nombre == nombre).Select(x => x.Id_Cliente).FirstOrDefault();
-
-                if (idCliente > 0)
-                {
-                    asistenciaList = asistenciaBO.ConsultaAsistencia(null,null, VariablesGlobales.sucursal, idCliente, null);
-                    CargarInformacionFiltrada(asistenciaList);
-                }
-
-            }else if (cbxFiltroNombreCliente.SelectedItem == null && check && cbxEstadoCliente.SelectedItem == null)
-            {
-                asistenciaList = asistenciaBO.ConsultaAsistencia(dtpDesde.Value.ToString("dd/MM/yyyy"), dtmHasta.Value.ToString("dd/MM/yyyy"),0, 0, null);
-                CargarInformacionFiltrada(asistenciaList);
-
-            }else if (cbxFiltroNombreCliente.SelectedItem == null && !check && cbxEstadoCliente.SelectedItem != null)
-            {
-                string estado = cbxEstadoCliente.SelectedItem.ToString();
-
-                string pEstado = null;
-
-                if (estado == "Activo")
-                {
-                    pEstado = "A";
-
-                }
-                else if (estado == "Prueba")
-                {
-                    pEstado = "P";
-                }
-                else //estado = Inactivo
-                {
-                    pEstado = "I";
-                }
-
-                asistenciaList = asistenciaBO.ConsultaAsistencia(null,null, 0, 0, pEstado);
-                CargarInformacionFiltrada(asistenciaList);
-
-            }else if (cbxFiltroNombreCliente.SelectedItem != null && !check && cbxEstadoCliente.SelectedItem != null)
-            {
-                string nombre = cbxFiltroNombreCliente.SelectedItem.ToString();
-
-                int idCliente = nombresClientesList.Where(x => x.nombre == nombre).Select(x => x.Id_Cliente).FirstOrDefault();
-
-                if (idCliente > 0)
-                {
-                    string estado = cbxEstadoCliente.SelectedItem.ToString();
-
-                    string pEstado = null;
-
-                    if (estado == "Activo")
-                    {
-                        pEstado = "A";
-
-                    }
-                    else if (estado == "Prueba")
-                    {
-                        pEstado = "P";
-                    }
-                    else //estado = Inactivo
-                    {
-                        pEstado = "I";
-                    }
-
-                    asistenciaList = asistenciaBO.ConsultaAsistencia(null,null, 0, idCliente, pEstado);
-                    CargarInformacionFiltrada(asistenciaList);
-                }
-
-            }else if (cbxFiltroNombreCliente.SelectedItem != null && check && cbxEstadoCliente.SelectedItem == null)
-            {
-
-                string nombre = cbxFiltroNombreCliente.SelectedItem.ToString();
-
-                int idCliente = nombresClientesList.Where(x => x.nombre == nombre).Select(x => x.Id_Cliente).FirstOrDefault();
-
-                if (idCliente > 0)
-                {
-                   
-                    asistenciaList = asistenciaBO.ConsultaAsistencia(dtpDesde.Value.ToString("dd/MM/yyyy"), dtmHasta.Value.ToString("dd/MM/yyyy"),0, idCliente, null);
-                    CargarInformacionFiltrada(asistenciaList);
-                }
-
-            } else if (cbxFiltroNombreCliente.SelectedItem == null && check && cbxEstadoCliente.SelectedItem != null)
-            {
-
-                string estado = cbxEstadoCliente.SelectedItem.ToString();
-
-                string pEstado = null;
-
-                if (estado == "Activo")
-                {
-                    pEstado = "A";
-
-                }
-                else if (estado == "Prueba")
-                {
-                    pEstado = "P";
-                }
-                else //estado = Inactivo
-                {
-                    pEstado = "I";
-                }
-
-                asistenciaList = asistenciaBO.ConsultaAsistencia(dtpDesde.Value.ToString("dd/MM/yyyy"), dtmHasta.Value.ToString("dd/MM/yyyy"), 0, 0, pEstado);
-                CargarInformacionFiltrada(asistenciaList);
-
-
-            }
-
-
-
-            /*
-
-            if (cbxFiltroNombreCliente.SelectedItem==null && check)
-            {
                 asistenciaList = new List<AsistenciaModel>();
-                asistenciaList = asistenciaBO.ConsultarPeriodoAsis(dtpDesde.Value.ToString("dd/MM/yyyy"), dtmHasta.Value.ToString("dd/MM/yyyy"));
-                FiltrarInformacion(asistenciaList);
-            }
-            else if(cbxFiltroNombreCliente.SelectedItem == null && !check)
-            {
-                MessageBox.Show("No ha seleccionado parámetros para filtrar la información.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
 
-            if (cbxFiltroNombreCliente.SelectedItem != null)
-            {
-                string nombre = cbxFiltroNombreCliente.SelectedItem.ToString();
 
-                int idCliente = nombresClientesList.Where(x => x.nombre == nombre).Select(x => x.Id_Cliente).FirstOrDefault();
+                string nombreCliente = null;
 
-                if (idCliente > 0)
+                if (cbxFiltroNombreCliente.SelectedItem != null)
                 {
-                    if (ckbFiltrarFechas.Checked)
-                    {
-                        asistenciaList = new List<AsistenciaModel>();
-                        asistenciaList = asistenciaBO.ConsultarPeriodoIdCliente(dtpDesde.Value.ToString("dd/MM/yyyy"), dtmHasta.Value.ToString("dd/MM/yyyy"), idCliente);
-                        FiltrarInformacion(asistenciaList);
-                    }
-                    else
-                    {
-                        asistenciaList = new List<AsistenciaModel>();
-                        asistenciaList = asistenciaBO.ConsultarIdclienteAsis(idCliente);
-                        FiltrarInformacion(asistenciaList);
-                    }
+                    nombreCliente = cbxFiltroNombreCliente.SelectedItem.ToString();
                 }
+
+                int idCliente = nombresClientesList.Where(x => x.nombre == nombreCliente).Select(x => x.Id_Cliente).FirstOrDefault();
+
+                string estadoCliente = null;
+                string estadoClienteCode = null;
+
+                if (cbxEstadoCliente.SelectedItem != null)
+                {
+                    estadoCliente = cbxEstadoCliente.SelectedItem.ToString();
+                }
+
+                estadoClienteCode = codigosEstadosList.Where(x => x.Descripcion == estadoCliente).Select(x => x.Estados).FirstOrDefault();
+
+                int sucursal = 0;
+
+                if (cbxSucursal.SelectedItem!=null)
+                {
+                    sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
+                }
+
+                string fechaDesde = null;
+                string fechaHasta = null;
+
+                if (check)
+                {
+                    fechaDesde = dtpDesde.Value.ToString("dd/MM/yyyy");
+                    fechaHasta = dtmHasta.Value.ToString("dd/MM/yyyy");
+                }
+
+                asistenciaList = asistenciaBO.ConsultaAsistencia(fechaDesde, fechaHasta, sucursal, idCliente, estadoClienteCode);
+
+                CargarInformacionFiltrada(asistenciaList);   
+
             }
-
-            */
-
-
+            catch (Exception ex)
+            {
+                ResetFiltersElements();
+                ReloadInformation();
+                MessageBox.Show("Alerta, No se pudo filtrar el registro\n" + ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            
 
         }
 
@@ -940,7 +830,6 @@ namespace MemoryClubForms.Forms
         {
 
             ReloadInformation();
-
         }
     }
 }

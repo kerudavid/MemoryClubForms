@@ -57,6 +57,7 @@
             this.cbxEstadoCliente = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.btnReiniciarFiltro = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.ckbFiltrarFechas = new System.Windows.Forms.CheckBox();
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -72,7 +73,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnEditar = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -290,7 +290,7 @@
             // 
             this.txtHora.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.txtHora.Enabled = false;
-            this.txtHora.Location = new System.Drawing.Point(344, 80);
+            this.txtHora.Location = new System.Drawing.Point(381, 79);
             this.txtHora.Name = "txtHora";
             this.txtHora.Size = new System.Drawing.Size(52, 20);
             this.txtHora.TabIndex = 23;
@@ -306,10 +306,9 @@
             // 
             // cbxSucursal
             // 
-            this.cbxSucursal.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.cbxSucursal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxSucursal.FormattingEnabled = true;
-            this.cbxSucursal.Location = new System.Drawing.Point(414, 80);
+            this.cbxSucursal.Location = new System.Drawing.Point(308, 47);
             this.cbxSucursal.Name = "cbxSucursal";
             this.cbxSucursal.Size = new System.Drawing.Size(50, 21);
             this.cbxSucursal.TabIndex = 25;
@@ -334,7 +333,9 @@
             this.pnlFiltro.Controls.Add(this.cbxEstadoCliente);
             this.pnlFiltro.Controls.Add(this.label9);
             this.pnlFiltro.Controls.Add(this.btnReiniciarFiltro);
+            this.pnlFiltro.Controls.Add(this.label5);
             this.pnlFiltro.Controls.Add(this.ckbFiltrarFechas);
+            this.pnlFiltro.Controls.Add(this.cbxSucursal);
             this.pnlFiltro.Controls.Add(this.btnFiltrar);
             this.pnlFiltro.Controls.Add(this.label8);
             this.pnlFiltro.Controls.Add(this.label7);
@@ -351,7 +352,7 @@
             // 
             this.cbxEstadoCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxEstadoCliente.FormattingEnabled = true;
-            this.cbxEstadoCliente.Location = new System.Drawing.Point(187, 47);
+            this.cbxEstadoCliente.Location = new System.Drawing.Point(161, 47);
             this.cbxEstadoCliente.Name = "cbxEstadoCliente";
             this.cbxEstadoCliente.Size = new System.Drawing.Size(121, 21);
             this.cbxEstadoCliente.TabIndex = 34;
@@ -360,7 +361,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(199, 14);
+            this.label9.Location = new System.Drawing.Point(158, 14);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(99, 17);
             this.label9.TabIndex = 33;
@@ -379,6 +380,17 @@
             this.btnReiniciarFiltro.Text = "Reiniciar";
             this.btnReiniciarFiltro.UseVisualStyleBackColor = false;
             this.btnReiniciarFiltro.Click += new System.EventHandler(this.btnReiniciarFiltro_Click);
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(305, 11);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(63, 17);
+            this.label5.TabIndex = 30;
+            this.label5.Text = "Sucursal";
             // 
             // ckbFiltrarFechas
             // 
@@ -468,8 +480,6 @@
             this.pnlActions.Controls.Add(this.lblAction);
             this.pnlActions.Controls.Add(this.panel6);
             this.pnlActions.Controls.Add(this.panel5);
-            this.pnlActions.Controls.Add(this.label5);
-            this.pnlActions.Controls.Add(this.cbxSucursal);
             this.pnlActions.Controls.Add(this.panel4);
             this.pnlActions.Controls.Add(this.label4);
             this.pnlActions.Controls.Add(this.label3);
@@ -548,17 +558,6 @@
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // label5
-            // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(411, 51);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(63, 17);
-            this.label5.TabIndex = 30;
-            this.label5.Text = "Sucursal";
-            // 
             // panel4
             // 
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -600,7 +599,7 @@
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(341, 51);
+            this.label3.Location = new System.Drawing.Point(378, 50);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 17);
             this.label3.TabIndex = 28;

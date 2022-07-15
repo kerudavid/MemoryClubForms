@@ -46,8 +46,6 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.cbxSucursal = new System.Windows.Forms.ComboBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnInsertar = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
@@ -124,8 +122,6 @@
             this.pnlActions.Controls.Add(this.label5);
             this.pnlActions.Controls.Add(this.panel6);
             this.pnlActions.Controls.Add(this.panel5);
-            this.pnlActions.Controls.Add(this.label9);
-            this.pnlActions.Controls.Add(this.cbxSucursal);
             this.pnlActions.Controls.Add(this.panel4);
             this.pnlActions.Controls.Add(this.label10);
             this.pnlActions.Controls.Add(this.label11);
@@ -275,27 +271,6 @@
             this.btnGuardar.Visible = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(347, 79);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(63, 17);
-            this.label9.TabIndex = 30;
-            this.label9.Text = "Sucursal";
-            // 
-            // cbxSucursal
-            // 
-            this.cbxSucursal.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.cbxSucursal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxSucursal.FormattingEnabled = true;
-            this.cbxSucursal.Location = new System.Drawing.Point(350, 101);
-            this.cbxSucursal.Name = "cbxSucursal";
-            this.cbxSucursal.Size = new System.Drawing.Size(50, 21);
-            this.cbxSucursal.TabIndex = 25;
-            // 
             // panel4
             // 
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -435,7 +410,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(345, 87);
+            this.label2.Location = new System.Drawing.Point(325, 87);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 17);
             this.label2.TabIndex = 37;
@@ -455,7 +430,7 @@
             // 
             this.cbxFiltroMenu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFiltroMenu.FormattingEnabled = true;
-            this.cbxFiltroMenu.Location = new System.Drawing.Point(348, 107);
+            this.cbxFiltroMenu.Location = new System.Drawing.Point(328, 107);
             this.cbxFiltroMenu.Name = "cbxFiltroMenu";
             this.cbxFiltroMenu.Size = new System.Drawing.Size(121, 21);
             this.cbxFiltroMenu.TabIndex = 35;
@@ -809,8 +784,6 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnGuardar;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox cbxSucursal;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button btnInsertar;
         private System.Windows.Forms.Button btnEditar;

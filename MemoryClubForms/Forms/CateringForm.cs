@@ -43,7 +43,7 @@ namespace MemoryClubForms.Forms
 
         public static List<CodigosSucursales> sucursalesList = new List<CodigosSucursales>();
 
-        List<string> estadoClienteList = new List<string>();
+        public static List<CodigosEstados> CodigosEstadosList = new List<CodigosEstados>();
 
         public static bool actionsInUse = true;
         public CateringForm()
@@ -123,7 +123,9 @@ namespace MemoryClubForms.Forms
 
             bool reponseColaboradores = LoadNombresColaboradores();
 
-            if (!responseClientes || !responseTipoCliente || !responseTipoMenu || !responseSucursales||!reponseColaboradores)
+            bool responseEstados = LoadEstados();
+
+            if (!responseClientes || !responseTipoCliente || !responseTipoMenu || !responseSucursales||!reponseColaboradores || !responseEstados)
             {
                  return false;
             }
@@ -157,9 +159,10 @@ namespace MemoryClubForms.Forms
                 cbxFiltroSucursal.Items.Add(item.Sucursales.ToString());
             }
 
-            cbxFiltroEstadoCliente.Items.Add("Activo");
-            cbxFiltroEstadoCliente.Items.Add("Prueba");
-            cbxFiltroEstadoCliente.Items.Add("Inactivo");
+            foreach(var item in CodigosEstadosList)
+            {
+                cbxFiltroEstadoCliente.Items.Add(item.Descripcion);
+            }
 
         }
 
@@ -175,15 +178,9 @@ namespace MemoryClubForms.Forms
                 cbxNombresClientes.Items.Add(item.nombre);
             }
 
-
             foreach (var item in tipoMenusList)
             {
                 cbxMenu.Items.Add(item.TipoMenu);
-            }
-
-            foreach (var item in sucursalesList)
-            {
-                cbxSucursal.Items.Add(item.Sucursales);
             }
 
             txtHora.Text = "08:15";
@@ -264,6 +261,21 @@ namespace MemoryClubForms.Forms
             }
         }
 
+        private bool LoadEstados()
+        {
+            try
+            {
+                CodigosEstadosList = new List<CodigosEstados>();
+                CateringBO cateringBO = new CateringBO();
+                CodigosEstadosList = cateringBO.LoadEstados();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
 
         #endregion
 
@@ -325,23 +337,7 @@ namespace MemoryClubForms.Forms
                     string nombreCliente = cbxNombresClientes.SelectedItem.ToString();
                     cateringModel.Id_catering = idAsistenciaSelected;
                     cateringModel.Fk_id_cliente = idClienteSelected;
-                    if (nombresClientesList.Select(x => x.nombre == nombreCliente).FirstOrDefault())
-                    {
-                        cateringModel.Tipo_cliente = tiposClientesList.Where(x => x.TipoCliente == "CLIENTE").Select(x => x.TipoCliente).FirstOrDefault();
-
-                    }
-                    else if (nombresColaboradoresList.Select(x => x.nombre == nombreCliente).FirstOrDefault())
-                    {
-                        cateringModel.Tipo_cliente = tiposClientesList.Where(x => x.TipoCliente == "COLABORADOR").Select(x => x.TipoCliente).FirstOrDefault();
-                    }
-
-                    cateringModel.Tipo_menu = cbxMenu.SelectedItem.ToString();
-                    cateringModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");
-                    cateringModel.Hora = txtHora.Text;
-                    cateringModel.Observacion = txtObservciones.Text;
-                    cateringModel.Sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
-                    cateringModel.Usuario = VariablesGlobales.usuario.ToString();
-                    cateringModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    
 
                     bool responseDB = cateringBO.EliminarCatering(cateringModel.Id_catering);
                     if (!responseDB)
@@ -403,10 +399,6 @@ namespace MemoryClubForms.Forms
 
                 txtObservciones.Text = (string)grdCatering.Rows[filaSeleccionada].Cells[7].Value;
 
-                cbxSucursal.Items.Clear();
-                cbxSucursal.SelectedItem = (string)grdCatering.Rows[filaSeleccionada].Cells[8].Value.ToString();
-                _ = cbxSucursal.Items.Add((string)grdCatering.Rows[filaSeleccionada].Cells[8].Value.ToString());
-                cbxSucursal.Text = (string)grdCatering.Rows[filaSeleccionada].Cells[8].Value.ToString();
 
             }
         }
@@ -427,9 +419,6 @@ namespace MemoryClubForms.Forms
             txtHora.Text = "";
 
             txtObservciones.Text = "";
-
-            cbxSucursal.Items.Clear();
-            cbxSucursal.Text = "";
 
         }
         private void EditElements(int action)
@@ -525,6 +514,10 @@ namespace MemoryClubForms.Forms
             cbxFiltroEstadoCliente.Items.Clear();
 
             ckbFiltrarFechas.Checked = false;
+
+            dtpDesde.Value = DateTime.Today;
+
+            dtmHasta.Value = DateTime.Today;
         }
         private void btnReiniciarFiltro_Click(object sender, EventArgs e)
         {
@@ -573,7 +566,13 @@ namespace MemoryClubForms.Forms
                     cateringModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");
                     cateringModel.Hora = txtHora.Text;
                     cateringModel.Observacion = txtObservciones.Text;
-                    cateringModel.Sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
+                    cateringModel.Sucursal = nombresClientesList.Where(x => x.nombre == nombreCliente).Select(x => x.Sucursal).FirstOrDefault();
+
+                    if (cateringModel.Sucursal == 0)
+                    {
+                        cateringModel.Sucursal = nombresColaboradoresList.Where(x => x.nombre == nombreCliente).Select(x => x.Sucursal).FirstOrDefault();
+                    }
+
                     cateringModel.Usuario = VariablesGlobales.usuario.ToString();
                     cateringModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
 
@@ -617,7 +616,13 @@ namespace MemoryClubForms.Forms
                     cateringModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");
                     cateringModel.Hora = txtHora.Text;
                     cateringModel.Observacion = txtObservciones.Text;
-                    cateringModel.Sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
+                    cateringModel.Sucursal = nombresClientesList.Where(x => x.nombre == nombreCliente).Select(x => x.Sucursal).FirstOrDefault();
+
+                    if (cateringModel.Sucursal == 0)
+                    {
+                        cateringModel.Sucursal = nombresColaboradoresList.Where(x => x.nombre == nombreCliente).Select(x => x.Sucursal).FirstOrDefault();
+                    }
+
                     cateringModel.Usuario = VariablesGlobales.usuario.ToString();
                     cateringModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
 
@@ -644,7 +649,7 @@ namespace MemoryClubForms.Forms
         }
         private bool ValidarInformacion()
         {
-            if (VariablesGlobales.Nivel > 1 && VariablesGlobales.sucursal != int.Parse(cbxSucursal.SelectedItem.ToString()))
+            if (VariablesGlobales.Nivel > 1)
             {
                 MessageBox.Show("Su usuario no tiene privilegios necesarios para ingresar asistencias de otra sucursal.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
@@ -658,12 +663,6 @@ namespace MemoryClubForms.Forms
             if (cbxMenu.SelectedItem == null)
             {
                 MessageBox.Show("Seleccione el tipo de menú.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-            }
-
-            if (cbxSucursal.SelectedItem == null)
-            {
-                MessageBox.Show("Seleccione la sucursal.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
 
@@ -755,28 +754,14 @@ namespace MemoryClubForms.Forms
                 grdCatering.Rows.Clear();
 
                 string estado = null;
+                string pEstado = null;
 
                 if (cbxFiltroEstadoCliente.SelectedItem!=null)
                 {
                     estado = cbxFiltroEstadoCliente.SelectedItem.ToString();
                 }
-                
 
-                string pEstado = null;
-
-                if (estado == "Activo")
-                {
-                    pEstado = "A";
-
-                }
-                else if (estado == "Prueba")
-                {
-                    pEstado = "P";
-                }
-                else if (estado == "Inactivo")//estado = Inactivo
-                {
-                    pEstado = "I";
-                }
+                pEstado = CodigosEstadosList.Where(x => x.Descripcion == estado).Select(x => x.Estados).FirstOrDefault();
 
                 string fechaDesde = null;
                 string fechaHasta = null;
@@ -823,9 +808,9 @@ namespace MemoryClubForms.Forms
 
             }catch(Exception ex)
             {
-                CleanData();
+                ResetFilterElements();
                 LoadInformation();
-                MessageBox.Show("Alerta, No se pudo filtrarel registro\n" + ex.Message,"Aviso",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                MessageBox.Show("Alerta, No se pudo filtrar el registro\n" + ex.Message,"Aviso",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
             }       
         }
     }
