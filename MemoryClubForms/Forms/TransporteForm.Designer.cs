@@ -56,12 +56,14 @@
             this.txtObservciones = new System.Windows.Forms.TextBox();
             this.txtHora = new System.Windows.Forms.TextBox();
             this.pnlFiltro = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cbxFiltroTransportista = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.cbxFiltroEstadoCliente = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.cbxFiltroMenu = new System.Windows.Forms.ComboBox();
+            this.cbxFiltroHorarios = new System.Windows.Forms.ComboBox();
             this.cbxFiltroTipoCli = new System.Windows.Forms.ComboBox();
             this.cbxFiltroSucursal = new System.Windows.Forms.ComboBox();
             this.btnReiniciarFiltro = new System.Windows.Forms.Button();
@@ -78,17 +80,20 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.grdTransporte = new System.Windows.Forms.DataGridView();
-            this.Id_catering = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Id_transporte = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fk_id_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombre_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tipo_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tipo_menu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hora = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Hora = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Id_transportista = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre_Transportista = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Entrada_salida = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.observaciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha_mod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.pnlActions.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -375,12 +380,14 @@
             // 
             this.pnlFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlFiltro.Controls.Add(this.label14);
+            this.pnlFiltro.Controls.Add(this.cbxFiltroTransportista);
             this.pnlFiltro.Controls.Add(this.label13);
             this.pnlFiltro.Controls.Add(this.cbxFiltroEstadoCliente);
             this.pnlFiltro.Controls.Add(this.label3);
             this.pnlFiltro.Controls.Add(this.label2);
             this.pnlFiltro.Controls.Add(this.label1);
-            this.pnlFiltro.Controls.Add(this.cbxFiltroMenu);
+            this.pnlFiltro.Controls.Add(this.cbxFiltroHorarios);
             this.pnlFiltro.Controls.Add(this.cbxFiltroTipoCli);
             this.pnlFiltro.Controls.Add(this.cbxFiltroSucursal);
             this.pnlFiltro.Controls.Add(this.btnReiniciarFiltro);
@@ -397,11 +404,30 @@
             this.pnlFiltro.Size = new System.Drawing.Size(894, 143);
             this.pnlFiltro.TabIndex = 7;
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(752, 87);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(92, 17);
+            this.label14.TabIndex = 42;
+            this.label14.Text = "Transportista";
+            // 
+            // cbxFiltroTransportista
+            // 
+            this.cbxFiltroTransportista.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFiltroTransportista.FormattingEnabled = true;
+            this.cbxFiltroTransportista.Location = new System.Drawing.Point(755, 107);
+            this.cbxFiltroTransportista.Name = "cbxFiltroTransportista";
+            this.cbxFiltroTransportista.Size = new System.Drawing.Size(121, 21);
+            this.cbxFiltroTransportista.TabIndex = 41;
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(662, 87);
+            this.label13.Location = new System.Drawing.Point(598, 87);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(99, 17);
             this.label13.TabIndex = 40;
@@ -411,7 +437,7 @@
             // 
             this.cbxFiltroEstadoCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFiltroEstadoCliente.FormattingEnabled = true;
-            this.cbxFiltroEstadoCliente.Location = new System.Drawing.Point(665, 107);
+            this.cbxFiltroEstadoCliente.Location = new System.Drawing.Point(601, 107);
             this.cbxFiltroEstadoCliente.Name = "cbxFiltroEstadoCliente";
             this.cbxFiltroEstadoCliente.Size = new System.Drawing.Size(121, 21);
             this.cbxFiltroEstadoCliente.TabIndex = 39;
@@ -420,7 +446,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(508, 87);
+            this.label3.Location = new System.Drawing.Point(447, 87);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(63, 17);
             this.label3.TabIndex = 38;
@@ -430,36 +456,36 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(345, 87);
+            this.label2.Location = new System.Drawing.Point(305, 87);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 17);
+            this.label2.Size = new System.Drawing.Size(101, 17);
             this.label2.TabIndex = 37;
-            this.label2.Text = "Menú";
+            this.label2.Text = "Entrada/Salida";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(172, 87);
+            this.label1.Location = new System.Drawing.Point(156, 87);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 17);
+            this.label1.Size = new System.Drawing.Size(81, 17);
             this.label1.TabIndex = 36;
-            this.label1.Text = "Tipo comensal";
+            this.label1.Text = "Tipo cliente";
             // 
-            // cbxFiltroMenu
+            // cbxFiltroHorarios
             // 
-            this.cbxFiltroMenu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxFiltroMenu.FormattingEnabled = true;
-            this.cbxFiltroMenu.Location = new System.Drawing.Point(348, 107);
-            this.cbxFiltroMenu.Name = "cbxFiltroMenu";
-            this.cbxFiltroMenu.Size = new System.Drawing.Size(121, 21);
-            this.cbxFiltroMenu.TabIndex = 35;
+            this.cbxFiltroHorarios.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFiltroHorarios.FormattingEnabled = true;
+            this.cbxFiltroHorarios.Location = new System.Drawing.Point(308, 107);
+            this.cbxFiltroHorarios.Name = "cbxFiltroHorarios";
+            this.cbxFiltroHorarios.Size = new System.Drawing.Size(121, 21);
+            this.cbxFiltroHorarios.TabIndex = 35;
             // 
             // cbxFiltroTipoCli
             // 
             this.cbxFiltroTipoCli.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFiltroTipoCli.FormattingEnabled = true;
-            this.cbxFiltroTipoCli.Location = new System.Drawing.Point(175, 107);
+            this.cbxFiltroTipoCli.Location = new System.Drawing.Point(159, 107);
             this.cbxFiltroTipoCli.Name = "cbxFiltroTipoCli";
             this.cbxFiltroTipoCli.Size = new System.Drawing.Size(121, 21);
             this.cbxFiltroTipoCli.TabIndex = 34;
@@ -468,7 +494,7 @@
             // 
             this.cbxFiltroSucursal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFiltroSucursal.FormattingEnabled = true;
-            this.cbxFiltroSucursal.Location = new System.Drawing.Point(511, 107);
+            this.cbxFiltroSucursal.Location = new System.Drawing.Point(450, 107);
             this.cbxFiltroSucursal.Name = "cbxFiltroSucursal";
             this.cbxFiltroSucursal.Size = new System.Drawing.Size(121, 21);
             this.cbxFiltroSucursal.TabIndex = 33;
@@ -613,6 +639,7 @@
             this.btnClose.Text = "Cerrar";
             this.btnClose.TextColor = System.Drawing.Color.White;
             this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Clicked);
             // 
             // grdTransporte
             // 
@@ -638,17 +665,20 @@
             this.grdTransporte.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.grdTransporte.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdTransporte.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Id_catering,
+            this.Id_transporte,
             this.Fk_id_cliente,
             this.nombre_cliente,
             this.Tipo_cliente,
-            this.Tipo_menu,
             this.fecha,
-            this.hora,
+            this.Hora,
+            this.Id_transportista,
+            this.nombre_Transportista,
+            this.Entrada_salida,
             this.observaciones,
             this.sucursal,
             this.usuario,
-            this.fecha_mod});
+            this.fecha_mod,
+            this.Estado});
             this.grdTransporte.EnableHeadersVisualStyles = false;
             this.grdTransporte.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
             this.grdTransporte.Location = new System.Drawing.Point(9, 340);
@@ -669,11 +699,11 @@
             this.grdTransporte.Size = new System.Drawing.Size(894, 241);
             this.grdTransporte.TabIndex = 3;
             // 
-            // Id_catering
+            // Id_transporte
             // 
-            this.Id_catering.HeaderText = "ID Catering";
-            this.Id_catering.Name = "Id_catering";
-            this.Id_catering.Visible = false;
+            this.Id_transporte.HeaderText = "ID Transporte";
+            this.Id_transporte.Name = "Id_transporte";
+            this.Id_transporte.Visible = false;
             // 
             // Fk_id_cliente
             // 
@@ -683,48 +713,73 @@
             // 
             // nombre_cliente
             // 
+            this.nombre_cliente.FillWeight = 82.08122F;
             this.nombre_cliente.HeaderText = "Nombre Cliente";
             this.nombre_cliente.Name = "nombre_cliente";
             // 
             // Tipo_cliente
             // 
+            this.Tipo_cliente.FillWeight = 82.08122F;
             this.Tipo_cliente.HeaderText = "Tipo Cliente";
             this.Tipo_cliente.Name = "Tipo_cliente";
             // 
-            // Tipo_menu
-            // 
-            this.Tipo_menu.HeaderText = "Menú";
-            this.Tipo_menu.Name = "Tipo_menu";
-            // 
             // fecha
             // 
+            this.fecha.FillWeight = 82.08122F;
             this.fecha.HeaderText = "Fecha";
             this.fecha.Name = "fecha";
             // 
-            // hora
+            // Hora
             // 
-            this.hora.HeaderText = "Hora";
-            this.hora.Name = "hora";
+            this.Hora.HeaderText = "Hora";
+            this.Hora.Name = "Hora";
+            // 
+            // Id_transportista
+            // 
+            this.Id_transportista.FillWeight = 82.08122F;
+            this.Id_transportista.HeaderText = "TransportistaId";
+            this.Id_transportista.Name = "Id_transportista";
+            // 
+            // nombre_Transportista
+            // 
+            this.nombre_Transportista.FillWeight = 82.08122F;
+            this.nombre_Transportista.HeaderText = "Nombre Trspta.";
+            this.nombre_Transportista.Name = "nombre_Transportista";
+            // 
+            // Entrada_salida
+            // 
+            this.Entrada_salida.FillWeight = 82.08122F;
+            this.Entrada_salida.HeaderText = "Entrada/Salida";
+            this.Entrada_salida.Name = "Entrada_salida";
             // 
             // observaciones
             // 
+            this.observaciones.FillWeight = 82.08122F;
             this.observaciones.HeaderText = "Observaciones";
             this.observaciones.Name = "observaciones";
             // 
             // sucursal
             // 
+            this.sucursal.FillWeight = 82.08122F;
             this.sucursal.HeaderText = "Sucursal";
             this.sucursal.Name = "sucursal";
             // 
             // usuario
             // 
+            this.usuario.FillWeight = 82.08122F;
             this.usuario.HeaderText = "Usuario";
             this.usuario.Name = "usuario";
             // 
             // fecha_mod
             // 
+            this.fecha_mod.FillWeight = 82.08122F;
             this.fecha_mod.HeaderText = "Fecha Modificación";
             this.fecha_mod.Name = "fecha_mod";
+            // 
+            // Estado
+            // 
+            this.Estado.HeaderText = "Estado";
+            this.Estado.Name = "Estado";
             // 
             // TransporteForm
             // 
@@ -785,7 +840,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cbxFiltroMenu;
+        private System.Windows.Forms.ComboBox cbxFiltroHorarios;
         private System.Windows.Forms.ComboBox cbxFiltroTipoCli;
         private System.Windows.Forms.ComboBox cbxFiltroSucursal;
         private System.Windows.Forms.Button btnReiniciarFiltro;
@@ -802,16 +857,21 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private Botones_Personalizados.OurButton btnClose;
         private System.Windows.Forms.DataGridView grdTransporte;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id_catering;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox cbxFiltroTransportista;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id_transporte;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fk_id_cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre_cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tipo_cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo_menu;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hora;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Hora;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id_transportista;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombre_Transportista;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Entrada_salida;
         private System.Windows.Forms.DataGridViewTextBoxColumn observaciones;
         private System.Windows.Forms.DataGridViewTextBoxColumn sucursal;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
     }
 }

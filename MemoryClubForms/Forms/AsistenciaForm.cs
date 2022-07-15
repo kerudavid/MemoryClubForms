@@ -166,12 +166,21 @@ namespace MemoryClubForms.Forms
             }
         }
 
+        private void ResetFiltersElements()
+        {
+            cbxFiltroNombreCliente.Items.Clear();
+
+            cbxEstadoCliente.Items.Clear();
+
+            ckbFiltrarFechas.Checked = false;
+        }
 
         /// <summary>
         /// Vuelve a cargar la informacion depues de editar, eliminar o insertar un registro
         /// </summary>
         private void ReloadInformation()
         {
+            ResetFiltersElements();
             try
             {
                 asistenciaInfoList = new List<AsistenciaModel>();
@@ -740,7 +749,7 @@ namespace MemoryClubForms.Forms
                         pEstado = "I";
                     }
 
-                    asistenciaList = asistenciaBO.ConsultaAsistencia(dtpDesde.Value.ToString("dd/MM/yyyy"), dtmHasta.Value.ToString("dd/MM/yyyy"), VariablesGlobales.sucursal, idCliente, pEstado);
+                    asistenciaList = asistenciaBO.ConsultaAsistencia(dtpDesde.Value.ToString("dd/MM/yyyy"), dtmHasta.Value.ToString("dd/MM/yyyy"), 0, idCliente, pEstado);
                     CargarInformacionFiltrada(asistenciaList);
                 }            
             }
@@ -762,7 +771,7 @@ namespace MemoryClubForms.Forms
 
             }else if (cbxFiltroNombreCliente.SelectedItem == null && check && cbxEstadoCliente.SelectedItem == null)
             {
-                asistenciaList = asistenciaBO.ConsultaAsistencia(dtpDesde.Value.ToString("dd/MM/yyyy"), dtmHasta.Value.ToString("dd/MM/yyyy"), VariablesGlobales.sucursal, 0, null);
+                asistenciaList = asistenciaBO.ConsultaAsistencia(dtpDesde.Value.ToString("dd/MM/yyyy"), dtmHasta.Value.ToString("dd/MM/yyyy"),0, 0, null);
                 CargarInformacionFiltrada(asistenciaList);
 
             }else if (cbxFiltroNombreCliente.SelectedItem == null && !check && cbxEstadoCliente.SelectedItem != null)
@@ -785,7 +794,7 @@ namespace MemoryClubForms.Forms
                     pEstado = "I";
                 }
 
-                asistenciaList = asistenciaBO.ConsultaAsistencia(null,null, VariablesGlobales.sucursal, 0, pEstado);
+                asistenciaList = asistenciaBO.ConsultaAsistencia(null,null, 0, 0, pEstado);
                 CargarInformacionFiltrada(asistenciaList);
 
             }else if (cbxFiltroNombreCliente.SelectedItem != null && !check && cbxEstadoCliente.SelectedItem != null)
@@ -814,7 +823,7 @@ namespace MemoryClubForms.Forms
                         pEstado = "I";
                     }
 
-                    asistenciaList = asistenciaBO.ConsultaAsistencia(null,null, VariablesGlobales.sucursal, idCliente, pEstado);
+                    asistenciaList = asistenciaBO.ConsultaAsistencia(null,null, 0, idCliente, pEstado);
                     CargarInformacionFiltrada(asistenciaList);
                 }
 
@@ -828,7 +837,7 @@ namespace MemoryClubForms.Forms
                 if (idCliente > 0)
                 {
                    
-                    asistenciaList = asistenciaBO.ConsultaAsistencia(dtpDesde.Value.ToString("dd/MM/yyyy"), dtmHasta.Value.ToString("dd/MM/yyyy"), VariablesGlobales.sucursal, idCliente, null);
+                    asistenciaList = asistenciaBO.ConsultaAsistencia(dtpDesde.Value.ToString("dd/MM/yyyy"), dtmHasta.Value.ToString("dd/MM/yyyy"),0, idCliente, null);
                     CargarInformacionFiltrada(asistenciaList);
                 }
 
@@ -853,7 +862,7 @@ namespace MemoryClubForms.Forms
                     pEstado = "I";
                 }
 
-                asistenciaList = asistenciaBO.ConsultaAsistencia(dtpDesde.Value.ToString("dd/MM/yyyy"), dtmHasta.Value.ToString("dd/MM/yyyy"), VariablesGlobales.sucursal, 0, pEstado);
+                asistenciaList = asistenciaBO.ConsultaAsistencia(dtpDesde.Value.ToString("dd/MM/yyyy"), dtmHasta.Value.ToString("dd/MM/yyyy"), 0, 0, pEstado);
                 CargarInformacionFiltrada(asistenciaList);
 
 
@@ -929,11 +938,6 @@ namespace MemoryClubForms.Forms
 
         private void btnReiniciarFiltro_Click(object sender, EventArgs e)
         {
-            cbxFiltroNombreCliente.Items.Clear();
-
-            cbxEstadoCliente.Items.Clear();
-
-            ckbFiltrarFechas.Checked = false;
 
             ReloadInformation();
 

@@ -75,6 +75,7 @@ namespace MemoryClubForms.Forms
             try
             {
                 grdCatering.Rows.Clear();
+                ResetFilterElements();
 
                 CateringBO cateringBO = new CateringBO();
                 List<CateringModel> cateringList = cateringBO.ConsultaCatering(null, null,null,null, 0, 0,null);
@@ -511,7 +512,7 @@ namespace MemoryClubForms.Forms
             ResetElements();
         }
 
-        private void btnReiniciarFiltro_Click(object sender, EventArgs e)
+        private void ResetFilterElements()
         {
             cbxFiltroNombreCliente.Items.Clear();
 
@@ -524,7 +525,11 @@ namespace MemoryClubForms.Forms
             cbxFiltroEstadoCliente.Items.Clear();
 
             ckbFiltrarFechas.Checked = false;
-          
+        }
+        private void btnReiniciarFiltro_Click(object sender, EventArgs e)
+        {
+
+            ResetFilterElements();
             LoadInformation();
 
         }
@@ -796,7 +801,7 @@ namespace MemoryClubForms.Forms
                     tipoMenu = cbxFiltroMenu.SelectedItem.ToString();
                 }
 
-                int sucursal = sucursalUser;
+                int sucursal = 0;
 
                 if (cbxFiltroSucursal.SelectedItem != null)
                 {
