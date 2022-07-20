@@ -81,7 +81,7 @@
             this.cbxFiltroNombreCliente = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblNombreVista = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.grdTransporte = new System.Windows.Forms.DataGridView();
             this.Id_transporte = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fk_id_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -97,7 +97,7 @@
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha_mod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.pnlActions.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -105,8 +105,8 @@
             this.panel4.SuspendLayout();
             this.pnlFiltro.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdTransporte)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -671,15 +671,26 @@
             this.lblNombreVista.TabIndex = 3;
             this.lblNombreVista.Text = "Transporte";
             // 
-            // pictureBox1
+            // btnClose
             // 
-            this.pictureBox1.Image = global::MemoryClubForms.Properties.Resources.Transporte2;
-            this.pictureBox1.Location = new System.Drawing.Point(23, 8);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(60, 32);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.Maroon;
+            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
+            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnClose.BorderRadius = 17;
+            this.btnClose.BorderSize = 0;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(814, 12);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(92, 32);
+            this.btnClose.TabIndex = 2;
+            this.btnClose.Text = "Cerrar";
+            this.btnClose.TextColor = System.Drawing.Color.White;
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Clicked);
             // 
             // grdTransporte
             // 
@@ -825,26 +836,15 @@
             this.Estado.HeaderText = "Estado";
             this.Estado.Name = "Estado";
             // 
-            // btnClose
+            // pictureBox1
             // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.BackColor = System.Drawing.Color.Maroon;
-            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
-            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnClose.BorderRadius = 17;
-            this.btnClose.BorderSize = 0;
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(814, 12);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(92, 32);
-            this.btnClose.TabIndex = 2;
-            this.btnClose.Text = "Cerrar";
-            this.btnClose.TextColor = System.Drawing.Color.White;
-            this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Clicked);
+            this.pictureBox1.Image = global::MemoryClubForms.Properties.Resources.Transporte2;
+            this.pictureBox1.Location = new System.Drawing.Point(23, 8);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(60, 32);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
             // 
             // TransporteForm
             // 
@@ -868,8 +868,8 @@
             this.pnlFiltro.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdTransporte)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

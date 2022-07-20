@@ -33,7 +33,7 @@ namespace MemoryClubForms
 
 
 
-           // Application.Run(new LoginForm());
+            Application.Run(new LoginForm());
        
         }
     }

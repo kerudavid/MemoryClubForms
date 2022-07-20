@@ -164,7 +164,7 @@ namespace MemoryClubForms.Forms
                 return false;
             }
 
-            if (txtObservciones.Text.Length > 100)
+            if (txtObservciones.Text.Length > 150)
             {
                 MessageBox.Show("Has superado el númerod e caracteres para Observación. Caracteres máximos: 100", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
@@ -595,7 +595,6 @@ namespace MemoryClubForms.Forms
                 MessageBox.Show("Aviso, No se pudo cargar el nombre de los clientes. " + ex);
             }
         }
-
 
         private void btnEditar_Click(object sender, EventArgs e)
         {

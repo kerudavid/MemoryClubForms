@@ -143,9 +143,29 @@ namespace MemoryClubForms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap manzana {
+            get {
+                object obj = ResourceManager.GetObject("manzana", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap restaurante {
             get {
                 object obj = ResourceManager.GetObject("restaurante", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap salud {
+            get {
+                object obj = ResourceManager.GetObject("salud", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

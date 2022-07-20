@@ -40,6 +40,8 @@
             this.colaboradoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transportistasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.alimentaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saludToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteAsistenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteCateringToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -137,6 +139,7 @@
             this.colaboradoresToolStripMenuItem.Name = "colaboradoresToolStripMenuItem";
             this.colaboradoresToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
             this.colaboradoresToolStripMenuItem.Text = "Colaboradores";
+            this.colaboradoresToolStripMenuItem.Click += new System.EventHandler(this.colaboradoresToolStripMenuItem_Click);
             // 
             // transportistasToolStripMenuItem
             // 
@@ -144,13 +147,31 @@
             this.transportistasToolStripMenuItem.Name = "transportistasToolStripMenuItem";
             this.transportistasToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
             this.transportistasToolStripMenuItem.Text = "Transportistas";
+            this.transportistasToolStripMenuItem.Click += new System.EventHandler(this.transportistasToolStripMenuItem_Click);
             // 
             // clientesToolStripMenuItem
             // 
+            this.clientesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.alimentaciónToolStripMenuItem,
+            this.saludToolStripMenuItem});
             this.clientesToolStripMenuItem.Image = global::MemoryClubForms.Properties.Resources.usuario;
             this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
             this.clientesToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
             this.clientesToolStripMenuItem.Text = "Clientes";
+            // 
+            // alimentaciónToolStripMenuItem
+            // 
+            this.alimentaciónToolStripMenuItem.Image = global::MemoryClubForms.Properties.Resources.manzana;
+            this.alimentaciónToolStripMenuItem.Name = "alimentaciónToolStripMenuItem";
+            this.alimentaciónToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.alimentaciónToolStripMenuItem.Text = "Alimentación";
+            // 
+            // saludToolStripMenuItem
+            // 
+            this.saludToolStripMenuItem.Image = global::MemoryClubForms.Properties.Resources.salud;
+            this.saludToolStripMenuItem.Name = "saludToolStripMenuItem";
+            this.saludToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.saludToolStripMenuItem.Text = "Salud";
             // 
             // reportesToolStripMenuItem
             // 
@@ -297,5 +318,7 @@
         private System.Windows.Forms.Panel panelContenedor;
         private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cerrarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem alimentaciónToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saludToolStripMenuItem;
     }
 }

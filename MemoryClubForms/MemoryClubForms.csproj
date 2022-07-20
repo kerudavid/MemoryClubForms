@@ -72,6 +72,18 @@
     <Compile Include="Forms\CateringForm.Designer.cs">
       <DependentUpon>CateringForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ClienteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ClienteForm.Designer.cs">
+      <DependentUpon>ClienteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ColaboradorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ColaboradorForm.Designer.cs">
+      <DependentUpon>ColaboradorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\HomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +102,12 @@
     <Compile Include="Forms\TransporteForm.Designer.cs">
       <DependentUpon>TransporteForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\TransportistaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TransportistaForm.Designer.cs">
+      <DependentUpon>TransportistaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AlimentacionModel.cs" />
     <Compile Include="Models\AsistenciaModel.cs" />
     <Compile Include="Models\CateringModel.cs" />
@@ -107,6 +125,12 @@
     <EmbeddedResource Include="Forms\CateringForm.resx">
       <DependentUpon>CateringForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ClienteForm.resx">
+      <DependentUpon>ClienteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ColaboradorForm.resx">
+      <DependentUpon>ColaboradorForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\HomeForm.resx">
       <DependentUpon>HomeForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -115,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TransporteForm.resx">
       <DependentUpon>TransporteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TransportistaForm.resx">
+      <DependentUpon>TransportistaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -173,12 +200,14 @@
     <Content Include="Resources\imprimir.png" />
     <Content Include="Resources\Info.png" />
     <Content Include="Resources\llegada.png" />
+    <None Include="Resources\manzana.png" />
     <Content Include="Resources\online.png" />
     <Content Include="Resources\QR.png" />
     <Content Include="Resources\QrCode.png" />
     <Content Include="Resources\Rechazado.png" />
     <Content Include="Resources\restaurante.png" />
     <Content Include="Resources\restaurante2.png" />
+    <None Include="Resources\salud.png" />
     <Content Include="Resources\sandwich.png" />
     <Content Include="Resources\signo-de-exclamacion.png" />
     <Content Include="Resources\telefono_2.png" />

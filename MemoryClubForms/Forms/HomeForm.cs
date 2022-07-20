@@ -65,5 +65,15 @@ namespace MemoryClubForms.Forms
         {
             OpenForm(new TransporteForm());
         }
+
+        private void colaboradoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new ColaboradorForm());
+        }
+
+        private void transportistasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new TransportistaForm());
+        }
     }
 }
