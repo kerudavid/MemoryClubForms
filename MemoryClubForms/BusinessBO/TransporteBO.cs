@@ -37,7 +37,7 @@ namespace MemoryClubForms.BusinessBO
 
             //Las consultas siempre retornan el obtejo dentro de una lista.
             nombresList = this.ObtenerListaSQL<NombresClientes>(query).ToList();
-            return nombresList;
+            return nombresList.OrderBy(x => x.nombre).ToList();
         }
         /// <summary>
         /// Devuelve una lista con los Tipos de Clientes
@@ -70,7 +70,7 @@ namespace MemoryClubForms.BusinessBO
 
             //Las consultas siempre retornan el obtejo dentro de una lista.
             nombresTransportistasList = this.ObtenerListaSQL<NombresTransportistas>(query).ToList();
-            return nombresTransportistasList;
+            return nombresTransportistasList.OrderBy(x => x.Nombre).ToList();
         }
         /// <summary>
         /// Devuelve una lista con los horarios de transporte (Entrada/Salida)
@@ -114,7 +114,7 @@ namespace MemoryClubForms.BusinessBO
             List<NombresColaboradores> nombrescolaboradoresList = new List<NombresColaboradores>();
             nombrescolaboradoresList = this.ObtenerListaSQL<NombresColaboradores>(query).ToList();
 
-            return nombrescolaboradoresList;
+            return nombrescolaboradoresList.OrderBy(x => x.nombre).ToList(); ;
         }
 
         /// <summary>
@@ -224,10 +224,10 @@ namespace MemoryClubForms.BusinessBO
                 switch (Pparametro)
                 {
                     case "R":   //recuperar los recorridos con transportistas
-                        condiciones += $" AND T.id_transportista <> 0 ";
+                        condiciones += $" AND T.id_transportista > 1 ";
                         break;
                     case "O":   //recuperar los registros sin transportista
-                        condiciones += $" AND T.id_transportista = 0 ";
+                        condiciones += $" AND T.id_transportista = 1 ";
                         break;
                 }
             }

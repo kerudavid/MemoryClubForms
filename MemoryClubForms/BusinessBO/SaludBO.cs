@@ -1,5 +1,5 @@
-﻿using MemoryClubForms.Data;
-using MemoryClubForms.Models;
+﻿using MemoryClubForms.Models;
+using MemoryClubForms.Data;
 using System.Data.SqlClient;
 using System.Data;
 using System;
@@ -10,11 +10,14 @@ using System.Threading.Tasks;
 
 namespace MemoryClubForms.BusinessBO
 {
-    //gestiona la tabla Alimentación
-    public class AlimentacionBO
+    /// <summary>
+    /// Gestiona la tabla Salud
+    /// </summary>
+    public class SaludBO
     {
         int nivel = VariablesGlobales.Nivel;
         int sucursal = VariablesGlobales.sucursal;
+
 
         /// <summary>
         /// Devuelve la lista de clientes A o P, dependiendo del nivel del usuario todos los clientes o los de su sucursal
@@ -41,20 +44,20 @@ namespace MemoryClubForms.BusinessBO
         }
 
         /// <summary>
-        /// Devuelve la lista de los alimentos restringidos de códigos
+        /// Devuelve la lista de enfermedades
         /// </summary>
         /// <returns></returns>
-        public List<AlimentosRestringidos> LoadAlimentosR()
+        public List<ListaEnfermedades> LoadEnfermedades()
         {
             string query = "";
-            query = $"SELECT elemento as alimentos_r FROM Codigo WHERE grupo = \'CLI\' AND subgrupo = \'ALIMEN\' " +
+            query = $"SELECT elemento as enfermedades FROM Codigo WHERE grupo = \'CLI\' AND subgrupo = \'SALUD\' " +
                     $"AND elemento <> \'\' AND  estado = \'A\' ORDER BY elemento";
 
-            List<AlimentosRestringidos> alimentosList = new List<AlimentosRestringidos>();
+            List<ListaEnfermedades> enfermedadesList = new List<ListaEnfermedades>();
 
             //Las consultas siempre retornan el obtejo dentro de una lista.
-            alimentosList = this.ObtenerListaSQL<AlimentosRestringidos>(query).ToList();
-            return alimentosList;
+            enfermedadesList = this.ObtenerListaSQL<ListaEnfermedades>(query).ToList();
+            return enfermedadesList.OrderBy(x => x.Enfermedades).ToList();
 
         }
 
@@ -78,12 +81,12 @@ namespace MemoryClubForms.BusinessBO
         }
 
         /// <summary>
-        /// Consulta general de Alimentacion Restringida (Id cliente, alimento restringido)
+        /// Consulta general de la tabla salud (id cliente, enfermedad)
         /// </summary>
         /// <param name="Pidcliente"></param>
-        /// <param name="Palimento"></param>
-        /// <returns></returns>
-        public List<AlimentacionModel> ConsultaAlimentacion(int Pidcliente, string Palimento)
+        /// <param name="Penfermdedad"></param>
+        /// <returns>Lista Salud</returns>
+        public List<SaludModel> ConsultaSalud(int Pidcliente, string Penfermdedad)
         {
             string query = "";
             string condiciones = "";
@@ -93,37 +96,37 @@ namespace MemoryClubForms.BusinessBO
             {
                 condiciones += $" AND fk_id_cliente = {Pidcliente} ";
             }
-            //valido el alimento restringido
-            if (!(string.IsNullOrEmpty(Palimento)) & !(string.IsNullOrWhiteSpace(Palimento)))
+            //valido el campo enfermedad
+            if (!(string.IsNullOrEmpty(Penfermdedad)) & !(string.IsNullOrWhiteSpace(Penfermdedad)))
             {
-                condiciones += $" AND alimento_restringido = '{Palimento}' ";
+                condiciones += $" AND enfermedad = '{Penfermdedad}' ";
             }
             //armo el select con las opciones dadas
 
-            query = $"SELECT A.id_alimentacion, A.fk_id_cliente, C.nombre, A.alimento_restringido, A.observacion, A.usuario, A.fecha_mod " +
-                    $"FROM Alimentacion A LEFT JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE id_alimentacion >= 0  {condiciones}" +
-                    $"ORDER BY fk_id_cliente, alimento_restringido";
+            query = $"SELECT S.id_salud, S.fk_id_cliente, C.nombre, S.enfermedad, S.observacion, S.medicacion, S.carnet_vacuna, " +
+                    $"S.usuario, S.fecha_mod FROM Salud S LEFT JOIN Cliente C ON S.fk_id_cliente = C.id_cliente WHERE id_salud >= 0 " +
+                    $"{condiciones} ORDER BY S.fk_id_cliente, S.enfermedad";
 
-            List<AlimentacionModel> alimentosModelList = new List<AlimentacionModel>();
+            List<SaludModel> saludModelList = new List<SaludModel>();
             //Las consultas siempre retornan el obtejo dentro de una lista.
-            alimentosModelList = this.ObtenerListaSQL<AlimentacionModel>(query).ToList();
-            return alimentosModelList;
+            saludModelList = this.ObtenerListaSQL<SaludModel>(query).ToList();
+            return saludModelList;
         }
 
         /// <summary>
-        /// Valida que no se duplique un alimento restringido para un mismo cliente
+        /// Valida que no se duplique una enfermdedad para un mismo cliente
         /// </summary>
-        /// <param name="PalimentacionModel"></param>
+        /// <param name="PsaludModel"></param>
         /// <returns>TRUE/FALSE</returns>
-        private bool ValidaDuplicadoAlimentacion(AlimentacionModel PalimentacionModel)
+        private bool ValidaDuplicadoSalud(SaludModel PsaludModel)
         {
-            string query = $"SELECT * FROM Alimentacion WHERE fk_id_cliente = {PalimentacionModel.Fk_id_cliente} " +
-                           $"AND alimento_restringido = '{PalimentacionModel.Alimento_restringido}'";
+            string query = $"SELECT * FROM Salud WHERE fk_id_cliente = {PsaludModel.Fk_id_cliente} " +
+                           $"AND enfermedad = '{PsaludModel.Enfermedad}'";
 
-            List<AlimentacionModel> alimentosList = new List<AlimentacionModel>();
-            alimentosList = this.ObtenerListaSQL<AlimentacionModel>(query).ToList();
+            List<SaludModel> saludList = new List<SaludModel>();
+            saludList = this.ObtenerListaSQL<SaludModel>(query).ToList();
 
-            if (alimentosList.Count > 0)
+            if (saludList.Count > 0)
             {
                 return false;
             }
@@ -134,7 +137,7 @@ namespace MemoryClubForms.BusinessBO
         }
 
         /// <summary>
-        /// Valida que solo un usuario nivel 0 o 1 pueda  eliminar en la tabla Alimento R
+        /// Valida que solo un usuario nivel 0 o 1 pueda  eliminar en la tabla Salud
         /// </summary>
         /// <returns>TRUE/FALSE</returns>
         private bool ValidaNivelCliente()
@@ -146,25 +149,26 @@ namespace MemoryClubForms.BusinessBO
         }
 
         /// <summary>
-        /// insertar registro de alimento restringido
+        /// insertar registro de salud
         /// </summary>
-        /// <param name="PalimentacionModel"></param>
+        /// <param name="saludModel"></param>
         /// <returns>true/falso</returns>
-        public bool InsertarAlimentoR(AlimentacionModel PalimentacionModel)
+        public bool InsertarSalud(SaludModel saludModel)
         {
-            string msg = PalimentacionModel.Validate(PalimentacionModel);
+            string msg = saludModel.Validate(saludModel);
             if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
             {
                 return false;
             }
             else
             {
-                bool aux = ValidaDuplicadoAlimentacion(PalimentacionModel); //valida que no se duplique el alimento para el mismo cliente
+                bool aux = ValidaDuplicadoSalud(saludModel); //valida que no se duplique la enfermedad para el mismo cliente
                 if (aux == true)
                 {
-                    string query = $"INSERT INTO Alimentacion (fk_id_cliente, alimento_restringido, observacion, usuario, fecha_mod) " +
-                                   $"VALUES ({PalimentacionModel.Fk_id_cliente}, '{PalimentacionModel.Alimento_restringido}', '{PalimentacionModel.Observacion}', " +
-                                   $"'{PalimentacionModel.Usuario}', '{PalimentacionModel.Fecha_mod}' )";
+                    string query = $"INSERT INTO Salud (fk_id_cliente, enfermedad, observacion, medicacion, carnet_vacuna, usuario, fecha_mod) " +
+                                   $"VALUES ({saludModel.Fk_id_cliente}, '{saludModel.Enfermedad}', '{saludModel.Observacion}', '{saludModel.Medicacion}', " +
+                                   $"'{saludModel.Carnet_vacuna}', '{saludModel.Usuario}', '{saludModel.Fecha_mod}')";
+                                 
                     try
                     {
                         bool execute = SQLConexionDataBase.Execute(query);
@@ -172,7 +176,7 @@ namespace MemoryClubForms.BusinessBO
                     }
                     catch (SqlException ex)
                     {
-                        Console.WriteLine("Error al insertar Alimento Restringido", ex.Message);
+                        Console.WriteLine("Error al insertar registro", ex.Message);
                         return false;
                     }
                 }
@@ -182,25 +186,25 @@ namespace MemoryClubForms.BusinessBO
         }
 
         /// <summary>
-        /// Actualiza la tabla Alimentación (alimento, observación, usuario y fecha modificacción)
+        /// Actualiza la tabla Salud (enfermdedad, observación, medicacion, carnet vacuna, usuario y fecha modificacción)
         /// </summary>
-        /// <param name="PalimentacionModel"></param>
+        /// <param name="saludModel"></param>
         /// <returns>true/false</returns>
-        public bool ActualizarAlimentoR(AlimentacionModel PalimentacionModel)
+        public bool ActualizarSalud(SaludModel saludModel)
         {
-            string msg = PalimentacionModel.Validate(PalimentacionModel);
+            string msg = saludModel.Validate(saludModel);
             if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
             {
                 return false;
             }
             else
             {
-                bool aux = ValidaDuplicadoAlimentacion(PalimentacionModel); //valida que no se duplique el alimento para el mismo cliente
+                bool aux = ValidaDuplicadoSalud(saludModel); //valida que no se duplique enfermedad para el mismo cliente
                 if (aux == true)
                 {
-                    string query = $"UPDATE Alimentacion SET  alimento_restringido = '{PalimentacionModel.Alimento_restringido}', observacion = '{PalimentacionModel.Observacion}', " +
-                                   $"usuario = '{PalimentacionModel.Usuario}', fecha_mod = '{PalimentacionModel.Fecha_mod}'" +
-                                   $"WHERE id_alimentacion = {PalimentacionModel.Id_alimentacion}";
+                    string query = $"UPDATE Salud SET enfermedad = '{saludModel.Enfermedad}', observacion = '{saludModel.Observacion}', medicacion = '{saludModel.Medicacion}', " +
+                                   $"carnet_vacuna = '{saludModel.Carnet_vacuna}', usuario = '{saludModel.Usuario}', fecha_mod = '{saludModel.Fecha_mod}' " +
+                                   $"WHERE id_salud = {saludModel.Id_Salud}";
 
                     try
                     {
@@ -209,7 +213,7 @@ namespace MemoryClubForms.BusinessBO
                     }
                     catch (SqlException ex)
                     {
-                        Console.WriteLine("Error al actualizar alimentación restringida", ex.Message);
+                        Console.WriteLine("Error al actualizar el registro", ex.Message);
                         return false;
                     }
                 }
@@ -218,17 +222,17 @@ namespace MemoryClubForms.BusinessBO
             }
         }
 
-       /// <summary>
-       /// Eliminar Alimento restringido para un cliente
-       /// </summary>
-       /// <param name="PalimentacionModel"></param>
-       /// <returns>true/false</returns>
-        public bool EliminarAlimentoR(AlimentacionModel PalimentacionModel)
+        /// <summary>
+        /// Eliminar registro de Salud para un cliente
+        /// </summary>
+        /// <param name="saludModel"></param>
+        /// <returns>true/false</returns>
+        public bool EliminarSalud(SaludModel saludModel)
         {
             bool aux = ValidaNivelCliente(); //solo elimina el nivel administrador
             if (aux)
             {
-                string query = $"DELETE FROM Alimentacion WHERE id_alimentacion = {PalimentacionModel.Id_alimentacion}";
+                string query = $"DELETE FROM Salud WHERE id_salud = {saludModel.Id_Salud}";
 
                 try
                 {
@@ -237,14 +241,13 @@ namespace MemoryClubForms.BusinessBO
                 }
                 catch (SqlException ex)
                 {
-                    Console.WriteLine("Error al eliminar Alimento Restringido", ex.Message);
+                    Console.WriteLine("Error al eliminar registro", ex.Message);
                     return false;
                 }
             }
             else
             { return false; }
         }
-
 
         /// <summary>
         /// Model List para los nombres de los clientes
@@ -255,13 +258,13 @@ namespace MemoryClubForms.BusinessBO
             public string nombre { get; set; }
             public int Sucursal { get; set; }
         }
-
+        
         /// <summary>
-        /// List Model de los alimentos restringidos
+        /// Model List para listar las enfermedades
         /// </summary>
-        public class AlimentosRestringidos
+        public class ListaEnfermedades
         {
-            public string Alimentos_r { get; set; }
+            public string Enfermedades { get; set; }    
         }
     }
 }

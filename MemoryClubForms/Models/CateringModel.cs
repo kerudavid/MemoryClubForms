@@ -50,7 +50,6 @@ namespace MemoryClubForms.Models
                 return "Por favor, debe ingresar un de Tipo Menú";
             }
 
-            DateTime ldt_date = DateTime.ParseExact(cateringmodel.Fecha, "dd/MM/yyyy", null);
             if (string.IsNullOrEmpty(cateringmodel.Fecha) || string.IsNullOrWhiteSpace(cateringmodel.Fecha))
             {
                 return "Por favor, debe ingresar Fecha";
@@ -62,6 +61,7 @@ namespace MemoryClubForms.Models
                 return "Por favor, debe ingresar una Fecha Válida";
             }
 
+            DateTime ldt_date = DateTime.ParseExact(cateringmodel.Fecha, "dd/MM/yyyy", null);
             if (ldt_date > hoy)
             {
                 return "Por favor, la Fecha no puede ser mayor a Hoy";

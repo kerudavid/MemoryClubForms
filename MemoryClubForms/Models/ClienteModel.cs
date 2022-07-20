@@ -33,6 +33,7 @@ namespace MemoryClubForms.Models
         public string Celular_pago { get; set; }
         public string Email_pago { get; set; }
         public string Medio_pago { get; set; }
+        public string Frecuencia_pago { get; set; }
         public string Pariente_transp { get; set; }
         public string Direccion { get; set; }
         public string Toma_transp { get; set; }
@@ -77,6 +78,11 @@ namespace MemoryClubForms.Models
             {
                 return "Por favor, debe ingresar sexo del cliente";
             }
+            if (clientemodel.Id_transportista <= 0)
+            {
+                return "Por favor, debe ingresar Id Transportista";
+            }
+
             if (string.IsNullOrEmpty(clientemodel.Estado) || string.IsNullOrWhiteSpace(clientemodel.Estado))
             {
                 return "Por favor, debe ingresar Estado";
@@ -86,7 +92,6 @@ namespace MemoryClubForms.Models
                 return "Por favor, debe ingresar la Sucursal";
             }
 
-            DateTime ldt_date = DateTime.ParseExact(clientemodel.Fecha_ingreso, "dd/MM/yyyy", null);
             if (string.IsNullOrEmpty(clientemodel.Fecha_ingreso) || string.IsNullOrWhiteSpace(clientemodel.Fecha_ingreso))
             {
                 return "Por favor, debe ingresar Fecha de Ingreso del Cliente";
@@ -98,11 +103,12 @@ namespace MemoryClubForms.Models
                 return "Por favor, debe ingresar una Fecha de Ingreso Válida";
             }
 
+            DateTime ldt_date = DateTime.ParseExact(clientemodel.Fecha_ingreso, "dd/MM/yyyy", null);
             if (ldt_date > hoy)
             {
                 return "Por favor, la Fecha de Ingreso no puede ser mayor a Hoy";
             }
-                      
+                                             
             return message;
 
         }

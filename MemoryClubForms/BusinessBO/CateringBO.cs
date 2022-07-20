@@ -37,7 +37,7 @@ namespace MemoryClubForms.BusinessBO
 
             //Las consultas siempre retornan el obtejo dentro de una lista.
             nombresList = this.ObtenerListaSQL<NombresClientes>(query).ToList();
-            return nombresList;
+            return nombresList.OrderBy(x => x.nombre).ToList();
         }
         /// <summary>
         /// Retorna una lista de Tipos de Clientes
@@ -99,7 +99,7 @@ namespace MemoryClubForms.BusinessBO
             List<NombresColaboradores> nombrescolaboradoresList = new List<NombresColaboradores>();
             nombrescolaboradoresList = this.ObtenerListaSQL<NombresColaboradores>(query).ToList();
 
-            return nombrescolaboradoresList;
+            return nombrescolaboradoresList.OrderBy(x => x.nombre).ToList();
         }
 
         /// <summary>
