@@ -87,6 +87,20 @@ namespace MemoryClubForms.BusinessBO
         }
 
         /// <summary>
+        /// Devuelve Lista de Frecuencias de Pago
+        /// </summary>
+        /// <returns></returns>
+        public List<ListaFrecuencias> LoadFrecuencias()
+        {
+            string query = "";
+            query = $"SELECT elemento as frecuencias, descripcion from Codigo WHERE grupo = \'CLI\' AND subgrupo = \'FPAGO\' AND elemento <> \'\' AND estado = \'A\'";
+            List<ListaFrecuencias> frecuenciaslist = new List<ListaFrecuencias>();
+            frecuenciaslist = this.ObtenerListaSQL<ListaFrecuencias>(query).ToList();
+
+            return frecuenciaslist;
+        }
+
+        /// <summary>
         /// Método para convertir una lista DataTable a un TModel(Modelo genérico)
         /// </summary>
         /// <returns>IList<TModel></returns>
@@ -197,10 +211,10 @@ namespace MemoryClubForms.BusinessBO
             query = $"SELECT C.id_cliente, C.cedula, C.nombre, C.apodo, C.fecha_ingreso, C.fecha_free, C.sexo, C.estado, C.aula, " +
                 $"C.dia_nacim, C.mes_nacim, C.anio_nacim,C.telefono, C.nombre_contacto, C.parentesco_contacto, C.telefono_contacto, " +
                 $"C.celular_contacto, C.encargado_pago, C.parentesco_pago, C.telefono_pago, C.cedula_pago, C.celular_pago, C.email_pago," +
-                $" C.medio_pago, C.pariente_transp, C.direccion, C.toma_transp, C.id_transportista, T.nombre as nombre_transportista, " +
+                $" C.medio_pago, C.frecuencia_pago, C.pariente_transp, C.direccion, C.toma_transp, C.id_transportista, T.nombre as nombre_transportista, " +
                 $"C.retirarse_solo, C.nombre_factu, C.cedula_factu, C.direccion_factu, C.email_factu, C.sucursal, C.observacion, C.usuario, " +
                 $"C.fecha_mod, CONVERT(date, C.fecha_ingreso, 103) fechaing FROM Cliente C LEFT JOIN Transportista T ON C.id_transportista = T.id_transportista " +
-                $"WHERE C.id_cliente >= 0  { condiciones}";
+                $"WHERE C.id_cliente >= 0  {condiciones}";
 
             List<ClienteModel> clienteModelList = new List<ClienteModel>();
             //Las consultas siempre retornan el obtejo dentro de una lista.
@@ -265,13 +279,13 @@ namespace MemoryClubForms.BusinessBO
                     {
                         string query = $"INSERT INTO Cliente (cedula, nombre, apodo, fecha_ingreso, fecha_free, sexo, estado, aula, dia_nacim, mes_nacim, anio_nacim, " +
                                    $"telefono, nombre_contacto, parentesco_contacto, telefono_contacto, celular_contacto, encargado_pago, parentesco_pago, telefono_pago, " +
-                                   $"cedula_pago, celular_pago, email_pago, medio_pago, pariente_transp, direccion, toma_transp, id_transportista, retirarse_solo, nombre_factu, " +
+                                   $"cedula_pago, celular_pago, email_pago, medio_pago, frecuencia_pago, pariente_transp, direccion, toma_transp, id_transportista, retirarse_solo, nombre_factu, " +
                                    $"cedula_factu, direccion_factu, email_factu, sucursal, observacion, usuario, fecha_mod) " +
                                    $"VALUES ('{clienteModel.Cedula}', '{clienteModel.Nombre}', '{clienteModel.Apodo}', '{clienteModel.Fecha_ingreso}', '{clienteModel.Fecha_free}', '{clienteModel.Sexo}', " +
                                    $"'{clienteModel.Estado}', {clienteModel.Aula}, {clienteModel.Dia_nacim}, {clienteModel.Mes_nacim}, {clienteModel.Anio_nacim}, '{clienteModel.Telefono}', " +
                                    $"'{clienteModel.Nombre_contacto}', '{clienteModel.Parentesco_contacto}', '{clienteModel.Telefono_contacto}', '{clienteModel.Celular_contacto}', '{clienteModel.Encargado_pago}', " +
                                    $"'{clienteModel.Parentesco_pago}', '{clienteModel.Telefono_pago}', '{clienteModel.Cedula_pago}', '{clienteModel.Celular_pago}', '{clienteModel.Email_pago}', " +
-                                   $"'{clienteModel.Medio_pago}', '{clienteModel.Pariente_transp}', '{clienteModel.Direccion}', '{clienteModel.Toma_transp}', '{clienteModel.Id_transportista}', " +
+                                   $"'{clienteModel.Medio_pago}',  '{clienteModel.Frecuencia_pago}', '{clienteModel.Pariente_transp}', '{clienteModel.Direccion}', '{clienteModel.Toma_transp}', '{clienteModel.Id_transportista}', " +
                                    $"'{clienteModel.Retirarse_solo}', '{clienteModel.Nombre_factu}', '{clienteModel.Cedula_factu}', '{clienteModel.Direccion_factu}', '{clienteModel.Email_factu}', " +
                                    $"{clienteModel.Sucursal}, '{clienteModel.Observacion}', '{clienteModel.Usuario}', '{clienteModel.Fecha_mod}')";
                         try
@@ -294,7 +308,9 @@ namespace MemoryClubForms.BusinessBO
         }
 
         /// <summary>
-        /// Actualiza registro de Cliente
+        /// Actualiza Cliente (apodo, fecha_free, estado, aula, dia, mes, año nacimiento, tfono, nombre contac, parentesco contac, tfono contac,celu contac, encargado pago, ...
+        /// (parentesco pago, fono pago, cedula pago, celu pago, email pago, medio pago, frecuencia pago, pariente trans, direcc, toma transporte, id transportista, retirarse solo..
+        /// (nombre factura, cedula factu, direccion factu, email factu, sucursal, observacion, usuario, fecha mod) son 33 campos que puede modificar
         /// </summary>
         /// <param name="PclienteModel"></param>
         /// <returns></returns>
@@ -315,7 +331,7 @@ namespace MemoryClubForms.BusinessBO
                                    $"nombre_contacto = '{clienteModel.Nombre_contacto}', parentesco_contacto = '{clienteModel.Parentesco_contacto}', telefono_contacto = '{clienteModel.Telefono_contacto}', " +
                                    $"celular_contacto = '{clienteModel.Celular_contacto}', encargado_pago = '{clienteModel.Encargado_pago}', parentesco_pago = '{clienteModel.Parentesco_pago}', " +
                                    $"telefono_pago = '{clienteModel.Telefono_pago}', cedula_pago = '{clienteModel.Cedula_pago}', celular_pago = '{clienteModel.Celular_pago}', email_pago = '{clienteModel.Email_pago}', " +
-                                   $"medio_pago = '{clienteModel.Medio_pago}', pariente_transp = '{clienteModel.Pariente_transp}', direccion = '{clienteModel.Direccion}', toma_transp = '{clienteModel.Toma_transp}', " +
+                                   $"medio_pago = '{clienteModel.Medio_pago}', frecuencia_pago = '{clienteModel.Frecuencia_pago}', pariente_transp = '{clienteModel.Pariente_transp}', direccion = '{clienteModel.Direccion}', toma_transp = '{clienteModel.Toma_transp}', " +
                                    $"id_transportista = '{clienteModel.Id_transportista}', retirarse_solo = '{clienteModel.Retirarse_solo}', nombre_factu = '{clienteModel.Nombre_factu}', " +
                                    $"cedula_factu = '{clienteModel.Cedula_factu}', direccion_factu = '{clienteModel.Direccion_factu}', email_factu = '{clienteModel.Email_factu}', sucursal = {clienteModel.Sucursal}, " +
                                    $"observacion = '{clienteModel.Observacion}', usuario = '{clienteModel.Usuario}', fecha_mod = '{clienteModel.Fecha_mod}' " +
@@ -394,6 +410,12 @@ namespace MemoryClubForms.BusinessBO
         {
             public int Id_transportista { get; set; }
             public string Nombre { get; set; }
+        }
+
+        //List Model de las frecuencias de pago
+        public class ListaFrecuencias
+        {
+            public string Frecuencias { get; set; }
         }
 
     }

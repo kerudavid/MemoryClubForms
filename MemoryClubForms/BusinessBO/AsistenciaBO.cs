@@ -57,7 +57,7 @@ namespace MemoryClubForms.BusinessBO
             //Las consultas siempre retornan el obtejo dentro de una lista.
             nombresList = this.ObtenerListaSQL<NombresClientes>(query).ToList();
 
-            return nombresList;
+            return nombresList.OrderBy(x => x.nombre).ToList();
         }
         /// <summary>
         /// Consulta la Lista de Códigos de las Sucursales

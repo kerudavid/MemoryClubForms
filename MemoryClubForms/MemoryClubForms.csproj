@@ -52,10 +52,13 @@
     </Compile>
     <Compile Include="BusinessBO\AlimentacionBO.cs" />
     <Compile Include="BusinessBO\AsistenciaBO.cs" />
+    <Compile Include="BusinessBO\CalendarioBO.cs" />
     <Compile Include="BusinessBO\CateringBO.cs" />
     <Compile Include="BusinessBO\ClienteBO.cs" />
     <Compile Include="BusinessBO\ColaboradorBO.cs" />
     <Compile Include="BusinessBO\LoginBO.cs" />
+    <Compile Include="BusinessBO\PlanBO.cs" />
+    <Compile Include="BusinessBO\SaludBO.cs" />
     <Compile Include="BusinessBO\TransporteBO.cs" />
     <Compile Include="BusinessBO\TransportistaBO.cs" />
     <Compile Include="Data\DataTableExtension.cs" />
@@ -92,10 +95,13 @@
     </Compile>
     <Compile Include="Models\AlimentacionModel.cs" />
     <Compile Include="Models\AsistenciaModel.cs" />
+    <Compile Include="Models\CalendarioModel.cs" />
     <Compile Include="Models\CateringModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\ColaboradorModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\PlanModel.cs" />
+    <Compile Include="Models\SaludModel.cs" />
     <Compile Include="Models\TransporteModel.cs" />
     <Compile Include="Models\TransportistaModel.cs" />
     <Compile Include="Program.cs" />

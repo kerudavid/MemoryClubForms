@@ -221,35 +221,40 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>TRUE/FALSE</returns>
         public bool ActualizarTransportista(TransportistaModel PtransportistaModel) //no actualiza ruta, ni sector. Se deberia crear transportista dando de baja 'I' el otro registro
         {
-            string msg = PtransportistaModel.Validate(PtransportistaModel);
-            if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
+            if (PtransportistaModel.Id_transportista > 1) //porque no se puede modificar el id_transportista 1
             {
-                return false;
-            }
-            else
-            {
-                bool valida = this.ValidaNivelTransportista(); //solo administrador puede modificar transportista
-                if (valida)
+                string msg = PtransportistaModel.Validate(PtransportistaModel);
+                if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
                 {
-                    string query = $"UPDATE Transportista SET ruta = {PtransportistaModel.Ruta}, sector = '{PtransportistaModel.Sector}', placa_veh  = '{PtransportistaModel.Placa_veh}', " +
-                                   $"telefono = '{PtransportistaModel.Telefono}', direccion = '{PtransportistaModel.Direccion}', estado = '{PtransportistaModel.Estado}', " +
-                                   $"observacion = '{PtransportistaModel.Observacion}', usuario = '{PtransportistaModel.Usuario}', fecha_mod = '{PtransportistaModel.Fecha_mod}' " +
-                                   $"WHERE id_transportista = {PtransportistaModel.Id_transportista}";
-
-                    try
-                    {
-                        bool execute = SQLConexionDataBase.Execute(query);
-                        return execute;
-                    }
-                    catch (SqlException ex)
-                    {
-                        Console.WriteLine("Error al actualizar Transportista", ex.Message);
-                        return false;
-                    }
+                    return false;
                 }
                 else
-                { return false; }
+                {
+                    bool valida = this.ValidaNivelTransportista(); //solo administrador puede modificar transportista
+                    if (valida)
+                    {
+                        string query = $"UPDATE Transportista SET ruta = {PtransportistaModel.Ruta}, sector = '{PtransportistaModel.Sector}', placa_veh  = '{PtransportistaModel.Placa_veh}', " +
+                                       $"telefono = '{PtransportistaModel.Telefono}', direccion = '{PtransportistaModel.Direccion}', estado = '{PtransportistaModel.Estado}', " +
+                                       $"observacion = '{PtransportistaModel.Observacion}', usuario = '{PtransportistaModel.Usuario}', fecha_mod = '{PtransportistaModel.Fecha_mod}' " +
+                                       $"WHERE id_transportista = {PtransportistaModel.Id_transportista}";
+
+                        try
+                        {
+                            bool execute = SQLConexionDataBase.Execute(query);
+                            return execute;
+                        }
+                        catch (SqlException ex)
+                        {
+                            Console.WriteLine("Error al actualizar Transportista", ex.Message);
+                            return false;
+                        }
+                    }
+                    else
+                    { return false; }
+                }
             }
+            else
+            { return false;  }
         }
 
         /// <summary>
@@ -259,20 +264,25 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>TRUE/FALSE</returns>
         public bool EliminarTransportista(int Pid_transportista)
         {
-            bool aux = this.ValidaNivelTransportista (); //solo nivel de usuario <= 1 puede eliminar
-            if (aux == true)
+            if (Pid_transportista > 1) //porque no se puede eliminar el id_transportista 1
             {
-                string query = $"DELETE FROM Transportista WHERE id_transportista = {Pid_transportista} ";
-                try
+                bool aux = this.ValidaNivelTransportista(); //solo nivel de usuario <= 1 puede eliminar
+                if (aux == true)
                 {
-                    bool execute = SQLConexionDataBase.Execute(query);
-                    return execute;
+                    string query = $"DELETE FROM Transportista WHERE id_transportista = {Pid_transportista} ";
+                    try
+                    {
+                        bool execute = SQLConexionDataBase.Execute(query);
+                        return execute;
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine("Error al eliminar Transportista", ex.Message);
+                        return false;
+                    }
                 }
-                catch (SqlException ex)
-                {
-                    Console.WriteLine("Error al eliminar Transportista", ex.Message);
-                    return false;
-                }
+                else
+                { return false; }
             }
             else
             { return false; }
