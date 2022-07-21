@@ -82,6 +82,8 @@
             this.tbxTelefono = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
+            this.lblEstado = new System.Windows.Forms.Label();
+            this.cbxEstado = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdColaborador)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -369,9 +371,9 @@
             this.pnlActions.Controls.Add(this.label11);
             this.pnlActions.Controls.Add(this.txtObservciones);
             this.pnlActions.Controls.Add(this.tbxTelefono);
-            this.pnlActions.Location = new System.Drawing.Point(12, 135);
+            this.pnlActions.Location = new System.Drawing.Point(12, 137);
             this.pnlActions.Name = "pnlActions";
-            this.pnlActions.Size = new System.Drawing.Size(894, 150);
+            this.pnlActions.Size = new System.Drawing.Size(894, 157);
             this.pnlActions.TabIndex = 8;
             // 
             // label5
@@ -379,7 +381,7 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(337, 101);
+            this.label5.Location = new System.Drawing.Point(337, 108);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(46, 17);
             this.label5.TabIndex = 38;
@@ -389,7 +391,7 @@
             // 
             this.tbxCargo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tbxCargo.Enabled = false;
-            this.tbxCargo.Location = new System.Drawing.Point(326, 124);
+            this.tbxCargo.Location = new System.Drawing.Point(326, 131);
             this.tbxCargo.Name = "tbxCargo";
             this.tbxCargo.Size = new System.Drawing.Size(153, 20);
             this.tbxCargo.TabIndex = 37;
@@ -426,15 +428,17 @@
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.lblEstado);
             this.panel6.Controls.Add(this.label1);
             this.panel6.Controls.Add(this.tbxCedula);
+            this.panel6.Controls.Add(this.cbxEstado);
             this.panel6.Controls.Add(this.tbxNombreColab);
             this.panel6.Controls.Add(this.label9);
             this.panel6.Controls.Add(this.cbxSucursal);
             this.panel6.Controls.Add(this.label4);
-            this.panel6.Location = new System.Drawing.Point(4, 6);
+            this.panel6.Location = new System.Drawing.Point(4, 37);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(413, 61);
+            this.panel6.Size = new System.Drawing.Size(568, 61);
             this.panel6.TabIndex = 6;
             // 
             // label1
@@ -595,7 +599,7 @@
             this.label10.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(497, 101);
+            this.label10.Location = new System.Drawing.Point(497, 108);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(103, 17);
             this.label10.TabIndex = 29;
@@ -606,7 +610,7 @@
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(190, 101);
+            this.label11.Location = new System.Drawing.Point(190, 108);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(64, 17);
             this.label11.TabIndex = 28;
@@ -616,7 +620,7 @@
             // 
             this.txtObservciones.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.txtObservciones.Enabled = false;
-            this.txtObservciones.Location = new System.Drawing.Point(500, 124);
+            this.txtObservciones.Location = new System.Drawing.Point(500, 131);
             this.txtObservciones.Name = "txtObservciones";
             this.txtObservciones.Size = new System.Drawing.Size(382, 20);
             this.txtObservciones.TabIndex = 24;
@@ -625,7 +629,7 @@
             // 
             this.tbxTelefono.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tbxTelefono.Enabled = false;
-            this.tbxTelefono.Location = new System.Drawing.Point(193, 124);
+            this.tbxTelefono.Location = new System.Drawing.Point(193, 131);
             this.tbxTelefono.Name = "tbxTelefono";
             this.tbxTelefono.Size = new System.Drawing.Size(110, 20);
             this.tbxTelefono.TabIndex = 23;
@@ -641,7 +645,7 @@
             this.panel1.Controls.Add(this.btnClose);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(918, 288);
+            this.panel1.Size = new System.Drawing.Size(918, 297);
             this.panel1.TabIndex = 3;
             // 
             // btnClose
@@ -664,6 +668,28 @@
             this.btnClose.TextColor = System.Drawing.Color.White;
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // lblEstado
+            // 
+            this.lblEstado.AutoSize = true;
+            this.lblEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEstado.Location = new System.Drawing.Point(449, 6);
+            this.lblEstado.Name = "lblEstado";
+            this.lblEstado.Size = new System.Drawing.Size(52, 17);
+            this.lblEstado.TabIndex = 47;
+            this.lblEstado.Text = "Estado";
+            this.lblEstado.Visible = false;
+            // 
+            // cbxEstado
+            // 
+            this.cbxEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxEstado.Enabled = false;
+            this.cbxEstado.FormattingEnabled = true;
+            this.cbxEstado.Location = new System.Drawing.Point(452, 33);
+            this.cbxEstado.Name = "cbxEstado";
+            this.cbxEstado.Size = new System.Drawing.Size(89, 21);
+            this.cbxEstado.TabIndex = 48;
+            this.cbxEstado.Visible = false;
             // 
             // ColaboradorForm
             // 
@@ -743,5 +769,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn observaciones;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
+        private System.Windows.Forms.Label lblEstado;
+        private System.Windows.Forms.ComboBox cbxEstado;
     }
 }

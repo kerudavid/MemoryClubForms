@@ -105,8 +105,9 @@ namespace MemoryClubForms.Forms
             
             foreach (var item in codigosEstadosList)
             {
-                cbxFiltroEstadoCliente.Items.Add(item.Estados.ToString());
+                cbxFiltroEstado.Items.Add(item.Estados.ToString());
             }
+            cbxFiltroEstado.Items.Add("TODOS");
 
             foreach (var item in rutasList)
             {
@@ -116,6 +117,37 @@ namespace MemoryClubForms.Forms
             foreach (var item in sectoresList)
             {
                 cbxFiltroSector.Items.Add(item.Sectores.ToString());
+            }
+        }
+
+        private void CargarElementsEdit()
+        {
+
+            foreach (var item in codigosEstadosList)
+            {
+                if (cbxEstado.SelectedItem.ToString().ToLower() != item.Estados.ToLower())
+                {
+                    cbxEstado.Items.Add(item.Estados);
+                }
+                
+            }
+
+            foreach (var item in rutasList)
+            {
+                if (int.Parse(cbxRuta.SelectedItem.ToString()) != item.Rutas)
+                {
+                    cbxRuta.Items.Add(item.Rutas);
+                }
+                
+            }
+
+            foreach (var item in sectoresList)
+            {
+                if (cbxSector.SelectedItem.ToString().ToLower() != item.Sectores.ToLower())
+                {
+                    cbxSector.Items.Add(item.Sectores);
+                }
+                
             }
         }
 
@@ -145,7 +177,7 @@ namespace MemoryClubForms.Forms
 
             cbxFiltroSucursal.Items.Clear();
 
-            cbxFiltroEstadoCliente.Items.Clear();
+            cbxFiltroEstado.Items.Clear();
 
             cbxFiltroSector.Items.Clear();
 
@@ -196,6 +228,13 @@ namespace MemoryClubForms.Forms
 
             cbxSucursal.Items.Clear();//Limpia los valores que pueda tene
             cbxSucursal.Text = "";
+
+            lblEstado.Visible=false;
+
+            cbxEstado.Visible = false;
+            cbxEstado.Enabled = false;
+            cbxEstado.Items.Clear();
+            cbxEstado.Text = "";
 
             cbxSector.Items.Clear();
             cbxSector.Text = "";
@@ -252,13 +291,23 @@ namespace MemoryClubForms.Forms
                 btnInsertar.FlatAppearance.BorderColor = Color.FromArgb(221, 221, 221);
                 btnInsertar.Enabled = false;
 
+                lblEstado.Visible = true;
+
+                cbxEstado.Visible = true;
+                cbxEstado.Enabled = true;
+
+                tbxCedula.Enabled = false;
+                tbxNombreTransp.Enabled = false;
+
+                CargarElementsEdit();
+
             }
 
 
             btnFiltrar.Enabled = false;
             btnFiltrar.Visible = false;
         }
-
+ 
         private bool LoadSucursales()
         {
             try
@@ -347,12 +396,12 @@ namespace MemoryClubForms.Forms
             //Transportista
             if (string.IsNullOrEmpty(tbxNombreTransp.Text))
             {
-                MessageBox.Show("Ingrese el nombre del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Ingrese el nombre", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             if (tbxNombreTransp.Text.Length > 80)
             {
-                MessageBox.Show("Has superado el número de caracteres del nombre del colaborador.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Has superado el número de caracteres del nombre.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             //Ruta
@@ -370,7 +419,7 @@ namespace MemoryClubForms.Forms
             //Cedula
             if (string.IsNullOrEmpty(tbxCedula.Text))
             {
-                MessageBox.Show("Ingrese la cédula del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Ingrese la cédula.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             if (tbxCedula.Text.Length > 50)
@@ -387,7 +436,7 @@ namespace MemoryClubForms.Forms
             //Direccion
             if (string.IsNullOrEmpty(tbxDireccion.Text))
             {
-                MessageBox.Show("Ingrese la dirección del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Ingrese la dirección.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             if (tbxDireccion.Text.Length > 80)
@@ -409,12 +458,12 @@ namespace MemoryClubForms.Forms
             //Placa
             if (string.IsNullOrEmpty(tbxPlaca.Text))
             {
-                MessageBox.Show("Ingrese el crago del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Ingrese la placa.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             if (tbxPlaca.Text.Length > 50)
             {
-                MessageBox.Show("Has superado el número de caracteres en Cargo.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Has superado el número de caracteres en Placa.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             //observaciones
@@ -428,47 +477,60 @@ namespace MemoryClubForms.Forms
 
         private void Row_Clicked(object sender, DataGridViewCellEventArgs e)
         {
-            if (!actionsInUse)
+            try
             {
-                return;
+                if (!actionsInUse)
+                {
+                    return;
+                }
+
+                filaSeleccionada = e.RowIndex;
+
+                idTransportista = 0;
+
+                //Valida que el clic no sea de los headers
+                if (filaSeleccionada != -1)
+                {
+                    idTransportista = int.Parse(grdTransportista.Rows[filaSeleccionada].Cells[0].Value.ToString());
+
+                    tbxNombreTransp.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[1].Value.ToString();
+
+                    tbxCedula.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[2].Value;
+
+                    cbxSucursal.Items.Clear();
+                    cbxSucursal.SelectedItem = (string)grdTransportista.Rows[filaSeleccionada].Cells[3].Value.ToString();
+                    cbxSucursal.Items.Add((string)grdTransportista.Rows[filaSeleccionada].Cells[3].Value.ToString());
+                    cbxSucursal.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[3].Value.ToString();
+
+                    tbxDireccion.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[4].Value;
+
+                    tbxTelefono.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[5].Value;
+
+                    tbxPlaca.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[6].Value;
+
+                    cbxEstado.Items.Clear();
+                    cbxEstado.SelectedItem = (string)grdTransportista.Rows[filaSeleccionada].Cells[7].Value.ToString();
+                    cbxEstado.Items.Add((string)grdTransportista.Rows[filaSeleccionada].Cells[7].Value.ToString());
+                    cbxEstado.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[7].Value.ToString();
+
+                    cbxSector.Items.Clear();
+                    cbxSector.SelectedItem = (string)grdTransportista.Rows[filaSeleccionada].Cells[8].Value.ToString();
+                    cbxSector.Items.Add((string)grdTransportista.Rows[filaSeleccionada].Cells[8].Value.ToString());
+                    cbxSector.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[8].Value.ToString();
+
+                    cbxRuta.Items.Clear();
+                    cbxRuta.SelectedItem = (string)grdTransportista.Rows[filaSeleccionada].Cells[9].Value.ToString();
+                    cbxRuta.Items.Add((string)grdTransportista.Rows[filaSeleccionada].Cells[9].Value.ToString());
+                    cbxRuta.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[9].Value.ToString();
+
+                    txtObservciones.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[10].Value;
+                }
             }
-
-            filaSeleccionada = e.RowIndex;
-
-            idTransportista = 0;
-
-            //Valida que el clic no sea de los headers
-            if (filaSeleccionada != -1)
+            catch (Exception ex)
             {
-                idTransportista = int.Parse(grdTransportista.Rows[filaSeleccionada].Cells[0].Value.ToString());
 
-                tbxNombreTransp.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[1].Value.ToString();
-
-                tbxCedula.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[2].Value.ToString();
-
-                cbxSucursal.Items.Clear();
-                cbxSucursal.SelectedItem = (string)grdTransportista.Rows[filaSeleccionada].Cells[3].Value.ToString();
-                cbxSucursal.Items.Add((string)grdTransportista.Rows[filaSeleccionada].Cells[3].Value.ToString());
-                cbxSucursal.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[3].Value.ToString();
-
-                tbxDireccion.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[4].Value.ToString();
-
-                tbxTelefono.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[5].Value.ToString();
-
-                tbxPlaca.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[6].Value.ToString();
-
-                cbxSector.Items.Clear();
-                cbxSector.SelectedItem = (string)grdTransportista.Rows[filaSeleccionada].Cells[8].Value.ToString();
-                cbxSector.Items.Add((string)grdTransportista.Rows[filaSeleccionada].Cells[8].Value.ToString());
-                cbxSector.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[8].Value.ToString();
-
-                cbxRuta.Items.Clear();
-                cbxRuta.SelectedItem = (string)grdTransportista.Rows[filaSeleccionada].Cells[9].Value.ToString();
-                cbxRuta.Items.Add((string)grdTransportista.Rows[filaSeleccionada].Cells[9].Value.ToString());
-                cbxRuta.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[9].Value.ToString();
-
-                txtObservciones.Text = (string)grdTransportista.Rows[filaSeleccionada].Cells[10].Value.ToString();
             }
+            
         }
 
         private void btnFiltrar_Click(object sender, EventArgs e)
@@ -514,9 +576,9 @@ namespace MemoryClubForms.Forms
                 string estado = null;
                 string pEstado = null;
 
-                if (cbxFiltroEstadoCliente.SelectedItem != null)
+                if (cbxFiltroEstado.SelectedItem != null)
                 {
-                    estado = cbxFiltroEstadoCliente.SelectedItem.ToString();
+                    estado = cbxFiltroEstado.SelectedItem.ToString();
                 }
 
                 pEstado = codigosEstadosList.Where(x => x.Estados == estado).Select(x => x.Estados).FirstOrDefault();
@@ -527,9 +589,10 @@ namespace MemoryClubForms.Forms
                 if (transportistaList.Count > 0)
                 {
                     TransportistaListComplete = transportistaList;
+
                     foreach (var trsp in transportistaList)
                     {
-                        grdTransportista.Rows.Add(trsp.Id_transportista, trsp.Sucursal, trsp.Cedula, trsp.Nombre, trsp.Placa_veh, trsp.Telefono, trsp.Direccion, trsp.Estado, trsp.Ruta, trsp.Sector, trsp.Observacion, trsp.Usuario, trsp.Fecha_mod);
+                        grdTransportista.Rows.Add(trsp.Id_transportista, trsp.Nombre, trsp.Cedula, trsp.Sucursal, trsp.Direccion, trsp.Telefono, trsp.Placa_veh, trsp.Estado, trsp.Sector, trsp.Ruta, trsp.Observacion, trsp.Usuario, trsp.Fecha_mod);
                     }
                     grdTransportista.ReadOnly = true;
                 }
@@ -567,18 +630,36 @@ namespace MemoryClubForms.Forms
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(tbxNombreTransp.Text)) //Valida que tenga un item seleccionado del grid
+            try
             {
-                return;
+                if (string.IsNullOrEmpty(tbxNombreTransp.Text)) //Valida que tenga un item seleccionado del grid
+                {
+                    return;
+                }
+                if (cbxEstado.SelectedItem.ToString() == "I")
+                {
+                    MessageBox.Show("Este registro está en estado Inactivo y no se lo puede editar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+                if (idTransportista == 1)
+                {
+                    MessageBox.Show("Este registro no está permitido editarse o eliminarse.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                btnGuardar.Enabled = true;
+                btnGuardar.Visible = true;
+
+                lblAction.Text = "Editando";
+
+                action = 2;
+
+                EditElements(2);
             }
-            btnGuardar.Enabled = true;
-            btnGuardar.Visible = true;
+            catch (Exception ex)
+            {
 
-            lblAction.Text = "Editando";
-
-            action = 2;
-
-            EditElements(2);
+            }
+            
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -589,20 +670,18 @@ namespace MemoryClubForms.Forms
                 {
                     return;
                 }
-
+                if (idTransportista == 1)
+                {
+                    MessageBox.Show("Este registro no está permitido editarse o eliminarse.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
                 DialogResult response = MessageBox.Show("Eliminar item seleccionado", "Está seguro de que desea eliminar este elemento?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (response == DialogResult.Yes)
                 {
                     TransportistaBO transportistaBO = new TransportistaBO();
                     TransportistaModel transportistaModel = new TransportistaModel();
-
-                    if (idTransportista == 1)
-                    {
-                        MessageBox.Show("Este registro no está permitido editarse o eliminarse.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-
+                 
                     transportistaModel.Id_transportista = idTransportista;
 
                     bool responseDB = transportistaBO.EliminarTransportista(transportistaModel.Id_transportista);
@@ -668,12 +747,6 @@ namespace MemoryClubForms.Forms
                 }
                 else
                 {
-                    if (idTransportista == 1)
-                    {
-                        MessageBox.Show("Este registro no está permitido editarse o eliminarse.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-
                     TransportistaBO transportistaBO = new TransportistaBO();
                     TransportistaModel transportistaModel = new TransportistaModel();
 
@@ -687,7 +760,7 @@ namespace MemoryClubForms.Forms
                     transportistaModel.Placa_veh = tbxPlaca.Text;
                     transportistaModel.Telefono = tbxTelefono.Text;
                     transportistaModel.Direccion = tbxDireccion.Text;
-                    transportistaModel.Estado = codigosEstadosList.Where(x => x.Estados == "A").Select(x => x.Estados).FirstOrDefault();
+                    transportistaModel.Estado = cbxEstado.SelectedItem.ToString();
                     transportistaModel.Observacion = txtObservciones.Text;
                     transportistaModel.Sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
                     transportistaModel.Usuario = VariablesGlobales.usuario.ToString();
@@ -714,6 +787,11 @@ namespace MemoryClubForms.Forms
                 LoadInformation();
                 MessageBox.Show("Alerta, No se pudo guardar el registro\n" + ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

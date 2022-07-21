@@ -40,6 +40,12 @@
             this.tbxPlaca = new System.Windows.Forms.TextBox();
             this.lblAction = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.lblEstado = new System.Windows.Forms.Label();
+            this.cbxEstado = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cbxRuta = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cbxSector = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbxCedula = new System.Windows.Forms.TextBox();
             this.tbxNombreTransp = new System.Windows.Forms.TextBox();
@@ -58,8 +64,13 @@
             this.txtObservciones = new System.Windows.Forms.TextBox();
             this.tbxTelefono = new System.Windows.Forms.TextBox();
             this.pnlFiltro = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cbxFiltroRuta = new System.Windows.Forms.ComboBox();
+            this.cbxFiltroSector = new System.Windows.Forms.ComboBox();
+            this.cbxFiltroSucursal = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.cbxFiltroEstadoCliente = new System.Windows.Forms.ComboBox();
+            this.cbxFiltroEstado = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnReiniciarFiltro = new System.Windows.Forms.Button();
             this.btnFiltrar = new System.Windows.Forms.Button();
@@ -68,16 +79,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblNombreVista = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.grdTransportista = new System.Windows.Forms.DataGridView();
-            this.cbxFiltroSucursal = new System.Windows.Forms.ComboBox();
-            this.cbxFiltroSector = new System.Windows.Forms.ComboBox();
-            this.cbxFiltroRuta = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cbxSector = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.cbxRuta = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.Id_colaborador = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cedula = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -91,7 +94,6 @@
             this.observaciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha_mod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.panel1.SuspendLayout();
             this.pnlActions.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -192,6 +194,8 @@
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.lblEstado);
+            this.panel6.Controls.Add(this.cbxEstado);
             this.panel6.Controls.Add(this.label14);
             this.panel6.Controls.Add(this.cbxRuta);
             this.panel6.Controls.Add(this.label12);
@@ -204,14 +208,73 @@
             this.panel6.Controls.Add(this.label4);
             this.panel6.Location = new System.Drawing.Point(4, 46);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(733, 61);
+            this.panel6.Size = new System.Drawing.Size(793, 61);
             this.panel6.TabIndex = 6;
+            // 
+            // lblEstado
+            // 
+            this.lblEstado.AutoSize = true;
+            this.lblEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEstado.Location = new System.Drawing.Point(688, 6);
+            this.lblEstado.Name = "lblEstado";
+            this.lblEstado.Size = new System.Drawing.Size(52, 17);
+            this.lblEstado.TabIndex = 46;
+            this.lblEstado.Text = "Estado";
+            this.lblEstado.Visible = false;
+            // 
+            // cbxEstado
+            // 
+            this.cbxEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxEstado.FormattingEnabled = true;
+            this.cbxEstado.Location = new System.Drawing.Point(691, 32);
+            this.cbxEstado.Name = "cbxEstado";
+            this.cbxEstado.Size = new System.Drawing.Size(89, 21);
+            this.cbxEstado.TabIndex = 46;
+            this.cbxEstado.Visible = false;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(543, 6);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(38, 17);
+            this.label14.TabIndex = 39;
+            this.label14.Text = "Ruta";
+            // 
+            // cbxRuta
+            // 
+            this.cbxRuta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxRuta.FormattingEnabled = true;
+            this.cbxRuta.Location = new System.Drawing.Point(546, 32);
+            this.cbxRuta.Name = "cbxRuta";
+            this.cbxRuta.Size = new System.Drawing.Size(121, 21);
+            this.cbxRuta.TabIndex = 38;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(401, 7);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(49, 17);
+            this.label12.TabIndex = 37;
+            this.label12.Text = "Sector";
+            // 
+            // cbxSector
+            // 
+            this.cbxSector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxSector.FormattingEnabled = true;
+            this.cbxSector.Location = new System.Drawing.Point(404, 32);
+            this.cbxSector.Name = "cbxSector";
+            this.cbxSector.Size = new System.Drawing.Size(121, 21);
+            this.cbxSector.TabIndex = 36;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(149, 7);
+            this.label1.Location = new System.Drawing.Point(132, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(52, 17);
             this.label1.TabIndex = 35;
@@ -220,7 +283,7 @@
             // tbxCedula
             // 
             this.tbxCedula.Enabled = false;
-            this.tbxCedula.Location = new System.Drawing.Point(152, 32);
+            this.tbxCedula.Location = new System.Drawing.Point(135, 33);
             this.tbxCedula.Name = "tbxCedula";
             this.tbxCedula.Size = new System.Drawing.Size(115, 20);
             this.tbxCedula.TabIndex = 34;
@@ -237,7 +300,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(283, 6);
+            this.label9.Location = new System.Drawing.Point(262, 6);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(63, 17);
             this.label9.TabIndex = 10;
@@ -247,7 +310,7 @@
             // 
             this.cbxSucursal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxSucursal.FormattingEnabled = true;
-            this.cbxSucursal.Location = new System.Drawing.Point(286, 32);
+            this.cbxSucursal.Location = new System.Drawing.Point(265, 32);
             this.cbxSucursal.Name = "cbxSucursal";
             this.cbxSucursal.Size = new System.Drawing.Size(121, 21);
             this.cbxSucursal.TabIndex = 9;
@@ -410,7 +473,7 @@
             this.pnlFiltro.Controls.Add(this.cbxFiltroSector);
             this.pnlFiltro.Controls.Add(this.cbxFiltroSucursal);
             this.pnlFiltro.Controls.Add(this.label13);
-            this.pnlFiltro.Controls.Add(this.cbxFiltroEstadoCliente);
+            this.pnlFiltro.Controls.Add(this.cbxFiltroEstado);
             this.pnlFiltro.Controls.Add(this.label3);
             this.pnlFiltro.Controls.Add(this.btnReiniciarFiltro);
             this.pnlFiltro.Controls.Add(this.btnFiltrar);
@@ -420,6 +483,53 @@
             this.pnlFiltro.Name = "pnlFiltro";
             this.pnlFiltro.Size = new System.Drawing.Size(894, 77);
             this.pnlFiltro.TabIndex = 7;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(180, 12);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(49, 17);
+            this.label8.TabIndex = 45;
+            this.label8.Text = "Sector";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(338, 15);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(38, 17);
+            this.label7.TabIndex = 44;
+            this.label7.Text = "Ruta";
+            // 
+            // cbxFiltroRuta
+            // 
+            this.cbxFiltroRuta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFiltroRuta.FormattingEnabled = true;
+            this.cbxFiltroRuta.Location = new System.Drawing.Point(341, 46);
+            this.cbxFiltroRuta.Name = "cbxFiltroRuta";
+            this.cbxFiltroRuta.Size = new System.Drawing.Size(121, 21);
+            this.cbxFiltroRuta.TabIndex = 43;
+            // 
+            // cbxFiltroSector
+            // 
+            this.cbxFiltroSector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFiltroSector.FormattingEnabled = true;
+            this.cbxFiltroSector.Location = new System.Drawing.Point(183, 46);
+            this.cbxFiltroSector.Name = "cbxFiltroSector";
+            this.cbxFiltroSector.Size = new System.Drawing.Size(121, 21);
+            this.cbxFiltroSector.TabIndex = 42;
+            // 
+            // cbxFiltroSucursal
+            // 
+            this.cbxFiltroSucursal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFiltroSucursal.FormattingEnabled = true;
+            this.cbxFiltroSucursal.Location = new System.Drawing.Point(501, 46);
+            this.cbxFiltroSucursal.Name = "cbxFiltroSucursal";
+            this.cbxFiltroSucursal.Size = new System.Drawing.Size(121, 21);
+            this.cbxFiltroSucursal.TabIndex = 41;
             // 
             // label13
             // 
@@ -432,16 +542,16 @@
             this.label13.Text = "Estado";
             this.label13.Visible = false;
             // 
-            // cbxFiltroEstadoCliente
+            // cbxFiltroEstado
             // 
-            this.cbxFiltroEstadoCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxFiltroEstadoCliente.Enabled = false;
-            this.cbxFiltroEstadoCliente.FormattingEnabled = true;
-            this.cbxFiltroEstadoCliente.Location = new System.Drawing.Point(655, 46);
-            this.cbxFiltroEstadoCliente.Name = "cbxFiltroEstadoCliente";
-            this.cbxFiltroEstadoCliente.Size = new System.Drawing.Size(121, 21);
-            this.cbxFiltroEstadoCliente.TabIndex = 39;
-            this.cbxFiltroEstadoCliente.Visible = false;
+            this.cbxFiltroEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFiltroEstado.Enabled = false;
+            this.cbxFiltroEstado.FormattingEnabled = true;
+            this.cbxFiltroEstado.Location = new System.Drawing.Point(655, 46);
+            this.cbxFiltroEstado.Name = "cbxFiltroEstado";
+            this.cbxFiltroEstado.Size = new System.Drawing.Size(121, 21);
+            this.cbxFiltroEstado.TabIndex = 39;
+            this.cbxFiltroEstado.Visible = false;
             // 
             // label3
             // 
@@ -532,6 +642,27 @@
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.Maroon;
+            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
+            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnClose.BorderRadius = 17;
+            this.btnClose.BorderSize = 0;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(814, 12);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(92, 32);
+            this.btnClose.TabIndex = 2;
+            this.btnClose.Text = "Cerrar";
+            this.btnClose.TextColor = System.Drawing.Color.White;
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // grdTransportista
             // 
             this.grdTransportista.AllowUserToAddRows = false;
@@ -589,91 +720,6 @@
             this.grdTransportista.Size = new System.Drawing.Size(894, 248);
             this.grdTransportista.TabIndex = 5;
             this.grdTransportista.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Row_Clicked);
-            // 
-            // cbxFiltroSucursal
-            // 
-            this.cbxFiltroSucursal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxFiltroSucursal.FormattingEnabled = true;
-            this.cbxFiltroSucursal.Location = new System.Drawing.Point(501, 46);
-            this.cbxFiltroSucursal.Name = "cbxFiltroSucursal";
-            this.cbxFiltroSucursal.Size = new System.Drawing.Size(121, 21);
-            this.cbxFiltroSucursal.TabIndex = 41;
-            // 
-            // cbxFiltroSector
-            // 
-            this.cbxFiltroSector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxFiltroSector.FormattingEnabled = true;
-            this.cbxFiltroSector.Location = new System.Drawing.Point(183, 46);
-            this.cbxFiltroSector.Name = "cbxFiltroSector";
-            this.cbxFiltroSector.Size = new System.Drawing.Size(121, 21);
-            this.cbxFiltroSector.TabIndex = 42;
-            // 
-            // cbxFiltroRuta
-            // 
-            this.cbxFiltroRuta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxFiltroRuta.FormattingEnabled = true;
-            this.cbxFiltroRuta.Location = new System.Drawing.Point(341, 46);
-            this.cbxFiltroRuta.Name = "cbxFiltroRuta";
-            this.cbxFiltroRuta.Size = new System.Drawing.Size(121, 21);
-            this.cbxFiltroRuta.TabIndex = 43;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(338, 15);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(38, 17);
-            this.label7.TabIndex = 44;
-            this.label7.Text = "Ruta";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(180, 12);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(49, 17);
-            this.label8.TabIndex = 45;
-            this.label8.Text = "Sector";
-            // 
-            // cbxSector
-            // 
-            this.cbxSector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxSector.FormattingEnabled = true;
-            this.cbxSector.Location = new System.Drawing.Point(432, 31);
-            this.cbxSector.Name = "cbxSector";
-            this.cbxSector.Size = new System.Drawing.Size(121, 21);
-            this.cbxSector.TabIndex = 36;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(429, 7);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(49, 17);
-            this.label12.TabIndex = 37;
-            this.label12.Text = "Sector";
-            // 
-            // cbxRuta
-            // 
-            this.cbxRuta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxRuta.FormattingEnabled = true;
-            this.cbxRuta.Location = new System.Drawing.Point(578, 31);
-            this.cbxRuta.Name = "cbxRuta";
-            this.cbxRuta.Size = new System.Drawing.Size(121, 21);
-            this.cbxRuta.TabIndex = 38;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(585, 6);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(38, 17);
-            this.label14.TabIndex = 39;
-            this.label14.Text = "Ruta";
             // 
             // Id_colaborador
             // 
@@ -753,26 +799,6 @@
             this.fecha_mod.Name = "fecha_mod";
             this.fecha_mod.Visible = false;
             // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.BackColor = System.Drawing.Color.Maroon;
-            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
-            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnClose.BorderRadius = 17;
-            this.btnClose.BorderSize = 0;
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(814, 12);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(92, 32);
-            this.btnClose.TabIndex = 2;
-            this.btnClose.Text = "Cerrar";
-            this.btnClose.TextColor = System.Drawing.Color.White;
-            this.btnClose.UseVisualStyleBackColor = false;
-            // 
             // TransportistaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -830,7 +856,7 @@
         private System.Windows.Forms.TextBox tbxTelefono;
         private System.Windows.Forms.Panel pnlFiltro;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ComboBox cbxFiltroEstadoCliente;
+        private System.Windows.Forms.ComboBox cbxFiltroEstado;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnReiniciarFiltro;
         private System.Windows.Forms.Button btnFiltrar;
@@ -863,5 +889,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn observaciones;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
+        private System.Windows.Forms.Label lblEstado;
+        private System.Windows.Forms.ComboBox cbxEstado;
     }
 }

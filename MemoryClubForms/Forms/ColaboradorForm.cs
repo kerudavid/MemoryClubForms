@@ -109,7 +109,7 @@ namespace MemoryClubForms.Forms
 
             if (string.IsNullOrEmpty(tbxNombreColab.Text))
             {
-                MessageBox.Show("Ingrese el nombre del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Ingrese el nombre.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             if (tbxNombreColab.Text.Length>80)
@@ -120,7 +120,7 @@ namespace MemoryClubForms.Forms
 
             if (string.IsNullOrEmpty(tbxCedula.Text))
             {
-                MessageBox.Show("Ingrese la cédula del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Ingrese la cédula.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             if (tbxCedula.Text.Length > 50)
@@ -137,7 +137,7 @@ namespace MemoryClubForms.Forms
 
             if (string.IsNullOrEmpty(tbxDireccion.Text))
             {
-                MessageBox.Show("Ingrese la dirección del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Ingrese la dirección.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             if (tbxDireccion.Text.Length > 80)
@@ -148,7 +148,7 @@ namespace MemoryClubForms.Forms
 
             if (string.IsNullOrEmpty(tbxTelefono.Text))
             {
-                MessageBox.Show("Ingrese el teléfono del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Ingrese el teléfono.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             if (tbxTelefono.Text.Length > 50)
@@ -159,7 +159,7 @@ namespace MemoryClubForms.Forms
 
             if (string.IsNullOrEmpty(tbxCargo.Text))
             {
-                MessageBox.Show("Ingrese el crago del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Ingrese el cargo.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             if (tbxCargo.Text.Length > 50)
@@ -223,17 +223,34 @@ namespace MemoryClubForms.Forms
             {
                 cbxFiltroEstadoCliente.Items.Add(item.Descripcion.ToString());
             }
+            cbxFiltroEstadoCliente.Items.Add("TODOS");
 
         }
 
+        private void CargarElementsEdit()
+        {
+            foreach (var item in codigosSucursalesList)
+            {
+                if (int.Parse(cbxSucursal.SelectedIndex.ToString()) != item.Sucursales)
+                {
+                    cbxSucursal.Items.Add(item.Sucursales);
+                }
+                
+            }
+
+            foreach (var item in codigosEstadosList)
+            {
+                if(cbxEstado.SelectedItem.ToString().ToLower()!= item.Estados.ToLower())
+                    cbxEstado.Items.Add(item.Estados);
+            }
+        }
         private void CargarElemActions()
         {
             //Cargo el nombre de los clientes y de los colaboradores
             foreach (var item in codigosSucursalesList)
             {
                 cbxSucursal.Items.Add(item.Sucursales);
-            }
-            
+            }    
         }
 
         private void ResetFilterElements()
@@ -318,6 +335,13 @@ namespace MemoryClubForms.Forms
                 btnInsertar.FlatAppearance.BorderColor = Color.FromArgb(221, 221, 221);
                 btnInsertar.Enabled = false;
 
+                lblEstado.Visible=true;
+                
+                cbxEstado.Visible=true;
+                cbxEstado.Enabled = true;
+
+                CargarElementsEdit();
+
             }
 
 
@@ -331,6 +355,13 @@ namespace MemoryClubForms.Forms
 
             cbxSucursal.Items.Clear();//Limpia los valores que pueda tene
             cbxSucursal.Text = "";
+
+            lblEstado.Visible = false;
+
+            cbxEstado.Visible = false;
+            cbxEstado.Enabled = false;
+            cbxEstado.Items.Clear();
+            cbxEstado.Text = "";
 
             tbxNombreColab.Text = "";
 
@@ -348,37 +379,50 @@ namespace MemoryClubForms.Forms
 
         private void Row_Clicked(object sender, DataGridViewCellEventArgs e)
         {
-            if (!actionsInUse)
+            try
             {
-                return;
+                if (!actionsInUse)
+                {
+                    return;
+                }
+
+                filaSeleccionada = e.RowIndex;
+
+                idColaborador = 0;
+
+                //Valida que el clic no sea de los headers
+                if (filaSeleccionada != -1)
+                {
+                    idColaborador = int.Parse(grdColaborador.Rows[filaSeleccionada].Cells[0].Value.ToString());
+
+                    tbxNombreColab.Text = (string)grdColaborador.Rows[filaSeleccionada].Cells[1].Value;
+
+                    tbxCedula.Text = (string)grdColaborador.Rows[filaSeleccionada].Cells[2].Value;
+
+                    cbxSucursal.Items.Clear();
+                    cbxSucursal.SelectedItem = (string)grdColaborador.Rows[filaSeleccionada].Cells[3].Value.ToString();
+                    cbxSucursal.Items.Add((string)grdColaborador.Rows[filaSeleccionada].Cells[3].Value.ToString());
+                    cbxSucursal.Text = (string)grdColaborador.Rows[filaSeleccionada].Cells[3].Value.ToString();
+
+                    cbxEstado.Items.Clear();
+                    cbxEstado.SelectedItem = (string)grdColaborador.Rows[filaSeleccionada].Cells[7].Value.ToString();
+                    cbxEstado.Items.Add((string)grdColaborador.Rows[filaSeleccionada].Cells[7].Value.ToString());
+                    cbxEstado.Text = (string)grdColaborador.Rows[filaSeleccionada].Cells[7].Value.ToString();
+
+                    tbxDireccion.Text = (string)grdColaborador.Rows[filaSeleccionada].Cells[4].Value;
+
+                    tbxTelefono.Text = (string)grdColaborador.Rows[filaSeleccionada].Cells[5].Value;
+
+                    tbxCargo.Text = (string)grdColaborador.Rows[filaSeleccionada].Cells[6].Value;
+
+                    txtObservciones.Text = (string)grdColaborador.Rows[filaSeleccionada].Cells[8].Value;
+                }
             }
-
-            filaSeleccionada = e.RowIndex;
-
-            idColaborador = 0;
-
-            //Valida que el clic no sea de los headers
-            if (filaSeleccionada != -1)
+            catch (Exception ex)
             {
-                idColaborador = int.Parse(grdColaborador.Rows[filaSeleccionada].Cells[0].Value.ToString());
 
-                tbxNombreColab.Text= (string)grdColaborador.Rows[filaSeleccionada].Cells[1].Value;
-
-                tbxCedula.Text = (string)grdColaborador.Rows[filaSeleccionada].Cells[2].Value;
-
-                cbxSucursal.Items.Clear();
-                cbxSucursal.SelectedItem = (string)grdColaborador.Rows[filaSeleccionada].Cells[3].Value.ToString();
-                cbxSucursal.Items.Add((string)grdColaborador.Rows[filaSeleccionada].Cells[3].Value.ToString());
-                cbxSucursal.Text = (string)grdColaborador.Rows[filaSeleccionada].Cells[3].Value.ToString();
-
-                tbxDireccion.Text= (string)grdColaborador.Rows[filaSeleccionada].Cells[4].Value;
-
-                tbxTelefono.Text= (string)grdColaborador.Rows[filaSeleccionada].Cells[5].Value;
-
-                tbxCargo.Text= (string)grdColaborador.Rows[filaSeleccionada].Cells[6].Value;
-
-                txtObservciones.Text = (string)grdColaborador.Rows[filaSeleccionada].Cells[8].Value;
             }
+            
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -468,18 +512,27 @@ namespace MemoryClubForms.Forms
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(tbxNombreColab.Text)) //Valida que tenga un item seleccionado del grid
+            try
             {
-                return;
+                if (string.IsNullOrEmpty(tbxNombreColab.Text)) //Valida que tenga un item seleccionado del grid
+                {
+                    return;
+                }
+                btnGuardar.Enabled = true;
+                btnGuardar.Visible = true;
+
+                lblAction.Text = "Editando";
+
+                action = 2;
+
+                EditElements(2);
             }
-            btnGuardar.Enabled = true;
-            btnGuardar.Visible = true;
+            catch (Exception ex)
+            {
 
-            lblAction.Text = "Editando";
+            }
 
-            action = 2;
-
-            EditElements(2);
+            
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -533,7 +586,7 @@ namespace MemoryClubForms.Forms
                     colaboradorModel.Direccion = tbxDireccion.Text;
                     colaboradorModel.Telefono = tbxTelefono.Text;
                     colaboradorModel.Cargo = tbxCargo.Text;
-                    colaboradorModel.Estado = codigosEstadosList.Where(x => x.Descripcion == "ACTIVO").Select(x => x.Estados).FirstOrDefault();
+                    colaboradorModel.Estado = cbxEstado.SelectedItem.ToString();
                     colaboradorModel.Observacion = txtObservciones.Text;
                     colaboradorModel.Sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
                     colaboradorModel.Usuario = VariablesGlobales.usuario.ToString();
