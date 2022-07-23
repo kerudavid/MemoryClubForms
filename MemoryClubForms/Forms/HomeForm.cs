@@ -18,7 +18,7 @@ namespace MemoryClubForms.Forms
             InitializeComponent();
         }
 
-        private void OpenForm(Form newForm)
+        public void OpenForm(Form newForm)
         {
             if (activeForm != null)
             {
@@ -29,6 +29,23 @@ namespace MemoryClubForms.Forms
 
             newForm.TopLevel = false;
             newForm.FormBorderStyle= FormBorderStyle.None;
+            newForm.Dock = DockStyle.Fill;
+
+            panelContenedor.Controls.Add(newForm);
+            panelContenedor.Tag = newForm;
+
+            newForm.BringToFront();
+            newForm.Show();
+
+        }
+
+        public void OpenFormEx(Form newForm)
+        {
+       
+            activeForm = newForm;
+
+            newForm.TopLevel = false;
+            newForm.FormBorderStyle = FormBorderStyle.None;
             newForm.Dock = DockStyle.Fill;
 
             panelContenedor.Controls.Add(newForm);

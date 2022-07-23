@@ -767,7 +767,6 @@
             // 
             this.Estado.HeaderText = "Estado";
             this.Estado.Name = "Estado";
-            this.Estado.Visible = false;
             // 
             // Sector
             // 
@@ -876,6 +875,8 @@
         private System.Windows.Forms.ComboBox cbxRuta;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox cbxSector;
+        private System.Windows.Forms.Label lblEstado;
+        private System.Windows.Forms.ComboBox cbxEstado;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id_colaborador;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn cedula;
@@ -889,7 +890,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn observaciones;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
-        private System.Windows.Forms.Label lblEstado;
-        private System.Windows.Forms.ComboBox cbxEstado;
     }
 }

@@ -33,17 +33,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ColaboradorForm));
             this.grdColaborador = new System.Windows.Forms.DataGridView();
-            this.Id_colaborador = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cedula = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cargo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.observaciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha_mod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblNombreVista = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -63,8 +52,10 @@
             this.tbxDireccion = new System.Windows.Forms.TextBox();
             this.lblAction = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.lblEstado = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tbxCedula = new System.Windows.Forms.TextBox();
+            this.cbxEstado = new System.Windows.Forms.ComboBox();
             this.tbxNombreColab = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.cbxSucursal = new System.Windows.Forms.ComboBox();
@@ -82,8 +73,17 @@
             this.tbxTelefono = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
-            this.lblEstado = new System.Windows.Forms.Label();
-            this.cbxEstado = new System.Windows.Forms.ComboBox();
+            this.Id_colaborador = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cedula = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cargo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.observaciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha_mod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdColaborador)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -150,74 +150,6 @@
             this.grdColaborador.Size = new System.Drawing.Size(894, 278);
             this.grdColaborador.TabIndex = 4;
             this.grdColaborador.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Row_Clicked);
-            // 
-            // Id_colaborador
-            // 
-            this.Id_colaborador.HeaderText = "ID Colaborador";
-            this.Id_colaborador.Name = "Id_colaborador";
-            this.Id_colaborador.Visible = false;
-            // 
-            // nombre
-            // 
-            this.nombre.FillWeight = 82.08122F;
-            this.nombre.HeaderText = "Nombre";
-            this.nombre.Name = "nombre";
-            // 
-            // cedula
-            // 
-            this.cedula.FillWeight = 82.08122F;
-            this.cedula.HeaderText = "Cédula";
-            this.cedula.Name = "cedula";
-            // 
-            // sucursal
-            // 
-            this.sucursal.FillWeight = 82.08122F;
-            this.sucursal.HeaderText = "Sucursal";
-            this.sucursal.Name = "sucursal";
-            // 
-            // direccion
-            // 
-            this.direccion.FillWeight = 82.08122F;
-            this.direccion.HeaderText = "Dirección";
-            this.direccion.Name = "direccion";
-            // 
-            // telefono
-            // 
-            this.telefono.FillWeight = 82.08122F;
-            this.telefono.HeaderText = "Teléfono";
-            this.telefono.Name = "telefono";
-            // 
-            // cargo
-            // 
-            this.cargo.FillWeight = 82.08122F;
-            this.cargo.HeaderText = "Cargo";
-            this.cargo.Name = "cargo";
-            // 
-            // Estado
-            // 
-            this.Estado.HeaderText = "Estado";
-            this.Estado.Name = "Estado";
-            this.Estado.Visible = false;
-            // 
-            // observaciones
-            // 
-            this.observaciones.FillWeight = 82.08122F;
-            this.observaciones.HeaderText = "Observaciones";
-            this.observaciones.Name = "observaciones";
-            // 
-            // usuario
-            // 
-            this.usuario.FillWeight = 82.08122F;
-            this.usuario.HeaderText = "Usuario";
-            this.usuario.Name = "usuario";
-            this.usuario.Visible = false;
-            // 
-            // fecha_mod
-            // 
-            this.fecha_mod.FillWeight = 82.08122F;
-            this.fecha_mod.HeaderText = "Fecha Modificación";
-            this.fecha_mod.Name = "fecha_mod";
-            this.fecha_mod.Visible = false;
             // 
             // panel2
             // 
@@ -441,6 +373,17 @@
             this.panel6.Size = new System.Drawing.Size(568, 61);
             this.panel6.TabIndex = 6;
             // 
+            // lblEstado
+            // 
+            this.lblEstado.AutoSize = true;
+            this.lblEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEstado.Location = new System.Drawing.Point(449, 6);
+            this.lblEstado.Name = "lblEstado";
+            this.lblEstado.Size = new System.Drawing.Size(52, 17);
+            this.lblEstado.TabIndex = 47;
+            this.lblEstado.Text = "Estado";
+            this.lblEstado.Visible = false;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -458,6 +401,17 @@
             this.tbxCedula.Name = "tbxCedula";
             this.tbxCedula.Size = new System.Drawing.Size(115, 20);
             this.tbxCedula.TabIndex = 34;
+            // 
+            // cbxEstado
+            // 
+            this.cbxEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxEstado.Enabled = false;
+            this.cbxEstado.FormattingEnabled = true;
+            this.cbxEstado.Location = new System.Drawing.Point(452, 33);
+            this.cbxEstado.Name = "cbxEstado";
+            this.cbxEstado.Size = new System.Drawing.Size(89, 21);
+            this.cbxEstado.TabIndex = 48;
+            this.cbxEstado.Visible = false;
             // 
             // tbxNombreColab
             // 
@@ -669,27 +623,72 @@
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // lblEstado
+            // Id_colaborador
             // 
-            this.lblEstado.AutoSize = true;
-            this.lblEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEstado.Location = new System.Drawing.Point(449, 6);
-            this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(52, 17);
-            this.lblEstado.TabIndex = 47;
-            this.lblEstado.Text = "Estado";
-            this.lblEstado.Visible = false;
+            this.Id_colaborador.HeaderText = "ID Colaborador";
+            this.Id_colaborador.Name = "Id_colaborador";
+            this.Id_colaborador.Visible = false;
             // 
-            // cbxEstado
+            // nombre
             // 
-            this.cbxEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxEstado.Enabled = false;
-            this.cbxEstado.FormattingEnabled = true;
-            this.cbxEstado.Location = new System.Drawing.Point(452, 33);
-            this.cbxEstado.Name = "cbxEstado";
-            this.cbxEstado.Size = new System.Drawing.Size(89, 21);
-            this.cbxEstado.TabIndex = 48;
-            this.cbxEstado.Visible = false;
+            this.nombre.FillWeight = 82.08122F;
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            // 
+            // cedula
+            // 
+            this.cedula.FillWeight = 82.08122F;
+            this.cedula.HeaderText = "Cédula";
+            this.cedula.Name = "cedula";
+            // 
+            // sucursal
+            // 
+            this.sucursal.FillWeight = 82.08122F;
+            this.sucursal.HeaderText = "Sucursal";
+            this.sucursal.Name = "sucursal";
+            // 
+            // direccion
+            // 
+            this.direccion.FillWeight = 82.08122F;
+            this.direccion.HeaderText = "Dirección";
+            this.direccion.Name = "direccion";
+            // 
+            // telefono
+            // 
+            this.telefono.FillWeight = 82.08122F;
+            this.telefono.HeaderText = "Teléfono";
+            this.telefono.Name = "telefono";
+            // 
+            // cargo
+            // 
+            this.cargo.FillWeight = 82.08122F;
+            this.cargo.HeaderText = "Cargo";
+            this.cargo.Name = "cargo";
+            // 
+            // Estado
+            // 
+            this.Estado.HeaderText = "Estado";
+            this.Estado.Name = "Estado";
+            // 
+            // observaciones
+            // 
+            this.observaciones.FillWeight = 82.08122F;
+            this.observaciones.HeaderText = "Observaciones";
+            this.observaciones.Name = "observaciones";
+            // 
+            // usuario
+            // 
+            this.usuario.FillWeight = 82.08122F;
+            this.usuario.HeaderText = "Usuario";
+            this.usuario.Name = "usuario";
+            this.usuario.Visible = false;
+            // 
+            // fecha_mod
+            // 
+            this.fecha_mod.FillWeight = 82.08122F;
+            this.fecha_mod.HeaderText = "Fecha Modificación";
+            this.fecha_mod.Name = "fecha_mod";
+            this.fecha_mod.Visible = false;
             // 
             // ColaboradorForm
             // 
@@ -758,6 +757,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbxCargo;
         private System.Windows.Forms.TextBox tbxDireccion;
+        private System.Windows.Forms.Label lblEstado;
+        private System.Windows.Forms.ComboBox cbxEstado;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id_colaborador;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn cedula;
@@ -769,7 +770,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn observaciones;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
-        private System.Windows.Forms.Label lblEstado;
-        private System.Windows.Forms.ComboBox cbxEstado;
     }
 }
