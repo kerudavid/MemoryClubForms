@@ -15,8 +15,8 @@ namespace MemoryClubForms.BusinessBO
     /// </summary>
     public class SaludBO
     {
-        int nivel = VariablesGlobales.Nivel;
-        int sucursal = VariablesGlobales.sucursal;
+        public static int nivel = VariablesGlobales.Nivel;
+        public static int sucursal = VariablesGlobales.sucursal;
 
 
         /// <summary>

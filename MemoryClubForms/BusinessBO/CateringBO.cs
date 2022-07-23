@@ -13,8 +13,8 @@ namespace MemoryClubForms.BusinessBO
     //Para gestionar la tabla Catering
     public class CateringBO
     {
-        int nivel = VariablesGlobales.Nivel;
-        int sucursal = VariablesGlobales.sucursal;
+        public static int nivel = VariablesGlobales.Nivel;
+        public static int sucursal = VariablesGlobales.sucursal;
 
         /// <summary>
         /// Recupera en una lista los nombres de los clientes NO INACTIVOS

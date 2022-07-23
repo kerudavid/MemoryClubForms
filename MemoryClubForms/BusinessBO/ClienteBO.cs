@@ -13,8 +13,8 @@ namespace MemoryClubForms.BusinessBO
     //Gestiona la tabla Cliente
     public class ClienteBO
     {
-        int nivel = VariablesGlobales.Nivel;
-        int sucursal = VariablesGlobales.sucursal;
+        public static int nivel = VariablesGlobales.Nivel;
+        public static int sucursal = VariablesGlobales.sucursal;
 
         /// <summary>
         /// Consulta la Lista de Códigos de las Sucursales

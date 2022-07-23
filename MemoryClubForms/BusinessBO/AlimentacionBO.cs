@@ -13,8 +13,8 @@ namespace MemoryClubForms.BusinessBO
     //gestiona la tabla Alimentación
     public class AlimentacionBO
     {
-        int nivel = VariablesGlobales.Nivel;
-        int sucursal = VariablesGlobales.sucursal;
+        public static int nivel = VariablesGlobales.Nivel;
+        public static int sucursal = VariablesGlobales.sucursal;
 
         /// <summary>
         /// Devuelve la lista de clientes A o P, dependiendo del nivel del usuario todos los clientes o los de su sucursal
