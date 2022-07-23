@@ -13,8 +13,8 @@ namespace MemoryClubForms.BusinessBO
     //Gestionar la tabla Transporte
     public class TransporteBO
     {
-        int nivel = VariablesGlobales.Nivel;
-        int sucursal = VariablesGlobales.sucursal;
+        public static int nivel = VariablesGlobales.Nivel;
+        public static int sucursal = VariablesGlobales.sucursal;
 
         /// <summary>
         /// Recupera en una lista los nombres de los clientes Activos

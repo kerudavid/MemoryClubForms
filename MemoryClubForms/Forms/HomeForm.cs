@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MemoryClubForms.Reports;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -96,6 +97,11 @@ namespace MemoryClubForms.Forms
         private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenForm(new ClienteForm());
+        }
+
+        private void reporteClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new FormReporteClientePlan());
         }
     }
 }

@@ -164,14 +164,14 @@
             // 
             this.alimentaciónToolStripMenuItem.Image = global::MemoryClubForms.Properties.Resources.manzana;
             this.alimentaciónToolStripMenuItem.Name = "alimentaciónToolStripMenuItem";
-            this.alimentaciónToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.alimentaciónToolStripMenuItem.Size = new System.Drawing.Size(171, 26);
             this.alimentaciónToolStripMenuItem.Text = "Alimentación";
             // 
             // saludToolStripMenuItem
             // 
             this.saludToolStripMenuItem.Image = global::MemoryClubForms.Properties.Resources.salud;
             this.saludToolStripMenuItem.Name = "saludToolStripMenuItem";
-            this.saludToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.saludToolStripMenuItem.Size = new System.Drawing.Size(171, 26);
             this.saludToolStripMenuItem.Text = "Salud";
             // 
             // reportesToolStripMenuItem
@@ -212,6 +212,7 @@
             this.reporteClientesToolStripMenuItem.Name = "reporteClientesToolStripMenuItem";
             this.reporteClientesToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
             this.reporteClientesToolStripMenuItem.Text = "Reporte Clientes";
+            this.reporteClientesToolStripMenuItem.Click += new System.EventHandler(this.reporteClientesToolStripMenuItem_Click);
             // 
             // sistemaToolStripMenuItem
             // 

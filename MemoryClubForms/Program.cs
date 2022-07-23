@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Reporting.WinForms;
+using MemoryClubForms.Reports;
 
 namespace MemoryClubForms
 {
@@ -19,24 +21,25 @@ namespace MemoryClubForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            CalendarioBO calen = new CalendarioBO();
+            /*CalendarioBO calen = new CalendarioBO();
             CalendarioModel model = new CalendarioModel();
-            model.Fecha = "16/07/2022";
-            /*model.Id_plan = 2;
-            model.Fk_id_cliente = 1;
-            model.Sucursal = 1;
-            model.Tipo_plan = "CORTESIA";
-            model.Fecha_inicio_plan = "15/07/2022";
-            model.Pagado = "NO";
-            model.Max_dia_plan = 10;
-            model.Estado = "VIGENTE";
-            model.Observacion = "Prueba de modificar";
-            model.Usuario = "";
-            model.Fecha_mod = "";*/
+            model.Id_calendario = 16;
+            model.Fk_id_plan = 3;
+            model.Fk_id_cliente = 2;
+            model.Fecha = "15/07/2022";
+            model.Estado = "RESERVADO";
+            model.Usuario = "mmoreta";
+            model.Fecha_mod = "21/07/2022";
+
+            //calen.EliminarCalendario(model);
 
 
-            calen.Validafinsemana(model);
+            //calen.InsertarAutomatico(4, 4, "Martes", "Miercoles", "Jueves", "", "");*/
 
+
+            //OpenForm(new FormReporteClientePlan());
+            
+             
 
 
             Application.Run(new LoginForm());

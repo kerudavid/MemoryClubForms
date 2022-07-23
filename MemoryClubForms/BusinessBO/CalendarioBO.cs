@@ -13,9 +13,9 @@ namespace MemoryClubForms.BusinessBO
     //Gestiona la tabla Calendario
     public class CalendarioBO
     {
-        int nivel = VariablesGlobales.Nivel;
-        int sucursal = VariablesGlobales.sucursal;
-        string usuario = VariablesGlobales.usuario;
+        public static int nivel = VariablesGlobales.Nivel;
+        public static int sucursal = VariablesGlobales.sucursal;
+        public static string usuario = VariablesGlobales.usuario;
 
         /// <summary>
         /// Devuelve los planes vigentes que se usan al insertar un registro en el calendario (id plan, id cliente, nombre cli, sucursal, fecha ini plan, tipo plan, num max dias)
@@ -136,9 +136,10 @@ namespace MemoryClubForms.BusinessBO
             }
 
             //armo el select con las opciones dadas
-            query = $"SELECT L.id_calendario, L.fk_id_plan, L.fk_id_cliente, C.nombre, L.fecha, L.estado L. usuario, L.fecha_mod FROM Calendario L " +
-                    $"INNER JOIN Cliente C ON L.fk_id_cliente = C.id_cliente INNER JOIN Planes P ON L.fk_id_plan = P.id_plan " +
-                    $"WHERE L.id_calendario >= 0 {condiciones} ORDER BY C.nombre, L.fk_id_plan, L.fecha";
+            query = $"SELECT L.id_calendario, L.fk_id_plan, L.fk_id_cliente, C.nombre, L.fecha, L.estado, " +
+                    $"L.usuario, L.fecha_mod, CONVERT(date, L.fecha, 103) as fechahora " +
+                    $"FROM Calendario L  INNER JOIN Cliente C ON L.fk_id_cliente = C.id_cliente INNER JOIN Planes P ON L.fk_id_plan = P.id_plan " +
+                    $"WHERE L.id_calendario >= 0 {condiciones} ORDER BY C.nombre, L.fk_id_plan, fechahora";
 
             List<CalendarioModel> CalenModelList = new List<CalendarioModel>();
             //Las consultas siempre retornan el obtejo dentro de una lista.
@@ -191,6 +192,34 @@ namespace MemoryClubForms.BusinessBO
             }
         }
 
+
+        /// <summary>
+        /// Insertar manualmente un registro de calendario, validar string != "OK" es error
+        /// </summary>
+        /// <param name="calendarioModel"></param>
+        /// <returns>msg = "OK"/ "cualquier texto de error"</returns>
+        public string InsertaManual(CalendarioModel calendarioModel)
+        {
+            string msg = "";
+            bool aux = Validaduplicadomanual(calendarioModel);
+            if (!(aux))
+            {
+                msg = "Ya existe un registro para este plan, cliente y fecha";
+                return msg;
+            }
+
+            aux = Validafinsemana(calendarioModel);
+            if (!(aux))
+            {
+                msg = "Error. La fecha seleccionada es sábado o domingo";
+                return msg;
+            }
+            msg = InsertarCalendarioBdd(calendarioModel);
+  
+            return msg;
+
+        }
+
         /// <summary>
         /// Validacion de duplicados para el insertar automático (por id plan y el id cliente)
         /// </summary>
@@ -222,8 +251,15 @@ namespace MemoryClubForms.BusinessBO
         /// En el Model viene solo id plan, id cliente y en las var los días marcados.
         /// *ESTE METODO FUNCIONA PARA QUE EL CALENDARIO SE GENERE A SEMANA SEGUIDA, SI FUERA PASANDO UNA SEMANA HACERLO MANUALMENTE
         /// </summary>
-        /// <returns>string mensaje</returns>
-        public async Task<string> InsertarAutomatico(int Pid_plan, int Pid_cliente, string Plunes, string Pmartes, string Pmiercoles, string Pjueves, string Pviernes)
+        /// <param name="Pid_plan"></param>
+        /// <param name="Pid_cliente"></param>
+        /// <param name="Pdia1" ejemplo "Lunes"></param>
+        /// <param name="Pdia2" ejemplo "Miercoles"></param>
+        /// <param name="Pdia3" ejemplo "Viernes"></param>
+        /// <param name="Pdia4" ejemplo ""></param>
+        /// <param name="Pdia5" ejemplo ""></param>
+        /// <returns></returns>
+        public string InsertarAutomatico(int Pid_plan, int Pid_cliente, string Pdia1, string Pdia2, string Pdia3, string Pdia4, string Pdia5)
         {
             string msg = string.Empty;
             DateTime fini;
@@ -246,8 +282,6 @@ namespace MemoryClubForms.BusinessBO
                 msg = $"¡Error Duplicado!. Ya existe calendario para este plan: {Pid_plan}";
                 return msg;
             }
-  
-            CalendarioModel calendarioModel = new CalendarioModel();
 
             //recupero lista de tipos de planes
             List<TiposPlanes> tiposPlanes = new List<TiposPlanes>();
@@ -257,9 +291,12 @@ namespace MemoryClubForms.BusinessBO
                 msg = "No se pudo recuperar Tipos de Planes de la tabla Codigo";
                 return msg;
             }
+         
+            //inicializo un arreglo con los dias de la semana seleccionados
+            string[] dia = new string[5] {Pdia1, Pdia2, Pdia3, Pdia4, Pdia5};
 
             //recupero lista de los planes vigentes
-            List<PlanesClientes> planesClientes = new List<PlanesClientes>();
+            List <PlanesClientes> planesClientes = new List<PlanesClientes>();
             planesClientes = LoadPlanesClientes();
             if (planesClientes.Count > 0)
             {
@@ -274,7 +311,7 @@ namespace MemoryClubForms.BusinessBO
                     fini = DateTime.ParseExact(feini_plan, "dd/MM/yyyy", null);
                     ffin = fini.AddDays(max_num_dias);
                     //recupero el número días contratados según el plan (tabla código, ej: plan paquete: 20 días contratados)
-                    int indice = tiposPlanes.FindIndex(x => x.Equals(tipoplan));
+                    int indice = tiposPlanes.FindIndex(x => x.Tipoplan.Equals(tipoplan));
                     if (indice > -1)
                     {
                         //leo los días contratados
@@ -286,37 +323,85 @@ namespace MemoryClubForms.BusinessBO
 
                         int nveces = 0;
                         fechaaux = fini;
+                        string mensaje = string.Empty;
+                        
+                        DateTime primerdia = fini;
+                        int contador = 0;
                         //se ejecuta hasta que el numero de veces sea igual o mayor a los dias contratados o hasta que la fecha auxiliar sea igual a la fecha fin
                         while (fechaaux <= ffin & nveces < dias_contratados)
                         {
-                            calendarioModel = new CalendarioModel();
-                            //busco los días seleccionados por el usuario en este rango de fechas
-                            if (!(string.IsNullOrEmpty(Plunes)))
+                            contador++;
+                            for (int i = 0; i < 5; i++)    //representa los 5 días de la semana
                             {
-                                if (fechaaux.DayOfWeek == DayOfWeek.Monday)
+                                mensaje = string.Empty;
+                                if (fechaaux <= ffin & nveces < dias_contratados)
                                 {
-                                    nveces++; //ya estaría tomado un día de los contratados
-                                    //Genero datos para el calendadio
-                                    calendarioModel.Fk_id_plan = Pid_plan;
-                                    calendarioModel.Fk_id_cliente = Pid_cliente;
-                                    calendarioModel.Fecha = fechaaux.ToString("dd/MM/yyyy");    //asigno la fecha que coincide con un lunes dentro del rango de fechas
-                                    calendarioModel.Estado = "RESERVADO";
-                                    calendarioModel.Usuario = usuario;
-                                    calendarioModel.Fecha_mod = "fechamod";
-                                    string response = InsertarCalendarioBdd(calendarioModel);
-                                    if (response != "OK")
+                                    // busco los días seleccionados por el usuario en este rango de fechas
+                                    switch (dia[i])
                                     {
-                                        msg = "No se pudo recuperar Tipos de Planes de la tabla Codigo";
-                                        return msg;
+                                        case "Lunes":
+                                            if (fechaaux.DayOfWeek == DayOfWeek.Monday)
+                                            {
+                                                nveces++; //ya estaría tomado un día de los contratados
+                                                string Fecha = fechaaux.ToString("dd/MM/yyyy"); //esta es la fecha que será creada en el calendario
+                                                mensaje = LlenaCalendario(Pid_plan, Pid_cliente, Fecha, fechamod); //llama a método que llena el calendario model con los datos y a su vez invoca otro método que graba en la bdd
+                                                if (mensaje != "OK")
+                                                { return mensaje; }
+                                            }
+                                            break;
+
+                                        case "Martes":
+                                            if (fechaaux.DayOfWeek == DayOfWeek.Tuesday)
+                                            {
+                                                nveces++; //ya estaría tomado un día de los contratados
+                                                string Fecha = fechaaux.ToString("dd/MM/yyyy"); //esta es la fecha que será creada en el calendario
+                                                mensaje = LlenaCalendario(Pid_plan, Pid_cliente, Fecha, fechamod); //llama a método que llena el calendario model con los datos y a su vez invoca otro método que graba en la bdd
+                                                if (mensaje != "OK")
+                                                { return mensaje; }
+                                            }
+                                            break;
+                                        case "Miercoles":
+                                            if (fechaaux.DayOfWeek == DayOfWeek.Wednesday)
+                                            {
+                                                nveces++; //ya estaría tomado un día de los contratados
+                                                string Fecha = fechaaux.ToString("dd/MM/yyyy"); //esta es la fecha que será creada en el calendario
+                                                mensaje = LlenaCalendario(Pid_plan, Pid_cliente, Fecha, fechamod); //llama a método que llena el calendario model con los datos y a su vez invoca otro método que graba en la bdd
+                                                if (mensaje != "OK")
+                                                { return mensaje; }
+                                            }
+                                            break;
+                                        case "Jueves":
+                                            if (fechaaux.DayOfWeek == DayOfWeek.Thursday)
+                                            {
+                                                nveces++; //ya estaría tomado un día de los contratados
+                                                string Fecha = fechaaux.ToString("dd/MM/yyyy"); //esta es la fecha que será creada en el calendario
+                                                mensaje = LlenaCalendario(Pid_plan, Pid_cliente, Fecha, fechamod); //llama a método que llena el calendario model con los datos y a su vez invoca otro método que graba en la bdd
+                                                if (mensaje != "OK")
+                                                { return mensaje; }
+                                            }
+                                            break;
+                                        case "Viernes":
+                                            if (fechaaux.DayOfWeek == DayOfWeek.Friday)
+                                            {
+                                                nveces++; //ya estaría tomado un día de los contratados
+                                                string Fecha = fechaaux.ToString("dd/MM/yyyy"); //esta es la fecha que será creada en el calendario
+                                                mensaje = LlenaCalendario(Pid_plan, Pid_cliente, Fecha, fechamod); //llama a método que llena el calendario model con los datos y a su vez invoca otro método que graba en la bdd
+                                                if (mensaje != "OK")
+                                                { return mensaje; }
+                                            }
+                                            break;
+                                        default:
+                                            break;
                                     }
+                                    if (nveces == 1)
+                                    { primerdia = fechaaux; }
+                                   fechaaux = fechaaux.AddDays(1);
                                 }
-                            }
-
-                            fechaaux = fechaaux.AddDays(1);
-                            
-                        }
-
-
+                                else
+                                { i = 6; } //para que se detenga el for
+                            } //fin del for
+                            fechaaux = primerdia.AddDays(7*contador);//añade de 7 en 7 días al primer día encontrado en la primera semana para buscar el mismo día en las sig semanas
+                        }//fin del while
                     }
                     else
                     {
@@ -333,10 +418,31 @@ namespace MemoryClubForms.BusinessBO
             return msg;
         }
 
+        private  string LlenaCalendario(int Pid_plan, int Pid_cliente, string Pfecha, string Pfmod)
+        {
+            string response = string.Empty;
+
+            CalendarioModel calendarioModel = new CalendarioModel();
+            calendarioModel = new CalendarioModel();
+
+            //Genero datos para el calendadio
+            calendarioModel.Fk_id_plan = Pid_plan;
+            calendarioModel.Fk_id_cliente = Pid_cliente;
+            calendarioModel.Fecha = Pfecha;  
+            calendarioModel.Estado = "RESERVADO";
+            calendarioModel.Usuario = usuario;
+            calendarioModel.Fecha_mod = Pfmod;
+
+            //llama a método que inserta en la bdd
+            response =  InsertarCalendarioBdd(calendarioModel);
+            return response;
+
+        }
+
         /// <summary>
         /// Insertar un registro de Calendario
         /// </summary>
-        /// <param name="calendarioModel"></param>
+        /// <param name="calendarioModel"></pa0000ram>
         /// <returns></returns>
         private string InsertarCalendarioBdd(CalendarioModel calendarioModel)
         {
@@ -359,7 +465,6 @@ namespace MemoryClubForms.BusinessBO
                 }
                 catch (SqlException ex)
                 {
-
                     msg = "Error al insertar Calendario. " + ex.Message;
                     return msg;
                 }
@@ -367,9 +472,86 @@ namespace MemoryClubForms.BusinessBO
             }
         }
 
+        /// <summary>
+        /// Actualiza un registro del calendario (fecha, estado, usuario, fecha_mod)
+        /// </summary>
+        /// <param name="calendarioModel"></param>
+        /// <returns></returns>
+        public string ActualizarCalendario(CalendarioModel calendarioModel)
+        {
+            string msg = "";
+            msg = calendarioModel.Validate(calendarioModel);
+            if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
+            {
+                return msg;
+            }
+            else
+            {
+                bool aux = Validaduplicadomanual(calendarioModel);
+                if (!(aux))
+                {
+                    msg = "Ya existe un registro para este plan, cliente y fecha";
+                    return msg;
+                }
+
+                aux = Validafinsemana(calendarioModel);
+                if (!(aux))
+                {
+                    msg = "Error. La fecha seleccionada es sábado o domingo";
+                    return msg;
+                }
+
+                string query = $"UPDATE Calendario SET fecha = '{calendarioModel.Fecha}', estado = '{calendarioModel.Estado}', " +
+                               $"usuario = '{calendarioModel.Usuario}', fecha_mod = '{calendarioModel.Fecha_mod}'" +
+                               $"WHERE id_calendario = {calendarioModel.Id_calendario}";
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    if (execute)
+                    { msg = "OK"; }
+                    return msg;
+                }
+                catch (SqlException ex)
+                {
+                    msg = "Error al actualizar Calendario. " + ex.Message;
+                    return msg;
+                }
+            }
+        }
 
         /// <summary>
-        /// Model List para los nombres de los clientes    idplan, P.fk_id_cliente as idcliente, C.nombre as nombres
+        /// Eliminar un registro con estado "RESERVADO" de Calendario
+        /// </summary>
+        /// <param name="calendarioModel"></param>
+        /// <returns></returns>
+        public string EliminarCalendario(CalendarioModel calendarioModel)
+        {
+            string mensaje = string.Empty;
+
+            if (calendarioModel.Estado != "RESERVADO")
+            {
+                mensaje = "Registro no puede ser eliminado. Estado = COMPLETO";
+                return mensaje;
+            }
+
+            string query = $"DELETE FROM Calendario WHERE id_calendario = {calendarioModel.Id_calendario}";
+            try
+            {
+                bool execute = SQLConexionDataBase.Execute(query);
+                if (execute)
+                { mensaje = "OK"; }
+                return mensaje;
+            }
+            catch (SqlException ex)
+            {
+                mensaje = "Error al eliminar Calendario " + ex.Message;
+                return mensaje;
+            }
+        }
+
+
+        /// <summary>
+        /// Model List para los nombres de los clientes 
         /// </summary>
         public class PlanesClientes  
         {
