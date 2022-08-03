@@ -21,9 +21,9 @@ namespace MemoryClubForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            /*CalendarioBO calen = new CalendarioBO();
+           /* ReporteCateringBO caten = new ReporteCateringBO();
             CalendarioModel model = new CalendarioModel();
-            model.Id_calendario = 16;
+            odel.Id_calendario = 16;
             model.Fk_id_plan = 3;
             model.Fk_id_cliente = 2;
             model.Fecha = "15/07/2022";
@@ -37,7 +37,7 @@ namespace MemoryClubForms
             //calen.InsertarAutomatico(4, 4, "Martes", "Miercoles", "Jueves", "", "");*/
 
 
-            //OpenForm(new FormReporteClientePlan());
+            //caten.LoadReporteCatering();
             
              
 

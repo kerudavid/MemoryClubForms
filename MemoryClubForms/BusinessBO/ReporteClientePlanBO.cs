@@ -13,12 +13,17 @@ namespace MemoryClubForms.BusinessBO
     //Gestiona el Reporte de la tabla Plan
     public class ReporteClientePlanBO
     {
-        public List<ReporteClientePlanModel> LoadReporteClientePlan()
+        /// <summary>
+        /// Devuelve número de clientes que se encuentran en cada tipo de plan y si está pagado o no
+        /// </summary>
+        /// <returns>ReporteClientePlanModel</returns>
+        public List<ReporteClientePlanModel1> LoadReporteClientePlan()
         {
             string query = "";
-            query = $"SELECT tipo_plan, pagado, COUNT(*) as num_clientes FROM Planes WHERE estado = 'VIGENTE' GROUP BY tipo_plan, pagado";
-            List<ReporteClientePlanModel> ReporteCliPlanList = new List<ReporteClientePlanModel>();
-            ReporteCliPlanList = this.ObtenerListaSQL<ReporteClientePlanModel>(query).ToList();
+            query = $"SELECT sucursal, tipo_plan, pagado, COUNT(*) as num_clientes FROM Planes WHERE estado = 'VIGENTE' GROUP BY sucursal, tipo_plan, pagado";
+      
+            List<ReporteClientePlanModel1> ReporteCliPlanList = new List<ReporteClientePlanModel1>();
+            ReporteCliPlanList = this.ObtenerListaSQL<ReporteClientePlanModel1>(query).ToList();
 
             return ReporteCliPlanList;
         }
