@@ -76,7 +76,10 @@
     <Compile Include="BusinessBO\ColaboradorBO.cs" />
     <Compile Include="BusinessBO\LoginBO.cs" />
     <Compile Include="BusinessBO\PlanBO.cs" />
+    <Compile Include="BusinessBO\ReporteAlertasBO.cs" />
+    <Compile Include="BusinessBO\ReporteCateringBO.cs" />
     <Compile Include="BusinessBO\ReporteClientePlanBO.cs" />
+    <Compile Include="BusinessBO\ReporteTransporteBO.cs" />
     <Compile Include="BusinessBO\SaludBO.cs" />
     <Compile Include="BusinessBO\TransporteBO.cs" />
     <Compile Include="BusinessBO\TransportistaBO.cs" />
@@ -162,7 +165,10 @@
     <Compile Include="Models\ColaboradorModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PlanModel.cs" />
-    <Compile Include="Models\ReporteClientePlanModel.cs" />
+    <Compile Include="Models\ReporteAlertasModel.cs" />
+    <Compile Include="Models\ReporteCateringModel.cs" />
+    <Compile Include="Models\ReporteClientePlanModel1.cs" />
+    <Compile Include="Models\ReporteTransporteModel.cs" />
     <Compile Include="Models\SaludModel.cs" />
     <Compile Include="Models\TransporteModel.cs" />
     <Compile Include="Models\TransportistaModel.cs" />
@@ -173,6 +179,24 @@
     </Compile>
     <Compile Include="Reports\FormReporteClientePlan.Designer.cs">
       <DependentUpon>FormReporteClientePlan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ReporteAlertasForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\ReporteAlertasForm.Designer.cs">
+      <DependentUpon>ReporteAlertasForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ReporteCateringForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\ReporteCateringForm.Designer.cs">
+      <DependentUpon>ReporteCateringForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ReporteTransporteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\ReporteTransporteForm.Designer.cs">
+      <DependentUpon>ReporteTransporteForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="VariablesGlobales.cs" />
@@ -226,8 +250,24 @@
       <DependentUpon>FormReporteClientePlan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ReporteClientePlan.rdlc" />
+    <EmbeddedResource Include="Reports\ReporteAlertas.rdlc" />
+    <EmbeddedResource Include="Reports\ReporteAlertasForm.resx">
+      <DependentUpon>ReporteAlertasForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ReporteCatering.rdlc" />
+    <EmbeddedResource Include="Reports\ReporteCateringForm.resx">
+      <DependentUpon>ReporteCateringForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ReporteTransporte.rdlc" />
+    <EmbeddedResource Include="Reports\ReporteTransporteForm.resx">
+      <DependentUpon>ReporteTransporteForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteAlertasModel.datasource" />
+    <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteCateringModel.datasource" />
     <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteClientePlanModel.datasource" />
+    <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteClientePlanModel1.datasource" />
+    <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteTransporteModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -241,7 +281,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Icono.ico" />
     <Content Include="Resources\adios.png" />

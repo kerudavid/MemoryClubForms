@@ -103,5 +103,20 @@ namespace MemoryClubForms.Forms
         {
             OpenForm(new FormReporteClientePlan());
         }
+
+        private void alertaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new ReporteAlertasForm());
+        }
+
+        private void reporteCateringToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new ReporteCateringForm());
+        }
+
+        private void reporteTransporteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new ReporteTransporteForm());
+        }
     }
 }

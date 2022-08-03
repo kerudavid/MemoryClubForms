@@ -198,6 +198,7 @@
             this.reporteCateringToolStripMenuItem.Name = "reporteCateringToolStripMenuItem";
             this.reporteCateringToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
             this.reporteCateringToolStripMenuItem.Text = "Reporte Catering";
+            this.reporteCateringToolStripMenuItem.Click += new System.EventHandler(this.reporteCateringToolStripMenuItem_Click);
             // 
             // reporteTransporteToolStripMenuItem
             // 
@@ -205,6 +206,7 @@
             this.reporteTransporteToolStripMenuItem.Name = "reporteTransporteToolStripMenuItem";
             this.reporteTransporteToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
             this.reporteTransporteToolStripMenuItem.Text = "Reporte Transporte";
+            this.reporteTransporteToolStripMenuItem.Click += new System.EventHandler(this.reporteTransporteToolStripMenuItem_Click);
             // 
             // reporteClientesToolStripMenuItem
             // 
@@ -243,6 +245,7 @@
             this.alertaToolStripMenuItem.Name = "alertaToolStripMenuItem";
             this.alertaToolStripMenuItem.Size = new System.Drawing.Size(79, 25);
             this.alertaToolStripMenuItem.Text = "Alerta";
+            this.alertaToolStripMenuItem.Click += new System.EventHandler(this.alertaToolStripMenuItem_Click);
             // 
             // cerrarSesiónToolStripMenuItem
             // 

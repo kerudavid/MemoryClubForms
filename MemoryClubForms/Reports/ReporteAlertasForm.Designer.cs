@@ -1,6 +1,6 @@
 ﻿namespace MemoryClubForms.Reports
 {
-    partial class FormReporteClientePlan
+    partial class ReporteAlertasForm
     {
         /// <summary>
         /// Required designer variable.
@@ -53,26 +53,25 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(708, 1);
+            this.btnClose.Location = new System.Drawing.Point(696, 0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(92, 32);
-            this.btnClose.TabIndex = 3;
+            this.btnClose.TabIndex = 4;
             this.btnClose.Text = "Cerrar";
             this.btnClose.TextColor = System.Drawing.Color.White;
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // FormReporteClientePlan
+            // ReporteAlertasForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(918, 593);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.reportViewer1);
-            this.Name = "FormReporteClientePlan";
-            this.Text = "FormReporteClientePlan";
-            this.Load += new System.EventHandler(this.FormReporteClientePlan_Load);
-            this.Click += new System.EventHandler(this.btnClose_Click);
+            this.Name = "ReporteAlertasForm";
+            this.Text = "ReporteAlertasForm";
+            this.Load += new System.EventHandler(this.ReporteAlertasForm_Load);
             this.ResumeLayout(false);
 
         }

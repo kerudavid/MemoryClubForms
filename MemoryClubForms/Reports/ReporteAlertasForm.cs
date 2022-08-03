@@ -12,33 +12,33 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Reporting.WinForms;
 
+
+
 namespace MemoryClubForms.Reports
 {
-    public partial class FormReporteClientePlan : Form
+    //gestiona reporte de alertas
+    public partial class ReporteAlertasForm : Form
     {
-        public FormReporteClientePlan()
+        public ReporteAlertasForm()
         {
             InitializeComponent();
         }
 
-        public void FormReporteClientePlan_Load(object sender, EventArgs e)
+        public void ReporteAlertasForm_Load(object sender, EventArgs e)
         {
-            ReporteClientePlanBO reporcliplan = new ReporteClientePlanBO();
-            List<ReporteClientePlanModel1> rcplist = new List<ReporteClientePlanModel1>();
-            rcplist = reporcliplan.LoadReporteClientePlan();
+            //genero la lista desde la consulta
+            ReporteAlertasBO reporteAlertasBO = new ReporteAlertasBO();
+            List<ReporteAlertasModel> repalertasList = new List<ReporteAlertasModel>();
+            repalertasList = reporteAlertasBO.LoadReporteAlertas();
 
-            ReportDataSource rds = new ReportDataSource("ReporteClientePlan", rcplist);
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "MemoryClubForms.Reports.ReporteClientePlan.rdlc";
+            //asigno la lista al reporte
+            ReportDataSource rds = new ReportDataSource("ReporteAlertas", repalertasList);
+            this.reportViewer1.LocalReport.ReportEmbeddedResource = "MemoryClubForms.Reports.ReporteAlertas.rdlc";
             this.reportViewer1.LocalReport.DataSources.Clear();
             this.reportViewer1.LocalReport.DataSources.Add(rds);
             this.reportViewer1.RefreshReport();
         }
 
-
-        private void reportViewer1_Print(object sender, ReportPrintEventArgs e)
-        {
-
-        }
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
