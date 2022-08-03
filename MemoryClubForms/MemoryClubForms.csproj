@@ -82,6 +82,12 @@
     <Compile Include="BusinessBO\TransportistaBO.cs" />
     <Compile Include="Data\DataTableExtension.cs" />
     <Compile Include="Data\SQLConexionDataBase.cs" />
+    <Compile Include="Forms\AlimentosForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AlimentosForm.Designer.cs">
+      <DependentUpon>AlimentosForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AsistenciaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +112,12 @@
     <Compile Include="Forms\ColaboradorForm.Designer.cs">
       <DependentUpon>ColaboradorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\EditarClienteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditarClienteForm.Designer.cs">
+      <DependentUpon>EditarClienteForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\HomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +135,12 @@
     </Compile>
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SaludForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SaludForm.Designer.cs">
+      <DependentUpon>SaludForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\TransporteForm.cs">
       <SubType>Form</SubType>
@@ -158,6 +176,9 @@
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="VariablesGlobales.cs" />
+    <EmbeddedResource Include="Forms\AlimentosForm.resx">
+      <DependentUpon>AlimentosForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AsistenciaForm.resx">
       <DependentUpon>AsistenciaForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -170,6 +191,9 @@
     <EmbeddedResource Include="Forms\ColaboradorForm.resx">
       <DependentUpon>ColaboradorForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditarClienteForm.resx">
+      <DependentUpon>EditarClienteForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\HomeForm.resx">
       <DependentUpon>HomeForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -178,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SaludForm.resx">
+      <DependentUpon>SaludForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TransporteForm.resx">
       <DependentUpon>TransporteForm.cs</DependentUpon>

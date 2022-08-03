@@ -33,6 +33,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClienteForm));
             this.pnlPrincipal = new System.Windows.Forms.Panel();
+            this.lblRegistroSeleccionado = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.pnlFiltro = new System.Windows.Forms.Panel();
             this.ckbFiltrarFechas = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -120,6 +122,8 @@
             // pnlPrincipal
             // 
             this.pnlPrincipal.AutoScroll = true;
+            this.pnlPrincipal.Controls.Add(this.lblRegistroSeleccionado);
+            this.pnlPrincipal.Controls.Add(this.label12);
             this.pnlPrincipal.Controls.Add(this.pnlFiltro);
             this.pnlPrincipal.Controls.Add(this.panel1);
             this.pnlPrincipal.Controls.Add(this.btnClose);
@@ -127,8 +131,30 @@
             this.pnlPrincipal.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlPrincipal.Location = new System.Drawing.Point(0, 0);
             this.pnlPrincipal.Name = "pnlPrincipal";
-            this.pnlPrincipal.Size = new System.Drawing.Size(918, 248);
+            this.pnlPrincipal.Size = new System.Drawing.Size(918, 271);
             this.pnlPrincipal.TabIndex = 0;
+            // 
+            // lblRegistroSeleccionado
+            // 
+            this.lblRegistroSeleccionado.AutoSize = true;
+            this.lblRegistroSeleccionado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRegistroSeleccionado.Location = new System.Drawing.Point(366, 65);
+            this.lblRegistroSeleccionado.Name = "lblRegistroSeleccionado";
+            this.lblRegistroSeleccionado.Size = new System.Drawing.Size(61, 17);
+            this.lblRegistroSeleccionado.TabIndex = 61;
+            this.lblRegistroSeleccionado.Text = "Ninguno";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.White;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label12.Location = new System.Drawing.Point(202, 65);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(158, 17);
+            this.label12.TabIndex = 60;
+            this.label12.Text = "Registro Seleccionado: ";
             // 
             // pnlFiltro
             // 
@@ -161,9 +187,9 @@
             this.pnlFiltro.Controls.Add(this.btnFiltrar);
             this.pnlFiltro.Controls.Add(this.label6);
             this.pnlFiltro.Controls.Add(this.cbxFiltroCedula);
-            this.pnlFiltro.Location = new System.Drawing.Point(0, 58);
+            this.pnlFiltro.Location = new System.Drawing.Point(0, 98);
             this.pnlFiltro.Name = "pnlFiltro";
-            this.pnlFiltro.Size = new System.Drawing.Size(918, 190);
+            this.pnlFiltro.Size = new System.Drawing.Size(918, 173);
             this.pnlFiltro.TabIndex = 13;
             // 
             // ckbFiltrarFechas
@@ -474,6 +500,7 @@
             this.btnSalud.TabIndex = 11;
             this.btnSalud.Text = "Salud";
             this.btnSalud.UseVisualStyleBackColor = false;
+            this.btnSalud.Click += new System.EventHandler(this.btnSalud_Click);
             // 
             // btnEditar
             // 
@@ -487,6 +514,7 @@
             this.btnEditar.TabIndex = 9;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnAlimentos
             // 
@@ -500,6 +528,7 @@
             this.btnAlimentos.TabIndex = 10;
             this.btnAlimentos.Text = "Alimentos";
             this.btnAlimentos.UseVisualStyleBackColor = false;
+            this.btnAlimentos.Click += new System.EventHandler(this.btnAlimentos_Click);
             // 
             // btnClose
             // 
@@ -617,7 +646,7 @@
             this.fecha_mod});
             this.grdCliente.EnableHeadersVisualStyles = false;
             this.grdCliente.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            this.grdCliente.Location = new System.Drawing.Point(0, 249);
+            this.grdCliente.Location = new System.Drawing.Point(0, 277);
             this.grdCliente.Name = "grdCliente";
             this.grdCliente.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -632,7 +661,7 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Navy;
             this.grdCliente.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.grdCliente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdCliente.Size = new System.Drawing.Size(918, 281);
+            this.grdCliente.Size = new System.Drawing.Size(918, 253);
             this.grdCliente.TabIndex = 6;
             this.grdCliente.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Row_Clicked);
             // 
@@ -877,6 +906,7 @@
             this.Name = "ClienteForm";
             this.Text = "ClienteForm";
             this.pnlPrincipal.ResumeLayout(false);
+            this.pnlPrincipal.PerformLayout();
             this.pnlFiltro.ResumeLayout(false);
             this.pnlFiltro.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -967,5 +997,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
         private System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblRegistroSeleccionado;
     }
 }

@@ -12,6 +12,11 @@ namespace MemoryClubForms
         public static string usuario { get; set; }
         public static int sucursal { get; set; }
         public static int Nivel { get; set; }
+        public static bool OpentInsert { get; set; }
+        public static bool OpenEdit { get; set; }
+        public static bool OpenAlimentacion { get; set; }
+        public static bool OpenSalud { get; set; }
+
 
     }
 }

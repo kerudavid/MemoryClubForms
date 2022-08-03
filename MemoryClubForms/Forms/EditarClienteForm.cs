@@ -13,16 +13,24 @@ using static MemoryClubForms.BusinessBO.ClienteBO;
 
 namespace MemoryClubForms.Forms
 {
-    public partial class InsertarClienteForm : Form
+    public partial class EditarClienteForm : Form
     {
         public static List<ListaTransportistas> listaTransportistas = new List<ListaTransportistas>();
         public static List<CodigosMediosPago> codigosMediosPagoList = new List<CodigosMediosPago>();
         public static List<CodigosGenero> codigosGeneroList = new List<CodigosGenero>();
         public static List<CodigosSucursales> codigosSucursalesList = new List<CodigosSucursales>();
         public static List<CodigosEstados> codigosEstadosList = new List<CodigosEstados>();
-        public InsertarClienteForm()
+        public static ClienteModel ClienteModelStatic = new ClienteModel();
+
+        public EditarClienteForm(ClienteModel clienteModel)
         {
             InitializeComponent();
+
+            if (clienteModel != null)
+            {
+                ClienteModelStatic = clienteModel;
+            }
+
             bool response = LoadInformation();
             if (response)
             {
@@ -32,41 +40,105 @@ namespace MemoryClubForms.Forms
             {
                 MessageBox.Show("No se pudo cargar la informacón para añadir un nuevo elemento, intente recargar la página de nuevo.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            VariablesGlobales.OpentInsert = true;
+            VariablesGlobales.OpenEdit = true;
         }
 
         private void ChargueElements()
         {
-            foreach (var item in codigosGeneroList)
+            tbxApodo.Text = ClienteModelStatic.Apodo;
+
+            if (!string.IsNullOrEmpty(ClienteModelStatic.Fecha_free))
             {
-                cbxGenero.Items.Add(item.Generos);
+                DateTime date = DateTime.ParseExact(ClienteModelStatic.Fecha_free, "dd/MM/yyyy", null);
+                dtmFechaFree.Value = date;
             }
-            foreach (var item in codigosMediosPagoList)
-            {
-                cbxFiltroMedioPago.Items.Add(item.Mediospago);
-            }
-            foreach (var item in listaTransportistas)
-            {
-                cbxFiltroTransportista.Items.Add(item.Nombre);
-            }
-            foreach (var item in codigosSucursalesList)
-            {
-                cbxFiltroSucursal.Items.Add(item.Sucursales);
-            }
+
             foreach (var item in codigosEstadosList)
             {
-                if (item.Descripcion.ToLower() != "inactivo")
-                {
-                    cbxEstados.Items.Add(item.Descripcion);
-                }
-                
+
+                cbxEstados.Items.Add(item.Descripcion);
+                cbxEstados.SelectedItem = codigosEstadosList.Where(x=>x.Estados== ClienteModelStatic.Estado).Select(x=>x.Descripcion).FirstOrDefault().ToString();
+                cbxEstados.Text = codigosEstadosList.Where(x => x.Estados == ClienteModelStatic.Estado).Select(x => x.Descripcion).FirstOrDefault().ToString();
+
             }
+
+            tbxAula.Text = ClienteModelStatic.Aula.ToString();
+
+            tbxDia.Text=ClienteModelStatic.Dia_nacim.ToString();
+
+            tbxMes.Text = ClienteModelStatic.Mes_nacim.ToString();
+
+            tbxAnio.Text = ClienteModelStatic.Anio_nacim.ToString();
+
+            tbxTelefono.Text = ClienteModelStatic.Telefono;
+
+            foreach (var item in codigosSucursalesList)
+            {
+
+                cbxFiltroSucursal.Items.Add(item.Sucursales);
+                cbxFiltroSucursal.SelectedItem = ClienteModelStatic.Sucursal;
+                cbxFiltroSucursal.Text = ClienteModelStatic.Sucursal.ToString();
+            }
+
+            tbxDireccion.Text = ClienteModelStatic.Direccion;
+
+            tbxObseraciones.Text = ClienteModelStatic.Observacion;
+
+            tbxNombreContacto.Text = ClienteModelStatic.Nombre_contacto;
+
+            tbxParentescoCto.Text = ClienteModelStatic.Parentesco_contacto;
+
+            tbxTelefonoCto.Text = ClienteModelStatic.Telefono_contacto;
+
+            tbxCelularCto.Text = ClienteModelStatic.Celular_contacto;
+
+            tbxEncargadoPago.Text = ClienteModelStatic.Encargado_pago;
+
+            tbxParentescoPago.Text = ClienteModelStatic.Parentesco_pago;
+
+            tbxTelefonoPago.Text = ClienteModelStatic.Telefono_pago;
+
+            tbxCedulaPago.Text = ClienteModelStatic.Celular_pago;
+
+            tbxEmailPago.Text = ClienteModelStatic.Email_pago;
+
+            foreach (var item in codigosMediosPagoList)
+            {
+
+                cbxFiltroMedioPago.Items.Add(item.Mediospago);
+                cbxFiltroMedioPago.SelectedItem = ClienteModelStatic.Medio_pago;
+                cbxFiltroMedioPago.Text = ClienteModelStatic.Medio_pago.ToString();
+
+
+            }
+
+            tbxFrecuenciaPago.Text = ClienteModelStatic.Frecuencia_pago;
+
+            tbxParienteTransp.Text = ClienteModelStatic.Pariente_transp;
 
             cbxTomaTransp.Items.Add("SI");
             cbxTomaTransp.Items.Add("NO");
+            cbxTomaTransp.SelectedItem = ClienteModelStatic.Toma_transp;
+            cbxTomaTransp.Text = ClienteModelStatic.Toma_transp.ToString();
+
+            foreach (var item in listaTransportistas)
+            {
+
+                cbxFiltroTransportista.Items.Add(item.Nombre);
+                cbxFiltroTransportista.SelectedItem = listaTransportistas.Where(x => x.Id_transportista == ClienteModelStatic.Id_transportista).Select(x => x.Nombre).FirstOrDefault().ToString();
+                cbxFiltroTransportista.Text = listaTransportistas.Where(x => x.Id_transportista == ClienteModelStatic.Id_transportista).Select(x => x.Nombre).FirstOrDefault().ToString();
+            }
 
             cbxRetiraSolo.Items.Add("SI");
             cbxRetiraSolo.Items.Add("NO");
+            cbxRetiraSolo.SelectedItem = ClienteModelStatic.Retirarse_solo;
+            cbxRetiraSolo.Text = ClienteModelStatic.Retirarse_solo.ToString();
+
+            tbxNombreFactura.Text = ClienteModelStatic.Nombre_factu;
+
+            tbxCedulaFactura.Text = ClienteModelStatic.Cedula_factu;
+
+            tbxDireccionFactura.Text = ClienteModelStatic.Direccion_factu;
         }
 
         public bool LoadInformation()
@@ -77,7 +149,7 @@ namespace MemoryClubForms.Forms
             bool responseSucursales = LoadSucursales();
             bool responseEstados = LoadEstados();
 
-            if (!responseTransportistas||!responseGenero||!responseMedios||!responseSucursales||!responseEstados)
+            if (!responseTransportistas || !responseGenero || !responseMedios || !responseSucursales || !responseEstados)
             {
                 return false;
             }
@@ -164,6 +236,12 @@ namespace MemoryClubForms.Forms
 
         }
 
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            VariablesGlobales.OpenEdit = false;
+        }
+
         private bool ValidarInformacion()
         {
             if (VariablesGlobales.Nivel > 1)
@@ -174,57 +252,13 @@ namespace MemoryClubForms.Forms
 
             //Datos Cliente
 
-            //Cedula
-            if (string.IsNullOrEmpty(tbxCedula.Text))
-            {
-                MessageBox.Show("Ingrese la cédula del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-            }
-            if (tbxCedula.Text.Length > 20)
-            {
-                MessageBox.Show("Ha superado el número máximo de caracteres de cédula de.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-            }
-
-            //Nombre
-            if (string.IsNullOrEmpty(tbxNombre.Text))
-            {
-                MessageBox.Show("Ingrese el nombre del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-            }
-            if (tbxCedula.Text.Length > 60)
-            {
-                MessageBox.Show("Ha superado el número máximo de caracteres del nombre del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-            }
-            //Genero
-            if (cbxGenero.SelectedItem==null)
-            {
-                MessageBox.Show("Ingrese el género del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-            }
-
             //Apodo
             if (string.IsNullOrEmpty(tbxApodo.Text))
             {
                 MessageBox.Show("Ingrese el apodo del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
-            if (tbxCedula.Text.Length > 30)
-            {
-                MessageBox.Show("Ha superado el número máximo de caracteres del apodo.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-            }
-
-            //FechaIngreso
-            
-            if (dtmFecha.Value==null)
-            {
-                MessageBox.Show("Ingrese la fecha de ingreso.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-            }
-
-
+           
             //Aula
             if (!string.IsNullOrEmpty(tbxAula.Text))
             {
@@ -545,12 +579,6 @@ namespace MemoryClubForms.Forms
             return true;
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            VariablesGlobales.OpentInsert = false;
-        }
-
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             try
@@ -563,13 +591,12 @@ namespace MemoryClubForms.Forms
 
                 ClienteBO clienteBO = new ClienteBO();
                 ClienteModel clienteModel = new ClienteModel();
-
+                clienteModel = ClienteModelStatic;
                 var nombreTransportista = cbxFiltroTransportista.SelectedItem.ToString();
 
-                clienteModel.Cedula = tbxCedula.Text;
-                clienteModel.Nombre = tbxNombre.Text;
+
                 clienteModel.Apodo = tbxApodo.Text;
-                clienteModel.Fecha_ingreso = dtmFecha.Value.ToString("dd/MM/yyyy");
+
                 if (dtmFechaFree.Enabled)
                 {
                     clienteModel.Fecha_free = dtmFechaFree.Value.ToString("dd/MM/yyyy");
@@ -578,13 +605,7 @@ namespace MemoryClubForms.Forms
                 {
                     clienteModel.Fecha_free = null;
                 }
-                
 
-                if (cbxGenero.SelectedItem != null)
-                {
-                    clienteModel.Sexo = cbxGenero.SelectedItem.ToString();
-                }
-                
                 clienteModel.Estado = codigosEstadosList.Where(x => x.Descripcion == cbxEstados.SelectedItem.ToString()).Select(x => x.Estados).FirstOrDefault();
 
                 if (!string.IsNullOrEmpty(tbxAula.Text))
@@ -607,7 +628,7 @@ namespace MemoryClubForms.Forms
                     clienteModel.Anio_nacim = int.Parse(tbxAnio.Text);
                 }
 
-                
+
                 clienteModel.Telefono = tbxTelefono.Text;
                 clienteModel.Nombre_contacto = tbxNombreContacto.Text;
                 clienteModel.Parentesco_contacto = tbxParentescoCto.Text;
@@ -616,7 +637,7 @@ namespace MemoryClubForms.Forms
                 clienteModel.Encargado_pago = tbxEncargadoPago.Text;
                 clienteModel.Parentesco_pago = tbxParentescoPago.Text;
                 clienteModel.Telefono_pago = tbxTelefonoPago.Text;
-                clienteModel.Cedula_pago=tbxCedulaPago.Text;
+                clienteModel.Cedula_pago = tbxCedulaPago.Text;
                 clienteModel.Celular_pago = tbxCelularPago.Text;
                 clienteModel.Email_pago = tbxEmailPago.Text;
 
@@ -624,7 +645,7 @@ namespace MemoryClubForms.Forms
                 {
                     clienteModel.Medio_pago = cbxFiltroMedioPago.SelectedItem.ToString();
                 }
-                
+
                 clienteModel.Frecuencia_pago = tbxFrecuenciaPago.Text;
                 clienteModel.Pariente_transp = tbxParienteTransp.Text;
                 clienteModel.Direccion = tbxDireccion.Text;
@@ -633,7 +654,7 @@ namespace MemoryClubForms.Forms
                 {
                     clienteModel.Toma_transp = cbxTomaTransp.SelectedItem.ToString();
                 }
-               
+
                 clienteModel.Id_transportista = listaTransportistas.Where(x => x.Nombre == cbxFiltroTransportista.SelectedItem.ToString()).Select(x => x.Id_transportista).FirstOrDefault();
 
                 if (cbxRetiraSolo.SelectedItem != null)
@@ -655,7 +676,7 @@ namespace MemoryClubForms.Forms
                 clienteModel.Usuario = VariablesGlobales.usuario.ToString();
                 clienteModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
 
-                bool responseInsert = clienteBO.InsertarCliente(clienteModel);
+                bool responseInsert = clienteBO.ActualizarCliente(clienteModel);
 
                 if (!responseInsert)
                 {
@@ -665,7 +686,7 @@ namespace MemoryClubForms.Forms
 
                 MessageBox.Show("La información se ha guardado EXITOSAMENTE!", "Guardado", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                           
+
 
 
             }
@@ -675,21 +696,21 @@ namespace MemoryClubForms.Forms
             }
         }
 
-        private void ckbFechaFree_Change(object sender, EventArgs e)
+        private void FechaFree_Change(object sender, EventArgs e)
         {
             if (ckbFechaFree.Checked)
             {
-                dtmFechaFree.Enabled=true;
+                dtmFechaFree.Enabled = true;
             }
             else
             {
-                dtmFechaFree.Enabled=false; 
+                dtmFechaFree.Enabled = false;
             }
         }
 
-        private void InsertarClienteForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void EditarClienteForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            VariablesGlobales.OpentInsert = false;
+            VariablesGlobales.OpenEdit = false;
         }
     }
 }

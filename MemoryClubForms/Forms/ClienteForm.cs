@@ -60,6 +60,7 @@ namespace MemoryClubForms.Forms
         {
             try
             {
+                
                 grdCliente.Rows.Clear();
                 ResetFilterElements();
 
@@ -287,6 +288,8 @@ namespace MemoryClubForms.Forms
 
         private void btnReiniciarFiltro_Click(object sender, EventArgs e)
         {
+            idCliente = 0;
+            lblRegistroSeleccionado.Text = "Ninguno";
             ResetFilterElements();
             LoadInformation();
         }
@@ -425,7 +428,7 @@ namespace MemoryClubForms.Forms
                 if (filaSeleccionada != -1)
                 {
                     idCliente = int.Parse(grdCliente.Rows[filaSeleccionada].Cells[0].Value.ToString());
-                   
+                    lblRegistroSeleccionado.Text = grdCliente.Rows[filaSeleccionada].Cells[2].Value.ToString();                 
                 }
             }
             catch (Exception ex)
@@ -466,15 +469,65 @@ namespace MemoryClubForms.Forms
             catch (Exception ex)
             {
                 LoadInformation();
-                MessageBox.Show("No se eliminar el registro, inténtelo más tarde." + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("No se pudo eliminar el registro, inténtelo más tarde." + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
             }
         }
 
         private void btnInsertar_Click(object sender, EventArgs e)
         {
+            //Valida que no existan dos ventanas de insert cliente abiertas
+            if (VariablesGlobales.OpentInsert)
+            {
+                return;
+            }
             InsertarClienteForm insertarClienteForm = new InsertarClienteForm();
             insertarClienteForm.Show();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Valida que no existan dos ventanas de Edit Cliente abiertas
+                if (VariablesGlobales.OpenEdit)
+                {
+                    return;
+                }
+
+                if (idCliente <= 0) //Valida que tenga un item seleccionado del grid
+                {
+                    return;
+                }
+
+                ClienteModel clienteModel = new ClienteModel();
+                clienteModel = clienteModelList.Where(x => x.Id_cliente == idCliente).FirstOrDefault();
+                EditarClienteForm editarClienteForm = new EditarClienteForm(clienteModel);
+                editarClienteForm.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se puede editar  el registro, inténtelo más tarde." + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+            }
+        }
+
+        private void btnAlimentos_Click(object sender, EventArgs e)
+        {
+            if (!VariablesGlobales.OpenAlimentacion)
+            {
+                AlimentosForm alimentosForm = new AlimentosForm(idCliente);
+                alimentosForm.Show();
+            }
+        }
+
+        private void btnSalud_Click(object sender, EventArgs e)
+        {
+            if (!VariablesGlobales.OpenSalud)
+            {
+                SaludForm saludForm = new SaludForm(idCliente);
+                saludForm.Show();
+            }
         }
     }
 }
