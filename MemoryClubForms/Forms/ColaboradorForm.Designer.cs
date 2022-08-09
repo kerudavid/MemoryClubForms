@@ -33,6 +33,17 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ColaboradorForm));
             this.grdColaborador = new System.Windows.Forms.DataGridView();
+            this.Id_colaborador = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cedula = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cargo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.observaciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha_mod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblNombreVista = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -73,17 +84,6 @@
             this.tbxTelefono = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
-            this.Id_colaborador = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cedula = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cargo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.observaciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha_mod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdColaborador)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -151,6 +151,73 @@
             this.grdColaborador.TabIndex = 4;
             this.grdColaborador.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Row_Clicked);
             // 
+            // Id_colaborador
+            // 
+            this.Id_colaborador.HeaderText = "ID Colaborador";
+            this.Id_colaborador.Name = "Id_colaborador";
+            this.Id_colaborador.Visible = false;
+            // 
+            // nombre
+            // 
+            this.nombre.FillWeight = 82.08122F;
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            // 
+            // cedula
+            // 
+            this.cedula.FillWeight = 82.08122F;
+            this.cedula.HeaderText = "Cédula";
+            this.cedula.Name = "cedula";
+            // 
+            // sucursal
+            // 
+            this.sucursal.FillWeight = 82.08122F;
+            this.sucursal.HeaderText = "Sucursal";
+            this.sucursal.Name = "sucursal";
+            // 
+            // direccion
+            // 
+            this.direccion.FillWeight = 82.08122F;
+            this.direccion.HeaderText = "Dirección";
+            this.direccion.Name = "direccion";
+            // 
+            // telefono
+            // 
+            this.telefono.FillWeight = 82.08122F;
+            this.telefono.HeaderText = "Teléfono";
+            this.telefono.Name = "telefono";
+            // 
+            // cargo
+            // 
+            this.cargo.FillWeight = 82.08122F;
+            this.cargo.HeaderText = "Cargo";
+            this.cargo.Name = "cargo";
+            // 
+            // Estado
+            // 
+            this.Estado.HeaderText = "Estado";
+            this.Estado.Name = "Estado";
+            // 
+            // observaciones
+            // 
+            this.observaciones.FillWeight = 82.08122F;
+            this.observaciones.HeaderText = "Observaciones";
+            this.observaciones.Name = "observaciones";
+            // 
+            // usuario
+            // 
+            this.usuario.FillWeight = 82.08122F;
+            this.usuario.HeaderText = "Usuario";
+            this.usuario.Name = "usuario";
+            this.usuario.Visible = false;
+            // 
+            // fecha_mod
+            // 
+            this.fecha_mod.FillWeight = 82.08122F;
+            this.fecha_mod.HeaderText = "Fecha Modificación";
+            this.fecha_mod.Name = "fecha_mod";
+            this.fecha_mod.Visible = false;
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.lblNombreVista);
@@ -205,9 +272,9 @@
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(313, 12);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(99, 17);
+            this.label13.Size = new System.Drawing.Size(52, 17);
             this.label13.TabIndex = 40;
-            this.label13.Text = "Estado Cliente";
+            this.label13.Text = "Estado";
             // 
             // cbxFiltroEstadoCliente
             // 
@@ -332,7 +399,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(7, 101);
+            this.label2.Location = new System.Drawing.Point(10, 108);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 17);
             this.label2.TabIndex = 36;
@@ -341,7 +408,7 @@
             // tbxDireccion
             // 
             this.tbxDireccion.Enabled = false;
-            this.tbxDireccion.Location = new System.Drawing.Point(10, 124);
+            this.tbxDireccion.Location = new System.Drawing.Point(10, 131);
             this.tbxDireccion.Name = "tbxDireccion";
             this.tbxDireccion.Size = new System.Drawing.Size(163, 20);
             this.tbxDireccion.TabIndex = 36;
@@ -622,73 +689,6 @@
             this.btnClose.TextColor = System.Drawing.Color.White;
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // Id_colaborador
-            // 
-            this.Id_colaborador.HeaderText = "ID Colaborador";
-            this.Id_colaborador.Name = "Id_colaborador";
-            this.Id_colaborador.Visible = false;
-            // 
-            // nombre
-            // 
-            this.nombre.FillWeight = 82.08122F;
-            this.nombre.HeaderText = "Nombre";
-            this.nombre.Name = "nombre";
-            // 
-            // cedula
-            // 
-            this.cedula.FillWeight = 82.08122F;
-            this.cedula.HeaderText = "Cédula";
-            this.cedula.Name = "cedula";
-            // 
-            // sucursal
-            // 
-            this.sucursal.FillWeight = 82.08122F;
-            this.sucursal.HeaderText = "Sucursal";
-            this.sucursal.Name = "sucursal";
-            // 
-            // direccion
-            // 
-            this.direccion.FillWeight = 82.08122F;
-            this.direccion.HeaderText = "Dirección";
-            this.direccion.Name = "direccion";
-            // 
-            // telefono
-            // 
-            this.telefono.FillWeight = 82.08122F;
-            this.telefono.HeaderText = "Teléfono";
-            this.telefono.Name = "telefono";
-            // 
-            // cargo
-            // 
-            this.cargo.FillWeight = 82.08122F;
-            this.cargo.HeaderText = "Cargo";
-            this.cargo.Name = "cargo";
-            // 
-            // Estado
-            // 
-            this.Estado.HeaderText = "Estado";
-            this.Estado.Name = "Estado";
-            // 
-            // observaciones
-            // 
-            this.observaciones.FillWeight = 82.08122F;
-            this.observaciones.HeaderText = "Observaciones";
-            this.observaciones.Name = "observaciones";
-            // 
-            // usuario
-            // 
-            this.usuario.FillWeight = 82.08122F;
-            this.usuario.HeaderText = "Usuario";
-            this.usuario.Name = "usuario";
-            this.usuario.Visible = false;
-            // 
-            // fecha_mod
-            // 
-            this.fecha_mod.FillWeight = 82.08122F;
-            this.fecha_mod.HeaderText = "Fecha Modificación";
-            this.fecha_mod.Name = "fecha_mod";
-            this.fecha_mod.Visible = false;
             // 
             // ColaboradorForm
             // 

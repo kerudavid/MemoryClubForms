@@ -229,15 +229,6 @@ namespace MemoryClubForms.Forms
 
         private void CargarElementsEdit()
         {
-            foreach (var item in codigosSucursalesList)
-            {
-                if (int.Parse(cbxSucursal.SelectedIndex.ToString()) != item.Sucursales)
-                {
-                    cbxSucursal.Items.Add(item.Sucursales);
-                }
-                
-            }
-
             foreach (var item in codigosEstadosList)
             {
                 if(cbxEstado.SelectedItem.ToString().ToLower()!= item.Estados.ToLower())
@@ -313,8 +304,7 @@ namespace MemoryClubForms.Forms
             btnEliminar.FlatAppearance.BorderColor = Color.FromArgb(221, 221, 221);
             btnEliminar.Enabled = false;
 
-            tbxNombreColab.Enabled = true;
-            tbxCedula.Enabled = true;
+            
             tbxDireccion.Enabled = true;
             tbxTelefono.Enabled = true;
             tbxCargo.Enabled = true;
@@ -322,6 +312,9 @@ namespace MemoryClubForms.Forms
 
             if (action == 1)
             {
+                tbxNombreColab.Enabled = true;
+                tbxCedula.Enabled = true;
+
                 btnEditar.BackColor = Color.FromArgb(160, 160, 160);
                 btnEditar.ForeColor = Color.FromArgb(221, 221, 221);
                 btnEditar.FlatAppearance.BorderColor = Color.FromArgb(221, 221, 221);

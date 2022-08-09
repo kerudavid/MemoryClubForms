@@ -80,7 +80,7 @@ namespace MemoryClubForms.Forms
                             cliente.Nombre_contacto,cliente.Parentesco_contacto,cliente.Telefono_contacto,
                             cliente.Celular_contacto,cliente.Encargado_pago,cliente.Parentesco_pago,
                             cliente.Telefono_pago,cliente.Cedula_pago, cliente.Celular_pago,
-                            cliente.Email_pago,cliente.Medio_pago,cliente.Pariente_transp,cliente.Direccion,
+                            cliente.Email_pago,cliente.Medio_pago,cliente.Frecuencia_pago,cliente.Pariente_transp,cliente.Direccion,
                             cliente.Toma_transp, cliente.Id_transportista,cliente.Nombre_transportista,cliente.Retirarse_solo, cliente.Nombre_factu,
                             cliente.Cedula_factu,cliente.Direccion_factu, cliente.Email_factu,
                             cliente.Sucursal,cliente.Observacion,cliente.Usuario,cliente.Fecha_mod);
@@ -118,18 +118,7 @@ namespace MemoryClubForms.Forms
 
         private void CargarElemFiltros()
         {
-
-            foreach (var item in clienteModelList)
-            {
-                cbxFiltroCedula.Items.Add(item.Cedula);
-
-                cbxFiltroNombre.Items.Add(item.Nombre);
-
-                cbxFiltroApodo.Items.Add(item.Apodo);
-
-                dtmFecha.Value = DateTime.Today;
-
-            }
+            dtmFecha.Value = DateTime.Today;
 
             foreach (var item in codigosSucursalesList)
             {
@@ -155,13 +144,13 @@ namespace MemoryClubForms.Forms
 
         private void ResetFilterElements()
         {
-            cbxFiltroCedula.Items.Clear();
+            tbxFiltroCedula.Text = "";
 
-            cbxFiltroNombre.Items.Clear();
+            tbxFiltroNombre.Text = "";
 
             cbxFiltroSucursal.Items.Clear();
 
-            cbxFiltroApodo.Items.Clear();
+            tbxFiltroApodo.Text = "";
 
             dtmFecha.Value = DateTime.Today;
 
@@ -172,6 +161,12 @@ namespace MemoryClubForms.Forms
             cbxFiltroTransportista.Items.Clear();
 
             cbxFiltroMedioPago.Items.Clear();
+
+            tbxDia.Text = "";
+
+            tbxMes.Text = "";
+
+            tbxAnio.Text = "";
         }
 
         private bool LoadSucursales()
@@ -306,24 +301,24 @@ namespace MemoryClubForms.Forms
 
                 string cedula = null;
 
-                if (cbxFiltroCedula.SelectedItem != null)
+                if (string.IsNullOrEmpty(tbxFiltroCedula.Text))
                 {
-                    cedula = cbxFiltroCedula.SelectedItem.ToString();
+                    cedula = tbxFiltroCedula.Text;
                 }
 
                 string nombre = null;
 
-                if (cbxFiltroNombre.SelectedItem != null)
+                if (string.IsNullOrEmpty(tbxFiltroNombre.Text))
                 {
-                    nombre = cbxFiltroNombre.SelectedItem.ToString();
+                    nombre = tbxFiltroNombre.Text;
                 }
 
                 int idCliente = clienteModelList.Where(x => x.Nombre == nombre).Select(x => x.Id_cliente).FirstOrDefault();
 
                 string apodo = null;
-                if (cbxFiltroApodo.SelectedItem != null)
+                if (string.IsNullOrEmpty(tbxFiltroApodo.Text))
                 {
-                    apodo = cbxFiltroApodo.SelectedItem.ToString();
+                    apodo = tbxFiltroApodo.Text;
                 }
 
                 string fechaIngreso = null;
@@ -380,7 +375,7 @@ namespace MemoryClubForms.Forms
                     medioPago = cbxFiltroMedioPago.SelectedItem.ToString();
                 }
 
-                clientesList = clienteBO.ConsultaCliente(cedula,nombre,apodo,fechaIngreso,estado,sucursal,dia,mes,anio,idTransp,medioPago);
+                clientesList = clienteBO.ConsultaCliente(cedula,nombre,apodo,fechaIngreso,pEstado,sucursal,dia,mes,anio,idTransp,medioPago);
 
                 if (clientesList.Count > 0)
                 {
@@ -527,6 +522,18 @@ namespace MemoryClubForms.Forms
             {
                 SaludForm saludForm = new SaludForm(idCliente);
                 saludForm.Show();
+            }
+        }
+
+        private void ckbFiltrarFechas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbFiltrarFechas.Checked)
+            {
+                dtmFecha.Enabled = true;
+            }
+            else
+            {
+                dtmFecha.Enabled = false;
             }
         }
     }

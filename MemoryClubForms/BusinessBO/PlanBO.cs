@@ -18,6 +18,19 @@ namespace MemoryClubForms.BusinessBO
         public static int sucursal = VariablesGlobales.sucursal;
 
         /// <summary>
+        /// Consulta la Lista de Códigos de las Sucursales
+        /// </summary>
+        /// <returns></returns>
+        public List<CodigosSucursales> LoadSucursales()
+        {
+            string query = "";
+            query = $"SELECT valor1 as sucursales FROM Codigo WHERE grupo = \'SUC\' AND subgrupo = \'SUC\' AND elemento <> \'\' AND estado = \'A\'";
+            List<CodigosSucursales> codigosSucursaleslist = new List<CodigosSucursales>();
+            codigosSucursaleslist = this.ObtenerListaSQL<CodigosSucursales>(query).ToList();
+
+            return codigosSucursaleslist;
+        }
+        /// <summary>
         /// Recupera en una lista los nombres de los clientes NO INACTIVOS
         /// </summary>
         /// <returns>Lista </returns>
@@ -402,6 +415,10 @@ namespace MemoryClubForms.BusinessBO
         public class ListaPagado
         {
             public string Pagados { get; set; } 
+        }
+        public class CodigosSucursales
+        {
+            public int Sucursales { get; set; }
         }
     }
 }

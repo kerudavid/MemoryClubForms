@@ -21,6 +21,7 @@ namespace MemoryClubForms.Forms
         public static List<CodigosSucursales> codigosSucursalesList = new List<CodigosSucursales>();
         public static List<CodigosEstados> codigosEstadosList = new List<CodigosEstados>();
         public static ClienteModel ClienteModelStatic = new ClienteModel();
+        public static List<ListaFrecuencias> frecuenciaList = new List<ListaFrecuencias>();
 
         public EditarClienteForm(ClienteModel clienteModel)
         {
@@ -112,7 +113,13 @@ namespace MemoryClubForms.Forms
 
             }
 
-            tbxFrecuenciaPago.Text = ClienteModelStatic.Frecuencia_pago;
+            foreach (var item in frecuenciaList)
+            {
+
+                cbxFrecuenciaPago.Items.Add(item.Frecuencias);
+                cbxFrecuenciaPago.SelectedItem = frecuenciaList.Where(x => x.Frecuencias == item.Frecuencias).FirstOrDefault().Frecuencias;
+                cbxFrecuenciaPago.Text = frecuenciaList.Where(x => x.Frecuencias == item.Frecuencias).FirstOrDefault().Frecuencias;
+            }
 
             tbxParienteTransp.Text = ClienteModelStatic.Pariente_transp;
 
@@ -148,8 +155,9 @@ namespace MemoryClubForms.Forms
             bool responseMedios = LoadMediosPago();
             bool responseSucursales = LoadSucursales();
             bool responseEstados = LoadEstados();
+            bool responseFrecuencia = LoadFrecuenciasPago();
 
-            if (!responseTransportistas || !responseGenero || !responseMedios || !responseSucursales || !responseEstados)
+            if (!responseTransportistas || !responseGenero || !responseMedios || !responseSucursales || !responseEstados ||!responseFrecuencia)
             {
                 return false;
             }
@@ -227,6 +235,22 @@ namespace MemoryClubForms.Forms
                 codigosMediosPagoList = new List<CodigosMediosPago>();
                 ClienteBO clienteBO = new ClienteBO();
                 codigosMediosPagoList = clienteBO.LoadMediosPago();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+        private bool LoadFrecuenciasPago()
+        {
+            try
+            {
+                frecuenciaList = new List<ListaFrecuencias>();
+                ClienteBO clienteBO = new ClienteBO();
+                frecuenciaList = clienteBO.LoadFrecuencias();
                 return true;
             }
             catch
@@ -496,13 +520,12 @@ namespace MemoryClubForms.Forms
 
 
             //FrecuenciaPago
-            if (!string.IsNullOrEmpty(tbxFrecuenciaPago.Text))
+            if (cbxFrecuenciaPago.SelectedItem==null)
             {
-                if (tbxFrecuenciaPago.Text.Length > 15)
-                {
-                    MessageBox.Show("Ha superado el número máximo de caracteres en Frecuencia pago", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return false;
-                }
+
+                MessageBox.Show("Ha superado el número máximo de caracteres en Frecuencia pago", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+                
             }
 
 
@@ -646,7 +669,7 @@ namespace MemoryClubForms.Forms
                     clienteModel.Medio_pago = cbxFiltroMedioPago.SelectedItem.ToString();
                 }
 
-                clienteModel.Frecuencia_pago = tbxFrecuenciaPago.Text;
+                clienteModel.Frecuencia_pago = cbxFrecuenciaPago.SelectedItem.ToString();
                 clienteModel.Pariente_transp = tbxParienteTransp.Text;
                 clienteModel.Direccion = tbxDireccion.Text;
 

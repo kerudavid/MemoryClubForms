@@ -20,6 +20,7 @@ namespace MemoryClubForms.Forms
         public static List<CodigosGenero> codigosGeneroList = new List<CodigosGenero>();
         public static List<CodigosSucursales> codigosSucursalesList = new List<CodigosSucursales>();
         public static List<CodigosEstados> codigosEstadosList = new List<CodigosEstados>();
+        public static List<ListaFrecuencias> frecuenciaList = new List<ListaFrecuencias>();
         public InsertarClienteForm()
         {
             InitializeComponent();
@@ -61,6 +62,12 @@ namespace MemoryClubForms.Forms
                 }
                 
             }
+            foreach (var item in frecuenciaList)
+            {
+                cbxFrecuenciaPago.Items.Add(item.Frecuencias);
+                
+            }
+
 
             cbxTomaTransp.Items.Add("SI");
             cbxTomaTransp.Items.Add("NO");
@@ -76,8 +83,9 @@ namespace MemoryClubForms.Forms
             bool responseMedios = LoadMediosPago();
             bool responseSucursales = LoadSucursales();
             bool responseEstados = LoadEstados();
+            bool responseFrecuencia = LoadFrecuenciaPago();
 
-            if (!responseTransportistas||!responseGenero||!responseMedios||!responseSucursales||!responseEstados)
+            if (!responseTransportistas||!responseGenero||!responseMedios||!responseSucursales||!responseEstados||!responseFrecuencia)
             {
                 return false;
             }
@@ -155,6 +163,22 @@ namespace MemoryClubForms.Forms
                 codigosMediosPagoList = new List<CodigosMediosPago>();
                 ClienteBO clienteBO = new ClienteBO();
                 codigosMediosPagoList = clienteBO.LoadMediosPago();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+        private bool LoadFrecuenciaPago()
+        {
+            try
+            {
+                frecuenciaList = new List<ListaFrecuencias>();
+                ClienteBO clienteBO = new ClienteBO();
+                frecuenciaList = clienteBO.LoadFrecuencias();
                 return true;
             }
             catch
@@ -462,13 +486,12 @@ namespace MemoryClubForms.Forms
 
 
             //FrecuenciaPago
-            if (!string.IsNullOrEmpty(tbxFrecuenciaPago.Text))
+            if (cbxFrecuenciaPago.SelectedItem==null)
             {
-                if (tbxFrecuenciaPago.Text.Length > 15)
-                {
-                    MessageBox.Show("Ha superado el número máximo de caracteres en Frecuencia pago", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return false;
-                }
+
+                MessageBox.Show("Seleccione la Frecuencia de pago", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+                
             }
 
 
@@ -625,7 +648,7 @@ namespace MemoryClubForms.Forms
                     clienteModel.Medio_pago = cbxFiltroMedioPago.SelectedItem.ToString();
                 }
                 
-                clienteModel.Frecuencia_pago = tbxFrecuenciaPago.Text;
+                clienteModel.Frecuencia_pago = cbxFrecuenciaPago.SelectedItem.ToString();
                 clienteModel.Pariente_transp = tbxParienteTransp.Text;
                 clienteModel.Direccion = tbxDireccion.Text;
 
@@ -664,14 +687,12 @@ namespace MemoryClubForms.Forms
                 }
 
                 MessageBox.Show("La información se ha guardado EXITOSAMENTE!", "Guardado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                           
-
-
+                this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Alerta, No se pudo guardar el registro\n" + ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.Close();
             }
         }
 

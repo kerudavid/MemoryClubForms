@@ -139,6 +139,12 @@
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PlanForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PlanForm.Designer.cs">
+      <DependentUpon>PlanForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SaludForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -227,6 +233,9 @@
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PlanForm.resx">
+      <DependentUpon>PlanForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SaludForm.resx">
       <DependentUpon>SaludForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -297,6 +306,7 @@
     <Content Include="Resources\Asistencia 1.png" />
     <Content Include="Resources\Ayuda.png" />
     <Content Include="Resources\basura.png" />
+    <None Include="Resources\calendario.png" />
     <Content Include="Resources\Camara.png" />
     <Content Include="Resources\card.png" />
     <Content Include="Resources\cerrarS.png" />
@@ -317,6 +327,7 @@
     <Content Include="Resources\imprimir.png" />
     <Content Include="Resources\Info.png" />
     <Content Include="Resources\llegada.png" />
+    <None Include="Resources\planificacion.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

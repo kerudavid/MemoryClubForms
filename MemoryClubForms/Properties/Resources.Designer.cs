@@ -83,6 +83,16 @@ namespace MemoryClubForms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap calendario {
+            get {
+                object obj = ResourceManager.GetObject("calendario", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cerrarS {
             get {
                 object obj = ResourceManager.GetObject("cerrarS", resourceCulture);
@@ -146,6 +156,16 @@ namespace MemoryClubForms.Properties {
         internal static System.Drawing.Bitmap manzana {
             get {
                 object obj = ResourceManager.GetObject("manzana", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap planificacion {
+            get {
+                object obj = ResourceManager.GetObject("planificacion", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

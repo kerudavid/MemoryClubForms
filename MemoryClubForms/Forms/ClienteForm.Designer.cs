@@ -47,9 +47,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.dtmFecha = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
-            this.cbxFiltroApodo = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.cbxFiltroNombre = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.cbxFiltroMedioPago = new System.Windows.Forms.ComboBox();
@@ -61,18 +59,20 @@
             this.btnReiniciarFiltro = new System.Windows.Forms.Button();
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.cbxFiltroCedula = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnInsertar = new System.Windows.Forms.Button();
             this.btnSalud = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnAlimentos = new System.Windows.Forms.Button();
-            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblNombreVista = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.grdCliente = new System.Windows.Forms.DataGridView();
+            this.tbxFiltroCedula = new System.Windows.Forms.TextBox();
+            this.tbxFiltroNombre = new System.Windows.Forms.TextBox();
+            this.tbxFiltroApodo = new System.Windows.Forms.TextBox();
+            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.id_Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cedula = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -97,6 +97,7 @@
             this.celular_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.email_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.medio_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frecuencia_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pariente_transp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toma_transp = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -161,6 +162,9 @@
             this.pnlFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlFiltro.AutoScroll = true;
+            this.pnlFiltro.Controls.Add(this.tbxFiltroApodo);
+            this.pnlFiltro.Controls.Add(this.tbxFiltroNombre);
+            this.pnlFiltro.Controls.Add(this.tbxFiltroCedula);
             this.pnlFiltro.Controls.Add(this.ckbFiltrarFechas);
             this.pnlFiltro.Controls.Add(this.label11);
             this.pnlFiltro.Controls.Add(this.label10);
@@ -172,9 +176,7 @@
             this.pnlFiltro.Controls.Add(this.label4);
             this.pnlFiltro.Controls.Add(this.dtmFecha);
             this.pnlFiltro.Controls.Add(this.label2);
-            this.pnlFiltro.Controls.Add(this.cbxFiltroApodo);
             this.pnlFiltro.Controls.Add(this.label1);
-            this.pnlFiltro.Controls.Add(this.cbxFiltroNombre);
             this.pnlFiltro.Controls.Add(this.label8);
             this.pnlFiltro.Controls.Add(this.label7);
             this.pnlFiltro.Controls.Add(this.cbxFiltroMedioPago);
@@ -186,7 +188,6 @@
             this.pnlFiltro.Controls.Add(this.btnReiniciarFiltro);
             this.pnlFiltro.Controls.Add(this.btnFiltrar);
             this.pnlFiltro.Controls.Add(this.label6);
-            this.pnlFiltro.Controls.Add(this.cbxFiltroCedula);
             this.pnlFiltro.Location = new System.Drawing.Point(0, 98);
             this.pnlFiltro.Name = "pnlFiltro";
             this.pnlFiltro.Size = new System.Drawing.Size(918, 173);
@@ -201,6 +202,7 @@
             this.ckbFiltrarFechas.TabIndex = 59;
             this.ckbFiltrarFechas.Text = "Filtrar con fechas";
             this.ckbFiltrarFechas.UseVisualStyleBackColor = true;
+            this.ckbFiltrarFechas.CheckedChanged += new System.EventHandler(this.ckbFiltrarFechas_CheckedChanged);
             // 
             // label11
             // 
@@ -275,6 +277,7 @@
             // 
             // dtmFecha
             // 
+            this.dtmFecha.Enabled = false;
             this.dtmFecha.Location = new System.Drawing.Point(431, 46);
             this.dtmFecha.Name = "dtmFecha";
             this.dtmFecha.Size = new System.Drawing.Size(200, 20);
@@ -285,39 +288,21 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(284, 12);
+            this.label2.Location = new System.Drawing.Point(260, 12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 17);
             this.label2.TabIndex = 49;
             this.label2.Text = "Apodo";
             // 
-            // cbxFiltroApodo
-            // 
-            this.cbxFiltroApodo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxFiltroApodo.FormattingEnabled = true;
-            this.cbxFiltroApodo.Location = new System.Drawing.Point(287, 46);
-            this.cbxFiltroApodo.Name = "cbxFiltroApodo";
-            this.cbxFiltroApodo.Size = new System.Drawing.Size(121, 21);
-            this.cbxFiltroApodo.TabIndex = 48;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(145, 12);
+            this.label1.Location = new System.Drawing.Point(121, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 17);
             this.label1.TabIndex = 47;
             this.label1.Text = "Nombre";
-            // 
-            // cbxFiltroNombre
-            // 
-            this.cbxFiltroNombre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxFiltroNombre.FormattingEnabled = true;
-            this.cbxFiltroNombre.Location = new System.Drawing.Point(148, 46);
-            this.cbxFiltroNombre.Name = "cbxFiltroNombre";
-            this.cbxFiltroNombre.Size = new System.Drawing.Size(121, 21);
-            this.cbxFiltroNombre.TabIndex = 46;
             // 
             // label8
             // 
@@ -375,18 +360,15 @@
             this.label13.Size = new System.Drawing.Size(52, 17);
             this.label13.TabIndex = 40;
             this.label13.Text = "Estado";
-            this.label13.Visible = false;
             // 
             // cbxFiltroEstadoCliente
             // 
             this.cbxFiltroEstadoCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxFiltroEstadoCliente.Enabled = false;
             this.cbxFiltroEstadoCliente.FormattingEnabled = true;
             this.cbxFiltroEstadoCliente.Location = new System.Drawing.Point(654, 45);
             this.cbxFiltroEstadoCliente.Name = "cbxFiltroEstadoCliente";
             this.cbxFiltroEstadoCliente.Size = new System.Drawing.Size(121, 21);
             this.cbxFiltroEstadoCliente.TabIndex = 39;
-            this.cbxFiltroEstadoCliente.Visible = false;
             // 
             // label3
             // 
@@ -436,15 +418,6 @@
             this.label6.Size = new System.Drawing.Size(52, 17);
             this.label6.TabIndex = 28;
             this.label6.Text = "Cédula";
-            // 
-            // cbxFiltroCedula
-            // 
-            this.cbxFiltroCedula.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxFiltroCedula.FormattingEnabled = true;
-            this.cbxFiltroCedula.Location = new System.Drawing.Point(5, 46);
-            this.cbxFiltroCedula.Name = "cbxFiltroCedula";
-            this.cbxFiltroCedula.Size = new System.Drawing.Size(121, 21);
-            this.cbxFiltroCedula.TabIndex = 28;
             // 
             // panel1
             // 
@@ -530,27 +503,6 @@
             this.btnAlimentos.UseVisualStyleBackColor = false;
             this.btnAlimentos.Click += new System.EventHandler(this.btnAlimentos_Click);
             // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.BackColor = System.Drawing.Color.Maroon;
-            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
-            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnClose.BorderRadius = 17;
-            this.btnClose.BorderSize = 0;
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(823, 8);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(92, 32);
-            this.btnClose.TabIndex = 7;
-            this.btnClose.Text = "Cerrar";
-            this.btnClose.TextColor = System.Drawing.Color.White;
-            this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.lblNombreVista);
@@ -630,6 +582,7 @@
             this.celular_pago,
             this.email_pago,
             this.medio_pago,
+            this.frecuencia_pago,
             this.pariente_transp,
             this.direccion,
             this.toma_transp,
@@ -665,11 +618,53 @@
             this.grdCliente.TabIndex = 6;
             this.grdCliente.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Row_Clicked);
             // 
+            // tbxFiltroCedula
+            // 
+            this.tbxFiltroCedula.Location = new System.Drawing.Point(5, 46);
+            this.tbxFiltroCedula.Name = "tbxFiltroCedula";
+            this.tbxFiltroCedula.Size = new System.Drawing.Size(113, 20);
+            this.tbxFiltroCedula.TabIndex = 60;
+            // 
+            // tbxFiltroNombre
+            // 
+            this.tbxFiltroNombre.Location = new System.Drawing.Point(124, 46);
+            this.tbxFiltroNombre.Name = "tbxFiltroNombre";
+            this.tbxFiltroNombre.Size = new System.Drawing.Size(121, 20);
+            this.tbxFiltroNombre.TabIndex = 61;
+            // 
+            // tbxFiltroApodo
+            // 
+            this.tbxFiltroApodo.Location = new System.Drawing.Point(263, 46);
+            this.tbxFiltroApodo.Name = "tbxFiltroApodo";
+            this.tbxFiltroApodo.Size = new System.Drawing.Size(121, 20);
+            this.tbxFiltroApodo.TabIndex = 62;
+            // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.Maroon;
+            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
+            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnClose.BorderRadius = 17;
+            this.btnClose.BorderSize = 0;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(823, 8);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(92, 32);
+            this.btnClose.TabIndex = 7;
+            this.btnClose.Text = "Cerrar";
+            this.btnClose.TextColor = System.Drawing.Color.White;
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // id_Cliente
             // 
             this.id_Cliente.HeaderText = "Id Cliente";
             this.id_Cliente.Name = "id_Cliente";
-            this.id_Cliente.Width = 74;
+            this.id_Cliente.Width = 80;
             // 
             // Cedula
             // 
@@ -693,13 +688,13 @@
             // 
             this.fecha_ingreso.HeaderText = "Fecha Ingreso";
             this.fecha_ingreso.Name = "fecha_ingreso";
-            this.fecha_ingreso.Width = 95;
+            this.fecha_ingreso.Width = 104;
             // 
             // fecha_free
             // 
             this.fecha_free.HeaderText = "Fecha Free";
             this.fecha_free.Name = "fecha_free";
-            this.fecha_free.Width = 79;
+            this.fecha_free.Width = 86;
             // 
             // Sexo
             // 
@@ -808,6 +803,12 @@
             this.medio_pago.HeaderText = "Medio Pago";
             this.medio_pago.Name = "medio_pago";
             this.medio_pago.Width = 86;
+            // 
+            // frecuencia_pago
+            // 
+            this.frecuencia_pago.HeaderText = "Frecuencia de pago";
+            this.frecuencia_pago.Name = "frecuencia_pago";
+            this.frecuencia_pago.Width = 97;
             // 
             // pariente_transp
             // 
@@ -942,12 +943,9 @@
         private System.Windows.Forms.Button btnReiniciarFiltro;
         private System.Windows.Forms.Button btnFiltrar;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cbxFiltroCedula;
         private System.Windows.Forms.DataGridView grdCliente;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cbxFiltroNombre;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cbxFiltroApodo;
         private System.Windows.Forms.DateTimePicker dtmFecha;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label11;
@@ -958,6 +956,12 @@
         private System.Windows.Forms.TextBox tbxMes;
         private System.Windows.Forms.TextBox tbxDia;
         private System.Windows.Forms.CheckBox ckbFiltrarFechas;
+        private System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblRegistroSeleccionado;
+        private System.Windows.Forms.TextBox tbxFiltroCedula;
+        private System.Windows.Forms.TextBox tbxFiltroApodo;
+        private System.Windows.Forms.TextBox tbxFiltroNombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_Cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cedula;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
@@ -982,6 +986,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn celular_pago;
         private System.Windows.Forms.DataGridViewTextBoxColumn email_pago;
         private System.Windows.Forms.DataGridViewTextBoxColumn medio_pago;
+        private System.Windows.Forms.DataGridViewTextBoxColumn frecuencia_pago;
         private System.Windows.Forms.DataGridViewTextBoxColumn pariente_transp;
         private System.Windows.Forms.DataGridViewTextBoxColumn direccion;
         private System.Windows.Forms.DataGridViewTextBoxColumn toma_transp;
@@ -996,8 +1001,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn obseracion;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
-        private System.Windows.Forms.Button btnEliminar;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label lblRegistroSeleccionado;
     }
 }

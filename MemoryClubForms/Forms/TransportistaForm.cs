@@ -636,11 +636,11 @@ namespace MemoryClubForms.Forms
                 {
                     return;
                 }
-                if (cbxEstado.SelectedItem.ToString() == "I")
+                /*if (cbxEstado.SelectedItem.ToString() == "I")
                 {
                     MessageBox.Show("Este registro está en estado Inactivo y no se lo puede editar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
-                }
+                }*/
                 if (idTransportista == 1)
                 {
                     MessageBox.Show("Este registro no está permitido editarse o eliminarse.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);

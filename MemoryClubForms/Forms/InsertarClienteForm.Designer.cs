@@ -66,7 +66,6 @@
             this.label24 = new System.Windows.Forms.Label();
             this.tbxParienteTransp = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
-            this.tbxFrecuenciaPago = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.tbxEmailPago = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
@@ -113,6 +112,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblNombreVista = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cbxFrecuenciaPago = new System.Windows.Forms.ComboBox();
             this.pnlPrincipal.SuspendLayout();
             this.pnlFiltro.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -132,6 +132,7 @@
             // pnlFiltro
             // 
             this.pnlFiltro.AutoScroll = true;
+            this.pnlFiltro.Controls.Add(this.cbxFrecuenciaPago);
             this.pnlFiltro.Controls.Add(this.ckbFechaFree);
             this.pnlFiltro.Controls.Add(this.Estado);
             this.pnlFiltro.Controls.Add(this.cbxEstados);
@@ -167,7 +168,6 @@
             this.pnlFiltro.Controls.Add(this.label24);
             this.pnlFiltro.Controls.Add(this.tbxParienteTransp);
             this.pnlFiltro.Controls.Add(this.label23);
-            this.pnlFiltro.Controls.Add(this.tbxFrecuenciaPago);
             this.pnlFiltro.Controls.Add(this.label22);
             this.pnlFiltro.Controls.Add(this.tbxEmailPago);
             this.pnlFiltro.Controls.Add(this.label20);
@@ -547,13 +547,6 @@
             this.label23.Size = new System.Drawing.Size(115, 17);
             this.label23.TabIndex = 88;
             this.label23.Text = "Frecuencia Pago";
-            // 
-            // tbxFrecuenciaPago
-            // 
-            this.tbxFrecuenciaPago.Location = new System.Drawing.Point(142, 376);
-            this.tbxFrecuenciaPago.Name = "tbxFrecuenciaPago";
-            this.tbxFrecuenciaPago.Size = new System.Drawing.Size(120, 20);
-            this.tbxFrecuenciaPago.TabIndex = 87;
             // 
             // label22
             // 
@@ -965,6 +958,15 @@
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
+            // cbxFrecuenciaPago
+            // 
+            this.cbxFrecuenciaPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFrecuenciaPago.FormattingEnabled = true;
+            this.cbxFrecuenciaPago.Location = new System.Drawing.Point(142, 378);
+            this.cbxFrecuenciaPago.Name = "cbxFrecuenciaPago";
+            this.cbxFrecuenciaPago.Size = new System.Drawing.Size(121, 21);
+            this.cbxFrecuenciaPago.TabIndex = 126;
+            // 
             // InsertarClienteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1038,7 +1040,6 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox tbxEmailPago;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.TextBox tbxFrecuenciaPago;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.TextBox tbxDireccion;
         private System.Windows.Forms.Label label24;
@@ -1073,5 +1074,6 @@
         private System.Windows.Forms.Label Estado;
         private System.Windows.Forms.ComboBox cbxEstados;
         private System.Windows.Forms.CheckBox ckbFechaFree;
+        private System.Windows.Forms.ComboBox cbxFrecuenciaPago;
     }
 }

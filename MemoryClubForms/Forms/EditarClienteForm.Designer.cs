@@ -33,6 +33,7 @@
             this.lblNombreVista = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlFiltro = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.ckbFechaFree = new System.Windows.Forms.CheckBox();
             this.Estado = new System.Windows.Forms.Label();
             this.cbxEstados = new System.Windows.Forms.ComboBox();
@@ -68,7 +69,6 @@
             this.label24 = new System.Windows.Forms.Label();
             this.tbxParienteTransp = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
-            this.tbxFrecuenciaPago = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.tbxEmailPago = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
@@ -104,7 +104,7 @@
             this.cbxFiltroTransportista = new System.Windows.Forms.ComboBox();
             this.cbxFiltroSucursal = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cbxFrecuenciaPago = new System.Windows.Forms.ComboBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlFiltro.SuspendLayout();
@@ -145,6 +145,7 @@
             // pnlFiltro
             // 
             this.pnlFiltro.AutoScroll = true;
+            this.pnlFiltro.Controls.Add(this.cbxFrecuenciaPago);
             this.pnlFiltro.Controls.Add(this.checkBox1);
             this.pnlFiltro.Controls.Add(this.ckbFechaFree);
             this.pnlFiltro.Controls.Add(this.Estado);
@@ -181,7 +182,6 @@
             this.pnlFiltro.Controls.Add(this.label24);
             this.pnlFiltro.Controls.Add(this.tbxParienteTransp);
             this.pnlFiltro.Controls.Add(this.label23);
-            this.pnlFiltro.Controls.Add(this.tbxFrecuenciaPago);
             this.pnlFiltro.Controls.Add(this.label22);
             this.pnlFiltro.Controls.Add(this.tbxEmailPago);
             this.pnlFiltro.Controls.Add(this.label20);
@@ -222,6 +222,17 @@
             this.pnlFiltro.Name = "pnlFiltro";
             this.pnlFiltro.Size = new System.Drawing.Size(918, 545);
             this.pnlFiltro.TabIndex = 14;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(153, 63);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(77, 17);
+            this.checkBox1.TabIndex = 126;
+            this.checkBox1.Text = "FechaFree";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.FechaFree_Change);
             // 
             // ckbFechaFree
             // 
@@ -553,13 +564,6 @@
             this.label23.TabIndex = 88;
             this.label23.Text = "Frecuencia Pago";
             // 
-            // tbxFrecuenciaPago
-            // 
-            this.tbxFrecuenciaPago.Location = new System.Drawing.Point(147, 293);
-            this.tbxFrecuenciaPago.Name = "tbxFrecuenciaPago";
-            this.tbxFrecuenciaPago.Size = new System.Drawing.Size(120, 20);
-            this.tbxFrecuenciaPago.TabIndex = 87;
-            // 
             // label22
             // 
             this.label22.AutoSize = true;
@@ -867,16 +871,14 @@
             this.label3.TabIndex = 38;
             this.label3.Text = "Sucursal";
             // 
-            // checkBox1
+            // cbxFrecuenciaPago
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(153, 63);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(77, 17);
-            this.checkBox1.TabIndex = 126;
-            this.checkBox1.Text = "FechaFree";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.FechaFree_Change);
+            this.cbxFrecuenciaPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFrecuenciaPago.FormattingEnabled = true;
+            this.cbxFrecuenciaPago.Location = new System.Drawing.Point(147, 293);
+            this.cbxFrecuenciaPago.Name = "cbxFrecuenciaPago";
+            this.cbxFrecuenciaPago.Size = new System.Drawing.Size(121, 21);
+            this.cbxFrecuenciaPago.TabIndex = 127;
             // 
             // EditarClienteForm
             // 
@@ -941,7 +943,6 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TextBox tbxParienteTransp;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.TextBox tbxFrecuenciaPago;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox tbxEmailPago;
         private System.Windows.Forms.Label label20;
@@ -978,5 +979,6 @@
         private System.Windows.Forms.ComboBox cbxFiltroSucursal;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.ComboBox cbxFrecuenciaPago;
     }
 }
