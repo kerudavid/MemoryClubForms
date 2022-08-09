@@ -21,25 +21,21 @@ namespace MemoryClubForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-           /* ReporteCateringBO caten = new ReporteCateringBO();
-            CalendarioModel model = new CalendarioModel();
-            odel.Id_calendario = 16;
-            model.Fk_id_plan = 3;
-            model.Fk_id_cliente = 2;
-            model.Fecha = "15/07/2022";
-            model.Estado = "RESERVADO";
-            model.Usuario = "mmoreta";
-            model.Fecha_mod = "21/07/2022";
+           /* UsuarioBO caten = new UsuarioBO();
+            UsuarioModel model = new UsuarioModel();
+            model.Id_usuario = 3;
+            model.Usuario = "fgomez";
+            model.Clave = "clavenueva";
+            model.Nivel = 2;
+            model.Estado = "A";
+            model.Descripcion = "Fernando Gomez";
+            model.Sucursal = 1;
+            model.Observacion = "prueba de modificacion";
+            model.Fecha_mod = "03/08/2022";
 
-            //calen.EliminarCalendario(model);
+            caten.EliminarUsuario(model);*/
 
 
-            //calen.InsertarAutomatico(4, 4, "Martes", "Miercoles", "Jueves", "", "");*/
-
-
-            //caten.LoadReporteCatering();
-            
-             
 
 
             Application.Run(new LoginForm());

@@ -142,7 +142,7 @@ namespace MemoryClubForms.BusinessBO
         //valida que no haya ningun registro con estado activo para el mismo transportista
         private bool ValidaTransportistas(TransportistaModel PtransportistaModel)
         {
-            string query = $"SELECT * FROM Transportista WHERE cedula = '{PtransportistaModel.Cedula}' AND estado = \'A\'";
+            string query = $"SELECT * FROM Transportista WHERE cedula = '{PtransportistaModel.Cedula}'";
 
             List<TransportistaModel> cedulasList = new List<TransportistaModel>();
             cedulasList = this.ObtenerListaSQL<TransportistaModel>(query).ToList();

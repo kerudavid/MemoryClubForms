@@ -80,7 +80,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Num clientes</Value>
+                              <Value>Num Clientes</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -1021,9 +1021,9 @@
         </TablixRowHierarchy>
         <DataSetName>ReporteClientePlan</DataSetName>
         <Top>0.10583cm</Top>
-        <Left>1.50149cm</Left>
+        <Left>1.18399cm</Left>
         <Height>3cm</Height>
-        <Width>13.4541cm</Width>
+        <Width>13.45409cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1037,7 +1037,7 @@
   <Width>6.21875in</Width>
   <Page>
     <PageHeader>
-      <Height>2.11667cm</Height>
+      <Height>2.45608cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -1045,8 +1045,8 @@
           <Source>Embedded</Source>
           <Value>ClubMemoriaLogo</Value>
           <Sizing>FitProportional</Sizing>
-          <Top>0.41382cm</Top>
-          <Left>1.14448cm</Left>
+          <Top>0.87698cm</Top>
+          <Left>1.18399cm</Left>
           <Height>1.5cm</Height>
           <Width>1.5cm</Width>
           <Style>
@@ -1062,7 +1062,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Resumen "Clientes por Tipo de Plan y Estado de Pago"</Value>
+                  <Value>Resumen "# Clientes por Tipo de Plan y Estado de Pago"</Value>
                   <Style>
                     <FontSize>12pt</FontSize>
                     <FontWeight>Bold</FontWeight>
@@ -1076,46 +1076,11 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Top>0.51055cm</Top>
-          <Left>2.71504cm</Left>
+          <Top>0.88223cm</Top>
+          <Left>3.00149cm</Left>
           <Height>0.83854cm</Height>
-          <Width>12.65048cm</Width>
+          <Width>11.77736cm</Width>
           <ZIndex>1</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="txbFecha">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>= Today()</Value>
-                  <Style>
-                    <FontSize>8pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                    <Format>d</Format>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Left</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <Top>1.38148cm</Top>
-          <Left>6.27691cm</Left>
-          <Height>0.53234cm</Height>
-          <Width>1.93243cm</Width>
-          <ZIndex>2</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1146,10 +1111,45 @@
               </Style>
             </Paragraph>
           </Paragraphs>
-          <Top>1.37941cm</Top>
-          <Left>8.45697cm</Left>
-          <Height>0.53441cm</Height>
+          <Top>0.3175cm</Top>
+          <Left>2.9236cm</Left>
+          <Height>0.46357cm</Height>
           <Width>2.14653cm</Width>
+          <ZIndex>2</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="txbFecha">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>= Today()</Value>
+                  <Style>
+                    <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                    <Format>d</Format>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <Top>0.3175cm</Top>
+          <Left>1.24625cm</Left>
+          <Height>0.46357cm</Height>
+          <Width>1.60679cm</Width>
           <ZIndex>3</ZIndex>
           <Style>
             <Border>
@@ -1171,6 +1171,7 @@
                   <Value>="Pagina" &amp; Globals!PageNumber</Value>
                   <Style>
                     <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
                   </Style>
                 </TextRun>
               </TextRuns>
@@ -1179,8 +1180,8 @@
               </Style>
             </Paragraph>
           </Paragraphs>
-          <Top>1.41965cm</Top>
-          <Left>12.16454cm</Left>
+          <Top>0.3175cm</Top>
+          <Left>11.98781cm</Left>
           <Height>0.49417cm</Height>
           <Width>2.79104cm</Width>
           <ZIndex>4</ZIndex>

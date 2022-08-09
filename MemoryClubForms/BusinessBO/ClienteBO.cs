@@ -142,7 +142,7 @@ namespace MemoryClubForms.BusinessBO
             //valido cedula
             if (!(string.IsNullOrEmpty(Pcedula)))
             {
-                condiciones += $" AND C.cedula = '{Pcedula}' ";
+                condiciones += $" AND C.cedula LIKE '%{Pcedula}%' ";
             }
             //valido nombre
             if (!(string.IsNullOrEmpty(Pnombre)))

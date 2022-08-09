@@ -36,7 +36,17 @@ namespace MemoryClubForms.Reports
                 ReportDataSource rds = new ReportDataSource("ReporteTransporte", rtmList);
                 this.reportViewer1.LocalReport.ReportEmbeddedResource = "MemoryClubForms.Reports.ReporteTransporte.rdlc";
                 this.reportViewer1.LocalReport.DataSources.Clear();
+
+                //añado los parámetros
+                ReportParameter[] reportParameters = new ReportParameter[2];
+                //reportParameters[0] = new ReportParameter("NombreParametro", "VALOR DE TU PARAMETRO", false); EJEMPLO
+                reportParameters[0] = new ReportParameter("ReportDesde", fdesde, false);
+                reportParameters[1] = new ReportParameter("ReportHasta", fhasta, false);
+
                 this.reportViewer1.LocalReport.DataSources.Add(rds);
+                //envio los parametros
+                reportViewer1.LocalReport.SetParameters(reportParameters);
+
                 this.reportViewer1.RefreshReport();
             }
             else
