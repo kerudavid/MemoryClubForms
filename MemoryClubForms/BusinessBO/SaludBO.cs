@@ -186,7 +186,7 @@ namespace MemoryClubForms.BusinessBO
         }
 
         /// <summary>
-        /// Actualiza la tabla Salud (enfermdedad, observación, medicacion, carnet vacuna, usuario y fecha modificacción)
+        /// Actualiza la tabla Salud ( observación, medicacion, carnet vacuna, usuario y fecha modificacción)
         /// </summary>
         /// <param name="saludModel"></param>
         /// <returns>true/false</returns>
@@ -199,26 +199,20 @@ namespace MemoryClubForms.BusinessBO
             }
             else
             {
-                bool aux = ValidaDuplicadoSalud(saludModel); //valida que no se duplique enfermedad para el mismo cliente
-                if (aux == true)
-                {
-                    string query = $"UPDATE Salud SET enfermedad = '{saludModel.Enfermedad}', observacion = '{saludModel.Observacion}', medicacion = '{saludModel.Medicacion}', " +
-                                   $"carnet_vacuna = '{saludModel.Carnet_vacuna}', usuario = '{saludModel.Usuario}', fecha_mod = '{saludModel.Fecha_mod}' " +
-                                   $"WHERE id_salud = {saludModel.Id_Salud}";
+                string query = $"UPDATE Salud SET  observacion = '{saludModel.Observacion}', medicacion = '{saludModel.Medicacion}', " +
+                                $"carnet_vacuna = '{saludModel.Carnet_vacuna}', usuario = '{saludModel.Usuario}', fecha_mod = '{saludModel.Fecha_mod}' " +
+                                $"WHERE id_salud = {saludModel.Id_Salud}";
 
-                    try
-                    {
-                        bool execute = SQLConexionDataBase.Execute(query);
-                        return execute;
-                    }
-                    catch (SqlException ex)
-                    {
-                        Console.WriteLine("Error al actualizar el registro", ex.Message);
-                        return false;
-                    }
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    return execute;
                 }
-                else
-                { return false; }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Error al actualizar el registro", ex.Message);
+                    return false;
+                }
             }
         }
 

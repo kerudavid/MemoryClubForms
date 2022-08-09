@@ -550,7 +550,7 @@
   <Width>6.16667in</Width>
   <Page>
     <PageHeader>
-      <Height>1.96708cm</Height>
+      <Height>2.2052cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -558,7 +558,7 @@
           <Source>Embedded</Source>
           <Value>ClubMemoriaLogo</Value>
           <Sizing>FitProportional</Sizing>
-          <Top>0.30868cm</Top>
+          <Top>0.62618cm</Top>
           <Left>0.32427cm</Left>
           <Height>1.5cm</Height>
           <Width>1.5cm</Width>
@@ -589,46 +589,11 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Top>0.33514cm</Top>
+          <Top>0.85139cm</Top>
           <Left>2.00066cm</Left>
           <Height>0.83854cm</Height>
           <Width>13.17965cm</Width>
           <ZIndex>1</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="txbFecha">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>= Today()</Value>
-                  <Style>
-                    <FontSize>8pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                    <Format>d</Format>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Left</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <Top>1.17016cm</Top>
-          <Left>5.7742cm</Left>
-          <Height>0.53234cm</Height>
-          <Width>1.93243cm</Width>
-          <ZIndex>2</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -659,10 +624,45 @@
               </Style>
             </Paragraph>
           </Paragraphs>
-          <Top>1.16809cm</Top>
-          <Left>7.95426cm</Left>
-          <Height>0.53441cm</Height>
+          <Top>0.18083cm</Top>
+          <Left>2.85746cm</Left>
+          <Height>0.46357cm</Height>
           <Width>2.14653cm</Width>
+          <ZIndex>2</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="txbFecha">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>= Today()</Value>
+                  <Style>
+                    <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                    <Format>d</Format>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <Top>0.18083cm</Top>
+          <Left>1.18011cm</Left>
+          <Height>0.46357cm</Height>
+          <Width>1.60679cm</Width>
           <ZIndex>3</ZIndex>
           <Style>
             <Border>
@@ -684,6 +684,7 @@
                   <Value>="Pagina" &amp; Globals!PageNumber</Value>
                   <Style>
                     <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
                   </Style>
                 </TextRun>
               </TextRuns>
@@ -692,8 +693,8 @@
               </Style>
             </Paragraph>
           </Paragraphs>
-          <Top>1.20833cm</Top>
-          <Left>12.38927cm</Left>
+          <Top>0.18083cm</Top>
+          <Left>12.0097cm</Left>
           <Height>0.49417cm</Height>
           <Width>2.79104cm</Width>
           <ZIndex>4</ZIndex>

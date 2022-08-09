@@ -316,7 +316,7 @@ namespace MemoryClubForms.BusinessBO
                 bool aux = ValidarSucursalCate(PcateringModel); //valida que colaborador pueda modificar catering si es de la misma sucursal si no es de nivel <= 1
                 if (aux == true)
                 {
-                    string query = $"UPDATE Catering SET tipo_menu = '{PcateringModel.Tipo_menu}', hora = '{PcateringModel.Hora}', observacion = '{PcateringModel.Observacion}', " +
+                    string query = $"UPDATE Catering SET tipo_menu = '{PcateringModel.Tipo_menu}', fecha = '{PcateringModel.Fecha}' , hora = '{PcateringModel.Hora}', observacion = '{PcateringModel.Observacion}', " +
                                $"usuario = '{PcateringModel.Usuario}', fecha_mod = '{PcateringModel.Fecha_mod}' WHERE id_catering = {PcateringModel.Id_catering}";
 
                     try

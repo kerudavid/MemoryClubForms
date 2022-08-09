@@ -18,6 +18,7 @@ namespace MemoryClubForms.BusinessBO
     {
         public static int nivel = VariablesGlobales.Nivel;
         public static int sucursal = VariablesGlobales.sucursal;
+        public static string usuario = VariablesGlobales.usuario;
 
         
         /// <summary>
@@ -298,7 +299,7 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>bool True/False</returns>
         public bool ValidarDuplicadoAsis(AsistenciaModel asistenciaModel)
         {
-            string query = $"SELECT * FROM Asistencia WHERE fk_id_cliente = '{asistenciaModel.Fk_id_cliente}' AND CONVERT(date, fecha,103) = CAST('{asistenciaModel.Fecha}' AS date)";
+            string query = $"SELECT * FROM Asistencia WHERE fk_id_cliente = {asistenciaModel.Fk_id_cliente} AND CONVERT(date, fecha,103) = CAST('{asistenciaModel.Fecha}' AS date)";
 
             List<AsistenciaModel> nombresList = new List<AsistenciaModel>();
             //Las consultas siempre retornan el obtejo dentro de una lista.
@@ -335,6 +336,47 @@ namespace MemoryClubForms.BusinessBO
         }
 
         /// <summary>
+        /// Actualiza en la tabla calendario la asistencia cambiando el estado del registro a Completo
+        /// </summary>
+        /// <param name="asistenciaModel"></param>
+        /// <returns>true/false</returns>
+        private bool ActualizaCalendario(AsistenciaModel asistenciaModel)
+        {
+            //busca si hay un registro en el calendario para ese cliente, con un plan vigente y en la fecha dada
+            string query = $"SELECT id_calendario FROM Calendario C INNER JOIN Planes P ON fk_id_plan = id_plan " +
+                           $"WHERE P.estado = 'VIGENTE' AND C.fk_id_cliente = {asistenciaModel.Fk_id_cliente} AND CONVERT(date, C.fecha, 103) = CAST('{asistenciaModel.Fecha}' AS date)";
+
+            List<Calendarios> calendariosList = new List<Calendarios>();
+            calendariosList = this.ObtenerListaSQL<Calendarios>(query).ToList();
+            int ll_i = 0;
+            ll_i = calendariosList.Count;
+
+            if (ll_i > 0) //si encontró la fecha reservada en el calendario
+            {
+                ll_i--;
+                var idcalendario = calendariosList[ll_i].Id_calendario;
+                //actualiza el estado del registro del calendario a completo
+                query = "";
+                query = $"UPDATE Calendario SET estado = 'COMPLETO', usuario = '{asistenciaModel.Usuario}', fecha_mod = '{asistenciaModel.Fecha_mod}' " +
+                        $"WHERE id_calendario = {idcalendario} ";
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    return execute;
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Error al actualizar calendario", ex.Message);
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Insertar registro en Asistencia
         /// </summary>
         /// <param name="asistenciaModel"></param>
@@ -353,6 +395,7 @@ namespace MemoryClubForms.BusinessBO
                     try
                     {
                         bool execute = SQLConexionDataBase.Execute(query);
+                        ActualizaCalendario(asistenciaModel);
                         return execute;
                     }
                     catch (SqlException ex)
@@ -441,6 +484,11 @@ namespace MemoryClubForms.BusinessBO
             public string Estados { get; set; }
 
             public string Descripcion { get; set; }
+        }
+
+        private class Calendarios
+        {
+            public int Id_calendario { get; set; }
         }
     }
 }
