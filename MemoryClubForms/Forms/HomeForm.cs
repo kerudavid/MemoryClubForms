@@ -133,5 +133,10 @@ namespace MemoryClubForms.Forms
         {
             OpenForm(new PlanForm());
         }
+
+        private void usuarioSistemaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new UsuariosForm());
+        }
     }
 }

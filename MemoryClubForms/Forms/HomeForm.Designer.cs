@@ -31,13 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeForm));
             this.menuBarra = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gestiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panelContenedor = new System.Windows.Forms.Panel();
             this.imprimirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.asistenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cateringToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transporteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,14 +44,18 @@
             this.saludToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.planToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calendarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteAsistenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteCateringToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteTransporteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuarioSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parámetrosSistemasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alertaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panelContenedor = new System.Windows.Forms.Panel();
             this.menuBarra.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,6 +84,20 @@
             this.archivoToolStripMenuItem.Size = new System.Drawing.Size(75, 25);
             this.archivoToolStripMenuItem.Text = "Archivo";
             // 
+            // imprimirToolStripMenuItem
+            // 
+            this.imprimirToolStripMenuItem.Image = global::MemoryClubForms.Properties.Resources.imprimir;
+            this.imprimirToolStripMenuItem.Name = "imprimirToolStripMenuItem";
+            this.imprimirToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
+            this.imprimirToolStripMenuItem.Text = "Imprimir";
+            // 
+            // cerrarToolStripMenuItem
+            // 
+            this.cerrarToolStripMenuItem.Image = global::MemoryClubForms.Properties.Resources.close;
+            this.cerrarToolStripMenuItem.Name = "cerrarToolStripMenuItem";
+            this.cerrarToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
+            this.cerrarToolStripMenuItem.Text = "Cerrar";
+            // 
             // gestiónToolStripMenuItem
             // 
             this.gestiónToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -98,60 +112,6 @@
             this.gestiónToolStripMenuItem.Name = "gestiónToolStripMenuItem";
             this.gestiónToolStripMenuItem.Size = new System.Drawing.Size(75, 25);
             this.gestiónToolStripMenuItem.Text = "Gestión";
-            // 
-            // reportesToolStripMenuItem
-            // 
-            this.reportesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reporteAsistenciaToolStripMenuItem,
-            this.reporteCateringToolStripMenuItem,
-            this.reporteTransporteToolStripMenuItem,
-            this.reporteClientesToolStripMenuItem});
-            this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
-            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(84, 25);
-            this.reportesToolStripMenuItem.Text = "Reportes";
-            // 
-            // sistemaToolStripMenuItem
-            // 
-            this.sistemaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.usuarioSistemaToolStripMenuItem,
-            this.parámetrosSistemasToolStripMenuItem});
-            this.sistemaToolStripMenuItem.Name = "sistemaToolStripMenuItem";
-            this.sistemaToolStripMenuItem.Size = new System.Drawing.Size(77, 25);
-            this.sistemaToolStripMenuItem.Text = "Sistema";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(563, 5);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 20);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "User";
-            // 
-            // panelContenedor
-            // 
-            this.panelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContenedor.Location = new System.Drawing.Point(0, 29);
-            this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(934, 632);
-            this.panelContenedor.TabIndex = 4;
-            // 
-            // imprimirToolStripMenuItem
-            // 
-            this.imprimirToolStripMenuItem.Image = global::MemoryClubForms.Properties.Resources.imprimir;
-            this.imprimirToolStripMenuItem.Name = "imprimirToolStripMenuItem";
-            this.imprimirToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
-            this.imprimirToolStripMenuItem.Text = "Imprimir";
-            // 
-            // cerrarToolStripMenuItem
-            // 
-            this.cerrarToolStripMenuItem.Image = global::MemoryClubForms.Properties.Resources.close;
-            this.cerrarToolStripMenuItem.Name = "cerrarToolStripMenuItem";
-            this.cerrarToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
-            this.cerrarToolStripMenuItem.Text = "Cerrar";
             // 
             // asistenciaToolStripMenuItem
             // 
@@ -235,6 +195,17 @@
             this.calendarioToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
             this.calendarioToolStripMenuItem.Text = "Calendario";
             // 
+            // reportesToolStripMenuItem
+            // 
+            this.reportesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.reporteAsistenciaToolStripMenuItem,
+            this.reporteCateringToolStripMenuItem,
+            this.reporteTransporteToolStripMenuItem,
+            this.reporteClientesToolStripMenuItem});
+            this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(84, 25);
+            this.reportesToolStripMenuItem.Text = "Reportes";
+            // 
             // reporteAsistenciaToolStripMenuItem
             // 
             this.reporteAsistenciaToolStripMenuItem.Image = global::MemoryClubForms.Properties.Resources.Asistencia_1;
@@ -266,12 +237,22 @@
             this.reporteClientesToolStripMenuItem.Text = "Reporte Clientes";
             this.reporteClientesToolStripMenuItem.Click += new System.EventHandler(this.reporteClientesToolStripMenuItem_Click);
             // 
+            // sistemaToolStripMenuItem
+            // 
+            this.sistemaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.usuarioSistemaToolStripMenuItem,
+            this.parámetrosSistemasToolStripMenuItem});
+            this.sistemaToolStripMenuItem.Name = "sistemaToolStripMenuItem";
+            this.sistemaToolStripMenuItem.Size = new System.Drawing.Size(77, 25);
+            this.sistemaToolStripMenuItem.Text = "Sistema";
+            // 
             // usuarioSistemaToolStripMenuItem
             // 
             this.usuarioSistemaToolStripMenuItem.Image = global::MemoryClubForms.Properties.Resources.usuario2;
             this.usuarioSistemaToolStripMenuItem.Name = "usuarioSistemaToolStripMenuItem";
             this.usuarioSistemaToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
             this.usuarioSistemaToolStripMenuItem.Text = "Usuario Sistema";
+            this.usuarioSistemaToolStripMenuItem.Click += new System.EventHandler(this.usuarioSistemaToolStripMenuItem_Click);
             // 
             // parámetrosSistemasToolStripMenuItem
             // 
@@ -295,6 +276,26 @@
             this.cerrarSesiónToolStripMenuItem.Size = new System.Drawing.Size(132, 25);
             this.cerrarSesiónToolStripMenuItem.Text = "Cerrar Sesión";
             this.cerrarSesiónToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesiónToolStripMenuItem_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label1.Location = new System.Drawing.Point(563, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(43, 20);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "User";
+            // 
+            // panelContenedor
+            // 
+            this.panelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelContenedor.Location = new System.Drawing.Point(0, 29);
+            this.panelContenedor.Name = "panelContenedor";
+            this.panelContenedor.Size = new System.Drawing.Size(934, 632);
+            this.panelContenedor.TabIndex = 4;
             // 
             // HomeForm
             // 

@@ -31,6 +31,34 @@ namespace MemoryClubForms.BusinessBO
         }
 
         /// <summary>
+        /// Consulta la Lista de Códigos de las Sucursales
+        /// </summary>
+        /// <returns></returns>
+        public List<CodigosSucursales> LoadSucursales()
+        {
+            string query = "";
+            query = $"SELECT valor1 as sucursales FROM Codigo WHERE grupo = \'SUC\' AND subgrupo = \'SUC\' AND elemento <> \'\' AND estado = \'A\'";
+            List<CodigosSucursales> codigosSucursaleslist = new List<CodigosSucursales>();
+            codigosSucursaleslist = this.ObtenerListaSQL<CodigosSucursales>(query).ToList();
+
+            return codigosSucursaleslist;
+        }
+
+        /// <summary>
+        /// Devuelve lista de los Estados de un registro 'A'/'I'
+        /// </summary>
+        /// <returns></returns>
+        public List<CodigosEstados> LoadEstados()
+        {
+            string query = "";
+            query = $"SELECT elemento as estados, descripcion FROM Codigo WHERE grupo = \'GEN\' AND subgrupo = \'ESTADO\' AND elemento <> \'\' AND estado = \'A\'";
+            List<CodigosEstados> codigosEstadoslist = new List<CodigosEstados>();
+            codigosEstadoslist = this.ObtenerListaSQL<CodigosEstados>(query).ToList();
+
+            return codigosEstadoslist;
+        }
+
+        /// <summary>
         /// Método para convertir una lista DataTable a un TModel(Modelo genérico)
         /// </summary>
         /// <returns>IList<TModel></returns>
@@ -53,15 +81,41 @@ namespace MemoryClubForms.BusinessBO
         /// Lista la información de la tabla Usuario para los niveles mayores a cero (No gestión del Sistema) validando el nivel del usuario
         /// </summary>
         /// <returns>Lista tabla usuario</returns>
-        public List<UsuarioModel> LoadUsuarios()
+        public List<UsuarioModel> ConsultaUsuarios(int Psucursal, string Pestado)
         {
             string query = "";
+            string condiciones = "";
+
+            //valido el estado
+            if (Pestado == "T")
+            {
+                Pestado = string.Empty;
+            }
+            if (!(string.IsNullOrEmpty(Pestado)))
+            {
+                condiciones += $" AND estado = '{Pestado}' ";
+            }
+            //valido la sucursal
+            if (Psucursal > 0)
+            {
+                if (nivel <= 1) //solo el nivel administrador puede consultar cualquier sucursal
+                { condiciones += $" AND sucursal = {Psucursal} "; }
+                else
+                { condiciones += $" AND sucursal = {sucursal} "; } //los otros niveles solo consultan su propia sucursal
+            }
+            else //no se ha seleccionado sucursal
+            {
+                if (nivel > 1)  //para cualquier otro nivel de usuario se envia su propia sucursal
+                { condiciones += $" AND sucursal = {sucursal} "; }
+            }
+
             List<UsuarioModel> UsuariosList = new List<UsuarioModel>();
 
             if (nivel <= 1) //nivel administrador o gestor
             {
                 //armo el select con las opciones dadas          
-                query = $"SELECT * FROM Usuario WHERE nivel > 0 ORDER BY usuario";  //solo los usuarios nivel > 0
+                query = $"SELECT * FROM Usuario WHERE nivel > 0 {condiciones}" +
+                        $"ORDER BY usuario";  //solo los usuarios nivel > 0
             
                 //Las consultas siempre retornan el obtejo dentro de una lista.
                 UsuariosList = this.ObtenerListaSQL<UsuarioModel>(query).ToList();
@@ -220,6 +274,20 @@ namespace MemoryClubForms.BusinessBO
         public class CodigosNiveles
         {
             public int Niveles { get; set; }
+            public string Descripcion { get; set; }
+        }
+
+        /// <summary>
+        /// List Model de los códigos de sucursales
+        /// </summary>
+        public class CodigosSucursales
+        {
+            public int Sucursales { get; set; }
+        }
+
+        public class CodigosEstados
+        {
+            public string Estados { get; set; }
             public string Descripcion { get; set; }
         }
 

@@ -78,10 +78,15 @@ namespace MemoryClubForms.BusinessBO
                 condiciones += $" AND id_colaborador = {Pidcolaborador} ";
             }
             //valido el estado
+            if (Pestado == "T")
+            {
+                Pestado = string.Empty;
+            }
             if (!(string.IsNullOrEmpty(Pestado)))
             {
                 condiciones += $" AND estado = '{Pestado}' ";
             }
+           
             //valido la sucursal
             if (Psucursal > 0)
             {
