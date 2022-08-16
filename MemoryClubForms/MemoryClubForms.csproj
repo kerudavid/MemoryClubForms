@@ -98,6 +98,12 @@
     <Compile Include="Forms\AsistenciaForm.Designer.cs">
       <DependentUpon>AsistenciaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CalendarioForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CalendarioForm.Designer.cs">
+      <DependentUpon>CalendarioForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CateringForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +133,12 @@
     </Compile>
     <Compile Include="Forms\HomeForm.Designer.cs">
       <DependentUpon>HomeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InsertarAutomaticCalendarioForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InsertarAutomaticCalendarioForm.Designer.cs">
+      <DependentUpon>InsertarAutomaticCalendarioForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\InsertarClienteForm.cs">
       <SubType>Form</SubType>
@@ -214,6 +226,9 @@
     <EmbeddedResource Include="Forms\AsistenciaForm.resx">
       <DependentUpon>AsistenciaForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CalendarioForm.resx">
+      <DependentUpon>CalendarioForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CateringForm.resx">
       <DependentUpon>CateringForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -228,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\HomeForm.resx">
       <DependentUpon>HomeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InsertarAutomaticCalendarioForm.resx">
+      <DependentUpon>InsertarAutomaticCalendarioForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InsertarClienteForm.resx">
       <DependentUpon>InsertarClienteForm.cs</DependentUpon>

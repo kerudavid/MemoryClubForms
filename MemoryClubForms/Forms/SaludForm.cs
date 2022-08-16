@@ -37,7 +37,7 @@ namespace MemoryClubForms.Forms
         public SaludForm(int id)
         {
             InitializeComponent();
-            VariablesGlobales.OpenAlimentacion = true;
+            VariablesGlobales.OpenSalud = true;
             LoadInformation(id);
 
         }
@@ -45,7 +45,7 @@ namespace MemoryClubForms.Forms
         public SaludForm()
         {
             InitializeComponent();
-            VariablesGlobales.OpenAlimentacion = true;
+            VariablesGlobales.OpenSalud = true;
             LoadInformation(0);
 
         }
@@ -53,7 +53,7 @@ namespace MemoryClubForms.Forms
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
-            VariablesGlobales.OpenAlimentacion = false;
+            VariablesGlobales.OpenSalud = false;
         }
         private void LoadInformation(int idCliente)
         {
@@ -258,10 +258,17 @@ namespace MemoryClubForms.Forms
                 MessageBox.Show("Ingrese el nombre.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
-            //Alimento
+            //enfermedades
             if (cbxEnfermedades.SelectedItem == null)
             {
                 MessageBox.Show("Ingrese la enfermedad.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+
+            //Carnet
+            if (cxbCarnet.SelectedItem == null)
+            {
+                MessageBox.Show("Indique si tiene Carnet SI/NO.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
 
@@ -315,7 +322,7 @@ namespace MemoryClubForms.Forms
 
         private void CargarElementsEdit()
         {
-            enfermedadEdit = cbxEnfermedades.SelectedItem.ToString();
+            /*enfermedadEdit = cbxEnfermedades.SelectedItem.ToString();
             foreach (var item in enfermedadesList)
             {        
                 if (cbxEnfermedades.SelectedItem.ToString() != item.Enfermedades)
@@ -323,15 +330,15 @@ namespace MemoryClubForms.Forms
                     cbxEnfermedades.Items.Add(item.Enfermedades);
                 }
 
-            }
+            }*/
 
             if (cxbCarnet.SelectedItem.ToString() == "SI")
             {
-                cbxEnfermedades.Items.Add("NO");
+                cxbCarnet.Items.Add("NO");
             }
             if (cxbCarnet.SelectedItem.ToString() == "NO")
             {
-                cbxEnfermedades.Items.Add("SI");
+                cxbCarnet.Items.Add("SI");
             }
         }
 
@@ -577,11 +584,14 @@ namespace MemoryClubForms.Forms
 
                     saludModel.Id_Salud = idSalud;
                     saludModel.Fk_id_cliente = clientesList.Where(x => x.nombre == nombreCliente).Select(x => x.Id_Cliente).FirstOrDefault();
+                    /*
                     if (enfermedadEdit!= cbxEnfermedades.SelectedItem.ToString())
                     {
                         saludModel.Enfermedad = cbxEnfermedades.SelectedItem.ToString();
-                    }
-                    
+                    }*/
+
+                    saludModel.Enfermedad = cbxEnfermedades.SelectedItem.ToString();
+
                     saludModel.Carnet_vacuna = cxbCarnet.SelectedItem.ToString();
                     saludModel.Medicacion = tbxMedicacion.Text;
                     saludModel.Observacion = txtObservciones.Text;

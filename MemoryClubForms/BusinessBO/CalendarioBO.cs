@@ -18,6 +18,30 @@ namespace MemoryClubForms.BusinessBO
         public static string usuario = VariablesGlobales.usuario;
 
         /// <summary>
+        /// Recupera en una lista los nombres de los clientes NO INACTIVOS
+        /// </summary>
+        /// <returns>Lista </returns>
+        public List<NombresClientes> LoadClientes()
+        {
+            string query = "";
+
+            if (nivel <= 1)
+            {
+                query = $"SELECT id_Cliente, nombre, sucursal FROM Cliente WHERE estado <> \'I\'";
+            }
+            else
+            {
+                query = $"SELECT id_Cliente, nombre, sucursal FROM Cliente WHERE sucursal = {sucursal} AND estado <> \'I\'";
+            }
+
+            List<NombresClientes> nombresList = new List<NombresClientes>();
+
+            //Las consultas siempre retornan el obtejo dentro de una lista.
+            nombresList = this.ObtenerListaSQL<NombresClientes>(query).ToList();
+            return nombresList.OrderBy(x => x.nombre).ToList();
+        }
+
+        /// <summary>
         /// Devuelve los planes vigentes que se usan al insertar un registro en el calendario (id plan, id cliente, nombre cli, sucursal, fecha ini plan, tipo plan, num max dias)
         /// </summary>
         /// <returns>Lista </returns>
@@ -582,5 +606,14 @@ namespace MemoryClubForms.BusinessBO
             public int Num_dias_contratados { get; set; }
         }
 
+        /// <summary>
+        /// Model List para los nombres de los clientes
+        /// </summary>
+        public class NombresClientes
+        {
+            public int Id_Cliente { get; set; }
+            public string nombre { get; set; }
+            public int Sucursal { get; set; }
+        }
     }
 }

@@ -450,6 +450,7 @@
             // 
             // dtmHasta
             // 
+            this.dtmHasta.Enabled = false;
             this.dtmHasta.Location = new System.Drawing.Point(602, 46);
             this.dtmHasta.Name = "dtmHasta";
             this.dtmHasta.Size = new System.Drawing.Size(200, 20);
@@ -457,6 +458,7 @@
             // 
             // dtpDesde
             // 
+            this.dtpDesde.Enabled = false;
             this.dtpDesde.Location = new System.Drawing.Point(382, 45);
             this.dtpDesde.Name = "dtpDesde";
             this.dtpDesde.Size = new System.Drawing.Size(200, 20);

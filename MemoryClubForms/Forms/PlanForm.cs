@@ -211,7 +211,12 @@ namespace MemoryClubForms.Forms
             }
             if (!int.TryParse(tbxNumeroDiasPlan.Text, out int result))
             {
-                MessageBox.Show("Caracteres incorrectos. Ingrese números en el número máximo de días del plan .", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Caracteres incorrectos. Ingrese números en #Días vigencia del plan.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+            if(result<=0 || result > 100)
+            {
+                MessageBox.Show("#Días vigencia del plan debe ser mayor que 0 y menor que 100", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
 
@@ -280,10 +285,10 @@ namespace MemoryClubForms.Forms
                     cbxEstado.Items.Add(item.Estados);
             }
 
-            foreach (var item in tipoPlanList)
+            foreach (var item in pagoList)
             {
-                if (cbxEstado.SelectedItem.ToString().ToLower() != item.Tipos_plan.ToLower())
-                    cbxEstado.Items.Add(item.Tipos_plan);
+                if (cbxPagado.SelectedItem.ToString().ToLower() != item.Pagados.ToLower())
+                    cbxPagado.Items.Add(item.Pagados);
             }
         }
         private void ResetFilterElements()
@@ -295,6 +300,9 @@ namespace MemoryClubForms.Forms
             cbxFiltroSucursal.Items.Clear();
 
             cbxFiltroEstadoPlan.Items.Clear();
+
+            dtmHasta.Value = DateTime.Now;
+            dtpDesde.Value = DateTime.Now;
         }
         private void ResetElements()
         {
@@ -638,6 +646,7 @@ namespace MemoryClubForms.Forms
                     PlanModel planModel = new PlanModel();
 
                     planModel.Id_plan = idPlanificacion;
+                    planModel.Estado=cbxEstado.SelectedItem.ToString();
 
                     string responseDB = planBO.EliminarPlan(planModel);
                     if (responseDB.ToLower()!="ok")

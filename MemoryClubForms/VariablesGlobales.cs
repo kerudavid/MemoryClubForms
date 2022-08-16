@@ -16,7 +16,7 @@ namespace MemoryClubForms
         public static bool OpenEdit { get; set; }
         public static bool OpenAlimentacion { get; set; }
         public static bool OpenSalud { get; set; }
-
-
+        
+        public static bool InsertCalendario { get; set; }
     }
 }

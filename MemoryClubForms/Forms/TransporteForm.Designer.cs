@@ -81,6 +81,7 @@
             this.cbxFiltroNombreCliente = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblNombreVista = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.grdTransporte = new System.Windows.Forms.DataGridView();
             this.Id_transporte = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -97,7 +98,6 @@
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha_mod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.pnlActions.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -105,8 +105,8 @@
             this.panel4.SuspendLayout();
             this.pnlFiltro.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdTransporte)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdTransporte)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -426,6 +426,7 @@
             this.ckbFiltrarFechas.TabIndex = 48;
             this.ckbFiltrarFechas.Text = "Filtrar con fechas";
             this.ckbFiltrarFechas.UseVisualStyleBackColor = true;
+            this.ckbFiltrarFechas.CheckedChanged += new System.EventHandler(this.ckbFiltrarFechas_CheckedChanged);
             // 
             // rbtnOtros
             // 
@@ -629,6 +630,7 @@
             // 
             // dtmHasta
             // 
+            this.dtmHasta.Enabled = false;
             this.dtmHasta.Location = new System.Drawing.Point(497, 0);
             this.dtmHasta.Name = "dtmHasta";
             this.dtmHasta.Size = new System.Drawing.Size(200, 20);
@@ -636,6 +638,7 @@
             // 
             // dtpDesde
             // 
+            this.dtpDesde.Enabled = false;
             this.dtpDesde.Location = new System.Drawing.Point(215, 0);
             this.dtpDesde.Name = "dtpDesde";
             this.dtpDesde.Size = new System.Drawing.Size(200, 20);
@@ -670,6 +673,16 @@
             this.lblNombreVista.Size = new System.Drawing.Size(98, 22);
             this.lblNombreVista.TabIndex = 3;
             this.lblNombreVista.Text = "Transporte";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::MemoryClubForms.Properties.Resources.Transporte2;
+            this.pictureBox1.Location = new System.Drawing.Point(23, 8);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(60, 32);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
             // 
             // btnClose
             // 
@@ -836,16 +849,6 @@
             this.Estado.HeaderText = "Estado";
             this.Estado.Name = "Estado";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::MemoryClubForms.Properties.Resources.Transporte2;
-            this.pictureBox1.Location = new System.Drawing.Point(23, 8);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(60, 32);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
-            // 
             // TransporteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -868,8 +871,8 @@
             this.pnlFiltro.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdTransporte)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdTransporte)).EndInit();
             this.ResumeLayout(false);
 
         }

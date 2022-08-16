@@ -301,14 +301,14 @@ namespace MemoryClubForms.Forms
 
                 string cedula = null;
 
-                if (string.IsNullOrEmpty(tbxFiltroCedula.Text))
+                if (!string.IsNullOrEmpty(tbxFiltroCedula.Text))
                 {
                     cedula = tbxFiltroCedula.Text;
                 }
 
                 string nombre = null;
 
-                if (string.IsNullOrEmpty(tbxFiltroNombre.Text))
+                if (!string.IsNullOrEmpty(tbxFiltroNombre.Text))
                 {
                     nombre = tbxFiltroNombre.Text;
                 }
@@ -316,7 +316,7 @@ namespace MemoryClubForms.Forms
                 int idCliente = clienteModelList.Where(x => x.Nombre == nombre).Select(x => x.Id_cliente).FirstOrDefault();
 
                 string apodo = null;
-                if (string.IsNullOrEmpty(tbxFiltroApodo.Text))
+                if (!string.IsNullOrEmpty(tbxFiltroApodo.Text))
                 {
                     apodo = tbxFiltroApodo.Text;
                 }

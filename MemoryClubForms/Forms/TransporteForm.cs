@@ -71,6 +71,10 @@ namespace MemoryClubForms.Forms
             ResetFilterElements();
             LoadInformation();
 
+            ckbFiltrarFechas.Checked = false;
+            dtmHasta.Enabled = false;
+            dtpDesde.Enabled = false;
+
         }
 
         private void LoadInformation()
@@ -361,6 +365,16 @@ namespace MemoryClubForms.Forms
 
         }
 
+        private void ChargeElementsEdit()
+        {
+            foreach(var item in horariosTransportesList)
+            {
+                if (cbxEntradaSalida.SelectedItem.ToString().ToLower() != item.Horario)
+                {
+                    cbxEntradaSalida.Items.Add(item.Horario);
+                }
+            }
+        }
         private void CargarElemActions()
         {
             //Cargo el nombre de los clientes y de los colaboradores
@@ -646,6 +660,11 @@ namespace MemoryClubForms.Forms
             btnEliminar.ForeColor = Color.FromArgb(221, 221, 221);
             btnEliminar.FlatAppearance.BorderColor = Color.FromArgb(221, 221, 221);
             btnEliminar.Enabled = false;
+
+            dtmFecha.Enabled = true;
+            txtHora.Enabled = true;
+            txtObservciones.Enabled = true;
+
             if (action == 1)
             {
                 btnEditar.BackColor = Color.FromArgb(160, 160, 160);
@@ -653,9 +672,6 @@ namespace MemoryClubForms.Forms
                 btnEditar.FlatAppearance.BorderColor = Color.FromArgb(221, 221, 221);
                 btnEditar.Enabled = false;
 
-                dtmFecha.Enabled = true;
-                txtHora.Enabled = true;
-                txtObservciones.Enabled = true;
             }
             else if (action == 2)
             {
@@ -664,8 +680,7 @@ namespace MemoryClubForms.Forms
                 btnInsertar.FlatAppearance.BorderColor = Color.FromArgb(221, 221, 221);
                 btnInsertar.Enabled = false;
 
-                txtHora.Enabled = true;
-                txtObservciones.Enabled = true;
+                ChargeElementsEdit();
             }
 
 
@@ -882,6 +897,20 @@ namespace MemoryClubForms.Forms
                 LoadInformation();
                 MessageBox.Show("No se eliminar el registro, inténtelo más tarde." + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
+            }
+        }
+
+        private void ckbFiltrarFechas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbFiltrarFechas.Checked)
+            {
+                dtmHasta.Enabled = true;
+                dtpDesde.Enabled = true;
+            }
+            else
+            {
+                dtmHasta.Enabled = false;
+                dtpDesde.Enabled = false;
             }
         }
     }

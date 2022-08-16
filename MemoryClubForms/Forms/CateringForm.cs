@@ -276,6 +276,18 @@ namespace MemoryClubForms.Forms
             }
         }
 
+        private void CargarElementsEdit()
+        {
+            foreach (var item in tipoMenusList)
+            {
+                if (cbxMenu.SelectedItem.ToString() != item.TipoMenu)
+                {
+                    cbxMenu.Items.Add(item.TipoMenu);
+                }
+
+            }
+            
+        }
 
         #endregion
 
@@ -433,6 +445,8 @@ namespace MemoryClubForms.Forms
             btnEliminar.ForeColor = Color.FromArgb(221, 221, 221);
             btnEliminar.FlatAppearance.BorderColor = Color.FromArgb(221, 221, 221);
             btnEliminar.Enabled = false;
+            dtmFecha.Enabled = true;
+
             if (action == 1)
             {
                 btnEditar.BackColor = Color.FromArgb(160, 160, 160);
@@ -440,7 +454,7 @@ namespace MemoryClubForms.Forms
                 btnEditar.FlatAppearance.BorderColor = Color.FromArgb(221, 221, 221);
                 btnEditar.Enabled = false;
 
-                dtmFecha.Enabled = true;
+                
                 txtHora.Enabled = true;
                 txtObservciones.Enabled = true;
             }
@@ -453,6 +467,8 @@ namespace MemoryClubForms.Forms
 
                 txtHora.Enabled = true;
                 txtObservciones.Enabled = true;
+
+                CargarElementsEdit();
             }
 
 
@@ -499,6 +515,10 @@ namespace MemoryClubForms.Forms
         {
             CleanData();
             ResetElements();
+
+            ckbFiltrarFechas.Checked = false;   
+            dtmHasta.Enabled = false;
+            dtpDesde.Enabled = false;
         }
 
         private void ResetFilterElements()
@@ -812,6 +832,20 @@ namespace MemoryClubForms.Forms
                 LoadInformation();
                 MessageBox.Show("Alerta, No se pudo filtrar el registro\n" + ex.Message,"Aviso",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
             }       
+        }
+
+        private void ckbFiltrarFechas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbFiltrarFechas.Checked)
+            {
+                dtmHasta.Enabled = true;
+                dtpDesde.Enabled = true;
+            }
+            else
+            {
+                dtmHasta.Enabled = false;
+                dtpDesde.Enabled = false;
+            }
         }
     }
 }
