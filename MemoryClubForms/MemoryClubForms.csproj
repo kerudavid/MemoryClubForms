@@ -164,6 +164,12 @@
     <Compile Include="Forms\TransportistaForm.Designer.cs">
       <DependentUpon>TransportistaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UsuariosForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UsuariosForm.Designer.cs">
+      <DependentUpon>UsuariosForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AlimentacionModel.cs" />
     <Compile Include="Models\AsistenciaModel.cs" />
     <Compile Include="Models\CalendarioModel.cs" />
@@ -246,6 +252,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TransportistaForm.resx">
       <DependentUpon>TransportistaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UsuariosForm.resx">
+      <DependentUpon>UsuariosForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

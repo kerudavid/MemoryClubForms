@@ -159,6 +159,10 @@ namespace MemoryClubForms.BusinessBO
             {
                 condiciones += $" AND CONVERT(date, C.fecha_ingreso,103) = CAST('{Pfecha_ing}' AS date) ";
             }
+            if (Pestado == "T")
+            {
+                Pestado = string.Empty;
+            }
             //valida estado
             if (!(string.IsNullOrEmpty(Pestado)))
             {
