@@ -138,5 +138,10 @@ namespace MemoryClubForms.Forms
         {
             OpenForm(new UsuariosForm());
         }
+
+        private void calendarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new CalendarioForm());
+        }
     }
 }
