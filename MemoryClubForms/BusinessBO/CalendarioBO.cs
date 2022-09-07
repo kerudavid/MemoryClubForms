@@ -27,11 +27,11 @@ namespace MemoryClubForms.BusinessBO
 
             if (nivel <= 1)
             {
-                query = $"SELECT id_Cliente, nombre, sucursal FROM Cliente WHERE estado <> \'I\'";
+                query = $"SELECT id_Cliente, nombre, sucursal FROM Cliente WHERE estado <> \'I\' ORDER BY nombre";
             }
             else
             {
-                query = $"SELECT id_Cliente, nombre, sucursal FROM Cliente WHERE sucursal = {sucursal} AND estado <> \'I\'";
+                query = $"SELECT id_Cliente, nombre, sucursal FROM Cliente WHERE sucursal = {sucursal} AND estado <> \'I\'  ORDER BY nombre";
             }
 
             List<NombresClientes> nombresList = new List<NombresClientes>();
@@ -53,20 +53,22 @@ namespace MemoryClubForms.BusinessBO
             {
                 query = $"SELECT P.id_plan as idplan, P.fk_id_cliente as idcliente, C.nombre as nombres, P.sucursal as sucursales, " +
                         $"P.fecha_inicio_plan as fecha_ini_plan, P.tipo_plan as tipoplan, P.max_dia_plan as max_dias " +
-                        $"FROM Planes P INNER JOIN Cliente C ON P.fk_id_cliente = C.id_cliente WHERE P.estado = \'VIGENTE\'";
+                        $"FROM Planes P INNER JOIN Cliente C ON P.fk_id_cliente = C.id_cliente WHERE P.estado = \'VIGENTE\'" +
+                        $"ORDER BY idplan";
             }
             else //para los usuarios que no son administradores solo pueden ver los planes de su misma sucursal
             {
                 query = $"SELECT P.id_plan as idplan, P.fk_id_cliente as idcliente, C.nombre as nombres, P.sucursal as sucursales, " +
                         $"P.fecha_inicio_plan as fecha_ini_plan, P.tipo_plan as tipoplan, P.max_dia_plan as max_dias " +
-                        $"FROM Planes P INNER JOIN Cliente C ON P.fk_id_cliente = C.id_cliente WHERE P.estado = 'VIGENTE' AND P.sucursal = {sucursal}";
+                        $"FROM Planes P INNER JOIN Cliente C ON P.fk_id_cliente = C.id_cliente WHERE P.estado = 'VIGENTE' AND P.sucursal = {sucursal}" +
+                        $"ORDER BY idplan";
             }
 
             List<PlanesClientes> planesClientesList = new List<PlanesClientes>();
 
             //Las consultas siempre retornan el obtejo dentro de una lista.
             planesClientesList = this.ObtenerListaSQL<PlanesClientes>(query).ToList();
-            return planesClientesList.OrderBy(x => x.Nombres).ToList();
+            return planesClientesList;
         }
 
         /// <summary>
@@ -238,6 +240,12 @@ namespace MemoryClubForms.BusinessBO
                 msg = "Error. La fecha seleccionada es sábado o domingo";
                 return msg;
             }
+
+            msg = CuentaFechas(calendarioModel); //valida si no ha sobrepasado el número de días en el calendario de acuerdo al tipo de plan (siempre que esté parametrizado en Codigo)
+            if (msg != "OK")
+            {
+                return msg;
+            }
             msg = InsertarCalendarioBdd(calendarioModel);
   
             return msg;
@@ -371,6 +379,18 @@ namespace MemoryClubForms.BusinessBO
                                                 mensaje = LlenaCalendario(Pid_plan, Pid_cliente, Fecha, fechamod); //llama a método que llena el calendario model con los datos y a su vez invoca otro método que graba en la bdd
                                                 if (mensaje != "OK")
                                                 { return mensaje; }
+
+                                                if ( i+1 < 5)
+                                                {
+                                                    if (dia[i + 1] == "Martes")
+                                                    { fechaaux = fechaaux.AddDays(1); }
+                                                    if (dia[i + 1] == "Miercoles")
+                                                    { fechaaux = fechaaux.AddDays(2); }
+                                                    if (dia[i + 1] == "Jueves")
+                                                    { fechaaux = fechaaux.AddDays(3); }
+                                                    if (dia[i + 1] == "Viernes")
+                                                    { fechaaux = fechaaux.AddDays(4); }
+                                                }
                                             }
                                             break;
 
@@ -382,6 +402,16 @@ namespace MemoryClubForms.BusinessBO
                                                 mensaje = LlenaCalendario(Pid_plan, Pid_cliente, Fecha, fechamod); //llama a método que llena el calendario model con los datos y a su vez invoca otro método que graba en la bdd
                                                 if (mensaje != "OK")
                                                 { return mensaje; }
+
+                                                if (i + 1 < 5)
+                                                {
+                                                    if (dia[i + 1] == "Miercoles")
+                                                    { fechaaux = fechaaux.AddDays(1); }
+                                                    if (dia[i + 1] == "Jueves")
+                                                    { fechaaux = fechaaux.AddDays(2); }
+                                                    if (dia[i + 1] == "Viernes")
+                                                    { fechaaux = fechaaux.AddDays(3); }
+                                                }
                                             }
                                             break;
                                         case "Miercoles":
@@ -392,6 +422,14 @@ namespace MemoryClubForms.BusinessBO
                                                 mensaje = LlenaCalendario(Pid_plan, Pid_cliente, Fecha, fechamod); //llama a método que llena el calendario model con los datos y a su vez invoca otro método que graba en la bdd
                                                 if (mensaje != "OK")
                                                 { return mensaje; }
+
+                                                if (i + 1 < 5)
+                                                {
+                                                    if (dia[i + 1] == "Jueves")
+                                                    { fechaaux = fechaaux.AddDays(1); }
+                                                    if (dia[i + 1] == "Viernes")
+                                                    { fechaaux = fechaaux.AddDays(2); }
+                                                }
                                             }
                                             break;
                                         case "Jueves":
@@ -402,6 +440,12 @@ namespace MemoryClubForms.BusinessBO
                                                 mensaje = LlenaCalendario(Pid_plan, Pid_cliente, Fecha, fechamod); //llama a método que llena el calendario model con los datos y a su vez invoca otro método que graba en la bdd
                                                 if (mensaje != "OK")
                                                 { return mensaje; }
+
+                                                if (i + 1 < 5)
+                                                {
+                                                    if (dia[i + 1] == "Viernes")
+                                                    { fechaaux = fechaaux.AddDays(1); }
+                                                }
                                             }
                                             break;
                                         case "Viernes":
@@ -412,14 +456,14 @@ namespace MemoryClubForms.BusinessBO
                                                 mensaje = LlenaCalendario(Pid_plan, Pid_cliente, Fecha, fechamod); //llama a método que llena el calendario model con los datos y a su vez invoca otro método que graba en la bdd
                                                 if (mensaje != "OK")
                                                 { return mensaje; }
+                                                fechaaux = fechaaux.AddDays(3); //pone fecha en el lunes siguiente
                                             }
                                             break;
                                         default:
                                             break;
                                     }
                                     if (nveces == 1)
-                                    { primerdia = fechaaux; }
-                                   fechaaux = fechaaux.AddDays(1);
+                                    { primerdia = fini; }
                                 }
                                 else
                                 { i = 6; } //para que se detenga el for
@@ -433,12 +477,18 @@ namespace MemoryClubForms.BusinessBO
                         return msg;
                     }
                 }
+                else
+                {
+                    msg = "No se encontró información del plan seleccionado";
+                    return msg;
+                }
             }
             else
             {
                 msg = "No se pudo recuperar Planes Vigentes";
                 return msg;
             }
+            msg = "OK";
             return msg;
         }
 
@@ -460,6 +510,80 @@ namespace MemoryClubForms.BusinessBO
             //llama a método que inserta en la bdd
             response =  InsertarCalendarioBdd(calendarioModel);
             return response;
+
+        }
+
+        /// <summary>
+        /// Cuenta los registros de calendario para el plan para verificar si ya está completos los días de plan (para insertar manual)
+        /// </summary>
+        /// <param name="calendarioModel"></param>
+        /// <returns></returns>
+        private string CuentaFechas(CalendarioModel calendarioModel)
+        {
+            string msg = "";
+            //recupero lista de tipos de planes
+            List<TiposPlanes> tiposPlanes = new List<TiposPlanes>();
+            tiposPlanes = LoadTiposPlanes();
+            if (tiposPlanes.Count <= 0)
+            {
+                msg = "No se pudo recuperar Tipos de Planes de la tabla Codigo";
+                return msg;
+            }
+
+            //recupero lista de los planes vigentes
+            List<PlanesClientes> planesClientes = new List<PlanesClientes>();
+            planesClientes = LoadPlanesClientes();
+            if (planesClientes.Count > 0)
+            {
+                int index = planesClientes.FindIndex(c => c.Idplan.Equals(calendarioModel.Fk_id_plan));  //busco el indice donde el id_plan sea el del cliente que quiero añadir
+                if (index > -1)
+                {
+                    //leo información del plan
+                    var tipoplan = planesClientes.ElementAt(index).Tipoplan;
+
+                    //recupero el número días contratados según el plan (tabla código, ej: plan paquete: 20 días contratados)
+                    int indice = tiposPlanes.FindIndex(x => x.Tipoplan.Equals(tipoplan));
+                    if (indice > -1)
+                    {
+                        //leo los días contratados
+                        var dias_contratados = tiposPlanes.ElementAt(indice).Num_dias_contratados;
+                        if (dias_contratados == 0)
+                        {
+                            dias_contratados = 9999;    //si dias contratados = 0, entonces se cambia a 9999 para que solo se ejecute el ciclo para el rango de fechas
+                        }
+
+                        string query = $"SELECT fecha FROM Calendario WHERE fk_id_plan = {calendarioModel.Fk_id_plan}";
+                        List<ContadorFecha> contadorList = new List<ContadorFecha>();
+
+                        contadorList = this.ObtenerListaSQL<ContadorFecha>(query).ToList();
+
+                        if (contadorList.Count >= dias_contratados)
+                        {
+                            msg = "Ha sobrepasado el # días asignados en el calendario de acuerdo a su tipo de plan.";
+                            return msg;
+                        }
+                        else
+                        {
+                            return "OK";
+                        }
+                    }
+                    else
+                    {
+                        msg = "No se encontró este tipo de plan en la tabla Codigo";
+                        return msg;
+                    }
+                }
+                else
+                {
+                    msg = "No se encontró el ID plan del cliente";
+                    return msg;
+                }
+            }
+            else
+            {
+                msg = "No hay planes vigentes";
+                return msg;
+            }
 
         }
 
@@ -497,7 +621,7 @@ namespace MemoryClubForms.BusinessBO
         }
 
         /// <summary>
-        /// Actualiza un registro del calendario (fecha, estado, usuario, fecha_mod)
+        /// Actualiza un registro del calendario ( estado, usuario, fecha_mod)
         /// </summary>
         /// <param name="calendarioModel"></param>
         /// <returns></returns>
@@ -511,21 +635,21 @@ namespace MemoryClubForms.BusinessBO
             }
             else
             {
-                bool aux = Validaduplicadomanual(calendarioModel);
+                /*bool aux = Validaduplicadomanual(calendarioModel);
                 if (!(aux))
                 {
                     msg = "Ya existe un registro para este plan, cliente y fecha";
                     return msg;
-                }
+                }*/
 
-                aux = Validafinsemana(calendarioModel);
+                bool aux = Validafinsemana(calendarioModel);
                 if (!(aux))
                 {
                     msg = "Error. La fecha seleccionada es sábado o domingo";
                     return msg;
                 }
 
-                string query = $"UPDATE Calendario SET fecha = '{calendarioModel.Fecha}', estado = '{calendarioModel.Estado}', " +
+                string query = $"UPDATE Calendario SET estado = '{calendarioModel.Estado}', " +
                                $"usuario = '{calendarioModel.Usuario}', fecha_mod = '{calendarioModel.Fecha_mod}'" +
                                $"WHERE id_calendario = {calendarioModel.Id_calendario}";
                 try
@@ -614,6 +738,11 @@ namespace MemoryClubForms.BusinessBO
             public int Id_Cliente { get; set; }
             public string nombre { get; set; }
             public int Sucursal { get; set; }
+        }
+
+        public class ContadorFecha
+        {
+            public int Fechas { get; set; }
         }
     }
 }

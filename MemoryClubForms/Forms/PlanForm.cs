@@ -638,7 +638,7 @@ namespace MemoryClubForms.Forms
                     return;
                 }
 
-                DialogResult response = MessageBox.Show("Eliminar item seleccionado", "Está seguro de que desea eliminar este elemento? Al eliminar este item se eliminará el calendario de este plan conjuntamente", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult response = MessageBox.Show( "Está seguro de que desea eliminar este elemento?\nAl eliminar este item se eliminará el calendario de este plan conjuntamente", "Eliminar item seleccionado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (response == DialogResult.Yes)
                 {
@@ -720,7 +720,7 @@ namespace MemoryClubForms.Forms
                     planModel.Fecha_inicio_plan = dtmFecha.Value.ToString("dd/MM/yyyy");
                     planModel.Pagado = cbxPagado.SelectedItem.ToString();
                     planModel.Max_dia_plan = int.Parse(tbxNumeroDiasPlan.Text);
-                    planModel.Estado = estadosList.Where(x => x.Estados == "VIGENTE").FirstOrDefault().Estados;
+                    planModel.Estado = cbxEstado.SelectedItem.ToString();
                     planModel.Observacion = txtObservciones.Text;
                     planModel.Sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
                     planModel.Usuario = VariablesGlobales.usuario.ToString();

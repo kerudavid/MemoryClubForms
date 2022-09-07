@@ -136,7 +136,16 @@ namespace MemoryClubForms.Forms
 
         private void usuarioSistemaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenForm(new UsuariosForm());
+            if (VariablesGlobales.Nivel <= 1)
+            {
+                OpenForm(new UsuariosForm());
+            }
+            else
+            {
+                MessageBox.Show("Usuario no autorizado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+
+            }
         }
 
         private void calendarioToolStripMenuItem_Click(object sender, EventArgs e)

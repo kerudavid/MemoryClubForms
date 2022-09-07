@@ -172,7 +172,7 @@ namespace MemoryClubForms.Forms
 
             if (cbxTipoPlan.SelectedItem == null)
             {
-                MessageBox.Show("Seleccione el tipo de plan.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Seleccione el número de plan vigente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
 
@@ -197,7 +197,7 @@ namespace MemoryClubForms.Forms
 
             foreach (var item in PlanesClientesList)
             {
-                cbxTipoPlan.Items.Add(item.Tipoplan);
+                cbxTipoPlan.Items.Add(item.Idplan);
             }
 
             foreach (var item in estadosList)
@@ -219,7 +219,7 @@ namespace MemoryClubForms.Forms
             btnEliminar.FlatAppearance.BorderColor = Color.FromArgb(221, 221, 221);
             btnEliminar.Enabled = false;
 
-            dtmFecha.Enabled = true;
+            
 
             if (action == 1)
             {
@@ -228,6 +228,7 @@ namespace MemoryClubForms.Forms
                 btnEditar.ForeColor = Color.FromArgb(221, 221, 221);
                 btnEditar.FlatAppearance.BorderColor = Color.FromArgb(221, 221, 221);
                 btnEditar.Enabled = false;
+                dtmFecha.Enabled = true;
 
             }
             else if (action == 2)
@@ -276,16 +277,12 @@ namespace MemoryClubForms.Forms
 
         private void CargarElemFiltros()
         {
-            foreach (var item in PlanesClientesList)
+            foreach (var item in nombresClientesList)
             {
-                cbxFiltroCliente.Items.Add(item.Nombres);
+                cbxFiltroCliente.Items.Add(item.nombre);
             }
 
-            foreach (var item in PlanesClientesList)
-            {
-                cbxFiltroTipoPlan.Items.Add(item.Tipoplan);
-            }
-
+           
             foreach (var item in estadosList)
             {
                 cbxFiltroEstadoCalen.Items.Add(item.Estados);
@@ -328,7 +325,7 @@ namespace MemoryClubForms.Forms
         {
             cbxFiltroCliente.Items.Clear();
 
-            cbxFiltroTipoPlan.Items.Clear();
+            txbPlan.Text = "";
 
             cbxFiltroEstadoCalen.Items.Clear();
 
@@ -382,16 +379,16 @@ namespace MemoryClubForms.Forms
                     nombre = cbxFiltroCliente.SelectedItem.ToString();
                 }
 
-                int idCliente = PlanesClientesList.Where(x => x.Nombres == nombre).Select(x=>x.Idcliente).FirstOrDefault();
+                int idCliente = nombresClientesList.Where(x => x.nombre == nombre).Select(x=>x.Id_Cliente).FirstOrDefault();
 
-                string tipoPlan = null;
+                int idPlan = 0;
 
-                if (cbxFiltroTipoPlan.SelectedItem != null)
+                if ( (txbPlan.Text != null) && (!(string.IsNullOrEmpty(txbPlan.Text))))
                 {
-                    tipoPlan = cbxFiltroTipoPlan.SelectedItem.ToString();
+                    idPlan = Convert.ToInt32(txbPlan.Text);
                 }
 
-                int idPlan = PlanesClientesList.Where(x => x.Tipoplan == tipoPlan).Select(x => x.Idplan).FirstOrDefault();
+                //int idPlan = PlanesClientesList.Where(x => x.Tipoplan == tipoPlan).Select(x => x.Idplan).FirstOrDefault();
 
                 string estado = null;
 
@@ -459,13 +456,13 @@ namespace MemoryClubForms.Forms
                     cbxNombresClientes.Items.Add((string)grdCalendario.Rows[filaSeleccionada].Cells[3].Value.ToString());
                     cbxNombresClientes.Text = (string)grdCalendario.Rows[filaSeleccionada].Cells[3].Value.ToString();
 
-                    string plan = "";
-                    plan = PlanesClientesList.Where(x => x.Idplan == idPlan).FirstOrDefault().Tipoplan;
+                   
+                    //plan = PlanesClientesList.Where(x => x.Idplan == idPlan).FirstOrDefault().Tipoplan;
 
                     cbxTipoPlan.Items.Clear();
-                    cbxTipoPlan.SelectedItem = (string)plan;
-                    cbxTipoPlan.Items.Add((string)plan);
-                    cbxTipoPlan.Text = (string)plan;
+                    cbxTipoPlan.SelectedItem = (string)grdCalendario.Rows[filaSeleccionada].Cells[1].Value.ToString();
+                    cbxTipoPlan.Items.Add((string)grdCalendario.Rows[filaSeleccionada].Cells[1].Value.ToString());
+                    cbxTipoPlan.Text = (string)grdCalendario.Rows[filaSeleccionada].Cells[1].Value.ToString();
 
                     string fecha = grdCalendario.Rows[filaSeleccionada].Cells[4].Value.ToString();
                     DateTime fechaDate = DateTime.ParseExact(fecha, "dd/MM/yyyy", null);
@@ -499,6 +496,7 @@ namespace MemoryClubForms.Forms
             try
             {
                 CargarElemActions();
+
             }
             catch (Exception ex)
             {
@@ -515,10 +513,10 @@ namespace MemoryClubForms.Forms
                 {
                     return;
                 }
-                if (cbxEstado.SelectedItem.ToString().ToLower() == "cerrado")
+                /*if (cbxEstado.SelectedItem.ToString().ToLower() == "completo")
                 {
                     return;
-                }
+                }*/
 
                 btnGuardar.Enabled = true;
                 btnGuardar.Visible = true;
@@ -544,12 +542,12 @@ namespace MemoryClubForms.Forms
                     return;
                 }
 
-                if (cbxEstado.SelectedItem.ToString().ToLower() == "cerrado")
+                if (cbxEstado.SelectedItem.ToString().ToLower() == "completo")
                 {
                     return;
                 }
 
-                DialogResult response = MessageBox.Show("Eliminar item seleccionado", "Está seguro de que desea eliminar este elemento? Al eliminar este item se eliminará el calendario de este plan conjuntamente", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult response = MessageBox.Show("Está seguro de que desea eliminar este elemento?", "Eliminar item seleccionado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (response == DialogResult.Yes)
                 {
@@ -562,7 +560,7 @@ namespace MemoryClubForms.Forms
                     string responseDB = calendarioBO.EliminarCalendario(calendarioModel);
                     if (responseDB.ToLower() != "ok")
                     {
-                        MessageBox.Show("No se eliminar el registro, inténtelo más tarde. " + responseDB, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("No se puede eliminar el registro.\n" + responseDB, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
                     MessageBox.Show("La información se ha eliminado EXITOSAMENTE!", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -595,13 +593,12 @@ namespace MemoryClubForms.Forms
                     CalendarioModel calendarioModel = new CalendarioModel();
 
                     var nombreCliente = cbxNombresClientes.SelectedItem.ToString();
-                    string tipoPlan = cbxFiltroTipoPlan.SelectedItem.ToString();
 
                     calendarioModel.Nombre = nombreCliente;
                     calendarioModel.Fk_id_cliente = PlanesClientesList.Where(x => x.Nombres == nombreCliente).FirstOrDefault().Idcliente;
-                    calendarioModel.Fk_id_plan = PlanesClientesList.Where(x => x.Tipoplan == tipoPlan).FirstOrDefault().Idplan;
+                    calendarioModel.Fk_id_plan = Convert.ToInt32(cbxTipoPlan.SelectedItem.ToString());
                     calendarioModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");
-                    calendarioModel.Estado = estadosList.Where(x => x.Estados == "VIGENTE").FirstOrDefault().Estados;
+                    calendarioModel.Estado = "RESERVADO";
                     calendarioModel.Usuario = VariablesGlobales.usuario.ToString();
                     calendarioModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
 
@@ -609,7 +606,7 @@ namespace MemoryClubForms.Forms
 
                     if (responseDB.ToLower() != "ok")
                     {
-                        MessageBox.Show("No se pudo guardar la información, inténtelo más tarde. " + responseDB, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("No se pudo guardar la información.\n " + responseDB, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
 
@@ -622,13 +619,12 @@ namespace MemoryClubForms.Forms
                     CalendarioModel calendarioModel = new CalendarioModel();
 
                     var nombreCliente = cbxNombresClientes.SelectedItem.ToString();
-                    string tipoPlan = cbxFiltroTipoPlan.SelectedItem.ToString();
 
                     calendarioModel.Id_calendario = idCalendario;
                     calendarioModel.Fk_id_cliente = PlanesClientesList.Where(x => x.Nombres == nombreCliente).FirstOrDefault().Idcliente;
-                    calendarioModel.Fk_id_plan = PlanesClientesList.Where(x => x.Tipoplan == tipoPlan).FirstOrDefault().Idplan;
+                    calendarioModel.Fk_id_plan = Convert.ToInt32(cbxTipoPlan.SelectedItem.ToString());
                     calendarioModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");
-                    calendarioModel.Estado = estadosList.Where(x => x.Estados == "VIGENTE").FirstOrDefault().Estados;
+                    calendarioModel.Estado = cbxEstado.SelectedItem.ToString();
                     calendarioModel.Usuario = VariablesGlobales.usuario.ToString();
                     calendarioModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
 
@@ -638,7 +634,7 @@ namespace MemoryClubForms.Forms
 
                     if (responseDB.ToLower() != "ok")
                     {
-                        MessageBox.Show("No se pudo editar la información, inténtelo más tarde. " + responseDB, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("No se pudo editar la información.\n" + responseDB, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
                     MessageBox.Show("La información se ha actualizado EXITOSAMENTE!", "Actualizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -663,6 +659,39 @@ namespace MemoryClubForms.Forms
             {
                 InsertarAutomaticCalendarioForm calendarioInsertForm = new InsertarAutomaticCalendarioForm();
                 calendarioInsertForm.Show();
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            CleanData();
+            ResetElements();
+        }
+
+        //pone el id plan en el combobox, el id plan es tomado de la lista plan porque alli tengo el cliente asignado de ese plan
+        private void cbxNombresClientes_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            string nomcliente = Convert.ToString(cbxNombresClientes.SelectedItem);
+            int idplan = PlanesClientesList.Where(x => x.Nombres == nomcliente).Select(x => x.Idplan).FirstOrDefault();
+            string idplan_s = Convert.ToString(idplan);
+            var fechaini = PlanesClientesList.Where(x => x.Idplan == idplan).Select(x => x.Fecha_ini_plan).FirstOrDefault();
+
+            cbxTipoPlan.Items.Clear();
+            cbxTipoPlan.SelectedItem = (string)idplan_s;
+            cbxTipoPlan.Items.Add((string)idplan_s);
+            cbxTipoPlan.Text = (string)idplan_s;
+
+            dtmFecha.Value = Convert.ToDateTime(fechaini);
+
+        }
+
+        private void txbPlan_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar >= 32 && e.KeyChar <= 47) || (e.KeyChar >= 58 && e.KeyChar <= 255) )
+            {
+                MessageBox.Show("Solo se permiten números", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Handled = true;
+                return;
             }
         }
     }

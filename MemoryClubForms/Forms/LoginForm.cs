@@ -50,13 +50,13 @@ namespace MemoryClubForms
                     return;
                 }
 
-                //Valido que sea un usuario de nivel 1 o inferior, tenga estado A.
+                //Valido que sea un usuario con estado A.
                 var level = response.Select(p => p.nivel <= 1).FirstOrDefault();//loginModelList.Where(p => p.estado == "A").FirstOrDefault();
 
                 var estado = response.Select(p => p.estado == "A").FirstOrDefault();
-                if (!level || !estado)
+                if (!estado)
                 {
-                    MessageBox.Show("Este usuario no tiene los privilegios para entrar al sistema.");
+                    MessageBox.Show("Este usuario no está activo en el sistema.");
                     return;
                 }
 

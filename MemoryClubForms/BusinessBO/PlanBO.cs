@@ -40,11 +40,11 @@ namespace MemoryClubForms.BusinessBO
 
             if (nivel <= 1)
             {
-                query = $"SELECT id_Cliente, nombre, sucursal FROM Cliente WHERE estado <> \'I\'";
+                query = $"SELECT id_Cliente, nombre, sucursal FROM Cliente WHERE estado <> \'I\' ORDER BY nombre";
             }
             else
             {
-                query = $"SELECT id_Cliente, nombre, sucursal FROM Cliente WHERE sucursal = {sucursal} AND estado <> \'I\'";
+                query = $"SELECT id_Cliente, nombre, sucursal FROM Cliente WHERE sucursal = {sucursal} AND estado <> \'I\' ORDER BY nombre";
             }
 
             List<NombresClientes> nombresList = new List<NombresClientes>();
@@ -138,7 +138,7 @@ namespace MemoryClubForms.BusinessBO
             string query = "";
             string condiciones = "";
 
-            //valido las fechas - cuando no viene una fecha desde busco 30 días atrás
+           /* //valido las fechas - cuando no viene una fecha desde busco 30 días atrás
             if (string.IsNullOrEmpty(Pdesde) || string.IsNullOrWhiteSpace(Pdesde))
             {
                 fechadesde = fechadesde.AddDays(-30);
@@ -149,7 +149,7 @@ namespace MemoryClubForms.BusinessBO
             if (string.IsNullOrEmpty(Phasta) || string.IsNullOrWhiteSpace(Phasta))
             {
                 Phasta = fechahasta.ToString("dd/MM/yyyy");
-            }
+            }*/
 
             if (!(string.IsNullOrEmpty(Pdesde)) & !(string.IsNullOrEmpty(Phasta)))
             {
