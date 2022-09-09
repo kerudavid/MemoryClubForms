@@ -139,12 +139,7 @@ namespace MemoryClubForms.Forms
         }
 
         private bool ValidarInformacion()
-        {
-            if (VariablesGlobales.Nivel > 1)
-            {
-                MessageBox.Show("Su usuario no tiene privilegios necesarios para ingresar asistencias de otra sucursal.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-            }
+        {            
             if (cbxNombresClientes.SelectedItem == null)
             {
                 MessageBox.Show("Seleccione el nombre del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -589,6 +584,13 @@ namespace MemoryClubForms.Forms
 
         private void btnInsertar_Click(object sender, EventArgs e)
         {
+            if (VariablesGlobales.Nivel > 3)
+            {
+                MessageBox.Show("Su usuario no tiene los privilegios necesarios para insertar registros de transporte.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                return;
+            }
+
             action = 1;
             btnGuardar.Enabled = true;
             btnGuardar.Visible = true;
@@ -612,6 +614,13 @@ namespace MemoryClubForms.Forms
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
+            if (VariablesGlobales.Nivel > 3)
+            {
+                MessageBox.Show("Su usuario no tiene los privilegios necesarios para editar registros de transporte.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                return;
+            }
+
             if (cbxNombresClientes.Items.Count == 0) //Valida que tenga un item seleccionado del grid
             {
                 return;
@@ -861,6 +870,13 @@ namespace MemoryClubForms.Forms
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            if (VariablesGlobales.Nivel > 1)
+            {
+                MessageBox.Show("Su usuario no tiene los privilegios necesarios para eliminar registros de transporte.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                
+                return;
+            }
+
             try
             {
                 if (cbxNombresClientes.Items.Count == 0) //Valida que tenga un item seleccionado del grid
