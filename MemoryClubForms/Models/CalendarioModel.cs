@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace MemoryClubForms.Models
 {   
@@ -17,6 +18,8 @@ namespace MemoryClubForms.Models
         public string Estado { get; set; }
         public string Usuario { get; set; }
         public string Fecha_mod { get; set; }
+
+        CultureInfo ci = new CultureInfo("en-US");
 
         public string Validate(CalendarioModel calendarioModel)
         {
@@ -69,7 +72,7 @@ namespace MemoryClubForms.Models
         {
             try
             {
-                DateTime.Parse(pfecha);
+                DateTime.Parse(pfecha, ci);
                 return true;
             }
             catch

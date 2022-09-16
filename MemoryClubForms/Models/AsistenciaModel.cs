@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace MemoryClubForms.Models
 {
@@ -23,7 +24,7 @@ namespace MemoryClubForms.Models
         public string Estado { get; set; }
         public DateTime Fechahora { get; set; }
 
-
+        CultureInfo ci = new CultureInfo("en-US");
 
         //metodo para validar datos
         public string Validate(AsistenciaModel asistenciaModel)
@@ -49,7 +50,7 @@ namespace MemoryClubForms.Models
             {
                 return "Por favor, debe ingresar una Fecha Válida";
             }
-            DateTime ldt_date = DateTime.ParseExact(asistenciaModel.Fecha, "dd/MM/yyyy", null);
+            DateTime ldt_date = DateTime.ParseExact(asistenciaModel.Fecha, "MM/dd/yyyy", ci);
             if (ldt_date > hoy)
             {
                 return "Por favor, La fecha no puede ser mayor a hoy";
@@ -84,7 +85,7 @@ namespace MemoryClubForms.Models
         {
             try
             {
-                DateTime.Parse(pfecha);
+                DateTime.Parse(pfecha, ci);
                 return true;
             }
             catch

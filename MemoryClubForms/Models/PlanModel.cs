@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace MemoryClubForms.Models
 {
@@ -11,6 +12,7 @@ namespace MemoryClubForms.Models
     /// </summary>
     public class PlanModel
     {
+        CultureInfo ci = new CultureInfo("en-US");
         public int Id_plan { get; set; }
         public int Fk_id_cliente { get; set; }
         public string Nombre { get; set; }
@@ -89,7 +91,7 @@ namespace MemoryClubForms.Models
         {
             try
             {
-                DateTime.Parse(pfecha);
+                DateTime.Parse(pfecha, ci);
                 return true;
             }
             catch

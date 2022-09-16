@@ -11,10 +11,13 @@ using MemoryClubForms.Models;
 using MemoryClubForms.BusinessBO;
 using static MemoryClubForms.BusinessBO.ClienteBO;
 
+using System.Globalization;
+
 namespace MemoryClubForms.Forms
 {
     public partial class EditarClienteForm : Form
     {
+        CultureInfo ci = new CultureInfo("en-US");
         public static List<ListaTransportistas> listaTransportistas = new List<ListaTransportistas>();
         public static List<CodigosMediosPago> codigosMediosPagoList = new List<CodigosMediosPago>();
         public static List<CodigosGenero> codigosGeneroList = new List<CodigosGenero>();
@@ -46,11 +49,13 @@ namespace MemoryClubForms.Forms
 
         private void ChargueElements()
         {
+            tbxNombreCli.Text = ClienteModelStatic.Nombre;
+
             tbxApodo.Text = ClienteModelStatic.Apodo;
 
             if (!string.IsNullOrEmpty(ClienteModelStatic.Fecha_free))
             {
-                DateTime date = DateTime.ParseExact(ClienteModelStatic.Fecha_free, "dd/MM/yyyy", null);
+                DateTime date = DateTime.ParseExact(ClienteModelStatic.Fecha_free, "MM/dd/yyyy", ci);
                 dtmFechaFree.Value = date;
             }
 
@@ -99,7 +104,9 @@ namespace MemoryClubForms.Forms
 
             tbxTelefonoPago.Text = ClienteModelStatic.Telefono_pago;
 
-            tbxCedulaPago.Text = ClienteModelStatic.Celular_pago;
+            tbxCedulaPago.Text = ClienteModelStatic.Cedula_pago;
+            
+            tbxCelularPago.Text =  ClienteModelStatic.Celular_pago;
 
             tbxEmailPago.Text = ClienteModelStatic.Email_pago;
 
@@ -128,13 +135,21 @@ namespace MemoryClubForms.Forms
             cbxTomaTransp.SelectedItem = ClienteModelStatic.Toma_transp;
             cbxTomaTransp.Text = ClienteModelStatic.Toma_transp.ToString();
 
-            foreach (var item in listaTransportistas)
+            foreach (var item in listaTransportistas)            
             {
 
                 cbxFiltroTransportista.Items.Add(item.Nombre);
+                                            
+            }
+
+            var i = listaTransportistas.Where(x => x.Id_transportista == ClienteModelStatic.Id_transportista).FirstOrDefault();
+
+            if (i != null)
+            {
                 cbxFiltroTransportista.SelectedItem = listaTransportistas.Where(x => x.Id_transportista == ClienteModelStatic.Id_transportista).Select(x => x.Nombre).FirstOrDefault().ToString();
                 cbxFiltroTransportista.Text = listaTransportistas.Where(x => x.Id_transportista == ClienteModelStatic.Id_transportista).Select(x => x.Nombre).FirstOrDefault().ToString();
             }
+
 
             cbxRetiraSolo.Items.Add("SI");
             cbxRetiraSolo.Items.Add("NO");
@@ -146,6 +161,8 @@ namespace MemoryClubForms.Forms
             tbxCedulaFactura.Text = ClienteModelStatic.Cedula_factu;
 
             tbxDireccionFactura.Text = ClienteModelStatic.Direccion_factu;
+
+            tbxEmailFactura.Text = ClienteModelStatic.Email_factu;
         }
 
         public bool LoadInformation()
@@ -270,7 +287,7 @@ namespace MemoryClubForms.Forms
         {
             if (VariablesGlobales.Nivel > 1)
             {
-                MessageBox.Show("Su usuario no tiene privilegios necesarios para ingresar asistencias de otra sucursal.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Su usuario no tiene privilegios para modificar datos del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
 
@@ -622,7 +639,7 @@ namespace MemoryClubForms.Forms
 
                 if (dtmFechaFree.Enabled)
                 {
-                    clienteModel.Fecha_free = dtmFechaFree.Value.ToString("dd/MM/yyyy");
+                    clienteModel.Fecha_free = dtmFechaFree.Value.ToString("MM/dd/yyyy", ci);
                 }
                 else
                 {
@@ -688,7 +705,7 @@ namespace MemoryClubForms.Forms
                 clienteModel.Nombre_factu = tbxNombreFactura.Text;
                 clienteModel.Cedula_factu = tbxCedulaFactura.Text;
                 clienteModel.Direccion_factu = tbxDireccionFactura.Text;
-                clienteModel.Email_factu = tbxDireccionFactura.Text;
+                clienteModel.Email_factu = tbxEmailFactura.Text;
 
                 if (cbxFiltroSucursal.SelectedItem != null)
                 {
@@ -697,7 +714,7 @@ namespace MemoryClubForms.Forms
 
                 clienteModel.Observacion = tbxObseraciones.Text;
                 clienteModel.Usuario = VariablesGlobales.usuario.ToString();
-                clienteModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                clienteModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
                 bool responseInsert = clienteBO.ActualizarCliente(clienteModel);
 

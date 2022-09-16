@@ -10,11 +10,13 @@ using System.Windows.Forms;
 using MemoryClubForms.BusinessBO;
 using MemoryClubForms.Models;
 using static MemoryClubForms.BusinessBO.ClienteBO;
+using System.Globalization;
 
 namespace MemoryClubForms.Forms
 {
     public partial class ClienteForm : Form
     {
+        CultureInfo ci = new CultureInfo("en-US");
 
         public int action = 0;//Valida que acción debe realizar el boton de guardar. si insertar o editar, insertar=1 y editar =2
 
@@ -235,7 +237,7 @@ namespace MemoryClubForms.Forms
             {
                 transportistaList = new List<ListaTransportistas>();
                 ClienteBO clienteBO = new ClienteBO();
-                transportistaList = clienteBO.LoadTransportistas();
+                transportistaList = clienteBO.TodosTransportistas(); //recupero todos los transportistas
                 return true;
             }
             catch
@@ -324,7 +326,7 @@ namespace MemoryClubForms.Forms
                 string fechaIngreso = null;
                 if (ckbFiltrarFechas.Checked == true)
                 {
-                    fechaIngreso = dtmFecha.Value.ToString("dd/MM/yyyy");
+                    fechaIngreso = dtmFecha.Value.ToString("MM/dd/yyyy", ci);
                 }
 
                 string estado = null;
@@ -390,7 +392,7 @@ namespace MemoryClubForms.Forms
                             cliente.Nombre_contacto, cliente.Parentesco_contacto, cliente.Telefono_contacto,
                             cliente.Celular_contacto, cliente.Encargado_pago, cliente.Parentesco_pago,
                             cliente.Telefono_pago, cliente.Cedula_pago, cliente.Celular_pago,
-                            cliente.Email_pago, cliente.Medio_pago, cliente.Pariente_transp, cliente.Direccion,
+                            cliente.Email_pago, cliente.Medio_pago, cliente.Frecuencia_pago, cliente.Pariente_transp, cliente.Direccion,
                             cliente.Toma_transp, cliente.Id_transportista, cliente.Nombre_transportista, cliente.Retirarse_solo, cliente.Nombre_factu,
                             cliente.Cedula_factu, cliente.Direccion_factu, cliente.Email_factu,
                             cliente.Sucursal, cliente.Observacion, cliente.Usuario, cliente.Fecha_mod);
@@ -441,7 +443,7 @@ namespace MemoryClubForms.Forms
                     return;
                 }
 
-                DialogResult response = MessageBox.Show("Eliminar item seleccionado", "Está seguro de que desea eliminar este elemento?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult response = MessageBox.Show("Está seguro de que desea eliminar este elemento?", "Eliminar item seleccionado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (response == DialogResult.Yes)
                 {
@@ -453,7 +455,7 @@ namespace MemoryClubForms.Forms
                     bool responseDB = clienteBO.EliminarCliente(clienteModel);
                     if (!responseDB)
                     {
-                        MessageBox.Show("No se eliminar el registro, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("No se puede eliminar el registro, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
                     MessageBox.Show("La información se ha eliminado EXITOSAMENTE!", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static MemoryClubForms.BusinessBO.AsistenciaBO;
+using System.Globalization;
 
 namespace MemoryClubForms.Forms
 {
@@ -31,6 +32,7 @@ namespace MemoryClubForms.Forms
 
         public AsistenciaModel asistenciaModel = new AsistenciaModel();
 
+        CultureInfo ci = new CultureInfo("en-US");
 
 
         /// <summary>
@@ -167,7 +169,7 @@ namespace MemoryClubForms.Forms
                 cbxNombresClientes.Text= (string)grdAsistencia.Rows[filaSeleccionada].Cells[2].Value;//Es el texto que aparece en el recuadro
 
                 string fecha = grdAsistencia.Rows[filaSeleccionada].Cells[3].Value.ToString();
-                DateTime fechaDate= DateTime.ParseExact(fecha, "dd/MM/yyyy", null);
+                DateTime fechaDate= DateTime.ParseExact(fecha, "MM/dd/yyyy", ci);
 
 
                 //dtmFecha.CustomFormat = "MMMM dd, yyyy - dddd";
@@ -556,12 +558,12 @@ namespace MemoryClubForms.Forms
                     var nombreCliente = cbxNombresClientes.SelectedItem.ToString();
                     
                     asistenciaModel.Fk_id_cliente = nombresClientesList.Where(x => x.nombre == nombreCliente).Select(x => x.Id_Cliente).FirstOrDefault();
-                    asistenciaModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");
+                    asistenciaModel.Fecha = dtmFecha.Value.ToString("MM/dd/yyyy", ci);
                     asistenciaModel.Hora = txtHora.Text;
                     asistenciaModel.Observacion = txtObservciones.Text;
                     asistenciaModel.Sucursal = nombresClientesList.Where(x => x.nombre == nombreCliente).Select(x => x.Sucursal).FirstOrDefault();
                     asistenciaModel.Usuario = VariablesGlobales.usuario.ToString();
-                    asistenciaModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    asistenciaModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
 
                     bool responserValidate = asistenciaBO.ValidarDuplicadoAsis(asistenciaModel);
@@ -592,12 +594,12 @@ namespace MemoryClubForms.Forms
                     asistenciaModel.Id_asistencia = idAsistenciaSelected;
                     asistenciaModel.Fk_id_cliente = idClienteSelected;
                     asistenciaModel.Nombre = nombreCliente;
-                    asistenciaModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");
+                    asistenciaModel.Fecha = dtmFecha.Value.ToString("MM/dd/yyyy", ci);
                     asistenciaModel.Hora = txtHora.Text;
                     asistenciaModel.Observacion = txtObservciones.Text;
                     asistenciaModel.Sucursal = nombresClientesList.Where(x => x.nombre == nombreCliente).Select(x => x.Sucursal).FirstOrDefault();
                     asistenciaModel.Usuario = VariablesGlobales.usuario.ToString();
-                    asistenciaModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    asistenciaModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
                     bool response = asistenciaBO.ActualizarAsistencia(asistenciaModel);
                     if (!response)
@@ -629,7 +631,7 @@ namespace MemoryClubForms.Forms
         {
             if (VariablesGlobales.Nivel > 3)
             {
-                MessageBox.Show("Su usuario no tiene los privilegios necesarios para editar registros de asistencias.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Su usuario no tiene los privilegios necesarios para editar registros de asistencia.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 
                 return;
             }
@@ -652,7 +654,7 @@ namespace MemoryClubForms.Forms
         {
             if (VariablesGlobales.Nivel > 3)
             {
-                MessageBox.Show("Su usuario no tiene los privilegios necesarios para ingresar registros de asistencias.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Su usuario no tiene los privilegios necesarios para ingresar registros de asistencia.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                 return;
             }
@@ -697,7 +699,7 @@ namespace MemoryClubForms.Forms
         {
             if (VariablesGlobales.Nivel > 1)
             {
-                MessageBox.Show("Su usuario no tiene los privilegios necesarios para eliminar registros de asistencias.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Su usuario no tiene los privilegios necesarios para eliminar registros de asistencia.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                 return;
             }
@@ -709,7 +711,7 @@ namespace MemoryClubForms.Forms
                     return;
                 }
 
-                DialogResult response = MessageBox.Show("Eliminar item seleccionado", "Está seguro de que desea eliminar este elemento?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult response = MessageBox.Show("Está seguro de que desea eliminar este elemento?", "Eliminar item seleccionado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (response == DialogResult.Yes)
                 {
@@ -721,7 +723,7 @@ namespace MemoryClubForms.Forms
                     bool responseDB = asistenciaBO.EliminarAsistencia(idAsistenciaSelected);
                     if (!responseDB)
                     {
-                        MessageBox.Show("No se eliminar el registro, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("No se puede eliminar el registro, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
                     MessageBox.Show("La información se ha actualizado EXITOSAMENTE!");
@@ -734,7 +736,7 @@ namespace MemoryClubForms.Forms
             {
                 CleanData();
                 ReloadInformation();
-                MessageBox.Show("No se eliminar el registro, inténtelo más tarde." + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("No se pudo eliminar el registro, inténtelo más tarde." + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 
             }
             
@@ -786,8 +788,8 @@ namespace MemoryClubForms.Forms
 
                 if (check)
                 {
-                    fechaDesde = dtpDesde.Value.ToString("dd/MM/yyyy");
-                    fechaHasta = dtmHasta.Value.ToString("dd/MM/yyyy");
+                    fechaDesde = dtpDesde.Value.ToString("MM/dd/yyyy", ci);
+                    fechaHasta = dtmHasta.Value.ToString("MM/dd/yyyy", ci);
                 }
 
                 asistenciaList = asistenciaBO.ConsultaAsistencia(fechaDesde, fechaHasta, sucursal, idCliente, estadoClienteCode);

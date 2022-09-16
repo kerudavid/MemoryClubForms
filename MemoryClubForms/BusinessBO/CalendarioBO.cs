@@ -7,12 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace MemoryClubForms.BusinessBO
 {
     //Gestiona la tabla Calendario
     public class CalendarioBO
     {
+        CultureInfo ci = new CultureInfo("en-US");
         public static int nivel = VariablesGlobales.Nivel;
         public static int sucursal = VariablesGlobales.sucursal;
         public static string usuario = VariablesGlobales.usuario;
@@ -134,7 +136,7 @@ namespace MemoryClubForms.BusinessBO
 
             if (!(string.IsNullOrEmpty(Pdesde)) & !(string.IsNullOrEmpty(Phasta)))
             {
-                condiciones += $" AND CONVERT(date, L.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ";
+                condiciones += $" AND CONVERT(date, L.fecha,101) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ";
             }
             //valido el plan
             if (Pidplan > 0)
@@ -163,7 +165,7 @@ namespace MemoryClubForms.BusinessBO
 
             //armo el select con las opciones dadas
             query = $"SELECT L.id_calendario, L.fk_id_plan, L.fk_id_cliente, C.nombre, L.fecha, L.estado, " +
-                    $"L.usuario, L.fecha_mod, CONVERT(date, L.fecha, 103) as fechahora " +
+                    $"L.usuario, L.fecha_mod, CONVERT(date, L.fecha, 101) as fechahora " +
                     $"FROM Calendario L  INNER JOIN Cliente C ON L.fk_id_cliente = C.id_cliente INNER JOIN Planes P ON L.fk_id_plan = P.id_plan " +
                     $"WHERE L.id_calendario >= 0 {condiciones} ORDER BY C.nombre, L.fk_id_plan, fechahora";
 
@@ -180,7 +182,7 @@ namespace MemoryClubForms.BusinessBO
         /// <returns></returns>
         public bool Validafinsemana(CalendarioModel calendarioModel)
         {
-            DateTime fechahora = DateTime.ParseExact(calendarioModel.Fecha, "dd/MM/yyyy", null);
+            DateTime fechahora = DateTime.ParseExact(calendarioModel.Fecha, "MM/dd/yyyy", ci);
             string nombredia = fechahora.ToString("dddd");
 
             if (nombredia.StartsWith("sá") || nombredia.StartsWith("do") || nombredia.StartsWith("sa") || nombredia.StartsWith("su"))
@@ -202,7 +204,7 @@ namespace MemoryClubForms.BusinessBO
         private bool Validaduplicadomanual(CalendarioModel calendarioModel)
         {
             string query = $"SELECT * FROM Calendario WHERE fk_id_cliente = {calendarioModel.Fk_id_cliente} AND " +
-                           $"fk_id_plan = {calendarioModel.Fk_id_plan} AND CONVERT(date, fecha,103) = '{calendarioModel.Fecha}'";
+                           $"fk_id_plan = {calendarioModel.Fk_id_plan} AND CONVERT(date, fecha,101) = '{calendarioModel.Fecha}'";
 
             List<CalendarioModel> calendariosList = new List<CalendarioModel>();
             //Las consultas siempre retornan el obtejo dentro de una lista.
@@ -299,7 +301,7 @@ namespace MemoryClubForms.BusinessBO
             DateTime fechaaux;
             DateTime fehoy = DateTime.Now;
 
-            string fechamod = fehoy.ToString("dd/MM/yyyy");
+            string fechamod = fehoy.ToString("MM/dd/yyyy", ci);
 
             if (Pid_cliente <= 0 || Pid_plan <= 0)
             {
@@ -340,7 +342,7 @@ namespace MemoryClubForms.BusinessBO
                     var max_num_dias = planesClientes.ElementAt(index).Max_dias; //el número de días de vigencia del plan
                     var tipoplan = planesClientes.ElementAt(index).Tipoplan;
                     //calculo la fecha fin
-                    fini = DateTime.ParseExact(feini_plan, "dd/MM/yyyy", null);
+                    fini = DateTime.ParseExact(feini_plan, "MM/dd/yyyy", ci);
                     ffin = fini.AddDays(max_num_dias);
                     //recupero el número días contratados según el plan (tabla código, ej: plan paquete: 20 días contratados)
                     int indice = tiposPlanes.FindIndex(x => x.Tipoplan.Equals(tipoplan));
@@ -375,7 +377,7 @@ namespace MemoryClubForms.BusinessBO
                                             if (fechaaux.DayOfWeek == DayOfWeek.Monday)
                                             {
                                                 nveces++; //ya estaría tomado un día de los contratados
-                                                string Fecha = fechaaux.ToString("dd/MM/yyyy"); //esta es la fecha que será creada en el calendario
+                                                string Fecha = fechaaux.ToString("MM/dd/yyyy", ci); //esta es la fecha que será creada en el calendario
                                                 mensaje = LlenaCalendario(Pid_plan, Pid_cliente, Fecha, fechamod); //llama a método que llena el calendario model con los datos y a su vez invoca otro método que graba en la bdd
                                                 if (mensaje != "OK")
                                                 { return mensaje; }
@@ -398,7 +400,7 @@ namespace MemoryClubForms.BusinessBO
                                             if (fechaaux.DayOfWeek == DayOfWeek.Tuesday)
                                             {
                                                 nveces++; //ya estaría tomado un día de los contratados
-                                                string Fecha = fechaaux.ToString("dd/MM/yyyy"); //esta es la fecha que será creada en el calendario
+                                                string Fecha = fechaaux.ToString("MM/dd/yyyy", ci); //esta es la fecha que será creada en el calendario
                                                 mensaje = LlenaCalendario(Pid_plan, Pid_cliente, Fecha, fechamod); //llama a método que llena el calendario model con los datos y a su vez invoca otro método que graba en la bdd
                                                 if (mensaje != "OK")
                                                 { return mensaje; }
@@ -418,7 +420,7 @@ namespace MemoryClubForms.BusinessBO
                                             if (fechaaux.DayOfWeek == DayOfWeek.Wednesday)
                                             {
                                                 nveces++; //ya estaría tomado un día de los contratados
-                                                string Fecha = fechaaux.ToString("dd/MM/yyyy"); //esta es la fecha que será creada en el calendario
+                                                string Fecha = fechaaux.ToString("MM/dd/yyyy", ci); //esta es la fecha que será creada en el calendario
                                                 mensaje = LlenaCalendario(Pid_plan, Pid_cliente, Fecha, fechamod); //llama a método que llena el calendario model con los datos y a su vez invoca otro método que graba en la bdd
                                                 if (mensaje != "OK")
                                                 { return mensaje; }
@@ -436,7 +438,7 @@ namespace MemoryClubForms.BusinessBO
                                             if (fechaaux.DayOfWeek == DayOfWeek.Thursday)
                                             {
                                                 nveces++; //ya estaría tomado un día de los contratados
-                                                string Fecha = fechaaux.ToString("dd/MM/yyyy"); //esta es la fecha que será creada en el calendario
+                                                string Fecha = fechaaux.ToString("MM/dd/yyyy", ci); //esta es la fecha que será creada en el calendario
                                                 mensaje = LlenaCalendario(Pid_plan, Pid_cliente, Fecha, fechamod); //llama a método que llena el calendario model con los datos y a su vez invoca otro método que graba en la bdd
                                                 if (mensaje != "OK")
                                                 { return mensaje; }
@@ -452,7 +454,7 @@ namespace MemoryClubForms.BusinessBO
                                             if (fechaaux.DayOfWeek == DayOfWeek.Friday)
                                             {
                                                 nveces++; //ya estaría tomado un día de los contratados
-                                                string Fecha = fechaaux.ToString("dd/MM/yyyy"); //esta es la fecha que será creada en el calendario
+                                                string Fecha = fechaaux.ToString("MM/dd/yyyy", ci); //esta es la fecha que será creada en el calendario
                                                 mensaje = LlenaCalendario(Pid_plan, Pid_cliente, Fecha, fechamod); //llama a método que llena el calendario model con los datos y a su vez invoca otro método que graba en la bdd
                                                 if (mensaje != "OK")
                                                 { return mensaje; }

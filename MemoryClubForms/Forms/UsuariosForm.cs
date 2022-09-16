@@ -11,13 +11,15 @@ using MemoryClubForms.Models;
 using MemoryClubForms.BusinessBO;
 using static MemoryClubForms.BusinessBO.UsuarioBO;
 using System.Text.RegularExpressions;
-
+using System.Globalization;
 
 
 namespace MemoryClubForms.Forms
 {
     public partial class UsuariosForm : Form
     {
+        CultureInfo ci = new CultureInfo("en-US");
+
         public int action = 0;//Valida que acción debe realizar el boton de guardar. si insertar o editar, insertar=1 y editar =2
 
         public int filaSeleccionada = 0;
@@ -598,7 +600,7 @@ namespace MemoryClubForms.Forms
                     usuarioModel.Estado = "A";
                     usuarioModel.Observacion = txtObservciones.Text;
                     usuarioModel.Sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
-                    usuarioModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    usuarioModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
                     string responseInsert = usuarioBO.InsertUsuario(usuarioModel);
 
@@ -636,7 +638,7 @@ namespace MemoryClubForms.Forms
                     usuarioModel.Estado = cbxEstado.SelectedItem.ToString();
                     usuarioModel.Observacion = txtObservciones.Text;
                     usuarioModel.Sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
-                    usuarioModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    usuarioModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
                     string response = usuarioBO.ActualizarUsuario(usuarioModel);
                     if (response != "OK")

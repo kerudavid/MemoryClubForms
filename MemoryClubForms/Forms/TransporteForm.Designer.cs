@@ -245,6 +245,7 @@
             this.cbxNombresClientes.Name = "cbxNombresClientes";
             this.cbxNombresClientes.Size = new System.Drawing.Size(121, 21);
             this.cbxNombresClientes.TabIndex = 6;
+            this.cbxNombresClientes.SelectionChangeCommitted += new System.EventHandler(this.cbxNombresClientes_SelectionChangeCommitted);
             // 
             // panel5
             // 
@@ -791,7 +792,7 @@
             // fecha
             // 
             this.fecha.FillWeight = 82.08122F;
-            this.fecha.HeaderText = "Fecha";
+            this.fecha.HeaderText = "Fecha (m/d/a)";
             this.fecha.Name = "fecha";
             // 
             // Hora
@@ -924,6 +925,13 @@
         private System.Windows.Forms.DataGridView grdTransporte;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox cbxFiltroTransportista;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox cbxTransportista;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.RadioButton rbtnOtros;
+        private System.Windows.Forms.RadioButton rbtnRecorrido;
+        private System.Windows.Forms.RadioButton rbtnTodos;
+        private System.Windows.Forms.CheckBox ckbFiltrarFechas;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id_transporte;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fk_id_cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre_cliente;
@@ -938,12 +946,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
         private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox cbxTransportista;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.RadioButton rbtnOtros;
-        private System.Windows.Forms.RadioButton rbtnRecorrido;
-        private System.Windows.Forms.RadioButton rbtnTodos;
-        private System.Windows.Forms.CheckBox ckbFiltrarFechas;
     }
 }

@@ -101,22 +101,56 @@ namespace MemoryClubForms.Forms
 
         private void reporteClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenForm(new FormReporteClientePlan());
+            if (VariablesGlobales.Nivel <= 1)
+            {
+                OpenForm(new FormReporteClientePlan());
+            }
+            else
+            {
+                MessageBox.Show("Usuario no autorizado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
         }
 
         private void alertaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenForm(new ReporteAlertasForm());
+            if (VariablesGlobales.Nivel <= 1)
+            {
+                OpenForm(new ReporteAlertasForm());
+            }
+            else
+            {
+                MessageBox.Show("Usuario no autorizado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }  
         }
 
         private void reporteCateringToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenForm(new ReporteCateringForm());
+            if (VariablesGlobales.Nivel <= 1)
+            {
+                OpenForm(new ReporteCateringForm());
+            }
+            else
+            {
+                MessageBox.Show("Usuario no autorizado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            
         }
 
         private void reporteTransporteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenForm(new ReporteTransporteForm());
+            if (VariablesGlobales.Nivel <= 1)
+            {
+                OpenForm(new ReporteTransporteForm());
+            }
+            else
+            {
+                MessageBox.Show("Usuario no autorizado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            
         }
 
         private void alimentaciónToolStripMenuItem_Click(object sender, EventArgs e)
@@ -151,6 +185,19 @@ namespace MemoryClubForms.Forms
         private void calendarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenForm(new CalendarioForm());
+        }
+
+        private void reporteAsistenciaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (VariablesGlobales.Nivel <= 1)
+            {
+                OpenForm(new FormReporteCalendario());
+            }
+            else
+            {
+                MessageBox.Show("Usuario no autorizado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
         }
     }
 }

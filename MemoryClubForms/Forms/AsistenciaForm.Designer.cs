@@ -32,15 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grdAsistencia = new System.Windows.Forms.DataGridView();
-            this.id_asistencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hora = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.observaciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha_mod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblNombreVista = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -78,6 +69,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
+            this.id_asistencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hora = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.observaciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha_mod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdAsistencia)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -142,53 +142,6 @@
             this.grdAsistencia.Size = new System.Drawing.Size(894, 300);
             this.grdAsistencia.TabIndex = 1;
             this.grdAsistencia.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.EnviarInfo_Clicked);
-            // 
-            // id_asistencia
-            // 
-            this.id_asistencia.HeaderText = "ID Asistencia";
-            this.id_asistencia.Name = "id_asistencia";
-            this.id_asistencia.Visible = false;
-            // 
-            // id_cliente
-            // 
-            this.id_cliente.HeaderText = "Id Cliente";
-            this.id_cliente.Name = "id_cliente";
-            this.id_cliente.Visible = false;
-            // 
-            // nombre_cliente
-            // 
-            this.nombre_cliente.HeaderText = "Nombre Cliente";
-            this.nombre_cliente.Name = "nombre_cliente";
-            // 
-            // fecha
-            // 
-            this.fecha.HeaderText = "Fecha";
-            this.fecha.Name = "fecha";
-            // 
-            // hora
-            // 
-            this.hora.HeaderText = "Hora";
-            this.hora.Name = "hora";
-            // 
-            // observaciones
-            // 
-            this.observaciones.HeaderText = "Observaciones";
-            this.observaciones.Name = "observaciones";
-            // 
-            // sucursal
-            // 
-            this.sucursal.HeaderText = "Sucursal";
-            this.sucursal.Name = "sucursal";
-            // 
-            // usuario
-            // 
-            this.usuario.HeaderText = "Usuario";
-            this.usuario.Name = "usuario";
-            // 
-            // fecha_mod
-            // 
-            this.fecha_mod.HeaderText = "Fecha Modificación";
-            this.fecha_mod.Name = "fecha_mod";
             // 
             // panel2
             // 
@@ -628,6 +581,53 @@
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Clicked);
             // 
+            // id_asistencia
+            // 
+            this.id_asistencia.HeaderText = "ID Asistencia";
+            this.id_asistencia.Name = "id_asistencia";
+            this.id_asistencia.Visible = false;
+            // 
+            // id_cliente
+            // 
+            this.id_cliente.HeaderText = "Id Cliente";
+            this.id_cliente.Name = "id_cliente";
+            this.id_cliente.Visible = false;
+            // 
+            // nombre_cliente
+            // 
+            this.nombre_cliente.HeaderText = "Nombre Cliente";
+            this.nombre_cliente.Name = "nombre_cliente";
+            // 
+            // fecha
+            // 
+            this.fecha.HeaderText = "Fecha (m/d/a)";
+            this.fecha.Name = "fecha";
+            // 
+            // hora
+            // 
+            this.hora.HeaderText = "Hora";
+            this.hora.Name = "hora";
+            // 
+            // observaciones
+            // 
+            this.observaciones.HeaderText = "Observaciones";
+            this.observaciones.Name = "observaciones";
+            // 
+            // sucursal
+            // 
+            this.sucursal.HeaderText = "Sucursal";
+            this.sucursal.Name = "sucursal";
+            // 
+            // usuario
+            // 
+            this.usuario.HeaderText = "Usuario";
+            this.usuario.Name = "usuario";
+            // 
+            // fecha_mod
+            // 
+            this.fecha_mod.HeaderText = "Fecha Modificación";
+            this.fecha_mod.Name = "fecha_mod";
+            // 
             // AsistenciaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -683,15 +683,6 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblAction;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_asistencia;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombre_cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hora;
-        private System.Windows.Forms.DataGridViewTextBoxColumn observaciones;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sucursal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
         private System.Windows.Forms.Panel pnlFiltro;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
@@ -704,5 +695,14 @@
         private System.Windows.Forms.Button btnReiniciarFiltro;
         private System.Windows.Forms.ComboBox cbxEstadoCliente;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_asistencia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_cliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombre_cliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hora;
+        private System.Windows.Forms.DataGridViewTextBoxColumn observaciones;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sucursal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
     }
 }

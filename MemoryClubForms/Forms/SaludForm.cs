@@ -10,11 +10,14 @@ using System.Windows.Forms;
 using MemoryClubForms.BusinessBO;
 using MemoryClubForms.Models;
 using static MemoryClubForms.BusinessBO.SaludBO;
+using System.Globalization;
 
 namespace MemoryClubForms.Forms
 {
     public partial class SaludForm : Form
     {
+        CultureInfo ci = new CultureInfo("en-US");
+
         public int action = 0;//Valida que acción debe realizar el boton de guardar. si insertar o editar, insertar=1 y editar =2
 
         public int idSalud = 0;
@@ -249,7 +252,7 @@ namespace MemoryClubForms.Forms
         {
             if (VariablesGlobales.Nivel > 1)
             {
-                MessageBox.Show("Su usuario no tiene privilegios necesarios para ingresar asistencias de otra sucursal.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Su usuario no tiene privilegios para ingresar o modificar datos de salud.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             //Cliente
@@ -503,7 +506,7 @@ namespace MemoryClubForms.Forms
                     return;
                 }
 
-                DialogResult response = MessageBox.Show("Eliminar item seleccionado", "Está seguro de que desea eliminar este elemento?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult response = MessageBox.Show("Está seguro de que desea eliminar este elemento?", "Eliminar item seleccionado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (response == DialogResult.Yes)
                 {
@@ -515,7 +518,7 @@ namespace MemoryClubForms.Forms
                     bool responseDB = saludBO.EliminarSalud(saludModel);
                     if (!responseDB)
                     {
-                        MessageBox.Show("No se eliminar el registro, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("No se puede eliminar el registro, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
                     MessageBox.Show("La información se ha eliminado EXITOSAMENTE!", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -562,7 +565,7 @@ namespace MemoryClubForms.Forms
                     saludModel.Medicacion = tbxMedicacion.Text;
                     saludModel.Observacion = txtObservciones.Text;
                     saludModel.Usuario = VariablesGlobales.usuario.ToString();
-                    saludModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    saludModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
                     bool responseInsert = saludBO.InsertarSalud(saludModel);
 
@@ -596,7 +599,7 @@ namespace MemoryClubForms.Forms
                     saludModel.Medicacion = tbxMedicacion.Text;
                     saludModel.Observacion = txtObservciones.Text;
                     saludModel.Usuario = VariablesGlobales.usuario.ToString();
-                    saludModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    saludModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
 
                     bool response = saludBO.ActualizarSalud(saludModel);

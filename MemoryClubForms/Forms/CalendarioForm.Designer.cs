@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnlActions = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -52,6 +52,7 @@
             this.btnInsertar = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.pnlFiltro = new System.Windows.Forms.Panel();
+            this.txbPlan = new System.Windows.Forms.TextBox();
             this.ckbFiltrarFechas = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -67,6 +68,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblNombreVista = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.grdCalendario = new System.Windows.Forms.DataGridView();
             this.id_Calendario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id_Plak = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,8 +78,6 @@
             this.estado_calendario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.user = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha_mod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
-            this.txbPlan = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.pnlActions.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -361,6 +361,14 @@
             this.pnlFiltro.Size = new System.Drawing.Size(894, 109);
             this.pnlFiltro.TabIndex = 1;
             // 
+            // txbPlan
+            // 
+            this.txbPlan.Location = new System.Drawing.Point(156, 84);
+            this.txbPlan.Name = "txbPlan";
+            this.txbPlan.Size = new System.Drawing.Size(81, 20);
+            this.txbPlan.TabIndex = 5;
+            this.txbPlan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbPlan_KeyPress);
+            // 
             // ckbFiltrarFechas
             // 
             this.ckbFiltrarFechas.AutoSize = true;
@@ -516,6 +524,27 @@
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.Maroon;
+            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
+            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnClose.BorderRadius = 17;
+            this.btnClose.BorderSize = 0;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(814, 12);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(92, 32);
+            this.btnClose.TabIndex = 9;
+            this.btnClose.Text = "Cerrar";
+            this.btnClose.TextColor = System.Drawing.Color.White;
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // grdCalendario
             // 
             this.grdCalendario.AllowUserToAddRows = false;
@@ -530,14 +559,14 @@
             this.grdCalendario.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.grdCalendario.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.grdCalendario.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.MidnightBlue;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.MidnightBlue;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdCalendario.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.MidnightBlue;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.MidnightBlue;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdCalendario.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.grdCalendario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdCalendario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id_Calendario,
@@ -553,17 +582,17 @@
             this.grdCalendario.Location = new System.Drawing.Point(12, 323);
             this.grdCalendario.Name = "grdCalendario";
             this.grdCalendario.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdCalendario.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdCalendario.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.grdCalendario.RowHeadersVisible = false;
             this.grdCalendario.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.Navy;
-            this.grdCalendario.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Navy;
+            this.grdCalendario.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.grdCalendario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdCalendario.Size = new System.Drawing.Size(894, 255);
             this.grdCalendario.TabIndex = 6;
@@ -593,7 +622,7 @@
             // 
             // fecha_Plan
             // 
-            this.fecha_Plan.HeaderText = "Fecha";
+            this.fecha_Plan.HeaderText = "Fecha (m/d/a)";
             this.fecha_Plan.Name = "fecha_Plan";
             // 
             // estado_calendario
@@ -610,35 +639,6 @@
             // 
             this.fecha_mod.HeaderText = "Fecha Mod.";
             this.fecha_mod.Name = "fecha_mod";
-            // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.BackColor = System.Drawing.Color.Maroon;
-            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
-            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnClose.BorderRadius = 17;
-            this.btnClose.BorderSize = 0;
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(814, 12);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(92, 32);
-            this.btnClose.TabIndex = 9;
-            this.btnClose.Text = "Cerrar";
-            this.btnClose.TextColor = System.Drawing.Color.White;
-            this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // txbPlan
-            // 
-            this.txbPlan.Location = new System.Drawing.Point(156, 84);
-            this.txbPlan.Name = "txbPlan";
-            this.txbPlan.Size = new System.Drawing.Size(81, 20);
-            this.txbPlan.TabIndex = 5;
-            this.txbPlan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbPlan_KeyPress);
             // 
             // CalendarioForm
             // 
@@ -707,6 +707,7 @@
         private Botones_Personalizados.OurButton btnClose;
         private System.Windows.Forms.DataGridView grdCalendario;
         private System.Windows.Forms.Button btnInsertarAutomatico;
+        private System.Windows.Forms.TextBox txbPlan;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_Calendario;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_Plak;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_cliente;
@@ -715,6 +716,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn estado_calendario;
         private System.Windows.Forms.DataGridViewTextBoxColumn user;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
-        private System.Windows.Forms.TextBox txbPlan;
     }
 }

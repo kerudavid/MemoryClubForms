@@ -42,5 +42,16 @@ namespace MemoryClubForms.Properties {
                 return ((string)(this["conexionDB"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQL5104.site4now.net;Initial Catalog=db_a8ce0a_bcm;Persist Security I" +
+            "nfo=True;User ID=db_a8ce0a_bcm_admin;Password=Club2022")]
+        public string DBProd {
+            get {
+                return ((string)(this["DBProd"]));
+            }
+        }
     }
 }

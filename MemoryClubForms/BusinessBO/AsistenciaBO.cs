@@ -19,8 +19,8 @@ namespace MemoryClubForms.BusinessBO
         public static int nivel = VariablesGlobales.Nivel;
         public static int sucursal = VariablesGlobales.sucursal;
         public static string usuario = VariablesGlobales.usuario;
+        CultureInfo ci = new CultureInfo("en-US");
 
-        
         /// <summary>
         /// Consulta la lista de usuarios
         /// </summary>
@@ -60,6 +60,7 @@ namespace MemoryClubForms.BusinessBO
 
             return nombresList.OrderBy(x => x.nombre).ToList();
         }
+
         /// <summary>
         /// Consulta la Lista de Códigos de las Sucursales
         /// </summary>
@@ -108,18 +109,18 @@ namespace MemoryClubForms.BusinessBO
             if (string.IsNullOrEmpty(Pdesde) || string.IsNullOrWhiteSpace(Pdesde))
             {
                 fechadesde = fechadesde.AddDays(-30);
-                Pdesde = fechadesde.ToString("dd/MM/yyyy");
+                Pdesde = fechadesde.ToString("MM/dd/yyyy", ci);
             }
-
+                     
             //si no viene la fecha hasta pongo la fecha de hoy
             if (string.IsNullOrEmpty(Phasta) || string.IsNullOrWhiteSpace(Phasta))
             {
-                Phasta = fechahasta.ToString("dd/MM/yyyy");
+                Phasta = fechahasta.ToString("MM/dd/yyyy", ci);
             }
 
             if (!(string.IsNullOrEmpty(Pdesde)) & !(string.IsNullOrEmpty(Phasta)))
             {
-                condiciones += $" WHERE CONVERT(date, A.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ";
+                condiciones += $" WHERE CONVERT(date, A.fecha,101) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ";
             }
 
             //valido la sucursal
@@ -148,7 +149,7 @@ namespace MemoryClubForms.BusinessBO
             }
 
             //armo el select con las opciones dadas
-            query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,103) fechahora " +
+            query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
             $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente " +
             $"{condiciones}";
 
@@ -175,25 +176,25 @@ namespace MemoryClubForms.BusinessBO
             //cuando no viene una fecha desde, toma la fecha de hoy menos 30 días
             {
                 fechadesde = fechadesde.AddDays(-30);
-                Pdesde = fechadesde.ToString("dd/MM/yyyy");
+                Pdesde = fechadesde.ToString("MM/dd/yyyy", ci);
             }
             //si fecha hasta es blanco o nula pone en fecha hasta la fecha de hoy
             if (string.IsNullOrEmpty(Phasta) || string.IsNullOrWhiteSpace(Phasta))
             {
-                Phasta = fechahasta.ToString("dd/MM/yyyy");
+                Phasta = fechahasta.ToString("MM/dd/yyyy", ci);
             }
             //
             if (nivel <= 1) // los usuarios que pueden gestionar todas las sucursales
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,103) fechahora " +
-                        $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE CONVERT(date, A.fecha,103) BETWEEN " +
+                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
+                        $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE CONVERT(date, A.fecha,101) BETWEEN " +
                         $"CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ORDER BY A.sucursal, fechahora ASC";
             }
             else
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,103) fechahora " +
+                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
                         $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE A.sucursal = {sucursal}" +
-                        $" AND (CONVERT(date,A.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date)) ORDER BY fechahora ASC";
+                        $" AND (CONVERT(date,A.fecha,101) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date)) ORDER BY fechahora ASC";
             }
 
             List<AsistenciaModel> asistenciaModelList = new List<AsistenciaModel>();
@@ -212,12 +213,12 @@ namespace MemoryClubForms.BusinessBO
             string query = "";
             if (nivel <= 1) // los usuarios que pueden gestionar todas las sucursales
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,103) fechahora " +
+                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
                         $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE A.fk_id_cliente = {pfk_id_cliente}  ORDER BY fechahora ASC";
             }
             else
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,103) fechahora " +
+                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
                         $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE A.sucursal = {sucursal} " +
                         $"AND A.fk_id_cliente = {pfk_id_cliente} ORDER BY fechahora ASC";
             }
@@ -245,23 +246,23 @@ namespace MemoryClubForms.BusinessBO
             //cuando no viene una fecha desde, toma la fecha de hoy menos 30 días
             {
                 fechadesde = fechadesde.AddDays(-30);
-                Pdesde = fechadesde.ToString("dd/MM/yyyy");
+                Pdesde = fechadesde.ToString("MM/dd/yyyy", ci);
             }
             //si fecha hasta es blanco o nula pone en fecha hasta la fecha de hoy
             if (string.IsNullOrEmpty(Phasta) || string.IsNullOrWhiteSpace(Phasta))
             {
-                Phasta = fechahasta.ToString("dd/MM/yyyy");
+                Phasta = fechahasta.ToString("MM/dd/yyyy", ci);
             }
             if (nivel <= 1) // los usuarios que pueden gestionar todas las sucursales
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,103) fechahora " +
-                        $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE CONVERT(date, A.fecha,103) BETWEEN " +
+                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
+                        $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE CONVERT(date, A.fecha,101) BETWEEN " +
                         $"CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) AND A.fk_id_cliente = {pfk_id_cliente}  ORDER BY A.sucursal, fechahora ASC";
             }
             else
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,103) fechahora " +
-                        $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE CONVERT(date, A.fecha,103) BETWEEN " +
+                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
+                        $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE CONVERT(date, A.fecha,101) BETWEEN " +
                         $"CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) AND A.sucursal = {sucursal} AND A.fk_id_cliente = {pfk_id_cliente} " +
                         $"ORDER BY fechahora ASC";
             }
@@ -299,7 +300,7 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>bool True/False</returns>
         public bool ValidarDuplicadoAsis(AsistenciaModel asistenciaModel)
         {
-            string query = $"SELECT * FROM Asistencia WHERE fk_id_cliente = {asistenciaModel.Fk_id_cliente} AND CONVERT(date, fecha,103) = CAST('{asistenciaModel.Fecha}' AS date)";
+            string query = $"SELECT * FROM Asistencia WHERE fk_id_cliente = {asistenciaModel.Fk_id_cliente} AND CONVERT(date, fecha,101) = CAST('{asistenciaModel.Fecha}' AS date)";
 
             List<AsistenciaModel> nombresList = new List<AsistenciaModel>();
             //Las consultas siempre retornan el obtejo dentro de una lista.
@@ -344,7 +345,7 @@ namespace MemoryClubForms.BusinessBO
         {
             //busca si hay un registro en el calendario para ese cliente, con un plan vigente y en la fecha dada
             string query = $"SELECT id_calendario FROM Calendario C INNER JOIN Planes P ON fk_id_plan = id_plan " +
-                           $"WHERE P.estado = 'VIGENTE' AND C.fk_id_cliente = {asistenciaModel.Fk_id_cliente} AND CONVERT(date, C.fecha, 103) = CAST('{asistenciaModel.Fecha}' AS date)";
+                           $"WHERE P.estado = 'VIGENTE' AND C.fk_id_cliente = {asistenciaModel.Fk_id_cliente} AND CONVERT(date, C.fecha, 101) = CAST('{asistenciaModel.Fecha}' AS date)";
 
             List<Calendarios> calendariosList = new List<Calendarios>();
             calendariosList = this.ObtenerListaSQL<Calendarios>(query).ToList();

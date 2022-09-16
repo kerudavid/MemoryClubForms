@@ -10,11 +10,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static MemoryClubForms.BusinessBO.TransporteBO;
+using System.Globalization;
 
 namespace MemoryClubForms.Forms
 {
     public partial class TransporteForm : Form
     {
+        CultureInfo ci = new CultureInfo("en-US"); 
+
         public int action = 0;//Valida que acción debe realizar el boton de guardar. si insertar o editar, insertar=1 y editar =2
 
         public int idTransporteSelected = 0;
@@ -165,7 +168,7 @@ namespace MemoryClubForms.Forms
 
             if (txtObservciones.Text.Length > 150)
             {
-                MessageBox.Show("Has superado el númerod e caracteres para Observación. Caracteres máximos: 100", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Has superado el número de caracteres para Observación. Caracteres máximos: 100", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             return true;
@@ -449,7 +452,7 @@ namespace MemoryClubForms.Forms
                 cbxNombresClientes.Text = (string)grdTransporte.Rows[filaSeleccionada].Cells[2].Value;//Es el texto que aparece en el recuadro
 
                 string fecha = grdTransporte.Rows[filaSeleccionada].Cells[4].Value.ToString();
-                DateTime fechaDate = DateTime.ParseExact(fecha, "dd/MM/yyyy", null);
+                DateTime fechaDate = DateTime.ParseExact(fecha, "MM/dd/yyyy", ci);
 
                 dtmFecha.Value = fechaDate;
 
@@ -544,8 +547,8 @@ namespace MemoryClubForms.Forms
 
                 if (check)
                 {
-                    fechaDesde = dtpDesde.Value.ToString("dd/MM/yyyy");
-                    fechaHasta = dtmHasta.Value.ToString("dd/MM/yyyy");
+                    fechaDesde = dtpDesde.Value.ToString("MM/dd/yyyy", ci);
+                    fechaHasta = dtmHasta.Value.ToString("MM/dd/yyyy", ci);
                 }
 
                 if (rbtnTodos.Checked)
@@ -779,7 +782,7 @@ namespace MemoryClubForms.Forms
 
                     transporteModel.Id_transportista =idTranspo;
                     transporteModel.Entrada_salida = cbxEntradaSalida.SelectedItem.ToString();
-                    transporteModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");
+                    transporteModel.Fecha = dtmFecha.Value.ToString("MM/dd/yyyy", ci);
                     transporteModel.Hora = txtHora.Text;
                     transporteModel.Observacion = txtObservciones.Text;
 
@@ -791,7 +794,7 @@ namespace MemoryClubForms.Forms
                     }
 
                     transporteModel.Usuario = VariablesGlobales.usuario.ToString();
-                    transporteModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    transporteModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
                     bool responseInsert = transporteBO.InsertarTransporte(transporteModel);
 
@@ -833,7 +836,7 @@ namespace MemoryClubForms.Forms
 
                     transporteModel.Id_transportista = idTranspo;
                     transporteModel.Entrada_salida=transporteListComplete.Where(x=>x.Fk_id_cliente==idClienteSelected && x.Nombre==nombreCliente).Select(x => x.Entrada_salida).FirstOrDefault();
-                    transporteModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");
+                    transporteModel.Fecha = dtmFecha.Value.ToString("MM/dd/yyyy", ci);
                     transporteModel.Hora = txtHora.Text;
                     transporteModel.Observacion = txtObservciones.Text;
                     transporteModel.Sucursal = nombresClientesList.Where(x => x.nombre == nombreCliente).Select(x => x.Sucursal).FirstOrDefault();
@@ -844,7 +847,7 @@ namespace MemoryClubForms.Forms
                     }
 
                     transporteModel.Usuario = VariablesGlobales.usuario.ToString();
-                    transporteModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    transporteModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
                     bool response = transporteBO.ActualizarTransporte(transporteModel);
                     if (!response)
@@ -884,7 +887,7 @@ namespace MemoryClubForms.Forms
                     return;
                 }
 
-                DialogResult response = MessageBox.Show("Eliminar item seleccionado", "Está seguro de que desea eliminar este elemento?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult response = MessageBox.Show("Está seguro de que desea eliminar este elemento?", "Eliminar item seleccionado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (response == DialogResult.Yes)
                 {
@@ -898,7 +901,7 @@ namespace MemoryClubForms.Forms
                     bool responseDB = transporteBO.EliminarTransporte(transporteModel.Id_transporte);
                     if (!responseDB)
                     {
-                        MessageBox.Show("No se eliminar el registro, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("No se puede eliminar el registro, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
                     MessageBox.Show("La información se ha eliminado EXITOSAMENTE!", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -911,7 +914,7 @@ namespace MemoryClubForms.Forms
             {
                 CleanData();
                 LoadInformation();
-                MessageBox.Show("No se eliminar el registro, inténtelo más tarde." + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("No se pudo eliminar el registro, inténtelo más tarde." + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
             }
         }
@@ -928,6 +931,28 @@ namespace MemoryClubForms.Forms
                 dtmHasta.Enabled = false;
                 dtpDesde.Enabled = false;
             }
+        }
+
+        private void cbxNombresClientes_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            cbxTransportista.SelectedItem = null;
+            cbxTransportista.Text = "";
+
+            var nombreaux=  cbxNombresClientes.SelectedItem.ToString();
+
+            var k = nombresClientesList.Where(x => x.nombre == nombreaux).FirstOrDefault();
+            if (k != null)
+            {
+                var idaux = nombresClientesList.Where(x => x.nombre == nombreaux).Select(x => x.Id_transportista).FirstOrDefault();
+                var i = nombresTransportistasList.Where(x => x.Id_transportista == idaux).FirstOrDefault();
+
+                if (i != null)
+                {
+                    cbxTransportista.SelectedItem = nombresTransportistasList.Where(x => x.Id_transportista == idaux).Select(x => x.Nombre).FirstOrDefault().ToString();
+                    cbxTransportista.Text = nombresTransportistasList.Where(x => x.Id_transportista == idaux).Select(x => x.Nombre).FirstOrDefault().ToString();
+                }
+            }
+         
         }
     }
 }

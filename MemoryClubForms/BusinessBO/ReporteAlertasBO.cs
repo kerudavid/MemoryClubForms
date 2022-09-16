@@ -20,11 +20,11 @@ namespace MemoryClubForms.BusinessBO
         public List<ReporteAlertasModel> LoadReporteAlertas()
         {
             string query = "";
-            query = $"SELECT id_plan, L.nombre, CONVERT(varchar, MAX(CONVERT(date, C.fecha, 103)), 103) AS fecha_max, " +
-                    $"CONVERT(varchar, DATEADD(DAY,-G.valor1,(MAX(CONVERT(date, C.fecha, 103)))), 103) AS fecha_alerta " +
+            query = $"SELECT id_plan, L.nombre, CONVERT(varchar, MAX(CONVERT(date, C.fecha, 101)), 101) AS fecha_max, " +
+                    $"CONVERT(varchar, DATEADD(DAY,-G.valor1,(MAX(CONVERT(date, C.fecha, 101)))), 101) AS fecha_alerta " +
                     $"FROM Calendario C LEFT JOIN Planes P ON fk_id_plan = id_plan LEFT JOIN Cliente L ON C.fk_id_cliente = L.id_cliente, " +
                     $"Codigo G WHERE P.estado = 'VIGENTE' AND G.grupo = 'PLN' AND G.subgrupo = 'NDIAS' AND G.elemento = '' AND G.estado = 'A' " +
-                    $"GROUP BY G.valor1, id_plan, L.nombre HAVING  DATEADD(DAY,-G.valor1,(MAX(CONVERT(date, C.fecha, 103)))) <= CONVERT(DATE, GETDATE())";
+                    $"GROUP BY G.valor1, id_plan, L.nombre HAVING  DATEADD(DAY,-G.valor1,(MAX(CONVERT(date, C.fecha, 101)))) <= CONVERT(DATE, GETDATE())";
 
             List<ReporteAlertasModel> AlertasList = new List<ReporteAlertasModel>();
             AlertasList = this.ObtenerListaSQL<ReporteAlertasModel>(query).ToList();

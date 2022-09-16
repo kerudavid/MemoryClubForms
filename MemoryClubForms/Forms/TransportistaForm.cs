@@ -10,11 +10,14 @@ using System.Windows.Forms;
 using MemoryClubForms.BusinessBO;
 using MemoryClubForms.Models;
 using static MemoryClubForms.BusinessBO.TransportistaBO;
+using System.Globalization;
 
 namespace MemoryClubForms.Forms
 {
     public partial class TransportistaForm : Form
     {
+        CultureInfo ci = new CultureInfo("en-US");
+
         public int action = 0;//Valida que acción debe realizar el boton de guardar. si insertar o editar, insertar=1 y editar =2
 
         public int idTransportista = 0;
@@ -390,7 +393,7 @@ namespace MemoryClubForms.Forms
         {
             if (VariablesGlobales.Nivel > 1)
             {
-                MessageBox.Show("Su usuario no tiene privilegios necesarios para ingresar asistencias de otra sucursal.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Su usuario no tiene privilegios para ingresar o modificar datos de transportista.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             //Transportista
@@ -675,7 +678,7 @@ namespace MemoryClubForms.Forms
                     MessageBox.Show("Este registro no está permitido editarse o eliminarse.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                DialogResult response = MessageBox.Show("Eliminar item seleccionado", "Está seguro de que desea eliminar este elemento?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult response = MessageBox.Show("Está seguro de que desea eliminar este elemento?", "Eliminar item seleccionado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (response == DialogResult.Yes)
                 {
@@ -687,7 +690,7 @@ namespace MemoryClubForms.Forms
                     bool responseDB = transportistaBO.EliminarTransportista(transportistaModel.Id_transportista);
                     if (!responseDB)
                     {
-                        MessageBox.Show("No se eliminar el registro, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("No se puede eliminar el registro, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
                     MessageBox.Show("La información se ha eliminado EXITOSAMENTE!", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -732,7 +735,7 @@ namespace MemoryClubForms.Forms
                     transportistaModel.Observacion = txtObservciones.Text;
                     transportistaModel.Sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
                     transportistaModel.Usuario = VariablesGlobales.usuario.ToString();
-                    transportistaModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    transportistaModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
                     bool responseInsert = transportistaBO.InsertaTransportista(transportistaModel);
 
@@ -764,7 +767,7 @@ namespace MemoryClubForms.Forms
                     transportistaModel.Observacion = txtObservciones.Text;
                     transportistaModel.Sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
                     transportistaModel.Usuario = VariablesGlobales.usuario.ToString();
-                    transportistaModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    transportistaModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
 
                     bool response = transportistaBO.ActualizarTransportista(transportistaModel);

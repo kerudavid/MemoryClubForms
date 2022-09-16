@@ -10,11 +10,14 @@ using System.Windows.Forms;
 using MemoryClubForms.Models;
 using MemoryClubForms.BusinessBO;
 using static MemoryClubForms.BusinessBO.PlanBO;
+using System.Globalization;
 
 namespace MemoryClubForms.Forms
 {
     public partial class PlanForm : Form
     {
+        CultureInfo ci = new CultureInfo("en-US");
+
         public int action = 0;//Valida que acción debe realizar el boton de guardar. si insertar o editar, insertar=1 y editar =2
 
         public int idPlanificacion = 0;
@@ -473,8 +476,8 @@ namespace MemoryClubForms.Forms
 
                 if (ckbFiltrarFechas.Checked)
                 {
-                    desde = dtpDesde.Value.ToString("dd/MM/yyyy");
-                    hasta = dtmHasta.Value.ToString("dd/MM/yyyy");
+                    desde = dtpDesde.Value.ToString("MM/dd/yyyy", ci);
+                    hasta = dtmHasta.Value.ToString("MM/dd/yyyy", ci);
                 }
 
                 planModelList = planBO.ConsultaPlan(desde,hasta,sucursal,tipoPlan,idCliente,estado);
@@ -547,7 +550,7 @@ namespace MemoryClubForms.Forms
                     cbxTipoPlan.Text = (string)grdPlan.Rows[filaSeleccionada].Cells[4].Value.ToString();
 
                     string fecha = grdPlan.Rows[filaSeleccionada].Cells[5].Value.ToString();
-                    DateTime fechaDate = DateTime.ParseExact(fecha, "dd/MM/yyyy", null);
+                    DateTime fechaDate = DateTime.ParseExact(fecha, "MM/dd/yyyy", ci);
 
                     dtmFecha.Value = fechaDate;
 
@@ -687,14 +690,14 @@ namespace MemoryClubForms.Forms
                     planModel.Nombre = nombreCliente;
                     planModel.Fk_id_cliente = clientesList.Where(x=>x.nombre==nombreCliente).FirstOrDefault().Id_Cliente;
                     planModel.Tipo_plan = cbxTipoPlan.SelectedItem.ToString();
-                    planModel.Fecha_inicio_plan = dtmFecha.Value.ToString("dd/MM/yyyy");
+                    planModel.Fecha_inicio_plan = dtmFecha.Value.ToString("MM/dd/yyyy", ci);
                     planModel.Pagado = cbxPagado.SelectedItem.ToString();
                     planModel.Max_dia_plan=int.Parse(tbxNumeroDiasPlan.Text);
                     planModel.Estado= estadosList.Where(x => x.Estados == "VIGENTE").FirstOrDefault().Estados;
                     planModel.Observacion = txtObservciones.Text;
                     planModel.Sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
                     planModel.Usuario = VariablesGlobales.usuario.ToString();
-                    planModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    planModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
                     string responseDB = planBO.InsertarPlan(planModel);
 
@@ -717,14 +720,14 @@ namespace MemoryClubForms.Forms
                     planModel.Fk_id_cliente = idClient;
                     planModel.Nombre = nombreCliente;
                     planModel.Tipo_plan = cbxTipoPlan.SelectedItem.ToString();
-                    planModel.Fecha_inicio_plan = dtmFecha.Value.ToString("dd/MM/yyyy");
+                    planModel.Fecha_inicio_plan = dtmFecha.Value.ToString("MM/dd/yyyy", ci);
                     planModel.Pagado = cbxPagado.SelectedItem.ToString();
                     planModel.Max_dia_plan = int.Parse(tbxNumeroDiasPlan.Text);
                     planModel.Estado = cbxEstado.SelectedItem.ToString();
                     planModel.Observacion = txtObservciones.Text;
                     planModel.Sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
                     planModel.Usuario = VariablesGlobales.usuario.ToString();
-                    planModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    planModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
                     string responseDB = planBO.ActualizarPlan(planModel);
 

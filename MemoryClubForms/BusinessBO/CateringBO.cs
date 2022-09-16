@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace MemoryClubForms.BusinessBO
 {
@@ -15,6 +16,7 @@ namespace MemoryClubForms.BusinessBO
     {
         public static int nivel = VariablesGlobales.Nivel;
         public static int sucursal = VariablesGlobales.sucursal;
+        CultureInfo ci = new CultureInfo("en-US");
 
         /// <summary>
         /// Recupera en una lista los nombres de los clientes NO INACTIVOS
@@ -158,18 +160,18 @@ namespace MemoryClubForms.BusinessBO
             if (string.IsNullOrEmpty(Pdesde) || string.IsNullOrWhiteSpace(Pdesde))
             {
                 fechadesde = fechadesde.AddDays(-30);
-                Pdesde = fechadesde.ToString("dd/MM/yyyy");
+                Pdesde = fechadesde.ToString("MM/dd/yyyy", ci);
             }
             
             //si no viene la fecha hasta pongo la fecha de hoy
             if (string.IsNullOrEmpty(Phasta) || string.IsNullOrWhiteSpace(Phasta))
             {
-                Phasta = fechahasta.ToString("dd/MM/yyyy");
+                Phasta = fechahasta.ToString("MM/dd/yyyy", ci);
             }
 
             if (!(string.IsNullOrEmpty(Pdesde)) & !(string.IsNullOrEmpty(Phasta)))
             { 
-                condiciones += $" AND CONVERT(date, C.fecha,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ";
+                condiciones += $" AND CONVERT(date, C.fecha,101) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ";
             }
                         
             //valido el tipo cliente
@@ -214,11 +216,11 @@ namespace MemoryClubForms.BusinessBO
 
             if (string.IsNullOrEmpty(Ptcliente)) //Cuando la consulta NO es por Tipo Cliente
             {
-                query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, L.estado, CONVERT(date, C.fecha,103) fechahora " + 
+                query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, L.estado, CONVERT(date, C.fecha,101) fechahora " + 
                         $"FROM Catering C LEFT JOIN Cliente L ON C.fk_id_cliente = L.id_cliente WHERE C.tipo_cliente = \'CLIENTE\' " +
                         $"{condiciones}" +
                         $"UNION " +
-                        $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, B.estado, CONVERT(date, C.fecha,103) fechahora " +
+                        $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, B.estado, CONVERT(date, C.fecha,101) fechahora " +
                         $"FROM Catering C LEFT JOIN Colaborador B ON C.fk_id_cliente = B.id_colaborador WHERE C.tipo_cliente = \'COLABORADOR\' " +
                         $"{condiciones_aux}";
             }
@@ -227,12 +229,12 @@ namespace MemoryClubForms.BusinessBO
                 switch (Ptcliente)
                 {
                     case "CLIENTE":
-                        query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, L.estado, CONVERT(date, C.fecha,103) fechahora " +
+                        query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, L.estado, CONVERT(date, C.fecha,101) fechahora " +
                                 $"FROM Catering C LEFT JOIN Cliente L ON C.fk_id_cliente = L.id_cliente WHERE C.id_catering >= 0 " +
                                 $"{condiciones} ORDER BY C.sucursal, C.fecha";
                         break;
                     case "COLABORADOR":
-                        query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, B.estado, CONVERT(date, C.fecha,103) fechahora " +
+                        query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, B.estado, CONVERT(date, C.fecha,101) fechahora " +
                                 $"FROM Catering C LEFT JOIN Colaborador B ON C.fk_id_cliente = B.id_colaborador WHERE C.id_catering >= 0 " +
                                 $"{condiciones_aux} ORDER BY C.sucursal, C.fecha";
                         break;

@@ -685,7 +685,7 @@
             // 
             // fecha
             // 
-            this.fecha.HeaderText = "Fecha";
+            this.fecha.HeaderText = "Fecha (m/d/a)";
             this.fecha.Name = "fecha";
             // 
             // hora
@@ -765,17 +765,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView grdCatering;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id_catering;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Fk_id_cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombre_cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo_cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo_menu;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hora;
-        private System.Windows.Forms.DataGridViewTextBoxColumn observaciones;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sucursal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
         private System.Windows.Forms.Panel pnlActions;
         private System.Windows.Forms.Label lblAction;
         private System.Windows.Forms.Panel panel6;
@@ -798,5 +787,16 @@
         private System.Windows.Forms.ComboBox cbxMenu;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ComboBox cbxFiltroEstadoCliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id_catering;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Fk_id_cliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombre_cliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo_cliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo_menu;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hora;
+        private System.Windows.Forms.DataGridViewTextBoxColumn observaciones;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sucursal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
     }
 }

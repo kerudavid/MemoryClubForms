@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static MemoryClubForms.BusinessBO.CateringBO;
+using System.Globalization;
 
 namespace MemoryClubForms.Forms
 {
@@ -29,6 +30,8 @@ namespace MemoryClubForms.Forms
         public CateringModel asistenciaModel = new CateringModel();
 
         public static int sucursalUser = VariablesGlobales.sucursal;
+
+        CultureInfo ci = new CultureInfo("en-US");
 
         /// <summary>
         /// Clase que es parte de AsistenciaBO
@@ -359,7 +362,7 @@ namespace MemoryClubForms.Forms
                     return;
                 }
 
-                DialogResult response = MessageBox.Show("Eliminar item seleccionado", "Está seguro de que desea eliminar este elemento?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult response = MessageBox.Show("Está seguro de que desea eliminar este elemento ?", "Eliminar item seleccionado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (response == DialogResult.Yes)
                 {
@@ -374,7 +377,7 @@ namespace MemoryClubForms.Forms
                     bool responseDB = cateringBO.EliminarCatering(cateringModel.Id_catering);
                     if (!responseDB)
                     {
-                        MessageBox.Show("No se eliminar el registro, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("No se puede eliminar el registro, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
                     MessageBox.Show("La información se ha eliminado EXITOSAMENTE!", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -387,7 +390,7 @@ namespace MemoryClubForms.Forms
             {
                 CleanData();
                 LoadInformation();
-                MessageBox.Show("No se eliminar el registro, inténtelo más tarde." + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("No se pudo eliminar el registro, inténtelo más tarde." + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
             }
         }
@@ -423,7 +426,7 @@ namespace MemoryClubForms.Forms
                 cbxMenu.Text = (string)grdCatering.Rows[filaSeleccionada].Cells[4].Value;
 
                 string fecha = grdCatering.Rows[filaSeleccionada].Cells[5].Value.ToString();
-                DateTime fechaDate = DateTime.ParseExact(fecha, "dd/MM/yyyy", null);
+                DateTime fechaDate = DateTime.ParseExact(fecha, "MM/dd/yyyy", ci);
 
                 dtmFecha.Value = fechaDate;
 
@@ -603,7 +606,7 @@ namespace MemoryClubForms.Forms
                     }
 
                     cateringModel.Tipo_menu = cbxMenu.SelectedItem.ToString();
-                    cateringModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");
+                    cateringModel.Fecha = dtmFecha.Value.ToString("MM/dd/yyyy", ci);
                     cateringModel.Hora = txtHora.Text;
                     cateringModel.Observacion = txtObservciones.Text;
                     cateringModel.Sucursal = nombresClientesList.Where(x => x.nombre == nombreCliente).Select(x => x.Sucursal).FirstOrDefault();
@@ -614,7 +617,7 @@ namespace MemoryClubForms.Forms
                     }
 
                     cateringModel.Usuario = VariablesGlobales.usuario.ToString();
-                    cateringModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    cateringModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
                     bool responseInsert = cateringBO.InsertarCatering(cateringModel);
 
@@ -653,7 +656,7 @@ namespace MemoryClubForms.Forms
                 
 
                     cateringModel.Tipo_menu = cbxMenu.SelectedItem.ToString();
-                    cateringModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");
+                    cateringModel.Fecha = dtmFecha.Value.ToString("MM/dd/yyyy", ci);
                     cateringModel.Hora = txtHora.Text;
                     cateringModel.Observacion = txtObservciones.Text;
                     cateringModel.Sucursal = nombresClientesList.Where(x => x.nombre == nombreCliente).Select(x => x.Sucursal).FirstOrDefault();
@@ -664,7 +667,7 @@ namespace MemoryClubForms.Forms
                     }
 
                     cateringModel.Usuario = VariablesGlobales.usuario.ToString();
-                    cateringModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    cateringModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
                     bool response = cateringBO.ActualizarCatering(cateringModel);
                     if (!response)
@@ -803,8 +806,8 @@ namespace MemoryClubForms.Forms
 
                 if (check)
                 {
-                    fechaDesde = dtpDesde.Value.ToString("dd/MM/yyyy");
-                    fechaHasta = dtmHasta.Value.ToString("dd/MM/yyyy");
+                    fechaDesde = dtpDesde.Value.ToString("MM/dd/yyyy", ci);
+                    fechaHasta = dtmHasta.Value.ToString("MM/dd/yyyy", ci);
                 }
 
                 string tipoCliente=null;

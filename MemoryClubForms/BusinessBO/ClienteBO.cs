@@ -73,13 +73,28 @@ namespace MemoryClubForms.BusinessBO
         }
 
         /// <summary>
-        /// Devuelve Lista de Transportistas ordenado por nombre
+        /// Devuelve Lista de Transportistas activos ordenado por nombre
         /// </summary>
         /// <returns></returns>
         public List<ListaTransportistas> LoadTransportistas()
         {
             string query = "";
             query = $"SELECT id_transportista, nombre FROM Transportista WHERE estado = \'A\'";
+            List<ListaTransportistas> transportistaslist = new List<ListaTransportistas>();
+            transportistaslist = this.ObtenerListaSQL<ListaTransportistas>(query).ToList();
+
+            return transportistaslist.OrderBy(x => x.Nombre).ToList();
+        }
+
+
+        /// <summary>
+        /// Devuelve Lista de todos los Transportistas ordenado por nombre
+        /// </summary>
+        /// <returns></returns>
+        public List<ListaTransportistas> TodosTransportistas()
+        {
+            string query = "";
+            query = $"SELECT id_transportista, nombre FROM Transportista ";
             List<ListaTransportistas> transportistaslist = new List<ListaTransportistas>();
             transportistaslist = this.ObtenerListaSQL<ListaTransportistas>(query).ToList();
 
@@ -157,7 +172,7 @@ namespace MemoryClubForms.BusinessBO
             //valido fecha ingreso
             if (!(string.IsNullOrEmpty(Pfecha_ing)) )
             {
-                condiciones += $" AND CONVERT(date, C.fecha_ingreso,103) = CAST('{Pfecha_ing}' AS date) ";
+                condiciones += $" AND CONVERT(date, C.fecha_ingreso,101) = CAST('{Pfecha_ing}' AS date) ";
             }
             if (Pestado == "T")
             {
@@ -217,7 +232,7 @@ namespace MemoryClubForms.BusinessBO
                 $"C.celular_contacto, C.encargado_pago, C.parentesco_pago, C.telefono_pago, C.cedula_pago, C.celular_pago, C.email_pago," +
                 $" C.medio_pago, C.frecuencia_pago, C.pariente_transp, C.direccion, C.toma_transp, C.id_transportista, T.nombre as nombre_transportista, " +
                 $"C.retirarse_solo, C.nombre_factu, C.cedula_factu, C.direccion_factu, C.email_factu, C.sucursal, C.observacion, C.usuario, " +
-                $"C.fecha_mod, CONVERT(date, C.fecha_ingreso, 103) fechaing FROM Cliente C LEFT JOIN Transportista T ON C.id_transportista = T.id_transportista " +
+                $"C.fecha_mod, CONVERT(date, C.fecha_ingreso, 101) fechaing FROM Cliente C LEFT JOIN Transportista T ON C.id_transportista = T.id_transportista " +
                 $"WHERE C.id_cliente >= 0  {condiciones}";
 
             List<ClienteModel> clienteModelList = new List<ClienteModel>();

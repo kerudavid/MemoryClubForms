@@ -7,12 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace MemoryClubForms.BusinessBO
 {
     //para generar reporte de la tabla Catering
     public class ReporteCateringBO
     {
+        CultureInfo ci = new CultureInfo("en-US");
         /// <summary>
         /// Devuelve número de clientes por sucursal, tipo menú y tipo cliente
         /// </summary>
@@ -31,18 +33,18 @@ namespace MemoryClubForms.BusinessBO
                 dias = Convert.ToInt32(fechadesde.Day);
                 dias--;
                 fechadesde = fechadesde.AddDays(-dias);
-                Fdesde = fechadesde.ToString("dd/MM/yyyy");
+                Fdesde = fechadesde.ToString("MM/dd/yyyy", ci);
             }
 
             //si no viene la fecha hasta pongo la fecha de hoy
             if (string.IsNullOrEmpty(Fhasta) || string.IsNullOrWhiteSpace(Fhasta))
             {
-                Fhasta = fechahasta.ToString("dd/MM/yyyy");
+                Fhasta = fechahasta.ToString("MM/dd/yyyy", ci);
             }
              
             if (!(string.IsNullOrEmpty(Fdesde)) & !(string.IsNullOrEmpty(Fhasta)))
             {
-                condiciones += $"WHERE CONVERT(date, fecha, 103) BETWEEN CAST('{Fdesde}' AS date) AND CAST('{Fhasta}' AS date) ";
+                condiciones += $"WHERE CONVERT(date, fecha, 101) BETWEEN CAST('{Fdesde}' AS date) AND CAST('{Fhasta}' AS date) ";
             }
 
             query = $"SELECT sucursal, tipo_menu, tipo_cliente, COUNT(*) AS numero FROM Catering " +

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace MemoryClubForms.Models
 {
     //List Model de Cliente
     public class ClienteModel
     {
+        CultureInfo ci = new CultureInfo("en-US");
         public int Id_cliente { get; set; }
         public string Cedula { get; set; }
         public string Nombre { get; set; }
@@ -103,7 +105,7 @@ namespace MemoryClubForms.Models
                 return "Por favor, debe ingresar una Fecha de Ingreso Válida";
             }
 
-            DateTime ldt_date = DateTime.ParseExact(clientemodel.Fecha_ingreso, "dd/MM/yyyy", null);
+            DateTime ldt_date = DateTime.ParseExact(clientemodel.Fecha_ingreso, "MM/dd/yyyy", ci);
             if (ldt_date > hoy)
             {
                 return "Por favor, la Fecha de Ingreso no puede ser mayor a Hoy";
@@ -121,7 +123,7 @@ namespace MemoryClubForms.Models
         {
             try
             {
-                DateTime.Parse(pfecha);
+                DateTime.Parse(pfecha, ci);
                 return true;
             }
             catch

@@ -10,11 +10,13 @@ using System.Windows.Forms;
 using MemoryClubForms.BusinessBO;
 using static MemoryClubForms.BusinessBO.CalendarioBO;
 using MemoryClubForms.Models;
+using System.Globalization;
 
 namespace MemoryClubForms.Forms
 {
     public partial class CalendarioForm : Form
     {
+        CultureInfo ci = new CultureInfo("en-US");
         public int action = 0;//Valida que acción debe realizar el boton de guardar. si insertar o editar, insertar=1 y editar =2
 
         public int idCalendario = 0;
@@ -403,8 +405,8 @@ namespace MemoryClubForms.Forms
 
                 if (ckbFiltrarFechas.Checked)
                 {
-                    desde = dtpDesde.Value.ToString("dd/MM/yyyy");
-                    hasta = dtmHasta.Value.ToString("dd/MM/yyyy");
+                    desde = dtpDesde.Value.ToString("MM/dd/yyyy", ci);
+                    hasta = dtmHasta.Value.ToString("MM/dd/yyyy", ci);
                 }
 
                 calendarioModelList = calendarioBO.ConsultarCalendario(desde, hasta, idPlan, idCliente, estado);
@@ -465,7 +467,7 @@ namespace MemoryClubForms.Forms
                     cbxTipoPlan.Text = (string)grdCalendario.Rows[filaSeleccionada].Cells[1].Value.ToString();
 
                     string fecha = grdCalendario.Rows[filaSeleccionada].Cells[4].Value.ToString();
-                    DateTime fechaDate = DateTime.ParseExact(fecha, "dd/MM/yyyy", null);
+                    DateTime fechaDate = DateTime.ParseExact(fecha, "MM/dd/yyyy", ci);
 
                     dtmFecha.Value = fechaDate;
 
@@ -597,10 +599,10 @@ namespace MemoryClubForms.Forms
                     calendarioModel.Nombre = nombreCliente;
                     calendarioModel.Fk_id_cliente = PlanesClientesList.Where(x => x.Nombres == nombreCliente).FirstOrDefault().Idcliente;
                     calendarioModel.Fk_id_plan = Convert.ToInt32(cbxTipoPlan.SelectedItem.ToString());
-                    calendarioModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");
+                    calendarioModel.Fecha = dtmFecha.Value.ToString("MM/dd/yyyy", ci);
                     calendarioModel.Estado = "RESERVADO";
                     calendarioModel.Usuario = VariablesGlobales.usuario.ToString();
-                    calendarioModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    calendarioModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
                     string responseDB = calendarioBO.InsertaManual(calendarioModel);
 
@@ -623,10 +625,10 @@ namespace MemoryClubForms.Forms
                     calendarioModel.Id_calendario = idCalendario;
                     calendarioModel.Fk_id_cliente = PlanesClientesList.Where(x => x.Nombres == nombreCliente).FirstOrDefault().Idcliente;
                     calendarioModel.Fk_id_plan = Convert.ToInt32(cbxTipoPlan.SelectedItem.ToString());
-                    calendarioModel.Fecha = dtmFecha.Value.ToString("dd/MM/yyyy");
+                    calendarioModel.Fecha = dtmFecha.Value.ToString("MM/dd/yyyy", ci);
                     calendarioModel.Estado = cbxEstado.SelectedItem.ToString();
                     calendarioModel.Usuario = VariablesGlobales.usuario.ToString();
-                    calendarioModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                    calendarioModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
 
 
@@ -681,7 +683,7 @@ namespace MemoryClubForms.Forms
             cbxTipoPlan.Items.Add((string)idplan_s);
             cbxTipoPlan.Text = (string)idplan_s;
 
-            dtmFecha.Value = Convert.ToDateTime(fechaini);
+            dtmFecha.Value = Convert.ToDateTime(fechaini, ci);
 
         }
 

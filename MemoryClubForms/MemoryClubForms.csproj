@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -77,6 +92,7 @@
     <Compile Include="BusinessBO\LoginBO.cs" />
     <Compile Include="BusinessBO\PlanBO.cs" />
     <Compile Include="BusinessBO\ReporteAlertasBO.cs" />
+    <Compile Include="BusinessBO\ReporteCalendarioBO.cs" />
     <Compile Include="BusinessBO\ReporteCateringBO.cs" />
     <Compile Include="BusinessBO\ReporteClientePlanBO.cs" />
     <Compile Include="BusinessBO\ReporteTransporteBO.cs" />
@@ -191,6 +207,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PlanModel.cs" />
     <Compile Include="Models\ReporteAlertasModel.cs" />
+    <Compile Include="Models\ReporteCalendarioModel.cs" />
     <Compile Include="Models\ReporteCateringModel.cs" />
     <Compile Include="Models\ReporteClientePlanModel1.cs" />
     <Compile Include="Models\ReporteTransporteModel.cs" />
@@ -200,6 +217,12 @@
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\FormReporteCalendario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\FormReporteCalendario.Designer.cs">
+      <DependentUpon>FormReporteCalendario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\FormReporteClientePlan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -284,9 +307,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Reports\FormReporteCalendario.resx">
+      <DependentUpon>FormReporteCalendario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\FormReporteClientePlan.resx">
       <DependentUpon>FormReporteClientePlan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ReporteCalendario.rdlc" />
     <EmbeddedResource Include="Reports\ReporteClientePlan.rdlc" />
     <EmbeddedResource Include="Reports\ReporteAlertas.rdlc" />
     <EmbeddedResource Include="Reports\ReporteAlertasForm.resx">
@@ -302,6 +329,7 @@
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteAlertasModel.datasource" />
+    <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteCalendarioModel.datasource" />
     <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteCateringModel.datasource" />
     <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteClientePlanModel.datasource" />
     <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteClientePlanModel1.datasource" />
@@ -387,6 +415,18 @@
     <Content Include="Resources\usuario.png" />
     <Content Include="Resources\usuario2.png" />
     <Content Include="Resources\volver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

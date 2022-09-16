@@ -10,11 +10,13 @@ using System.Windows.Forms;
 using MemoryClubForms.Models;
 using MemoryClubForms.BusinessBO;
 using static MemoryClubForms.BusinessBO.ClienteBO;
+using System.Globalization;
 
 namespace MemoryClubForms.Forms
 {
     public partial class InsertarClienteForm : Form
     {
+        CultureInfo ci = new CultureInfo("en-US");
         public static List<ListaTransportistas> listaTransportistas = new List<ListaTransportistas>();
         public static List<CodigosMediosPago> codigosMediosPagoList = new List<CodigosMediosPago>();
         public static List<CodigosGenero> codigosGeneroList = new List<CodigosGenero>();
@@ -192,7 +194,7 @@ namespace MemoryClubForms.Forms
         {
             if (VariablesGlobales.Nivel > 1)
             {
-                MessageBox.Show("Su usuario no tiene privilegios necesarios para ingresar asistencias de otra sucursal.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Su usuario no tiene privilegios para añadir clientes.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
 
@@ -592,10 +594,10 @@ namespace MemoryClubForms.Forms
                 clienteModel.Cedula = tbxCedula.Text;
                 clienteModel.Nombre = tbxNombre.Text;
                 clienteModel.Apodo = tbxApodo.Text;
-                clienteModel.Fecha_ingreso = dtmFecha.Value.ToString("dd/MM/yyyy");
+                clienteModel.Fecha_ingreso = dtmFecha.Value.ToString("MM/dd/yyyy", ci);
                 if (dtmFechaFree.Enabled)
                 {
-                    clienteModel.Fecha_free = dtmFechaFree.Value.ToString("dd/MM/yyyy");
+                    clienteModel.Fecha_free = dtmFechaFree.Value.ToString("MM/dd/yyyy", ci);
                 }
                 else
                 {
@@ -676,7 +678,7 @@ namespace MemoryClubForms.Forms
 
                 clienteModel.Observacion = tbxObseraciones.Text;
                 clienteModel.Usuario = VariablesGlobales.usuario.ToString();
-                clienteModel.Fecha_mod = DateTime.Now.ToString("dd/MM/yyyy");
+                clienteModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
                 bool responseInsert = clienteBO.InsertarCliente(clienteModel);
 

@@ -10,12 +10,14 @@ using System.Windows.Forms;
 using MemoryClubForms.BusinessBO;
 using static MemoryClubForms.BusinessBO.CalendarioBO;
 using MemoryClubForms.Models;
+using System.Globalization;
 
 
 namespace MemoryClubForms.Forms
 {
     public partial class InsertarAutomaticCalendarioForm : Form
     {
+        CultureInfo ci = new CultureInfo("en-US");
 
         public static List<PlanesClientes> PlanesClientesList = new List<PlanesClientes>();
         public static List<EstadosCalend> estadosList = new List<EstadosCalend>();
@@ -363,7 +365,7 @@ namespace MemoryClubForms.Forms
             int idplan = PlanesClientesList.Where(x => x.Nombres == nomcliente).Select(x => x.Idplan).FirstOrDefault();
             string idplan_s = Convert.ToString(idplan);
             var fechaplan = PlanesClientesList.Where(x => x.Nombres == nomcliente).Select(x => x.Fecha_ini_plan).FirstOrDefault();
-            DateTime fechaux = Convert.ToDateTime(fechaplan);
+            DateTime fechaux = Convert.ToDateTime(fechaplan, ci);
             string diasemana = "";
 
             if (fechaux.DayOfWeek == DayOfWeek.Monday)

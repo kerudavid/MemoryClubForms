@@ -11,11 +11,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Reporting.WinForms;
+using System.Globalization;
 
 namespace MemoryClubForms.Reports
 {
     public partial class ReporteTransporteForm : Form
     {
+        CultureInfo ci = new CultureInfo("en-US");
         public ReporteTransporteForm()
         {
             InitializeComponent();
@@ -23,8 +25,8 @@ namespace MemoryClubForms.Reports
 
         private void btnCargar_Click(object sender, EventArgs e)
         {
-            string fdesde = this.dtpDesde.Value.ToString("dd/MM/yyyy");
-            string fhasta = this.dtpHasta.Value.ToString("dd/MM/yyyy");
+            string fdesde = this.dtpDesde.Value.ToString("MM/dd/yyyy", ci);
+            string fhasta = this.dtpHasta.Value.ToString("MM/dd/yyyy", ci);
 
             ReporteTransporteBO reporTranspBO = new ReporteTransporteBO();
             List<ReporteTransporteModel> rtmList = new List<ReporteTransporteModel>();

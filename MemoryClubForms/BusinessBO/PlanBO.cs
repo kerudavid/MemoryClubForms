@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace MemoryClubForms.BusinessBO
 {
@@ -16,6 +17,7 @@ namespace MemoryClubForms.BusinessBO
     {
         public static int nivel = VariablesGlobales.Nivel;
         public static int sucursal = VariablesGlobales.sucursal;
+        CultureInfo ci = new CultureInfo("en-US");
 
         /// <summary>
         /// Consulta la Lista de Códigos de las Sucursales
@@ -153,7 +155,7 @@ namespace MemoryClubForms.BusinessBO
 
             if (!(string.IsNullOrEmpty(Pdesde)) & !(string.IsNullOrEmpty(Phasta)))
             {
-                condiciones += $" WHERE CONVERT(date, P.fecha_inicio_plan,103) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ";
+                condiciones += $" WHERE CONVERT(date, P.fecha_inicio_plan,101) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ";
             }
 
             //valido la sucursal
@@ -196,7 +198,7 @@ namespace MemoryClubForms.BusinessBO
 
             //armo el select con las opciones dadas
             query = $"SELECT P.id_plan, P.fk_id_cliente, C.nombre, P.sucursal, P.tipo_plan, P.fecha_inicio_plan, P.pagado, " +
-                    $"P.max_dia_plan, P.estado, P.observacion, P.usuario, P.fecha_mod, CONVERT(date, P.fecha_inicio_plan,103) fechahora " +
+                    $"P.max_dia_plan, P.estado, P.observacion, P.usuario, P.fecha_mod, CONVERT(date, P.fecha_inicio_plan,101) fechahora " +
                     $"FROM Planes P INNER JOIN Cliente C ON P.fk_id_cliente = C.id_cliente {condiciones}";
 
             List<PlanModel> PlanesModelList = new List<PlanModel>();
