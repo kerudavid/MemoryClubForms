@@ -36,6 +36,9 @@
             this.lblRegistroSeleccionado = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.pnlFiltro = new System.Windows.Forms.Panel();
+            this.tbxFiltroApodo = new System.Windows.Forms.TextBox();
+            this.tbxFiltroNombre = new System.Windows.Forms.TextBox();
+            this.tbxFiltroCedula = new System.Windows.Forms.TextBox();
             this.ckbFiltrarFechas = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -49,8 +52,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.cbxFiltroMedioPago = new System.Windows.Forms.ComboBox();
             this.cbxFiltroTransportista = new System.Windows.Forms.ComboBox();
             this.cbxFiltroSucursal = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -69,37 +70,24 @@
             this.lblNombreVista = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.grdCliente = new System.Windows.Forms.DataGridView();
-            this.tbxFiltroCedula = new System.Windows.Forms.TextBox();
-            this.tbxFiltroNombre = new System.Windows.Forms.TextBox();
-            this.tbxFiltroApodo = new System.Windows.Forms.TextBox();
-            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.id_Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cedula = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apodo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha_ingreso = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha_free = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Sexo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Aula = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Dia_nacimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mes_nacimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.anio_nacimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.edad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombre_contacto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.parentesco_contacto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.telefono_contacto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.celular_contacto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.encargado_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.parentesco_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.telefono_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cedula_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.celular_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.email_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.medio_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frecuencia_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pariente_transp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toma_transp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id_transportista = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombre_transp = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -107,11 +95,13 @@
             this.nombre_factu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cedula_factu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.direccion_factu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.celular_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.email_factu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.obseracion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha_mod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.pnlPrincipal.SuspendLayout();
             this.pnlFiltro.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -178,8 +168,6 @@
             this.pnlFiltro.Controls.Add(this.label2);
             this.pnlFiltro.Controls.Add(this.label1);
             this.pnlFiltro.Controls.Add(this.label8);
-            this.pnlFiltro.Controls.Add(this.label7);
-            this.pnlFiltro.Controls.Add(this.cbxFiltroMedioPago);
             this.pnlFiltro.Controls.Add(this.cbxFiltroTransportista);
             this.pnlFiltro.Controls.Add(this.cbxFiltroSucursal);
             this.pnlFiltro.Controls.Add(this.label13);
@@ -192,6 +180,27 @@
             this.pnlFiltro.Name = "pnlFiltro";
             this.pnlFiltro.Size = new System.Drawing.Size(918, 173);
             this.pnlFiltro.TabIndex = 13;
+            // 
+            // tbxFiltroApodo
+            // 
+            this.tbxFiltroApodo.Location = new System.Drawing.Point(263, 46);
+            this.tbxFiltroApodo.Name = "tbxFiltroApodo";
+            this.tbxFiltroApodo.Size = new System.Drawing.Size(121, 20);
+            this.tbxFiltroApodo.TabIndex = 62;
+            // 
+            // tbxFiltroNombre
+            // 
+            this.tbxFiltroNombre.Location = new System.Drawing.Point(124, 46);
+            this.tbxFiltroNombre.Name = "tbxFiltroNombre";
+            this.tbxFiltroNombre.Size = new System.Drawing.Size(121, 20);
+            this.tbxFiltroNombre.TabIndex = 61;
+            // 
+            // tbxFiltroCedula
+            // 
+            this.tbxFiltroCedula.Location = new System.Drawing.Point(5, 46);
+            this.tbxFiltroCedula.Name = "tbxFiltroCedula";
+            this.tbxFiltroCedula.Size = new System.Drawing.Size(113, 20);
+            this.tbxFiltroCedula.TabIndex = 60;
             // 
             // ckbFiltrarFechas
             // 
@@ -313,25 +322,6 @@
             this.label8.Size = new System.Drawing.Size(92, 17);
             this.label8.TabIndex = 45;
             this.label8.Text = "Transportista";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(655, 122);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(83, 17);
-            this.label7.TabIndex = 44;
-            this.label7.Text = "Medio Pago";
-            // 
-            // cbxFiltroMedioPago
-            // 
-            this.cbxFiltroMedioPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxFiltroMedioPago.FormattingEnabled = true;
-            this.cbxFiltroMedioPago.Location = new System.Drawing.Point(658, 149);
-            this.cbxFiltroMedioPago.Name = "cbxFiltroMedioPago";
-            this.cbxFiltroMedioPago.Size = new System.Drawing.Size(121, 21);
-            this.cbxFiltroMedioPago.TabIndex = 43;
             // 
             // cbxFiltroTransportista
             // 
@@ -563,28 +553,19 @@
             this.Nombre,
             this.Apodo,
             this.fecha_ingreso,
-            this.fecha_free,
             this.Sexo,
             this.Estado,
-            this.Aula,
             this.Dia_nacimiento,
             this.mes_nacimiento,
             this.anio_nacimiento,
+            this.edad,
             this.telefono,
+            this.direccion,
             this.nombre_contacto,
             this.parentesco_contacto,
             this.telefono_contacto,
             this.celular_contacto,
-            this.encargado_pago,
-            this.parentesco_pago,
-            this.telefono_pago,
-            this.cedula_pago,
-            this.celular_pago,
-            this.email_pago,
-            this.medio_pago,
-            this.frecuencia_pago,
             this.pariente_transp,
-            this.direccion,
             this.toma_transp,
             this.id_transportista,
             this.nombre_transp,
@@ -592,6 +573,7 @@
             this.nombre_factu,
             this.cedula_factu,
             this.direccion_factu,
+            this.celular_pago,
             this.email_factu,
             this.sucursal,
             this.obseracion,
@@ -618,53 +600,11 @@
             this.grdCliente.TabIndex = 6;
             this.grdCliente.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Row_Clicked);
             // 
-            // tbxFiltroCedula
-            // 
-            this.tbxFiltroCedula.Location = new System.Drawing.Point(5, 46);
-            this.tbxFiltroCedula.Name = "tbxFiltroCedula";
-            this.tbxFiltroCedula.Size = new System.Drawing.Size(113, 20);
-            this.tbxFiltroCedula.TabIndex = 60;
-            // 
-            // tbxFiltroNombre
-            // 
-            this.tbxFiltroNombre.Location = new System.Drawing.Point(124, 46);
-            this.tbxFiltroNombre.Name = "tbxFiltroNombre";
-            this.tbxFiltroNombre.Size = new System.Drawing.Size(121, 20);
-            this.tbxFiltroNombre.TabIndex = 61;
-            // 
-            // tbxFiltroApodo
-            // 
-            this.tbxFiltroApodo.Location = new System.Drawing.Point(263, 46);
-            this.tbxFiltroApodo.Name = "tbxFiltroApodo";
-            this.tbxFiltroApodo.Size = new System.Drawing.Size(121, 20);
-            this.tbxFiltroApodo.TabIndex = 62;
-            // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.BackColor = System.Drawing.Color.Maroon;
-            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
-            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnClose.BorderRadius = 17;
-            this.btnClose.BorderSize = 0;
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(823, 8);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(92, 32);
-            this.btnClose.TabIndex = 7;
-            this.btnClose.Text = "Cerrar";
-            this.btnClose.TextColor = System.Drawing.Color.White;
-            this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
             // id_Cliente
             // 
-            this.id_Cliente.HeaderText = "Id Cliente";
+            this.id_Cliente.HeaderText = "Id Socio";
             this.id_Cliente.Name = "id_Cliente";
-            this.id_Cliente.Width = 80;
+            this.id_Cliente.Width = 68;
             // 
             // Cedula
             // 
@@ -688,13 +628,7 @@
             // 
             this.fecha_ingreso.HeaderText = "Fecha Ingreso";
             this.fecha_ingreso.Name = "fecha_ingreso";
-            this.fecha_ingreso.Width = 104;
-            // 
-            // fecha_free
-            // 
-            this.fecha_free.HeaderText = "Fecha Free";
-            this.fecha_free.Name = "fecha_free";
-            this.fecha_free.Width = 86;
+            this.fecha_ingreso.Width = 95;
             // 
             // Sexo
             // 
@@ -707,12 +641,6 @@
             this.Estado.HeaderText = "Estado";
             this.Estado.Name = "Estado";
             this.Estado.Width = 65;
-            // 
-            // Aula
-            // 
-            this.Aula.HeaderText = "Aula";
-            this.Aula.Name = "Aula";
-            this.Aula.Width = 54;
             // 
             // Dia_nacimiento
             // 
@@ -732,11 +660,22 @@
             this.anio_nacimiento.Name = "anio_nacimiento";
             this.anio_nacimiento.Width = 107;
             // 
+            // edad
+            // 
+            this.edad.HeaderText = "Edad";
+            this.edad.Name = "edad";
+            this.edad.Width = 56;
+            // 
             // telefono
             // 
-            this.telefono.HeaderText = "Teléfono";
+            this.telefono.HeaderText = "Teléfono Socio";
             this.telefono.Name = "telefono";
-            this.telefono.Width = 76;
+            // 
+            // direccion
+            // 
+            this.direccion.HeaderText = "Dirección Socio";
+            this.direccion.Name = "direccion";
+            this.direccion.Width = 104;
             // 
             // nombre_contacto
             // 
@@ -762,65 +701,11 @@
             this.celular_contacto.Name = "celular_contacto";
             this.celular_contacto.Width = 107;
             // 
-            // encargado_pago
-            // 
-            this.encargado_pago.HeaderText = "Encargado Pago";
-            this.encargado_pago.Name = "encargado_pago";
-            this.encargado_pago.Width = 106;
-            // 
-            // parentesco_pago
-            // 
-            this.parentesco_pago.HeaderText = "Parentesco Pago";
-            this.parentesco_pago.Name = "parentesco_pago";
-            this.parentesco_pago.Width = 108;
-            // 
-            // telefono_pago
-            // 
-            this.telefono_pago.HeaderText = "Teléfono Pago";
-            this.telefono_pago.Name = "telefono_pago";
-            this.telefono_pago.Width = 97;
-            // 
-            // cedula_pago
-            // 
-            this.cedula_pago.HeaderText = "Cédula Pago";
-            this.cedula_pago.Name = "cedula_pago";
-            this.cedula_pago.Width = 88;
-            // 
-            // celular_pago
-            // 
-            this.celular_pago.HeaderText = "Celular Pago";
-            this.celular_pago.Name = "celular_pago";
-            this.celular_pago.Width = 88;
-            // 
-            // email_pago
-            // 
-            this.email_pago.HeaderText = "Email Pago";
-            this.email_pago.Name = "email_pago";
-            this.email_pago.Width = 82;
-            // 
-            // medio_pago
-            // 
-            this.medio_pago.HeaderText = "Medio Pago";
-            this.medio_pago.Name = "medio_pago";
-            this.medio_pago.Width = 86;
-            // 
-            // frecuencia_pago
-            // 
-            this.frecuencia_pago.HeaderText = "Frecuencia de pago";
-            this.frecuencia_pago.Name = "frecuencia_pago";
-            this.frecuencia_pago.Width = 97;
-            // 
             // pariente_transp
             // 
             this.pariente_transp.HeaderText = "Pariente Transporte";
             this.pariente_transp.Name = "pariente_transp";
             this.pariente_transp.Width = 121;
-            // 
-            // direccion
-            // 
-            this.direccion.HeaderText = "Dirección";
-            this.direccion.Name = "direccion";
-            this.direccion.Width = 81;
             // 
             // toma_transp
             // 
@@ -864,6 +749,12 @@
             this.direccion_factu.Name = "direccion_factu";
             this.direccion_factu.Width = 113;
             // 
+            // celular_pago
+            // 
+            this.celular_pago.HeaderText = "Celular Factura";
+            this.celular_pago.Name = "celular_pago";
+            this.celular_pago.Width = 99;
+            // 
             // email_factu
             // 
             this.email_factu.HeaderText = "Email Factura";
@@ -893,6 +784,27 @@
             this.fecha_mod.HeaderText = "Fecha Modificación";
             this.fecha_mod.Name = "fecha_mod";
             this.fecha_mod.Width = 122;
+            // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.Maroon;
+            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
+            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnClose.BorderRadius = 17;
+            this.btnClose.BorderSize = 0;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(823, 8);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(92, 32);
+            this.btnClose.TabIndex = 7;
+            this.btnClose.Text = "Cerrar";
+            this.btnClose.TextColor = System.Drawing.Color.White;
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // ClienteForm
             // 
@@ -933,8 +845,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel pnlFiltro;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox cbxFiltroMedioPago;
         private System.Windows.Forms.ComboBox cbxFiltroTransportista;
         private System.Windows.Forms.ComboBox cbxFiltroSucursal;
         private System.Windows.Forms.Label label13;
@@ -967,28 +877,19 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Apodo;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha_ingreso;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fecha_free;
         private System.Windows.Forms.DataGridViewTextBoxColumn Sexo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Aula;
         private System.Windows.Forms.DataGridViewTextBoxColumn Dia_nacimiento;
         private System.Windows.Forms.DataGridViewTextBoxColumn mes_nacimiento;
         private System.Windows.Forms.DataGridViewTextBoxColumn anio_nacimiento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn edad;
         private System.Windows.Forms.DataGridViewTextBoxColumn telefono;
+        private System.Windows.Forms.DataGridViewTextBoxColumn direccion;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre_contacto;
         private System.Windows.Forms.DataGridViewTextBoxColumn parentesco_contacto;
         private System.Windows.Forms.DataGridViewTextBoxColumn telefono_contacto;
         private System.Windows.Forms.DataGridViewTextBoxColumn celular_contacto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn encargado_pago;
-        private System.Windows.Forms.DataGridViewTextBoxColumn parentesco_pago;
-        private System.Windows.Forms.DataGridViewTextBoxColumn telefono_pago;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cedula_pago;
-        private System.Windows.Forms.DataGridViewTextBoxColumn celular_pago;
-        private System.Windows.Forms.DataGridViewTextBoxColumn email_pago;
-        private System.Windows.Forms.DataGridViewTextBoxColumn medio_pago;
-        private System.Windows.Forms.DataGridViewTextBoxColumn frecuencia_pago;
         private System.Windows.Forms.DataGridViewTextBoxColumn pariente_transp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn direccion;
         private System.Windows.Forms.DataGridViewTextBoxColumn toma_transp;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_transportista;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre_transp;
@@ -996,6 +897,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre_factu;
         private System.Windows.Forms.DataGridViewTextBoxColumn cedula_factu;
         private System.Windows.Forms.DataGridViewTextBoxColumn direccion_factu;
+        private System.Windows.Forms.DataGridViewTextBoxColumn celular_pago;
         private System.Windows.Forms.DataGridViewTextBoxColumn email_factu;
         private System.Windows.Forms.DataGridViewTextBoxColumn sucursal;
         private System.Windows.Forms.DataGridViewTextBoxColumn obseracion;

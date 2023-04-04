@@ -98,19 +98,19 @@ namespace MemoryClubForms.Forms
 
             tbxCelularCto.Text = ClienteModelStatic.Celular_contacto;
 
-            tbxEncargadoPago.Text = ClienteModelStatic.Encargado_pago;
+            //tbxEncargadoPago.Text = ClienteModelStatic.Encargado_pago;
 
-            tbxParentescoPago.Text = ClienteModelStatic.Parentesco_pago;
+            //tbxParentescoPago.Text = ClienteModelStatic.Parentesco_pago;
 
-            tbxTelefonoPago.Text = ClienteModelStatic.Telefono_pago;
+            //tbxTelefonoPago.Text = ClienteModelStatic.Telefono_pago;
 
-            tbxCedulaPago.Text = ClienteModelStatic.Cedula_pago;
+            //tbxCedulaPago.Text = ClienteModelStatic.Cedula_pago;
             
             tbxCelularPago.Text =  ClienteModelStatic.Celular_pago;
 
-            tbxEmailPago.Text = ClienteModelStatic.Email_pago;
+            //tbxEmailPago.Text = ClienteModelStatic.Email_pago;
 
-            foreach (var item in codigosMediosPagoList)
+            /*foreach (var item in codigosMediosPagoList)
             {
 
                 cbxFiltroMedioPago.Items.Add(item.Mediospago);
@@ -118,15 +118,15 @@ namespace MemoryClubForms.Forms
                 cbxFiltroMedioPago.Text = ClienteModelStatic.Medio_pago.ToString();
 
 
-            }
+            }*/
 
-            foreach (var item in frecuenciaList)
+            /*foreach (var item in frecuenciaList)
             {
 
                 cbxFrecuenciaPago.Items.Add(item.Frecuencias);
                 cbxFrecuenciaPago.SelectedItem = frecuenciaList.Where(x => x.Frecuencias == item.Frecuencias).FirstOrDefault().Frecuencias;
                 cbxFrecuenciaPago.Text = frecuenciaList.Where(x => x.Frecuencias == item.Frecuencias).FirstOrDefault().Frecuencias;
-            }
+            }*/
 
             tbxParienteTransp.Text = ClienteModelStatic.Pariente_transp;
 
@@ -526,14 +526,14 @@ namespace MemoryClubForms.Forms
 
 
             //MedioPago
-            if (!string.IsNullOrEmpty(cbxFiltroMedioPago.Text))
+            /*if (!string.IsNullOrEmpty(cbxFiltroMedioPago.Text))
             {
                 if (cbxFiltroMedioPago.SelectedItem == null)
                 {
                     MessageBox.Show("Seleccione un medio de pago", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return false;
                 }
-            }
+            }*/
 
 
             //FrecuenciaPago
@@ -681,10 +681,10 @@ namespace MemoryClubForms.Forms
                 clienteModel.Celular_pago = tbxCelularPago.Text;
                 clienteModel.Email_pago = tbxEmailPago.Text;
 
-                if (cbxFiltroMedioPago.SelectedItem != null)
+                /*if (cbxFiltroMedioPago.SelectedItem != null)
                 {
                     clienteModel.Medio_pago = cbxFiltroMedioPago.SelectedItem.ToString();
-                }
+                }*/
 
                 clienteModel.Frecuencia_pago = cbxFrecuenciaPago.SelectedItem.ToString();
                 clienteModel.Pariente_transp = tbxParienteTransp.Text;

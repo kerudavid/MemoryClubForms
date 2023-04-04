@@ -75,16 +75,27 @@ namespace MemoryClubForms.Forms
                     clienteModelList = clienteList;
                     foreach (var cliente in clienteList)
                     {
+                        // Creamos un objeto DateTime con la fecha de nacimiento de la persona
+                        DateTime fechaNacimiento = new DateTime(cliente.Anio_nacim, cliente.Mes_nacim, cliente.Dia_nacim);
+
+                        // Calculamos la edad de la persona a partir de su fecha de nacimiento
+                        int edad = DateTime.Today.Year - fechaNacimiento.Year;
+                        if (DateTime.Today < fechaNacimiento.AddYears(edad))
+                        {
+                            edad--;
+                        }
+
                         grdCliente.Rows.Add(
                             cliente.Id_cliente,cliente.Cedula,cliente.Nombre,cliente.Apodo,
-                            cliente.Fecha_ingreso, cliente.Fecha_free, cliente.Sexo, cliente.Estado,cliente.Aula,
-                            cliente.Dia_nacim,cliente.Mes_nacim,cliente.Anio_nacim,cliente.Telefono,
+                            cliente.Fecha_ingreso, /*cliente.Fecha_free,*/ cliente.Sexo, cliente.Estado, /*cliente.Aula,*/
+                            cliente.Dia_nacim,cliente.Mes_nacim,cliente.Anio_nacim,edad, cliente.Telefono, cliente.Direccion,
+                            
                             cliente.Nombre_contacto,cliente.Parentesco_contacto,cliente.Telefono_contacto,
-                            cliente.Celular_contacto,cliente.Encargado_pago,cliente.Parentesco_pago,
-                            cliente.Telefono_pago,cliente.Cedula_pago, cliente.Celular_pago,
-                            cliente.Email_pago,cliente.Medio_pago,cliente.Frecuencia_pago,cliente.Pariente_transp,cliente.Direccion,
+                            cliente.Celular_contacto,/*cliente.Encargado_pago,cliente.Parentesco_pago,
+                            cliente.Telefono_pago,cliente.Cedula_pago,*/ 
+                            /*cliente.Email_pago,cliente.Medio_pago,cliente.Frecuencia_pago,*/cliente.Pariente_transp,
                             cliente.Toma_transp, cliente.Id_transportista,cliente.Nombre_transportista,cliente.Retirarse_solo, cliente.Nombre_factu,
-                            cliente.Cedula_factu,cliente.Direccion_factu, cliente.Email_factu,
+                            cliente.Cedula_factu,cliente.Direccion_factu, cliente.Celular_pago, cliente.Email_factu,
                             cliente.Sucursal,cliente.Observacion,cliente.Usuario,cliente.Fecha_mod);
                     }
                     grdCliente.ReadOnly = true;
@@ -138,10 +149,7 @@ namespace MemoryClubForms.Forms
                 cbxFiltroTransportista.Items.Add(item.Nombre);
             }
 
-            foreach (var item in medioPagoList)
-            {
-                cbxFiltroMedioPago.Items.Add(item.Mediospago);
-            }
+            
         }
 
         private void ResetFilterElements()
@@ -162,7 +170,6 @@ namespace MemoryClubForms.Forms
 
             cbxFiltroTransportista.Items.Clear();
 
-            cbxFiltroMedioPago.Items.Clear();
 
             tbxDia.Text = "";
 
@@ -371,11 +378,7 @@ namespace MemoryClubForms.Forms
 
                 int idTransp = transportistaList.Where(x => x.Nombre == nomreTransp).Select(x => x.Id_transportista).FirstOrDefault();
 
-                string medioPago = null;
-                if (cbxFiltroMedioPago.SelectedItem != null)
-                {
-                    medioPago = cbxFiltroMedioPago.SelectedItem.ToString();
-                }
+                string medioPago = null;             
 
                 clientesList = clienteBO.ConsultaCliente(cedula,nombre,apodo,fechaIngreso,pEstado,sucursal,dia,mes,anio,idTransp,medioPago);
 
@@ -383,18 +386,29 @@ namespace MemoryClubForms.Forms
                 {
                     clienteModelList = clientesList;
 
+
                     foreach (var cliente in clientesList)
                     {
+                        // Creamos un objeto DateTime con la fecha de nacimiento de la persona
+                        DateTime fechaNacimiento = new DateTime(cliente.Anio_nacim, cliente.Mes_nacim, cliente.Dia_nacim);
+
+                        // Calculamos la edad de la persona a partir de su fecha de nacimiento
+                        int edad = DateTime.Today.Year - fechaNacimiento.Year;
+                        if (DateTime.Today < fechaNacimiento.AddYears(edad))
+                        {
+                            edad--;
+                        }
+
                         grdCliente.Rows.Add(
                             cliente.Id_cliente, cliente.Cedula, cliente.Nombre, cliente.Apodo,
-                            cliente.Fecha_ingreso, cliente.Fecha_free, cliente.Sexo, cliente.Estado, cliente.Aula,
-                            cliente.Dia_nacim, cliente.Mes_nacim, cliente.Anio_nacim, cliente.Telefono,
+                            cliente.Fecha_ingreso, /*cliente.Fecha_free,*/ cliente.Sexo, cliente.Estado, /*cliente.Aula,*/
+                            cliente.Dia_nacim, cliente.Mes_nacim, cliente.Anio_nacim,edad, cliente.Telefono, cliente.Direccion,
                             cliente.Nombre_contacto, cliente.Parentesco_contacto, cliente.Telefono_contacto,
-                            cliente.Celular_contacto, cliente.Encargado_pago, cliente.Parentesco_pago,
-                            cliente.Telefono_pago, cliente.Cedula_pago, cliente.Celular_pago,
-                            cliente.Email_pago, cliente.Medio_pago, cliente.Frecuencia_pago, cliente.Pariente_transp, cliente.Direccion,
+                            cliente.Celular_contacto, /*cliente.Encargado_pago, cliente.Parentesco_pago,
+                            cliente.Telefono_pago, cliente.Cedula_pago, 
+                            cliente.Email_pago, cliente.Medio_pago, cliente.Frecuencia_pago, */cliente.Pariente_transp, 
                             cliente.Toma_transp, cliente.Id_transportista, cliente.Nombre_transportista, cliente.Retirarse_solo, cliente.Nombre_factu,
-                            cliente.Cedula_factu, cliente.Direccion_factu, cliente.Email_factu,
+                            cliente.Cedula_factu, cliente.Direccion_factu, cliente.Celular_pago, cliente.Email_factu,
                             cliente.Sucursal, cliente.Observacion, cliente.Usuario, cliente.Fecha_mod);
                     }
                     grdCliente.ReadOnly = true;
@@ -538,5 +552,6 @@ namespace MemoryClubForms.Forms
                 dtmFecha.Enabled = false;
             }
         }
+
     }
 }

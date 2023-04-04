@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InsertarClienteForm));
             this.pnlPrincipal = new System.Windows.Forms.Panel();
             this.pnlFiltro = new System.Windows.Forms.Panel();
+            this.cbxFrecuenciaPago = new System.Windows.Forms.ComboBox();
             this.ckbFechaFree = new System.Windows.Forms.CheckBox();
             this.Estado = new System.Windows.Forms.Label();
             this.cbxEstados = new System.Windows.Forms.ComboBox();
@@ -71,7 +72,6 @@
             this.label20 = new System.Windows.Forms.Label();
             this.tbxCedulaPago = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.cbxFiltroMedioPago = new System.Windows.Forms.ComboBox();
             this.tbxCelularPago = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.tbxCelularCto = new System.Windows.Forms.TextBox();
@@ -104,7 +104,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.cbxFiltroTransportista = new System.Windows.Forms.ComboBox();
             this.cbxFiltroSucursal = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -112,7 +111,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblNombreVista = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.cbxFrecuenciaPago = new System.Windows.Forms.ComboBox();
             this.pnlPrincipal.SuspendLayout();
             this.pnlFiltro.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -173,7 +171,6 @@
             this.pnlFiltro.Controls.Add(this.label20);
             this.pnlFiltro.Controls.Add(this.tbxCedulaPago);
             this.pnlFiltro.Controls.Add(this.label21);
-            this.pnlFiltro.Controls.Add(this.cbxFiltroMedioPago);
             this.pnlFiltro.Controls.Add(this.tbxCelularPago);
             this.pnlFiltro.Controls.Add(this.label19);
             this.pnlFiltro.Controls.Add(this.tbxCelularCto);
@@ -206,7 +203,6 @@
             this.pnlFiltro.Controls.Add(this.label2);
             this.pnlFiltro.Controls.Add(this.label1);
             this.pnlFiltro.Controls.Add(this.label8);
-            this.pnlFiltro.Controls.Add(this.label7);
             this.pnlFiltro.Controls.Add(this.cbxFiltroTransportista);
             this.pnlFiltro.Controls.Add(this.cbxFiltroSucursal);
             this.pnlFiltro.Controls.Add(this.label3);
@@ -216,6 +212,15 @@
             this.pnlFiltro.Name = "pnlFiltro";
             this.pnlFiltro.Size = new System.Drawing.Size(918, 545);
             this.pnlFiltro.TabIndex = 13;
+            // 
+            // cbxFrecuenciaPago
+            // 
+            this.cbxFrecuenciaPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFrecuenciaPago.FormattingEnabled = true;
+            this.cbxFrecuenciaPago.Location = new System.Drawing.Point(142, 378);
+            this.cbxFrecuenciaPago.Name = "cbxFrecuenciaPago";
+            this.cbxFrecuenciaPago.Size = new System.Drawing.Size(121, 21);
+            this.cbxFrecuenciaPago.TabIndex = 126;
             // 
             // ckbFechaFree
             // 
@@ -569,7 +574,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(405, 303);
+            this.label20.Location = new System.Drawing.Point(430, 302);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(88, 17);
             this.label20.TabIndex = 84;
@@ -577,7 +582,7 @@
             // 
             // tbxCedulaPago
             // 
-            this.tbxCedulaPago.Location = new System.Drawing.Point(405, 323);
+            this.tbxCedulaPago.Location = new System.Drawing.Point(413, 323);
             this.tbxCedulaPago.Name = "tbxCedulaPago";
             this.tbxCedulaPago.Size = new System.Drawing.Size(120, 20);
             this.tbxCedulaPago.TabIndex = 83;
@@ -586,24 +591,15 @@
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(546, 302);
+            this.label21.Location = new System.Drawing.Point(606, 482);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(88, 17);
+            this.label21.Size = new System.Drawing.Size(100, 17);
             this.label21.TabIndex = 82;
-            this.label21.Text = "Celular pago";
-            // 
-            // cbxFiltroMedioPago
-            // 
-            this.cbxFiltroMedioPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxFiltroMedioPago.FormattingEnabled = true;
-            this.cbxFiltroMedioPago.Location = new System.Drawing.Point(8, 376);
-            this.cbxFiltroMedioPago.Name = "cbxFiltroMedioPago";
-            this.cbxFiltroMedioPago.Size = new System.Drawing.Size(121, 21);
-            this.cbxFiltroMedioPago.TabIndex = 43;
+            this.label21.Text = "Celular factura";
             // 
             // tbxCelularPago
             // 
-            this.tbxCelularPago.Location = new System.Drawing.Point(549, 323);
+            this.tbxCelularPago.Location = new System.Drawing.Point(660, 513);
             this.tbxCelularPago.Name = "tbxCelularPago";
             this.tbxCelularPago.Size = new System.Drawing.Size(120, 20);
             this.tbxCelularPago.TabIndex = 81;
@@ -878,16 +874,6 @@
             this.label8.TabIndex = 45;
             this.label8.Text = "Transportista";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(5, 356);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(83, 17);
-            this.label7.TabIndex = 44;
-            this.label7.Text = "Medio Pago";
-            // 
             // cbxFiltroTransportista
             // 
             this.cbxFiltroTransportista.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -958,15 +944,6 @@
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
-            // cbxFrecuenciaPago
-            // 
-            this.cbxFrecuenciaPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxFrecuenciaPago.FormattingEnabled = true;
-            this.cbxFrecuenciaPago.Location = new System.Drawing.Point(142, 378);
-            this.cbxFrecuenciaPago.Name = "cbxFrecuenciaPago";
-            this.cbxFrecuenciaPago.Size = new System.Drawing.Size(121, 21);
-            this.cbxFrecuenciaPago.TabIndex = 126;
-            // 
             // InsertarClienteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1005,8 +982,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox cbxFiltroMedioPago;
         private System.Windows.Forms.ComboBox cbxFiltroTransportista;
         private System.Windows.Forms.ComboBox cbxFiltroSucursal;
         private System.Windows.Forms.Label label3;

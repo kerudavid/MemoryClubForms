@@ -44,10 +44,7 @@ namespace MemoryClubForms.Forms
             {
                 cbxGenero.Items.Add(item.Generos);
             }
-            foreach (var item in codigosMediosPagoList)
-            {
-                cbxFiltroMedioPago.Items.Add(item.Mediospago);
-            }
+            
             foreach (var item in listaTransportistas)
             {
                 cbxFiltroTransportista.Items.Add(item.Nombre);
@@ -475,18 +472,6 @@ namespace MemoryClubForms.Forms
                 }
             }
 
-
-            //MedioPago
-            if (!string.IsNullOrEmpty(cbxFiltroMedioPago.Text))
-            {
-                if (cbxFiltroMedioPago.SelectedItem == null)
-                {
-                    MessageBox.Show("Seleccione un medio de pago", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return false;
-                }
-            }
-
-
             //FrecuenciaPago
             if (cbxFrecuenciaPago.SelectedItem==null)
             {
@@ -644,12 +629,7 @@ namespace MemoryClubForms.Forms
                 clienteModel.Cedula_pago=tbxCedulaPago.Text;
                 clienteModel.Celular_pago = tbxCelularPago.Text;
                 clienteModel.Email_pago = tbxEmailPago.Text;
-
-                if (cbxFiltroMedioPago.SelectedItem != null)
-                {
-                    clienteModel.Medio_pago = cbxFiltroMedioPago.SelectedItem.ToString();
-                }
-                
+                clienteModel.Medio_pago = string.Empty;                            
                 clienteModel.Frecuencia_pago = cbxFrecuenciaPago.SelectedItem.ToString();
                 clienteModel.Pariente_transp = tbxParienteTransp.Text;
                 clienteModel.Direccion = tbxDireccion.Text;
