@@ -47,7 +47,8 @@ namespace MemoryClubForms.BusinessBO
                 condiciones += $"WHERE CONVERT(date, fecha, 101) BETWEEN CAST('{Fdesde}' AS date) AND CAST('{Fhasta}' AS date) ";
             }
 
-            query = $"SELECT sucursal, tipo_menu, tipo_cliente, COUNT(*) AS numero FROM Catering " +
+            query = $"SET LANGUAGE us_english " +
+                    $"SELECT sucursal, tipo_menu, tipo_cliente, COUNT(*) AS numero FROM Catering " +
                     $"{ condiciones}" +
                     $" GROUP BY sucursal, tipo_menu, tipo_cliente";
 

@@ -13,5 +13,6 @@ namespace MemoryClubForms.Models
         public string Tipo_cliente { get; set; }
         public string Entrada_salida { get; set; }
         public int Numero { get; set; }
+        public decimal Valor { get; set; }
     }
 }

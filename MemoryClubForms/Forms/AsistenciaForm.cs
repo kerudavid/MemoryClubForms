@@ -24,11 +24,11 @@ namespace MemoryClubForms.Forms
 
         public int action = 0;//Valida que acción debe realizar el boton de guardar. si insertar o editar, insertar=1 y editar =2
 
-        public int idAsistenciaSelected= 0;
+        public int idAsistenciaSelected = 0;
 
-        public int idClienteSelected= 0;
+        public int idClienteSelected = 0;
 
-        public int filaSeleccionada=0;
+        public int filaSeleccionada = 0;
 
         public AsistenciaModel asistenciaModel = new AsistenciaModel();
 
@@ -68,10 +68,10 @@ namespace MemoryClubForms.Forms
             dtmHasta.MinDate = new DateTime(1990, 1, 1);
             dtmHasta.MaxDate = DateTime.Today;
 
-            
+
 
         }
-        
+
 
         #region Carga de elementos de informacion
 
@@ -104,9 +104,9 @@ namespace MemoryClubForms.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No se pudo cargar el nombre de los clientes para realizar filtros"+ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("No se pudo cargar el nombre de los clientes para realizar filtros" + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-                
+
         }
 
         private void CargarFilterElements()
@@ -117,7 +117,7 @@ namespace MemoryClubForms.Forms
 
             bool responseEstado = LoadEstados();
 
-            if (!response||!responseSucursal|| !responseEstado)
+            if (!response || !responseSucursal || !responseEstado)
             {
                 MessageBox.Show("No se pudo cargar la información para realizar filtros", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
@@ -127,7 +127,7 @@ namespace MemoryClubForms.Forms
             {
                 cbxFiltroNombreCliente.Items.Add(item.nombre);
             }
-           
+
             foreach (var item in codigosSucursalesList)
             {
                 cbxSucursal.Items.Add(item.Sucursales);
@@ -149,7 +149,7 @@ namespace MemoryClubForms.Forms
             if (!actionsUse)
             {
                 return;
-            } 
+            }
 
             filaSeleccionada = e.RowIndex;
 
@@ -166,10 +166,10 @@ namespace MemoryClubForms.Forms
                 cbxNombresClientes.Items.Clear();//Limpia los valores que pueda tener
                 cbxNombresClientes.SelectedItem = (string)grdAsistencia.Rows[filaSeleccionada].Cells[2].Value;//Selecciona ese valor y lo guarda como objeto
                 cbxNombresClientes.Items.Add((string)grdAsistencia.Rows[filaSeleccionada].Cells[2].Value);//Son los valores que puede seleccionar
-                cbxNombresClientes.Text= (string)grdAsistencia.Rows[filaSeleccionada].Cells[2].Value;//Es el texto que aparece en el recuadro
+                cbxNombresClientes.Text = (string)grdAsistencia.Rows[filaSeleccionada].Cells[2].Value;//Es el texto que aparece en el recuadro
 
                 string fecha = grdAsistencia.Rows[filaSeleccionada].Cells[3].Value.ToString();
-                DateTime fechaDate= DateTime.ParseExact(fecha, "MM/dd/yyyy", ci);
+                DateTime fechaDate = DateTime.ParseExact(fecha, "MM/dd/yyyy", ci);
 
 
                 //dtmFecha.CustomFormat = "MMMM dd, yyyy - dddd";
@@ -196,7 +196,7 @@ namespace MemoryClubForms.Forms
             cbxEstadoCliente.Items.Clear();
 
             cbxSucursal.Items.Clear();
-            cbxSucursal.Text = "";
+            //cbxSucursal.Text = "";
 
             ckbFiltrarFechas.Checked = false;
 
@@ -230,12 +230,12 @@ namespace MemoryClubForms.Forms
                 }
 
                 CargarFilterElements();
-            } 
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("No se pudo cargar el nombre de los clientes para realizar filtros" + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            
+
         }
 
 
@@ -255,7 +255,7 @@ namespace MemoryClubForms.Forms
             }
             else
             {
-                MessageBox.Show("No se encontró información.", "Aviso", MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("No se encontró información.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
         }
@@ -283,7 +283,7 @@ namespace MemoryClubForms.Forms
 
         public bool LoadSucursales()
         {
-            
+
             try
             {
                 codigosSucursalesList = new List<CodigosSucursales>();
@@ -335,7 +335,7 @@ namespace MemoryClubForms.Forms
                 dtmHasta.Enabled = false;
             }
         }
-        
+
         /// <summary>
         /// Limpia los valores existentes de los comboBox, los textbox, etc.
         /// </summary>
@@ -353,8 +353,8 @@ namespace MemoryClubForms.Forms
 
             txtObservciones.Text = "";
 
-            
-
+            //tbxCliente.Text = "";
+            tbxCliente.Enabled = false;
         }
 
         /// <summary>
@@ -363,7 +363,7 @@ namespace MemoryClubForms.Forms
         private void ResetElements()
         {
             lblAction.Text = "";
-            
+
             btnEliminar.BackColor = Color.FromArgb(26, 188, 156);
             btnEliminar.ForeColor = Color.FromArgb(255, 255, 255);
             btnEliminar.FlatAppearance.BorderColor = Color.FromArgb(27, 171, 142);
@@ -461,7 +461,7 @@ namespace MemoryClubForms.Forms
         /// </summary>
         /// 
         private bool ValidarInformacion()
-        {            
+        {
             if (cbxNombresClientes.SelectedItem == null)
             {
                 MessageBox.Show("Seleccione el nombre del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -486,7 +486,7 @@ namespace MemoryClubForms.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        
+
 
         private bool ValidateHora()
         {
@@ -498,15 +498,15 @@ namespace MemoryClubForms.Forms
 
             if (!txtHora.Text.Contains(":"))
             {
-                MessageBox.Show("El formato de la hora es hh:mm Ejemplo: 08:15 \nRecuerde que se usa el formato de 24 horas.","Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("El formato de la hora es hh:mm Ejemplo: 08:15 \nRecuerde que se usa el formato de 24 horas.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
 
             string horas = txtHora.Text.Split(':')[0];
             string minutos = txtHora.Text.Split(':')[1];
-            
 
-            if(horas.Length<2 || horas.Length > 2)
+
+            if (horas.Length < 2 || horas.Length > 2)
             {
                 MessageBox.Show("El formato de la hora es hh:mm Ejemplo: 08:15 \nRecuerde que se usa el formato de 24 horas.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
@@ -556,7 +556,7 @@ namespace MemoryClubForms.Forms
                     AsistenciaModel asistenciaModel = new AsistenciaModel();
 
                     var nombreCliente = cbxNombresClientes.SelectedItem.ToString();
-                    
+
                     asistenciaModel.Fk_id_cliente = nombresClientesList.Where(x => x.nombre == nombreCliente).Select(x => x.Id_Cliente).FirstOrDefault();
                     asistenciaModel.Fecha = dtmFecha.Value.ToString("MM/dd/yyyy", ci);
                     asistenciaModel.Hora = txtHora.Text;
@@ -574,11 +574,11 @@ namespace MemoryClubForms.Forms
                         return;
                     }
 
-                    bool responseInsert = asistenciaBO.InsertarAsistencia(asistenciaModel);
+                    string responseInsert = asistenciaBO.InsertarAsistencia(asistenciaModel);
 
-                    if (!responseInsert)
+                    if (responseInsert.ToLower() != "ok")
                     {
-                        MessageBox.Show("No se pudo guardar la información, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("No se pudo guardar la información, inténtelo más tarde.\n" + responseInsert, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
 
@@ -601,38 +601,41 @@ namespace MemoryClubForms.Forms
                     asistenciaModel.Usuario = VariablesGlobales.usuario.ToString();
                     asistenciaModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
-                    bool response = asistenciaBO.ActualizarAsistencia(asistenciaModel);
-                    if (!response)
+                    string response = asistenciaBO.ActualizarAsistencia(asistenciaModel);
+                    if (response.ToLower() != "ok")
                     {
-                        MessageBox.Show("No se pudo editar la información, inténtelo más tarde.","Aviso",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                        MessageBox.Show("No se pudo editar la información, inténtelo más tarde\n." + response, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
                     MessageBox.Show("La información se ha actualizado EXITOSAMENTE!");
                 }
 
-                ResetElements();
-
-                ReloadInformation();
-
                 action = 0;
-
-                CleanData();
             }
             catch (Exception ex)
             {
-                CleanData();
-                ResetElements();
-                ReloadInformation();
                 action = 0;
                 MessageBox.Show("Alerta, No se pudo guardar el registro\n" + ex.Message);
             }
+
+            ResetElements();
+            CleanData();
+            if ((cbxFiltroNombreCliente.SelectedItem != null) || (cbxEstadoCliente.SelectedItem != null) || (cbxSucursal.SelectedItem != null) || (ckbFiltrarFechas.Checked == true))
+            {
+                this.btnFiltrar_Click(null, null);
+            }
+            else
+            {
+                ReloadInformation();
+            }
+
         }
         private void btnEdit_Clicked(object sender, EventArgs e)
         {
             if (VariablesGlobales.Nivel > 3)
             {
                 MessageBox.Show("Su usuario no tiene los privilegios necesarios para editar registros de asistencia.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                
+
                 return;
             }
 
@@ -685,13 +688,19 @@ namespace MemoryClubForms.Forms
                 }
 
                 txtHora.Text = "08:15";
-
+                tbxCliente.Enabled = true;
 
             }
             catch (Exception ex)
             {
                 ResetElements();
                 MessageBox.Show("Aviso, No se pudo cargar el nombre de los clientes. " + ex);
+            }
+
+            string cadena = tbxCliente.Text;
+            if (!(string.IsNullOrEmpty(cadena)))
+            {
+                this.FiltraCliente(cadena);
             }
 
         }
@@ -728,18 +737,24 @@ namespace MemoryClubForms.Forms
                     }
                     MessageBox.Show("La información se ha actualizado EXITOSAMENTE!");
 
-                    CleanData();
-                    ReloadInformation();
                 }
             }
             catch (Exception ex)
             {
-                CleanData();
-                ReloadInformation();
                 MessageBox.Show("No se pudo eliminar el registro, inténtelo más tarde." + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                
+
             }
-            
+
+
+            CleanData();
+            if ((cbxFiltroNombreCliente.SelectedItem != null) || (cbxEstadoCliente.SelectedItem != null) || (cbxSucursal.SelectedItem != null) || (ckbFiltrarFechas.Checked == true))
+            {
+                this.btnFiltrar_Click(null, null);
+            }
+            else
+            {
+                ReloadInformation();
+            }
 
 
         }
@@ -778,7 +793,7 @@ namespace MemoryClubForms.Forms
 
                 int sucursal = 0;
 
-                if (cbxSucursal.SelectedItem!=null)
+                if (cbxSucursal.SelectedItem != null)
                 {
                     sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
                 }
@@ -794,7 +809,7 @@ namespace MemoryClubForms.Forms
 
                 asistenciaList = asistenciaBO.ConsultaAsistencia(fechaDesde, fechaHasta, sucursal, idCliente, estadoClienteCode);
 
-                CargarInformacionFiltrada(asistenciaList);   
+                CargarInformacionFiltrada(asistenciaList);
 
             }
             catch (Exception ex)
@@ -803,7 +818,7 @@ namespace MemoryClubForms.Forms
                 ReloadInformation();
                 MessageBox.Show("Alerta, No se pudo filtrar el registro\n" + ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            
+
 
         }
 
@@ -835,6 +850,119 @@ namespace MemoryClubForms.Forms
         {
 
             ReloadInformation();
+        }
+
+        private void tbxCliente_TextChanged(object sender, EventArgs e)
+        {
+            //primero recupero la lista original
+            cbxNombresClientes.BeginUpdate();
+            cbxNombresClientes.Items.Clear();
+            foreach (var item in nombresClientesList)
+            {
+                cbxNombresClientes.Items.Add(item.nombre);
+            }
+            cbxNombresClientes.EndUpdate();
+
+            //Si el valor no ha sido modificado por el usuario no realiza cambios
+            if (!this.tbxCliente.Focused || this.tbxCliente.Text.Length < 3)
+                return;
+            //Obtenemos valor de búsqueda  
+            string search = this.tbxCliente.Text.Trim().ToLower();
+            FiltraCliente(search);
+        }
+
+        private void FiltraCliente(string searchString)
+        {
+            // Filtrar los elementos del ComboBox que contengan la cadena de búsqueda
+            List<string> filteredItems = cbxNombresClientes.Items.Cast<string>().Where(item => item.ToLower().Contains(searchString)).ToList();
+
+            // Actualizar la lista de elementos del ComboBox con los elementos filtrados
+            if (filteredItems.Count > 0)
+            {
+                cbxNombresClientes.BeginUpdate();
+                cbxNombresClientes.Items.Clear();
+                cbxNombresClientes.Items.AddRange(filteredItems.ToArray());
+                cbxNombresClientes.EndUpdate();
+
+                // Seleccionar el primer elemento del ComboBox
+                cbxNombresClientes.SelectedIndex = 0;
+            }
+        }
+
+        private void cbxNombresClientes_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            //  tbxCliente.Text = "";
+        }
+
+        /// <summary>
+        /// ELIMINAR MASIVO: Elimina todos los registros que se encuentran en el datagrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnElimMasivo_Click(object sender, EventArgs e)
+        {
+            if (VariablesGlobales.Nivel > 1)
+            {
+                MessageBox.Show("Su usuario no tiene privilegios necesarios para eliminar registros de asistencia.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            try
+            {
+                DialogResult response = MessageBox.Show("¿Está seguro de eliminar todos los registros de la pantalla?\nEste proceso es irreversible", "Eliminar Masivo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (response == DialogResult.Yes)
+                {
+                    string cadena = "";
+                    int contador = 0;
+                    //armo una cadena con los id de asistencia que deben eliminarse
+                    if (grdAsistencia.RowCount > 0)
+                    {
+                        foreach (DataGridViewRow dtg in grdAsistencia.Rows)
+                        {
+                            contador++;
+                            var idasistencia = dtg.Cells["id_asistencia"].Value; // para obtener el valor de la celda
+
+                            if (contador == 1 && cadena.Length <= 0)
+                            {
+                                cadena = "(" + Convert.ToString(idasistencia);
+                            }
+                            else
+                            {
+                                cadena += ", " + Convert.ToString(idasistencia);
+                            }
+                        }
+                        if (cadena.Length > 0)
+                        {
+                            AsistenciaBO asistencia = new AsistenciaBO();
+                            cadena += ")";
+                            string ls_mensaje = asistencia.EliminarMasivo(cadena);
+                            if (ls_mensaje != "OK")
+                            {
+                                MessageBox.Show("No se pudo eliminar todos los registros\n." + response, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                return;
+                            }
+                            MessageBox.Show("La información se ha eliminado EXITOSAMENTE!");
+                        }
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se eliminaron los registros, inténtelo más tarde.\n" + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+            ResetElements();
+            CleanData();
+            if ((cbxFiltroNombreCliente.SelectedItem != null) || (cbxEstadoCliente.SelectedItem != null) || (cbxSucursal.SelectedItem != null) || (ckbFiltrarFechas.Checked == true))
+            {
+                this.btnFiltrar_Click(null, null);
+            }
+            else
+            {
+                ReloadInformation();
+            }
         }
     }
 }

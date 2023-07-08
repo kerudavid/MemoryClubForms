@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClienteForm));
@@ -36,6 +38,7 @@
             this.lblRegistroSeleccionado = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.pnlFiltro = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
             this.tbxFiltroApodo = new System.Windows.Forms.TextBox();
             this.tbxFiltroNombre = new System.Windows.Forms.TextBox();
             this.tbxFiltroCedula = new System.Windows.Forms.TextBox();
@@ -66,6 +69,7 @@
             this.btnSalud = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnAlimentos = new System.Windows.Forms.Button();
+            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblNombreVista = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -91,6 +95,7 @@
             this.toma_transp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id_transportista = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombre_transp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valor_trans = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.retirarse_solo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombre_factu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cedula_factu = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -101,7 +106,6 @@
             this.obseracion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha_mod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.pnlPrincipal.SuspendLayout();
             this.pnlFiltro.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -152,6 +156,7 @@
             this.pnlFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlFiltro.AutoScroll = true;
+            this.pnlFiltro.Controls.Add(this.label7);
             this.pnlFiltro.Controls.Add(this.tbxFiltroApodo);
             this.pnlFiltro.Controls.Add(this.tbxFiltroNombre);
             this.pnlFiltro.Controls.Add(this.tbxFiltroCedula);
@@ -181,6 +186,17 @@
             this.pnlFiltro.Size = new System.Drawing.Size(918, 173);
             this.pnlFiltro.TabIndex = 13;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Calibri", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label7.Location = new System.Drawing.Point(688, 158);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(179, 13);
+            this.label7.TabIndex = 63;
+            this.label7.Text = "Doble clic sobre la celda para copiarla";
+            // 
             // tbxFiltroApodo
             // 
             this.tbxFiltroApodo.Location = new System.Drawing.Point(263, 46);
@@ -192,7 +208,7 @@
             // 
             this.tbxFiltroNombre.Location = new System.Drawing.Point(124, 46);
             this.tbxFiltroNombre.Name = "tbxFiltroNombre";
-            this.tbxFiltroNombre.Size = new System.Drawing.Size(121, 20);
+            this.tbxFiltroNombre.Size = new System.Drawing.Size(131, 20);
             this.tbxFiltroNombre.TabIndex = 61;
             // 
             // tbxFiltroCedula
@@ -217,7 +233,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(374, 122);
+            this.label11.Location = new System.Drawing.Point(374, 115);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(33, 17);
             this.label11.TabIndex = 58;
@@ -227,7 +243,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(260, 122);
+            this.label10.Location = new System.Drawing.Point(260, 115);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(34, 17);
             this.label10.TabIndex = 57;
@@ -237,7 +253,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(145, 122);
+            this.label9.Location = new System.Drawing.Point(145, 115);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(29, 17);
             this.label9.TabIndex = 56;
@@ -255,21 +271,21 @@
             // 
             // tbxAnio
             // 
-            this.tbxAnio.Location = new System.Drawing.Point(376, 149);
+            this.tbxAnio.Location = new System.Drawing.Point(376, 135);
             this.tbxAnio.Name = "tbxAnio";
             this.tbxAnio.Size = new System.Drawing.Size(80, 20);
             this.tbxAnio.TabIndex = 54;
             // 
             // tbxMes
             // 
-            this.tbxMes.Location = new System.Drawing.Point(263, 149);
+            this.tbxMes.Location = new System.Drawing.Point(263, 135);
             this.tbxMes.Name = "tbxMes";
             this.tbxMes.Size = new System.Drawing.Size(80, 20);
             this.tbxMes.TabIndex = 53;
             // 
             // tbxDia
             // 
-            this.tbxDia.Location = new System.Drawing.Point(148, 149);
+            this.tbxDia.Location = new System.Drawing.Point(148, 135);
             this.tbxDia.Name = "tbxDia";
             this.tbxDia.Size = new System.Drawing.Size(80, 20);
             this.tbxDia.TabIndex = 52;
@@ -317,7 +333,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(507, 122);
+            this.label8.Location = new System.Drawing.Point(507, 115);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(92, 17);
             this.label8.TabIndex = 45;
@@ -327,7 +343,7 @@
             // 
             this.cbxFiltroTransportista.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFiltroTransportista.FormattingEnabled = true;
-            this.cbxFiltroTransportista.Location = new System.Drawing.Point(510, 149);
+            this.cbxFiltroTransportista.Location = new System.Drawing.Point(510, 135);
             this.cbxFiltroTransportista.Name = "cbxFiltroTransportista";
             this.cbxFiltroTransportista.Size = new System.Drawing.Size(121, 21);
             this.cbxFiltroTransportista.TabIndex = 42;
@@ -336,7 +352,7 @@
             // 
             this.cbxFiltroSucursal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFiltroSucursal.FormattingEnabled = true;
-            this.cbxFiltroSucursal.Location = new System.Drawing.Point(5, 149);
+            this.cbxFiltroSucursal.Location = new System.Drawing.Point(5, 135);
             this.cbxFiltroSucursal.Name = "cbxFiltroSucursal";
             this.cbxFiltroSucursal.Size = new System.Drawing.Size(121, 21);
             this.cbxFiltroSucursal.TabIndex = 41;
@@ -364,7 +380,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 122);
+            this.label3.Location = new System.Drawing.Point(3, 115);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(63, 17);
             this.label3.TabIndex = 38;
@@ -493,6 +509,27 @@
             this.btnAlimentos.UseVisualStyleBackColor = false;
             this.btnAlimentos.Click += new System.EventHandler(this.btnAlimentos_Click);
             // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.Maroon;
+            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
+            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnClose.BorderRadius = 17;
+            this.btnClose.BorderSize = 0;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(823, 8);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(92, 32);
+            this.btnClose.TabIndex = 7;
+            this.btnClose.Text = "Cerrar";
+            this.btnClose.TextColor = System.Drawing.Color.White;
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.lblNombreVista);
@@ -528,7 +565,6 @@
             // 
             this.grdCliente.AllowUserToAddRows = false;
             this.grdCliente.AllowUserToDeleteRows = false;
-            this.grdCliente.AllowUserToResizeColumns = false;
             this.grdCliente.AllowUserToResizeRows = false;
             this.grdCliente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -546,7 +582,6 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.grdCliente.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.grdCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdCliente.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id_Cliente,
             this.Cedula,
@@ -569,6 +604,7 @@
             this.toma_transp,
             this.id_transportista,
             this.nombre_transp,
+            this.valor_trans,
             this.retirarse_solo,
             this.nombre_factu,
             this.cedula_factu,
@@ -583,228 +619,252 @@
             this.grdCliente.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
             this.grdCliente.Location = new System.Drawing.Point(0, 277);
             this.grdCliente.Name = "grdCliente";
+            this.grdCliente.ReadOnly = true;
             this.grdCliente.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdCliente.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdCliente.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.grdCliente.RowHeadersVisible = false;
             this.grdCliente.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Navy;
-            this.grdCliente.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Navy;
+            this.grdCliente.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.grdCliente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdCliente.Size = new System.Drawing.Size(918, 253);
+            this.grdCliente.Size = new System.Drawing.Size(918, 313);
             this.grdCliente.TabIndex = 6;
             this.grdCliente.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Row_Clicked);
+            this.grdCliente.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdCliente_CellDoubleClick);
             // 
             // id_Cliente
             // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopRight;
+            this.id_Cliente.DefaultCellStyle = dataGridViewCellStyle2;
             this.id_Cliente.HeaderText = "Id Socio";
             this.id_Cliente.Name = "id_Cliente";
-            this.id_Cliente.Width = 68;
+            this.id_Cliente.ReadOnly = true;
+            this.id_Cliente.Width = 74;
             // 
             // Cedula
             // 
             this.Cedula.HeaderText = "Cédula";
             this.Cedula.Name = "Cedula";
+            this.Cedula.ReadOnly = true;
             this.Cedula.Width = 66;
             // 
             // Nombre
             // 
             this.Nombre.HeaderText = "Nombre";
             this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
             this.Nombre.Width = 74;
             // 
             // Apodo
             // 
             this.Apodo.HeaderText = "Apodo";
             this.Apodo.Name = "Apodo";
+            this.Apodo.ReadOnly = true;
             this.Apodo.Width = 66;
             // 
             // fecha_ingreso
             // 
             this.fecha_ingreso.HeaderText = "Fecha Ingreso";
             this.fecha_ingreso.Name = "fecha_ingreso";
-            this.fecha_ingreso.Width = 95;
+            this.fecha_ingreso.ReadOnly = true;
+            this.fecha_ingreso.Width = 104;
             // 
             // Sexo
             // 
             this.Sexo.HeaderText = "Sexo";
             this.Sexo.Name = "Sexo";
+            this.Sexo.ReadOnly = true;
             this.Sexo.Width = 56;
             // 
             // Estado
             // 
             this.Estado.HeaderText = "Estado";
             this.Estado.Name = "Estado";
+            this.Estado.ReadOnly = true;
             this.Estado.Width = 65;
             // 
             // Dia_nacimiento
             // 
             this.Dia_nacimiento.HeaderText = "Día Nacimiento";
             this.Dia_nacimiento.Name = "Dia_nacimiento";
-            this.Dia_nacimiento.Width = 104;
+            this.Dia_nacimiento.ReadOnly = true;
+            this.Dia_nacimiento.Width = 113;
             // 
             // mes_nacimiento
             // 
             this.mes_nacimiento.HeaderText = "Mes Nacimiento";
             this.mes_nacimiento.Name = "mes_nacimiento";
-            this.mes_nacimiento.Width = 107;
+            this.mes_nacimiento.ReadOnly = true;
+            this.mes_nacimiento.Width = 117;
             // 
             // anio_nacimiento
             // 
             this.anio_nacimiento.HeaderText = "Año Nacimiento";
             this.anio_nacimiento.Name = "anio_nacimiento";
-            this.anio_nacimiento.Width = 107;
+            this.anio_nacimiento.ReadOnly = true;
+            this.anio_nacimiento.Width = 117;
             // 
             // edad
             // 
             this.edad.HeaderText = "Edad";
             this.edad.Name = "edad";
+            this.edad.ReadOnly = true;
             this.edad.Width = 56;
             // 
             // telefono
             // 
             this.telefono.HeaderText = "Teléfono Socio";
             this.telefono.Name = "telefono";
+            this.telefono.ReadOnly = true;
+            this.telefono.Width = 109;
             // 
             // direccion
             // 
             this.direccion.HeaderText = "Dirección Socio";
             this.direccion.Name = "direccion";
-            this.direccion.Width = 104;
+            this.direccion.ReadOnly = true;
+            this.direccion.Width = 114;
             // 
             // nombre_contacto
             // 
             this.nombre_contacto.HeaderText = "Nombre Contacto";
             this.nombre_contacto.Name = "nombre_contacto";
-            this.nombre_contacto.Width = 114;
+            this.nombre_contacto.ReadOnly = true;
+            this.nombre_contacto.Width = 125;
             // 
             // parentesco_contacto
             // 
             this.parentesco_contacto.HeaderText = "Parentesco Contacto";
             this.parentesco_contacto.Name = "parentesco_contacto";
-            this.parentesco_contacto.Width = 127;
+            this.parentesco_contacto.ReadOnly = true;
+            this.parentesco_contacto.Width = 139;
             // 
             // telefono_contacto
             // 
             this.telefono_contacto.HeaderText = "Teléfono Contacto";
             this.telefono_contacto.Name = "telefono_contacto";
-            this.telefono_contacto.Width = 116;
+            this.telefono_contacto.ReadOnly = true;
+            this.telefono_contacto.Width = 127;
             // 
             // celular_contacto
             // 
             this.celular_contacto.HeaderText = "Celular Contacto";
             this.celular_contacto.Name = "celular_contacto";
-            this.celular_contacto.Width = 107;
+            this.celular_contacto.ReadOnly = true;
+            this.celular_contacto.Width = 117;
             // 
             // pariente_transp
             // 
             this.pariente_transp.HeaderText = "Pariente Transporte";
             this.pariente_transp.Name = "pariente_transp";
-            this.pariente_transp.Width = 121;
+            this.pariente_transp.ReadOnly = true;
+            this.pariente_transp.Width = 132;
             // 
             // toma_transp
             // 
             this.toma_transp.HeaderText = "Toma Transporte";
             this.toma_transp.Name = "toma_transp";
-            this.toma_transp.Width = 109;
+            this.toma_transp.ReadOnly = true;
+            this.toma_transp.Width = 119;
             // 
             // id_transportista
             // 
             this.id_transportista.HeaderText = "Id Transportista";
             this.id_transportista.Name = "id_transportista";
-            this.id_transportista.Width = 103;
+            this.id_transportista.ReadOnly = true;
+            this.id_transportista.Width = 112;
             // 
             // nombre_transp
             // 
             this.nombre_transp.HeaderText = "Nombre Transp";
             this.nombre_transp.Name = "nombre_transp";
-            this.nombre_transp.Width = 103;
+            this.nombre_transp.ReadOnly = true;
+            this.nombre_transp.Width = 112;
+            // 
+            // valor_trans
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.valor_trans.DefaultCellStyle = dataGridViewCellStyle3;
+            this.valor_trans.HeaderText = "Valor Transporte";
+            this.valor_trans.Name = "valor_trans";
+            this.valor_trans.ReadOnly = true;
+            this.valor_trans.Width = 116;
             // 
             // retirarse_solo
             // 
             this.retirarse_solo.HeaderText = "Retirarse Solo";
             this.retirarse_solo.Name = "retirarse_solo";
-            this.retirarse_solo.Width = 94;
+            this.retirarse_solo.ReadOnly = true;
+            this.retirarse_solo.Width = 102;
             // 
             // nombre_factu
             // 
             this.nombre_factu.HeaderText = "Nombre Factura";
             this.nombre_factu.Name = "nombre_factu";
-            this.nombre_factu.Width = 106;
+            this.nombre_factu.ReadOnly = true;
+            this.nombre_factu.Width = 116;
             // 
             // cedula_factu
             // 
             this.cedula_factu.HeaderText = "Cédula Factura";
             this.cedula_factu.Name = "cedula_factu";
-            this.cedula_factu.Width = 99;
+            this.cedula_factu.ReadOnly = true;
+            this.cedula_factu.Width = 108;
             // 
             // direccion_factu
             // 
             this.direccion_factu.HeaderText = "Dirección Factura";
             this.direccion_factu.Name = "direccion_factu";
-            this.direccion_factu.Width = 113;
+            this.direccion_factu.ReadOnly = true;
+            this.direccion_factu.Width = 123;
             // 
             // celular_pago
             // 
             this.celular_pago.HeaderText = "Celular Factura";
             this.celular_pago.Name = "celular_pago";
-            this.celular_pago.Width = 99;
+            this.celular_pago.ReadOnly = true;
+            this.celular_pago.Width = 108;
             // 
             // email_factu
             // 
             this.email_factu.HeaderText = "Email Factura";
             this.email_factu.Name = "email_factu";
-            this.email_factu.Width = 93;
+            this.email_factu.ReadOnly = true;
+            this.email_factu.Width = 101;
             // 
             // sucursal
             // 
             this.sucursal.HeaderText = "Sucursal";
             this.sucursal.Name = "sucursal";
+            this.sucursal.ReadOnly = true;
             this.sucursal.Width = 75;
             // 
             // obseracion
             // 
             this.obseracion.HeaderText = "Observación";
             this.obseracion.Name = "obseracion";
+            this.obseracion.ReadOnly = true;
             this.obseracion.Width = 96;
             // 
             // usuario
             // 
             this.usuario.HeaderText = "Usuario";
             this.usuario.Name = "usuario";
+            this.usuario.ReadOnly = true;
             this.usuario.Width = 70;
             // 
             // fecha_mod
             // 
             this.fecha_mod.HeaderText = "Fecha Modificación";
             this.fecha_mod.Name = "fecha_mod";
-            this.fecha_mod.Width = 122;
-            // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.BackColor = System.Drawing.Color.Maroon;
-            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
-            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnClose.BorderRadius = 17;
-            this.btnClose.BorderSize = 0;
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(823, 8);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(92, 32);
-            this.btnClose.TabIndex = 7;
-            this.btnClose.Text = "Cerrar";
-            this.btnClose.TextColor = System.Drawing.Color.White;
-            this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.fecha_mod.ReadOnly = true;
+            this.fecha_mod.Width = 134;
             // 
             // ClienteForm
             // 
@@ -893,6 +953,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn toma_transp;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_transportista;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre_transp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valor_trans;
         private System.Windows.Forms.DataGridViewTextBoxColumn retirarse_solo;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre_factu;
         private System.Windows.Forms.DataGridViewTextBoxColumn cedula_factu;
@@ -903,5 +964,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn obseracion;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha_mod;
+        private System.Windows.Forms.Label label7;
     }
 }

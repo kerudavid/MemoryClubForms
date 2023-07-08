@@ -43,7 +43,6 @@
             this.alimentaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saludToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.planToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.calendarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteCateringToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteTransporteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -107,8 +106,7 @@
             this.colaboradoresToolStripMenuItem,
             this.transportistasToolStripMenuItem,
             this.clientesToolStripMenuItem,
-            this.planToolStripMenuItem,
-            this.calendarioToolStripMenuItem});
+            this.planToolStripMenuItem});
             this.gestiónToolStripMenuItem.Name = "gestiónToolStripMenuItem";
             this.gestiónToolStripMenuItem.Size = new System.Drawing.Size(75, 25);
             this.gestiónToolStripMenuItem.Text = "Gestión";
@@ -188,14 +186,6 @@
             this.planToolStripMenuItem.Text = "Plan";
             this.planToolStripMenuItem.Click += new System.EventHandler(this.planToolStripMenuItem_Click);
             // 
-            // calendarioToolStripMenuItem
-            // 
-            this.calendarioToolStripMenuItem.Image = global::MemoryClubForms.Properties.Resources.calendario;
-            this.calendarioToolStripMenuItem.Name = "calendarioToolStripMenuItem";
-            this.calendarioToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
-            this.calendarioToolStripMenuItem.Text = "Calendario";
-            this.calendarioToolStripMenuItem.Click += new System.EventHandler(this.calendarioToolStripMenuItem_Click);
-            // 
             // reportesToolStripMenuItem
             // 
             this.reportesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -211,7 +201,7 @@
             // 
             this.reporteCateringToolStripMenuItem.Image = global::MemoryClubForms.Properties.Resources.restaurante;
             this.reporteCateringToolStripMenuItem.Name = "reporteCateringToolStripMenuItem";
-            this.reporteCateringToolStripMenuItem.Size = new System.Drawing.Size(331, 26);
+            this.reporteCateringToolStripMenuItem.Size = new System.Drawing.Size(339, 26);
             this.reporteCateringToolStripMenuItem.Text = "Reporte Catering";
             this.reporteCateringToolStripMenuItem.Click += new System.EventHandler(this.reporteCateringToolStripMenuItem_Click);
             // 
@@ -219,7 +209,7 @@
             // 
             this.reporteTransporteToolStripMenuItem.Image = global::MemoryClubForms.Properties.Resources.Transporte2;
             this.reporteTransporteToolStripMenuItem.Name = "reporteTransporteToolStripMenuItem";
-            this.reporteTransporteToolStripMenuItem.Size = new System.Drawing.Size(331, 26);
+            this.reporteTransporteToolStripMenuItem.Size = new System.Drawing.Size(339, 26);
             this.reporteTransporteToolStripMenuItem.Text = "Reporte Transporte";
             this.reporteTransporteToolStripMenuItem.Click += new System.EventHandler(this.reporteTransporteToolStripMenuItem_Click);
             // 
@@ -227,7 +217,7 @@
             // 
             this.reporteClientesToolStripMenuItem.Image = global::MemoryClubForms.Properties.Resources.usuario;
             this.reporteClientesToolStripMenuItem.Name = "reporteClientesToolStripMenuItem";
-            this.reporteClientesToolStripMenuItem.Size = new System.Drawing.Size(331, 26);
+            this.reporteClientesToolStripMenuItem.Size = new System.Drawing.Size(339, 26);
             this.reporteClientesToolStripMenuItem.Text = "Reporte Clientes";
             this.reporteClientesToolStripMenuItem.Click += new System.EventHandler(this.reporteClientesToolStripMenuItem_Click);
             // 
@@ -235,8 +225,8 @@
             // 
             this.reporteAsistenciaToolStripMenuItem.Image = global::MemoryClubForms.Properties.Resources.Asistencia_1;
             this.reporteAsistenciaToolStripMenuItem.Name = "reporteAsistenciaToolStripMenuItem";
-            this.reporteAsistenciaToolStripMenuItem.Size = new System.Drawing.Size(331, 26);
-            this.reporteAsistenciaToolStripMenuItem.Text = "Reporte Días Tomados y Reservados";
+            this.reporteAsistenciaToolStripMenuItem.Size = new System.Drawing.Size(339, 26);
+            this.reporteAsistenciaToolStripMenuItem.Text = "Reporte Mensual de Ventas de Planes";
             this.reporteAsistenciaToolStripMenuItem.Click += new System.EventHandler(this.reporteAsistenciaToolStripMenuItem_Click);
             // 
             // sistemaToolStripMenuItem
@@ -262,6 +252,7 @@
             this.parámetrosSistemasToolStripMenuItem.Name = "parámetrosSistemasToolStripMenuItem";
             this.parámetrosSistemasToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
             this.parámetrosSistemasToolStripMenuItem.Text = "Parámetros Sistemas";
+            this.parámetrosSistemasToolStripMenuItem.Click += new System.EventHandler(this.parámetrosSistemasToolStripMenuItem_Click);
             // 
             // alertaToolStripMenuItem
             // 
@@ -350,6 +341,5 @@
         private System.Windows.Forms.ToolStripMenuItem alimentaciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saludToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem planToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem calendarioToolStripMenuItem;
     }
 }

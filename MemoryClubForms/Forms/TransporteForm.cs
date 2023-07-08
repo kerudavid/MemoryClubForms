@@ -613,6 +613,13 @@ namespace MemoryClubForms.Forms
                 ResetElements();
                 MessageBox.Show("Aviso, No se pudo cargar el nombre de los clientes. " + ex);
             }
+            tbxCliente.Enabled = true;
+            
+            string cadena = tbxCliente.Text;
+            if (!(string.IsNullOrEmpty(cadena)))
+            {
+                this.FiltraCliente(cadena);
+            }
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -657,6 +664,9 @@ namespace MemoryClubForms.Forms
             txtHora.Text = "";
 
             txtObservciones.Text = "";
+
+            //tbxCliente.Text = "";
+            tbxCliente.Enabled = false;
 
         }
 
@@ -796,11 +806,11 @@ namespace MemoryClubForms.Forms
                     transporteModel.Usuario = VariablesGlobales.usuario.ToString();
                     transporteModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
-                    bool responseInsert = transporteBO.InsertarTransporte(transporteModel);
+                    string responseInsert = transporteBO.InsertarTransporte(transporteModel);
 
-                    if (!responseInsert)
+                    if (responseInsert.ToLower() != "ok")
                     {
-                        MessageBox.Show("No se pudo guardar la información, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("No se pudo guardar la información, inténtelo más tarde.\n" + responseInsert, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
 
@@ -849,25 +859,31 @@ namespace MemoryClubForms.Forms
                     transporteModel.Usuario = VariablesGlobales.usuario.ToString();
                     transporteModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
-                    bool response = transporteBO.ActualizarTransporte(transporteModel);
-                    if (!response)
+                    string response = transporteBO.ActualizarTransporte(transporteModel);
+                    if (response.ToLower() != "ok")
                     {
-                        MessageBox.Show("No se pudo editar la información, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("No se pudo editar la información, inténtelo más tarde.\n" + response, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
                     MessageBox.Show("La información se ha actualizado EXITOSAMENTE!", "Actualizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
-                ResetElements();
-                LoadInformation();
-                CleanData();
+               
             }
             catch (Exception ex)
-            {
-                CleanData();
-                ResetElements();
-                LoadInformation();
+            {              
                 MessageBox.Show("Alerta, No se pudo guardar el registro\n" + ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+            ResetElements();
+            CleanData();
+            if ((cbxFiltroNombreCliente.SelectedItem != null) || (cbxFiltroTipoCli.SelectedItem != null) || (cbxFiltroTransportista.SelectedItem != null) || (cbxFiltroSucursal.SelectedItem != null) 
+                || (cbxFiltroEstadoCliente.SelectedItem != null) || (cbxFiltroHorarios.SelectedItem != null) || (ckbFiltrarFechas.Checked == true) || (rbtnTodos.Checked = true) || (rbtnRecorrido.Checked = true) || (rbtnOtros.Checked = true))
+            {
+                this.btnFiltrar_Click(null, null);
+            }
+            else
+            {
+                LoadInformation();
             }
         }
 
@@ -905,17 +921,24 @@ namespace MemoryClubForms.Forms
                         return;
                     }
                     MessageBox.Show("La información se ha eliminado EXITOSAMENTE!", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    CleanData();
-                    LoadInformation();
+                                      
                 }
             }
             catch (Exception ex)
             {
-                CleanData();
-                LoadInformation();
                 MessageBox.Show("No se pudo eliminar el registro, inténtelo más tarde." + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
 
+          
+            CleanData();
+            if ((cbxFiltroNombreCliente.SelectedItem != null) || (cbxFiltroTipoCli.SelectedItem != null) || (cbxFiltroTransportista.SelectedItem != null) || (cbxFiltroSucursal.SelectedItem != null)
+                || (cbxFiltroEstadoCliente.SelectedItem != null) || (cbxFiltroHorarios.SelectedItem != null) || (ckbFiltrarFechas.Checked == true) || (rbtnTodos.Checked = true) || (rbtnRecorrido.Checked = true) || (rbtnOtros.Checked = true))
+            {
+                this.btnFiltrar_Click(null, null);
+            }
+            else
+            {
+                LoadInformation();
             }
         }
 
@@ -953,6 +976,113 @@ namespace MemoryClubForms.Forms
                 }
             }
          
+        }
+
+        private void tbxCliente_TextChanged(object sender, EventArgs e)
+        {
+            //primero recupero la lista original
+            cbxNombresClientes.BeginUpdate();
+            cbxNombresClientes.Items.Clear();
+            foreach (var item in nombresClientesList)
+            {
+                cbxNombresClientes.Items.Add(item.nombre);
+            }
+            foreach (var item in nombresColaboradoresList)
+            {
+                cbxNombresClientes.Items.Add(item.nombre);
+            }
+            cbxNombresClientes.EndUpdate();
+
+            //Si el valor no ha sido modificado por el usuario no realiza cambios
+            if (!this.tbxCliente.Focused || this.tbxCliente.Text.Length < 3)
+                return;
+            //Obtenemos valor de búsqueda  
+            string search = this.tbxCliente.Text.Trim().ToLower();
+            FiltraCliente(search);
+        }
+        private void FiltraCliente(string searchString)
+        {
+            // Filtrar los elementos del ComboBox que contengan la cadena de búsqueda
+            List<string> filteredItems = cbxNombresClientes.Items.Cast<string>().Where(item => item.ToLower().Contains(searchString)).ToList();
+
+            // Actualizar la lista de elementos del ComboBox con los elementos filtrados
+            if (filteredItems.Count > 0)
+            {
+                cbxNombresClientes.BeginUpdate();
+                cbxNombresClientes.Items.Clear();
+                cbxNombresClientes.Items.AddRange(filteredItems.ToArray());
+                cbxNombresClientes.EndUpdate();
+
+                // Seleccionar el primer elemento del ComboBox
+                cbxNombresClientes.SelectedIndex = 0;
+            }
+        }
+
+        private void btnElimMasivo_Click(object sender, EventArgs e)
+        {
+            if (VariablesGlobales.Nivel > 1)
+            {
+                MessageBox.Show("Usuario no autorizado para eliminar registros de Transporte.\n", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            try
+            {
+                DialogResult response = MessageBox.Show("¿Está seguro de eliminar todos los registros de la pantalla?\nEste proceso es irreversible", "Eliminar Masivo Transporte", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (response == DialogResult.Yes)
+                {
+                    string cadena = "";
+                    int contador = 0;
+                    //armo una cadena con los id de transporte que deben eliminarse
+                    if (grdTransporte.RowCount > 0)
+                    {
+                        foreach (DataGridViewRow dtg in grdTransporte.Rows)
+                        {
+                            contador++;
+                            var idtransporte = dtg.Cells["Id_transporte"].Value; // para obtener el valor de la celda
+
+                            if (contador == 1 && cadena.Length <= 0)
+                            {
+                                cadena = "(" + Convert.ToString(idtransporte);
+                            }
+                            else
+                            {
+                                cadena += ", " + Convert.ToString(idtransporte);
+                            }
+                        }
+                        if (cadena.Length > 0)
+                        {
+                            TransporteBO transporte = new TransporteBO();
+                            cadena += ")";
+                            string ls_mensaje = transporte.EliminarMasivoTransporte(cadena);
+                            if (ls_mensaje != "OK")
+                            {
+                                MessageBox.Show("No se pudo eliminar todos los registros\n." + response, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                return;
+                            }
+                            MessageBox.Show("La información se ha eliminado EXITOSAMENTE!");
+                        }
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se eliminaron los registros, inténtelo más tarde.\n" + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+            ResetElements();
+            CleanData();
+            if ((cbxFiltroNombreCliente.SelectedItem != null) || (cbxFiltroTipoCli.SelectedItem != null) || (cbxFiltroTransportista.SelectedItem != null) || (cbxFiltroSucursal.SelectedItem != null)
+                || (cbxFiltroEstadoCliente.SelectedItem != null) || (cbxFiltroHorarios.SelectedItem != null) || (ckbFiltrarFechas.Checked == true) || (rbtnTodos.Checked = true) || (rbtnRecorrido.Checked = true) || (rbtnOtros.Checked = true))
+            {
+                this.btnFiltrar_Click(null, null);
+            }
+            else
+            {
+                LoadInformation();
+            }
         }
     }
 }

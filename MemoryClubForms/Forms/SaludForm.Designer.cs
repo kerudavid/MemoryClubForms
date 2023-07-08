@@ -34,6 +34,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SaludForm));
             this.pnlPrincipal = new System.Windows.Forms.Panel();
             this.pnlActions = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbxCliente = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cxbCarnet = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -104,6 +106,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlActions.BackColor = System.Drawing.Color.White;
             this.pnlActions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlActions.Controls.Add(this.label5);
+            this.pnlActions.Controls.Add(this.tbxCliente);
             this.pnlActions.Controls.Add(this.label3);
             this.pnlActions.Controls.Add(this.cxbCarnet);
             this.pnlActions.Controls.Add(this.label2);
@@ -115,36 +119,58 @@
             this.pnlActions.Location = new System.Drawing.Point(3, 129);
             this.pnlActions.Name = "pnlActions";
             this.pnlActions.Size = new System.Drawing.Size(894, 187);
-            this.pnlActions.TabIndex = 15;
+            this.pnlActions.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(9, 22);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(55, 17);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Cliente:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // tbxCliente
+            // 
+            this.tbxCliente.Enabled = false;
+            this.tbxCliente.Location = new System.Drawing.Point(68, 20);
+            this.tbxCliente.Name = "tbxCliente";
+            this.tbxCliente.Size = new System.Drawing.Size(277, 20);
+            this.tbxCliente.TabIndex = 5;
+            this.tbxCliente.TextChanged += new System.EventHandler(this.tbxCliente_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(10, 113);
+            this.label3.Location = new System.Drawing.Point(10, 135);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 17);
-            this.label3.TabIndex = 38;
+            this.label3.TabIndex = 0;
             this.label3.Text = "Tiene Carnet";
             // 
             // cxbCarnet
             // 
             this.cxbCarnet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cxbCarnet.FormattingEnabled = true;
-            this.cxbCarnet.Location = new System.Drawing.Point(13, 133);
+            this.cxbCarnet.Location = new System.Drawing.Point(13, 155);
             this.cxbCarnet.Name = "cxbCarnet";
             this.cxbCarnet.Size = new System.Drawing.Size(149, 21);
-            this.cxbCarnet.TabIndex = 38;
+            this.cxbCarnet.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(382, 113);
+            this.label2.Location = new System.Drawing.Point(382, 139);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(103, 17);
-            this.label2.TabIndex = 38;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Observaciones";
             // 
             // lblAction
@@ -167,68 +193,68 @@
             this.panel6.Controls.Add(this.cbxEnfermedades);
             this.panel6.Controls.Add(this.label9);
             this.panel6.Controls.Add(this.cbxCliente);
-            this.panel6.Location = new System.Drawing.Point(4, 46);
+            this.panel6.Location = new System.Drawing.Point(4, 64);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(793, 61);
-            this.panel6.TabIndex = 6;
+            this.panel6.TabIndex = 0;
             // 
             // label4
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(378, 6);
+            this.label4.Location = new System.Drawing.Point(378, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(79, 17);
-            this.label4.TabIndex = 39;
+            this.label4.TabIndex = 0;
             this.label4.Text = "Medicación";
             // 
             // tbxMedicacion
             // 
             this.tbxMedicacion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tbxMedicacion.Enabled = false;
-            this.tbxMedicacion.Location = new System.Drawing.Point(378, 37);
+            this.tbxMedicacion.Location = new System.Drawing.Point(378, 29);
             this.tbxMedicacion.Name = "tbxMedicacion";
             this.tbxMedicacion.Size = new System.Drawing.Size(412, 20);
-            this.tbxMedicacion.TabIndex = 39;
+            this.tbxMedicacion.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(196, 6);
+            this.label1.Location = new System.Drawing.Point(216, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 17);
-            this.label1.TabIndex = 37;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Enfermedades";
             // 
             // cbxEnfermedades
             // 
             this.cbxEnfermedades.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxEnfermedades.FormattingEnabled = true;
-            this.cbxEnfermedades.Location = new System.Drawing.Point(199, 37);
+            this.cbxEnfermedades.Location = new System.Drawing.Point(219, 29);
             this.cbxEnfermedades.Name = "cbxEnfermedades";
             this.cbxEnfermedades.Size = new System.Drawing.Size(149, 21);
-            this.cbxEnfermedades.TabIndex = 36;
+            this.cbxEnfermedades.TabIndex = 2;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(4, 6);
+            this.label9.Location = new System.Drawing.Point(4, 9);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(51, 17);
-            this.label9.TabIndex = 10;
+            this.label9.TabIndex = 0;
             this.label9.Text = "Cliente";
             // 
             // cbxCliente
             // 
             this.cbxCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxCliente.FormattingEnabled = true;
-            this.cbxCliente.Location = new System.Drawing.Point(7, 37);
+            this.cbxCliente.Location = new System.Drawing.Point(7, 29);
             this.cbxCliente.Name = "cbxCliente";
-            this.cbxCliente.Size = new System.Drawing.Size(151, 21);
-            this.cbxCliente.TabIndex = 9;
+            this.cbxCliente.Size = new System.Drawing.Size(199, 21);
+            this.cbxCliente.TabIndex = 1;
             // 
             // panel5
             // 
@@ -250,7 +276,7 @@
             this.btnCancel.Location = new System.Drawing.Point(3, 44);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 6;
+            this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -266,7 +292,7 @@
             this.btnEliminar.Location = new System.Drawing.Point(3, 6);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 23);
-            this.btnEliminar.TabIndex = 10;
+            this.btnEliminar.TabIndex = 0;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = false;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
@@ -282,7 +308,7 @@
             this.btnGuardar.Location = new System.Drawing.Point(3, 79);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardar.TabIndex = 8;
+            this.btnGuardar.TabIndex = 2;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Visible = false;
@@ -308,7 +334,7 @@
             this.btnInsertar.Location = new System.Drawing.Point(3, 3);
             this.btnInsertar.Name = "btnInsertar";
             this.btnInsertar.Size = new System.Drawing.Size(75, 23);
-            this.btnInsertar.TabIndex = 11;
+            this.btnInsertar.TabIndex = 0;
             this.btnInsertar.Text = "Insertar";
             this.btnInsertar.UseVisualStyleBackColor = false;
             this.btnInsertar.Click += new System.EventHandler(this.btnInsertar_Click);
@@ -323,7 +349,7 @@
             this.btnEditar.Location = new System.Drawing.Point(122, 3);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
-            this.btnEditar.TabIndex = 9;
+            this.btnEditar.TabIndex = 1;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = false;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
@@ -332,10 +358,10 @@
             // 
             this.txtObservciones.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtObservciones.Enabled = false;
-            this.txtObservciones.Location = new System.Drawing.Point(385, 133);
+            this.txtObservciones.Location = new System.Drawing.Point(385, 159);
             this.txtObservciones.Name = "txtObservciones";
             this.txtObservciones.Size = new System.Drawing.Size(412, 20);
-            this.txtObservciones.TabIndex = 24;
+            this.txtObservciones.TabIndex = 1;
             // 
             // panel1
             // 
@@ -350,26 +376,26 @@
             this.panel1.Location = new System.Drawing.Point(0, 46);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(894, 77);
-            this.panel1.TabIndex = 14;
+            this.panel1.TabIndex = 2;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(204, 15);
+            this.label12.Location = new System.Drawing.Point(276, 20);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(100, 17);
-            this.label12.TabIndex = 45;
+            this.label12.TabIndex = 0;
             this.label12.Text = "Enfermedades";
             // 
             // cbxFiltroEnfermedad
             // 
             this.cbxFiltroEnfermedad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFiltroEnfermedad.FormattingEnabled = true;
-            this.cbxFiltroEnfermedad.Location = new System.Drawing.Point(207, 46);
+            this.cbxFiltroEnfermedad.Location = new System.Drawing.Point(279, 40);
             this.cbxFiltroEnfermedad.Name = "cbxFiltroEnfermedad";
             this.cbxFiltroEnfermedad.Size = new System.Drawing.Size(149, 21);
-            this.cbxFiltroEnfermedad.TabIndex = 42;
+            this.cbxFiltroEnfermedad.TabIndex = 1;
             // 
             // btnReiniciar
             // 
@@ -380,7 +406,7 @@
             this.btnReiniciar.Location = new System.Drawing.Point(816, 9);
             this.btnReiniciar.Name = "btnReiniciar";
             this.btnReiniciar.Size = new System.Drawing.Size(75, 23);
-            this.btnReiniciar.TabIndex = 11;
+            this.btnReiniciar.TabIndex = 2;
             this.btnReiniciar.Text = "Reiniciar";
             this.btnReiniciar.UseVisualStyleBackColor = false;
             this.btnReiniciar.Click += new System.EventHandler(this.btnReiniciar_Click);
@@ -395,7 +421,7 @@
             this.btnFiltrar.Location = new System.Drawing.Point(816, 46);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
-            this.btnFiltrar.TabIndex = 11;
+            this.btnFiltrar.TabIndex = 3;
             this.btnFiltrar.Text = "Filtrar";
             this.btnFiltrar.UseVisualStyleBackColor = false;
             this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
@@ -404,20 +430,20 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(12, 15);
+            this.label17.Location = new System.Drawing.Point(12, 20);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(51, 17);
-            this.label17.TabIndex = 28;
+            this.label17.TabIndex = 0;
             this.label17.Text = "Cliente";
             // 
             // cbxFiltroNombreCliente
             // 
             this.cbxFiltroNombreCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFiltroNombreCliente.FormattingEnabled = true;
-            this.cbxFiltroNombreCliente.Location = new System.Drawing.Point(12, 46);
+            this.cbxFiltroNombreCliente.Location = new System.Drawing.Point(12, 40);
             this.cbxFiltroNombreCliente.Name = "cbxFiltroNombreCliente";
-            this.cbxFiltroNombreCliente.Size = new System.Drawing.Size(154, 21);
-            this.cbxFiltroNombreCliente.TabIndex = 28;
+            this.cbxFiltroNombreCliente.Size = new System.Drawing.Size(249, 21);
+            this.cbxFiltroNombreCliente.TabIndex = 0;
             // 
             // btnClose
             // 
@@ -434,7 +460,7 @@
             this.btnClose.Location = new System.Drawing.Point(823, 8);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(92, 32);
-            this.btnClose.TabIndex = 7;
+            this.btnClose.TabIndex = 3;
             this.btnClose.Text = "Cerrar";
             this.btnClose.TextColor = System.Drawing.Color.White;
             this.btnClose.UseVisualStyleBackColor = false;
@@ -447,7 +473,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(170, 48);
-            this.panel2.TabIndex = 6;
+            this.panel2.TabIndex = 0;
             // 
             // lblNombreVista
             // 
@@ -458,7 +484,7 @@
             this.lblNombreVista.Location = new System.Drawing.Point(78, 14);
             this.lblNombreVista.Name = "lblNombreVista";
             this.lblNombreVista.Size = new System.Drawing.Size(56, 22);
-            this.lblNombreVista.TabIndex = 3;
+            this.lblNombreVista.TabIndex = 0;
             this.lblNombreVista.Text = "Salud";
             // 
             // pictureBox1
@@ -475,7 +501,6 @@
             // 
             this.grdSalud.AllowUserToAddRows = false;
             this.grdSalud.AllowUserToDeleteRows = false;
-            this.grdSalud.AllowUserToResizeColumns = false;
             this.grdSalud.AllowUserToResizeRows = false;
             this.grdSalud.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -493,7 +518,6 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.grdSalud.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.grdSalud.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdSalud.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id_Salud,
             this.idCliente,
@@ -522,7 +546,7 @@
             this.grdSalud.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.grdSalud.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdSalud.Size = new System.Drawing.Size(915, 259);
-            this.grdSalud.TabIndex = 7;
+            this.grdSalud.TabIndex = 16;
             this.grdSalud.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdSalud_CellClick);
             // 
             // id_Salud
@@ -647,5 +671,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Observacion;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaMod;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbxCliente;
     }
 }

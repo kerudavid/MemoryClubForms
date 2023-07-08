@@ -76,25 +76,55 @@ namespace MemoryClubForms.Forms
                     foreach (var cliente in clienteList)
                     {
                         // Creamos un objeto DateTime con la fecha de nacimiento de la persona
-                        DateTime fechaNacimiento = new DateTime(cliente.Anio_nacim, cliente.Mes_nacim, cliente.Dia_nacim);
+                        int edad = 0;
 
-                        // Calculamos la edad de la persona a partir de su fecha de nacimiento
-                        int edad = DateTime.Today.Year - fechaNacimiento.Year;
-                        if (DateTime.Today < fechaNacimiento.AddYears(edad))
+                        try
                         {
-                            edad--;
+                            DateTime fechaNacimiento = new DateTime(cliente.Anio_nacim, cliente.Mes_nacim, cliente.Dia_nacim);
+
+                            // Calculamos la edad de la persona a partir de su fecha de nacimiento
+                            edad = DateTime.Today.Year - fechaNacimiento.Year;
+
+                            if (DateTime.Today < fechaNacimiento.AddYears(edad))
+                            {
+                                edad--;
+                            }
                         }
+                        catch
+                        {
+                            //Manejo de excepcion
+                        }
+
+
+                        /*
+                        string input = cliente.Anio_nacim + "-"+ cliente.Mes_nacim+"-" +cliente.Dia_nacim;
+
+                        //DateTime fechaNacimiento = DateTime.Now;
+
+                        bool isValidDate = DateTime.TryParseExact(input, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaNacimiento);
+                        int edad = 0;
+
+                        if (isValidDate)
+                        {
+                            // Calculamos la edad de la persona a partir de su fecha de nacimiento
+                            edad = DateTime.Today.Year - fechaNacimiento.Year;
+
+                            if (DateTime.Today < fechaNacimiento.AddYears(edad))
+                            {
+                                edad--;
+                            }
+                        }     
+                        */                       
 
                         grdCliente.Rows.Add(
                             cliente.Id_cliente,cliente.Cedula,cliente.Nombre,cliente.Apodo,
                             cliente.Fecha_ingreso, /*cliente.Fecha_free,*/ cliente.Sexo, cliente.Estado, /*cliente.Aula,*/
-                            cliente.Dia_nacim,cliente.Mes_nacim,cliente.Anio_nacim,edad, cliente.Telefono, cliente.Direccion,
-                            
+                            cliente.Dia_nacim,cliente.Mes_nacim,cliente.Anio_nacim,edad, cliente.Telefono, cliente.Direccion, 
                             cliente.Nombre_contacto,cliente.Parentesco_contacto,cliente.Telefono_contacto,
                             cliente.Celular_contacto,/*cliente.Encargado_pago,cliente.Parentesco_pago,
                             cliente.Telefono_pago,cliente.Cedula_pago,*/ 
                             /*cliente.Email_pago,cliente.Medio_pago,cliente.Frecuencia_pago,*/cliente.Pariente_transp,
-                            cliente.Toma_transp, cliente.Id_transportista,cliente.Nombre_transportista,cliente.Retirarse_solo, cliente.Nombre_factu,
+                            cliente.Toma_transp, cliente.Id_transportista,cliente.Nombre_transportista,cliente.Valor_transporte, cliente.Retirarse_solo, cliente.Nombre_factu,
                             cliente.Cedula_factu,cliente.Direccion_factu, cliente.Celular_pago, cliente.Email_factu,
                             cliente.Sucursal,cliente.Observacion,cliente.Usuario,cliente.Fecha_mod);
                     }
@@ -407,7 +437,7 @@ namespace MemoryClubForms.Forms
                             cliente.Celular_contacto, /*cliente.Encargado_pago, cliente.Parentesco_pago,
                             cliente.Telefono_pago, cliente.Cedula_pago, 
                             cliente.Email_pago, cliente.Medio_pago, cliente.Frecuencia_pago, */cliente.Pariente_transp, 
-                            cliente.Toma_transp, cliente.Id_transportista, cliente.Nombre_transportista, cliente.Retirarse_solo, cliente.Nombre_factu,
+                            cliente.Toma_transp, cliente.Id_transportista, cliente.Nombre_transportista, cliente.Valor_transporte, cliente.Retirarse_solo, cliente.Nombre_factu,
                             cliente.Cedula_factu, cliente.Direccion_factu, cliente.Celular_pago, cliente.Email_factu,
                             cliente.Sucursal, cliente.Observacion, cliente.Usuario, cliente.Fecha_mod);
                     }
@@ -457,7 +487,7 @@ namespace MemoryClubForms.Forms
                     return;
                 }
 
-                DialogResult response = MessageBox.Show("Está seguro de que desea eliminar este elemento?", "Eliminar item seleccionado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult response = MessageBox.Show("Está seguro que desea eliminar este elemento?\nSolo hágalo si el cliente acaba de ser creado,\ncaso contrario podría ocasionar errores en el sistema", "Eliminar item seleccionado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (response == DialogResult.Yes)
                 {
@@ -550,6 +580,18 @@ namespace MemoryClubForms.Forms
             else
             {
                 dtmFecha.Enabled = false;
+            }
+        }
+
+        private void grdCliente_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0) // asegúrate de que la celda esté seleccionada
+            {
+                DataGridViewCell cell = grdCliente.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (cell.Value != null & cell.Value.ToString() != "") // asegúrate de que la celda no esté vacía
+                {
+                    Clipboard.SetText(cell.Value.ToString()); // copia el contenido de la celda al portapapeles
+                }
             }
         }
 

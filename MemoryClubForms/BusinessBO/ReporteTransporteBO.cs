@@ -46,7 +46,10 @@ namespace MemoryClubForms.BusinessBO
                 condiciones += $"WHERE CONVERT(date, fecha, 101) BETWEEN CAST('{Fdesde}' AS date) AND CAST('{Fhasta}' AS date) ";
             }
 
-            query = $"SELECT T.sucursal as sucursal, S.nombre as nombre, tipo_cliente, entrada_salida, COUNT(*) AS numero FROM Transporte T LEFT JOIN Transportista S ON T.id_transportista = S.id_transportista " +
+            query = $"SET LANGUAGE us_english " +
+                    $"SELECT T.sucursal as sucursal, S.nombre as nombre, tipo_cliente, entrada_salida, COUNT(*) AS numero, " +
+                    $"SUM(C.valor_transporte) AS valor FROM Transporte T LEFT JOIN Transportista S ON T.id_transportista = S.id_transportista " +
+                    $"LEFT JOIN Cliente C ON T.fk_id_cliente = C.id_cliente " +
                     $"{condiciones}" +
                     $" GROUP BY T.sucursal, S.nombre, tipo_cliente, entrada_salida";
 

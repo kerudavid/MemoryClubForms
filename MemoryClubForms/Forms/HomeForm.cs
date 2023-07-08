@@ -181,17 +181,29 @@ namespace MemoryClubForms.Forms
 
             }
         }
-
-        private void calendarioToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenForm(new CalendarioForm());
-        }
-
+        /// <summary>
+        /// Reporte mensual de ventas de planes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void reporteAsistenciaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (VariablesGlobales.Nivel <= 1)
             {
-                OpenForm(new FormReporteCalendario());
+                OpenForm(new ReporteVentaPlanesForm());
+            }
+            else
+            {
+                MessageBox.Show("Usuario no autorizado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+        }
+
+        private void parámetrosSistemasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (VariablesGlobales.Nivel <= 1)
+            {
+                OpenForm(new CodigoForm());
             }
             else
             {

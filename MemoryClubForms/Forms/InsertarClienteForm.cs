@@ -61,18 +61,18 @@ namespace MemoryClubForms.Forms
                 }
                 
             }
-            foreach (var item in frecuenciaList)
+            /*foreach (var item in frecuenciaList)
             {
                 cbxFrecuenciaPago.Items.Add(item.Frecuencias);
                 
-            }
-
-
+            }*/
             cbxTomaTransp.Items.Add("SI");
             cbxTomaTransp.Items.Add("NO");
 
             cbxRetiraSolo.Items.Add("SI");
             cbxRetiraSolo.Items.Add("NO");
+
+            dtmFecha.Value = DateTime.Now;
         }
 
         public bool LoadInformation()
@@ -104,7 +104,6 @@ namespace MemoryClubForms.Forms
             {
                 return false;
             }
-
         }
 
         private bool LoadEstados()
@@ -120,7 +119,6 @@ namespace MemoryClubForms.Forms
             {
                 return false;
             }
-
         }
 
         private bool LoadGenero()
@@ -136,7 +134,6 @@ namespace MemoryClubForms.Forms
             {
                 return false;
             }
-
         }
 
         private bool LoadSucursales()
@@ -152,7 +149,6 @@ namespace MemoryClubForms.Forms
             {
                 return false;
             }
-
         }
 
         private bool LoadMediosPago()
@@ -168,7 +164,6 @@ namespace MemoryClubForms.Forms
             {
                 return false;
             }
-
         }
 
         private bool LoadFrecuenciaPago()
@@ -247,26 +242,22 @@ namespace MemoryClubForms.Forms
                 return false;
             }
 
-
-            //Aula
-            if (!string.IsNullOrEmpty(tbxAula.Text))
+            if (string.IsNullOrEmpty(tbxDia.Text))
             {
-                try
-                {
-                    if (int.Parse(tbxAula.Text) < 0)
-                    {
-                        MessageBox.Show("Ingrese un número de aula válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        return false;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Ingrese un número de aula válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return false;
-                }
+                MessageBox.Show("Ingrese día de cumpleaños", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
             }
-               
-            
+            if (string.IsNullOrEmpty(tbxMes.Text))
+            {
+                MessageBox.Show("Ingrese mes de cumpleaños", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+            if (string.IsNullOrEmpty(tbxAnio.Text))
+            {
+                MessageBox.Show("Ingrese año de cumpleaños", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+
             if (!string.IsNullOrEmpty(tbxDia.Text))
             {
                 //Dia
@@ -372,7 +363,6 @@ namespace MemoryClubForms.Forms
                 }
             }
 
-
             //ParentescoContacto
             if (!string.IsNullOrEmpty(tbxParentescoCto.Text))
             {
@@ -382,7 +372,6 @@ namespace MemoryClubForms.Forms
                     return false;
                 }
             }
-
 
             //TelefonoContacto
             if (!string.IsNullOrEmpty(tbxTelefonoCto.Text))
@@ -394,7 +383,6 @@ namespace MemoryClubForms.Forms
                 }
             }
 
-
             //CelularContacto
             if (!string.IsNullOrEmpty(tbxCelularCto.Text))
             {
@@ -404,84 +392,7 @@ namespace MemoryClubForms.Forms
                     return false;
                 }
             }
-
-
-            //Pago
-            //EncargadoPago
-            if (!string.IsNullOrEmpty(tbxEncargadoPago.Text))
-            {
-                if (tbxEncargadoPago.Text.Length > 40)
-                {
-                    MessageBox.Show("Ha superado el número máximo de caracteres en Encargado pago", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return false;
-                }
-            }
-
-
-            //ParentescoPago
-            if (!string.IsNullOrEmpty(tbxParentescoPago.Text))
-            {
-                if (tbxParentescoPago.Text.Length > 20)
-                {
-                    MessageBox.Show("Ha superado el número máximo de caracteres en Parentesco pago", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return false;
-                }
-            }
-
-
-            //ParentescoPago
-            if (!string.IsNullOrEmpty(tbxTelefonoPago.Text))
-            {
-                if (tbxTelefonoPago.Text.Length > 50)
-                {
-                    MessageBox.Show("Ha superado el número máximo de caracteres en Teléfono pago", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return false;
-                }
-            }
-
-
-            //CedulaPago
-            if (!string.IsNullOrEmpty(tbxCedulaPago.Text))
-            {
-                if (tbxCedulaPago.Text.Length > 20)
-                {
-                    MessageBox.Show("Ha superado el número máximo de caracteres en Cédula pago", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return false;
-                }
-            }
-
-
-            //CelularPago
-            if (!string.IsNullOrEmpty(tbxCelularPago.Text))
-            {
-                if (tbxCelularPago.Text.Length > 50)
-                {
-                    MessageBox.Show("Ha superado el número máximo de caracteres en Celular pago", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return false;
-                }
-            }
-
-
-            //EmailPago
-            if (!string.IsNullOrEmpty(tbxEmailPago.Text))
-            {
-                if (tbxEmailPago.Text.Length > 50)
-                {
-                    MessageBox.Show("Ha superado el número máximo de caracteres en Email pago", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return false;
-                }
-            }
-
-            //FrecuenciaPago
-            if (cbxFrecuenciaPago.SelectedItem==null)
-            {
-
-                MessageBox.Show("Seleccione la Frecuencia de pago", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-                
-            }
-
-
+                      
             //Transporte
             //ParienteTransporte
             if (!string.IsNullOrEmpty(tbxParienteTransp.Text))
@@ -493,14 +404,26 @@ namespace MemoryClubForms.Forms
                 }
             }
                 
-
-            //ParienteTransporte
+            //Transportista
             if (cbxFiltroTransportista.SelectedItem==null)
             {
                 MessageBox.Show("Seleccione el Transportista, en caso de que el cliente sea transportado por un tercero, seleccione Otros", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
-
+            //valida valor del transporte
+            if (cbxFiltroTransportista.Text == "OTRO")
+            {
+                txbValorTrans.Text = "0";
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(txbValorTrans.Text.Trim()) || (txbValorTrans.Text == "0"))
+                {
+                    MessageBox.Show("Ingrese el valor de Transporte", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return false;
+                }
+            }
+            
             //Facturacion
             //nombreFactura
             if (!string.IsNullOrEmpty(tbxNombreFactura.Text))
@@ -512,7 +435,6 @@ namespace MemoryClubForms.Forms
                 }
             }
 
-
             //cedulaFactura
             if (!string.IsNullOrEmpty(tbxCedulaFactura.Text))
             {
@@ -523,26 +445,29 @@ namespace MemoryClubForms.Forms
                 }
             }
 
-
             //direccionFactura
-
             if (tbxDireccionFactura.Text.Length > 80)
             {
                 MessageBox.Show("Ha superado el número máximo de caracteres en Dirección Factura", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
-            
 
+            //CelularFactura
+            if (!string.IsNullOrEmpty(tbxCelularPago.Text))
+            {
+                if (tbxCelularPago.Text.Length > 50)
+                {
+                    MessageBox.Show("Ha superado el número máximo de caracteres en Celular Factura", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return false;
+                }
+            }
 
             //emailFactura
-
             if (tbxEmailFactura.Text.Length > 100)
             {
                 MessageBox.Show("Ha superado el número máximo de caracteres en Email Factura", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
-            }
-
-                
+            }           
 
             //Observacion
             if (tbxObseraciones.Text.Length > 100)
@@ -550,7 +475,6 @@ namespace MemoryClubForms.Forms
                 MessageBox.Show("Ha superado el número máximo de caracteres en Observación", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
-
 
             return true;
         }
@@ -580,15 +504,9 @@ namespace MemoryClubForms.Forms
                 clienteModel.Nombre = tbxNombre.Text;
                 clienteModel.Apodo = tbxApodo.Text;
                 clienteModel.Fecha_ingreso = dtmFecha.Value.ToString("MM/dd/yyyy", ci);
-                if (dtmFechaFree.Enabled)
-                {
-                    clienteModel.Fecha_free = dtmFechaFree.Value.ToString("MM/dd/yyyy", ci);
-                }
-                else
-                {
-                    clienteModel.Fecha_free = null;
-                }
-                
+                clienteModel.Fecha_free = string.Empty;
+                clienteModel.Aula = 0;
+                clienteModel.Valor_transporte = decimal.Parse(txbValorTrans.Text);
 
                 if (cbxGenero.SelectedItem != null)
                 {
@@ -596,12 +514,7 @@ namespace MemoryClubForms.Forms
                 }
                 
                 clienteModel.Estado = codigosEstadosList.Where(x => x.Descripcion == cbxEstados.SelectedItem.ToString()).Select(x => x.Estados).FirstOrDefault();
-
-                if (!string.IsNullOrEmpty(tbxAula.Text))
-                {
-                    clienteModel.Aula = int.Parse(tbxAula.Text);
-                }
-
+                                             
                 if (!string.IsNullOrEmpty(tbxDia.Text))
                 {
                     clienteModel.Dia_nacim = int.Parse(tbxDia.Text);
@@ -616,21 +529,20 @@ namespace MemoryClubForms.Forms
                 {
                     clienteModel.Anio_nacim = int.Parse(tbxAnio.Text);
                 }
-
-                
+               
                 clienteModel.Telefono = tbxTelefono.Text;
                 clienteModel.Nombre_contacto = tbxNombreContacto.Text;
                 clienteModel.Parentesco_contacto = tbxParentescoCto.Text;
                 clienteModel.Telefono_contacto = tbxTelefonoCto.Text;
                 clienteModel.Celular_contacto = tbxCelularCto.Text;
-                clienteModel.Encargado_pago = tbxEncargadoPago.Text;
-                clienteModel.Parentesco_pago = tbxParentescoPago.Text;
-                clienteModel.Telefono_pago = tbxTelefonoPago.Text;
-                clienteModel.Cedula_pago=tbxCedulaPago.Text;
-                clienteModel.Celular_pago = tbxCelularPago.Text;
-                clienteModel.Email_pago = tbxEmailPago.Text;
+                clienteModel.Encargado_pago = string.Empty;
+                clienteModel.Parentesco_pago = string.Empty;
+                clienteModel.Telefono_pago = string.Empty;
+                clienteModel.Cedula_pago= string.Empty;
+                clienteModel.Celular_pago = tbxCelularPago.Text; //ahora es celular factura
+                clienteModel.Email_pago = string.Empty;
                 clienteModel.Medio_pago = string.Empty;                            
-                clienteModel.Frecuencia_pago = cbxFrecuenciaPago.SelectedItem.ToString();
+                clienteModel.Frecuencia_pago = string.Empty;
                 clienteModel.Pariente_transp = tbxParienteTransp.Text;
                 clienteModel.Direccion = tbxDireccion.Text;
 
@@ -649,7 +561,7 @@ namespace MemoryClubForms.Forms
                 clienteModel.Nombre_factu = tbxNombreFactura.Text;
                 clienteModel.Cedula_factu = tbxCedulaFactura.Text;
                 clienteModel.Direccion_factu = tbxDireccionFactura.Text;
-                clienteModel.Email_factu = tbxDireccionFactura.Text;
+                clienteModel.Email_factu = tbxEmailFactura.Text;
 
                 if (cbxFiltroSucursal.SelectedItem != null)
                 {
@@ -660,11 +572,11 @@ namespace MemoryClubForms.Forms
                 clienteModel.Usuario = VariablesGlobales.usuario.ToString();
                 clienteModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
-                bool responseInsert = clienteBO.InsertarCliente(clienteModel);
+                string responseInsert = clienteBO.InsertarCliente(clienteModel);
 
-                if (!responseInsert)
+                if (responseInsert.ToLower() != "ok")
                 {
-                    MessageBox.Show("No se pudo guardar la información, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("No se pudo guardar la información, inténtelo más tarde.\n" + responseInsert, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
 
@@ -678,21 +590,57 @@ namespace MemoryClubForms.Forms
             }
         }
 
-        private void ckbFechaFree_Change(object sender, EventArgs e)
-        {
-            if (ckbFechaFree.Checked)
-            {
-                dtmFechaFree.Enabled=true;
-            }
-            else
-            {
-                dtmFechaFree.Enabled=false; 
-            }
-        }
-
         private void InsertarClienteForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             VariablesGlobales.OpentInsert = false;
+        }
+
+        private void txbValorTrans_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+                MessageBox.Show("Solo se aceptan números y el símbolo decimal", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            // solo 1 punto decimal
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+                MessageBox.Show("Solo se aceptan números y el símbolo decimal", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+        }
+
+        private void tbxDia_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+                MessageBox.Show("Solo se aceptan números", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }           
+        }
+
+        private void tbxMes_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+                MessageBox.Show("Solo se aceptan números", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+        }
+
+        private void tbxAnio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+                MessageBox.Show("Solo se aceptan números", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
         }
     }
 }

@@ -34,7 +34,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AlimentosForm));
             this.pnlPrincipal = new System.Windows.Forms.Panel();
             this.pnlActions = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.tbxCliente = new System.Windows.Forms.TextBox();
             this.lblAction = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -56,7 +58,6 @@
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.cbxFiltroNombreCliente = new System.Windows.Forms.ComboBox();
-            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblNombreVista = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -68,6 +69,7 @@
             this.Observacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fechaMod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnClose = new MemoryClubForms.Botones_Personalizados.OurButton();
             this.pnlPrincipal.SuspendLayout();
             this.pnlActions.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -98,7 +100,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlActions.BackColor = System.Drawing.Color.White;
             this.pnlActions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlActions.Controls.Add(this.label3);
             this.pnlActions.Controls.Add(this.label2);
+            this.pnlActions.Controls.Add(this.tbxCliente);
             this.pnlActions.Controls.Add(this.lblAction);
             this.pnlActions.Controls.Add(this.panel6);
             this.pnlActions.Controls.Add(this.panel5);
@@ -108,6 +112,19 @@
             this.pnlActions.Name = "pnlActions";
             this.pnlActions.Size = new System.Drawing.Size(894, 187);
             this.pnlActions.TabIndex = 15;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(7, 22);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 17);
+            this.label3.TabIndex = 58;
+            this.label3.Text = "Cliente:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label2
             // 
@@ -119,6 +136,15 @@
             this.label2.Size = new System.Drawing.Size(103, 17);
             this.label2.TabIndex = 38;
             this.label2.Text = "Observaciones";
+            // 
+            // tbxCliente
+            // 
+            this.tbxCliente.Enabled = false;
+            this.tbxCliente.Location = new System.Drawing.Point(66, 20);
+            this.tbxCliente.Name = "tbxCliente";
+            this.tbxCliente.Size = new System.Drawing.Size(277, 20);
+            this.tbxCliente.TabIndex = 8;
+            this.tbxCliente.TextChanged += new System.EventHandler(this.tbxCliente_TextChanged);
             // 
             // lblAction
             // 
@@ -138,7 +164,7 @@
             this.panel6.Controls.Add(this.cbxAlimentos);
             this.panel6.Controls.Add(this.label9);
             this.panel6.Controls.Add(this.cbxCliente);
-            this.panel6.Location = new System.Drawing.Point(4, 46);
+            this.panel6.Location = new System.Drawing.Point(4, 56);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(793, 61);
             this.panel6.TabIndex = 6;
@@ -147,7 +173,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(196, 6);
+            this.label1.Location = new System.Drawing.Point(270, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(152, 17);
             this.label1.TabIndex = 37;
@@ -157,7 +183,7 @@
             // 
             this.cbxAlimentos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxAlimentos.FormattingEnabled = true;
-            this.cbxAlimentos.Location = new System.Drawing.Point(199, 37);
+            this.cbxAlimentos.Location = new System.Drawing.Point(273, 29);
             this.cbxAlimentos.Name = "cbxAlimentos";
             this.cbxAlimentos.Size = new System.Drawing.Size(149, 21);
             this.cbxAlimentos.TabIndex = 36;
@@ -166,7 +192,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(4, 6);
+            this.label9.Location = new System.Drawing.Point(4, 9);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(51, 17);
             this.label9.TabIndex = 10;
@@ -176,9 +202,9 @@
             // 
             this.cbxCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxCliente.FormattingEnabled = true;
-            this.cbxCliente.Location = new System.Drawing.Point(7, 37);
+            this.cbxCliente.Location = new System.Drawing.Point(7, 29);
             this.cbxCliente.Name = "cbxCliente";
-            this.cbxCliente.Size = new System.Drawing.Size(151, 21);
+            this.cbxCliente.Size = new System.Drawing.Size(235, 21);
             this.cbxCliente.TabIndex = 9;
             // 
             // panel5
@@ -307,7 +333,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(204, 15);
+            this.label12.Location = new System.Drawing.Point(278, 15);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(152, 17);
             this.label12.TabIndex = 45;
@@ -317,7 +343,7 @@
             // 
             this.cbxFiltroAlimentos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFiltroAlimentos.FormattingEnabled = true;
-            this.cbxFiltroAlimentos.Location = new System.Drawing.Point(207, 46);
+            this.cbxFiltroAlimentos.Location = new System.Drawing.Point(281, 46);
             this.cbxFiltroAlimentos.Name = "cbxFiltroAlimentos";
             this.cbxFiltroAlimentos.Size = new System.Drawing.Size(149, 21);
             this.cbxFiltroAlimentos.TabIndex = 42;
@@ -367,29 +393,8 @@
             this.cbxFiltroNombreCliente.FormattingEnabled = true;
             this.cbxFiltroNombreCliente.Location = new System.Drawing.Point(12, 46);
             this.cbxFiltroNombreCliente.Name = "cbxFiltroNombreCliente";
-            this.cbxFiltroNombreCliente.Size = new System.Drawing.Size(154, 21);
+            this.cbxFiltroNombreCliente.Size = new System.Drawing.Size(238, 21);
             this.cbxFiltroNombreCliente.TabIndex = 28;
-            // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.BackColor = System.Drawing.Color.Maroon;
-            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
-            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnClose.BorderRadius = 17;
-            this.btnClose.BorderSize = 0;
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(823, 8);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(92, 32);
-            this.btnClose.TabIndex = 7;
-            this.btnClose.Text = "Cerrar";
-            this.btnClose.TextColor = System.Drawing.Color.White;
-            this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // panel2
             // 
@@ -426,7 +431,6 @@
             // 
             this.grdAlimentos.AllowUserToAddRows = false;
             this.grdAlimentos.AllowUserToDeleteRows = false;
-            this.grdAlimentos.AllowUserToResizeColumns = false;
             this.grdAlimentos.AllowUserToResizeRows = false;
             this.grdAlimentos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -512,6 +516,27 @@
             this.fechaMod.Name = "fechaMod";
             this.fechaMod.Visible = false;
             // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.Maroon;
+            this.btnClose.BackgroundColor = System.Drawing.Color.Maroon;
+            this.btnClose.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnClose.BorderRadius = 17;
+            this.btnClose.BorderSize = 0;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(823, 8);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(92, 32);
+            this.btnClose.TabIndex = 7;
+            this.btnClose.Text = "Cerrar";
+            this.btnClose.TextColor = System.Drawing.Color.White;
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // AlimentosForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -580,5 +605,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaMod;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tbxCliente;
     }
 }

@@ -17,15 +17,18 @@ namespace MemoryClubForms.Models
         public int Fk_id_cliente { get; set; }
         public string Nombre { get; set; }
         public int Sucursal { get; set; }
-        public string Tipo_plan { get; set; }    
-        public string Fecha_inicio_plan { get; set; }   
+        public string Tipo_plan { get; set; }
+        public string Fecha_inicio_plan { get; set; }
         public string Pagado { get; set; }
-        public int Max_dia_plan { get; set; }    
-        public string Estado { get; set; }  
+        public int Max_dia_plan { get; set; }
+        public string Estado { get; set; }
         public string Observacion { get; set; }
-        public  string Usuario { get; set; }
+        public string Usuario { get; set; }
         public string Fecha_mod { get; set; }
         public DateTime Fechahora { get; set; }
+        public string Fecha_fin_plan { get; set; }
+        public DateTime Fechafin { get; set; }
+        public int Idplan_anterior { get; set; }
 
         public string Validate(PlanModel planModel)
         {

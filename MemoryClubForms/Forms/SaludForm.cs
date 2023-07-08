@@ -151,6 +151,10 @@ namespace MemoryClubForms.Forms
 
             txtObservciones.Text = "";
 
+            //tbxCliente.Text = "";
+            tbxCliente.Enabled = false;
+
+
         }
 
         private void EditElements(int action)
@@ -425,6 +429,14 @@ namespace MemoryClubForms.Forms
                 ResetElements();
                 MessageBox.Show("Aviso, No se pudo cargar el nombre de los clientes. " + ex);
             }
+            tbxCliente.Enabled = true;
+
+            string cadena = tbxCliente.Text;
+            if (!(string.IsNullOrEmpty(cadena)))
+            {
+                this.FiltraCliente(cadena);
+            }
+
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -522,17 +534,22 @@ namespace MemoryClubForms.Forms
                         return;
                     }
                     MessageBox.Show("La información se ha eliminado EXITOSAMENTE!", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    CleanData();
-                    LoadInformation(0);
+                    
                 }
             }
             catch (Exception ex)
-            {
-                CleanData();
-                LoadInformation(0);
+            {                
                 MessageBox.Show("No se pudo eliminar el registro, inténtelo más tarde." + ex, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
+            }
+            
+            CleanData();
+            if ((cbxFiltroNombreCliente.SelectedItem != null) || (cbxFiltroEnfermedad.SelectedItem != null))
+            {
+                this.btnFiltrar_Click(null, null);
+            }
+            else
+            {
+                LoadInformation(0);
             }
         }
 
@@ -567,11 +584,11 @@ namespace MemoryClubForms.Forms
                     saludModel.Usuario = VariablesGlobales.usuario.ToString();
                     saludModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
 
-                    bool responseInsert = saludBO.InsertarSalud(saludModel);
+                    string responseDB = saludBO.InsertarSalud(saludModel);
 
-                    if (!responseInsert)
-                    {
-                        MessageBox.Show("No se pudo guardar la información, inténtelo más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    if (responseDB.ToLower() != "ok")
+                    {                  
+                        MessageBox.Show("No se pudo guardar la información, inténtelo más tarde. \n" + responseDB, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
 
@@ -611,17 +628,60 @@ namespace MemoryClubForms.Forms
                     MessageBox.Show("La información se ha actualizado EXITOSAMENTE!", "Actualizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
-                ResetElements();
-                LoadInformation(0);
-                CleanData();
             }
             catch (Exception ex)
-            {
-                CleanData();
-                ResetElements();
+            {                
                 LoadInformation(0);
                 MessageBox.Show("Alerta, No se pudo guardar el registro\n" + ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+
+            ResetElements();
+            CleanData();
+            if ((cbxFiltroNombreCliente.SelectedItem != null) || (cbxFiltroEnfermedad.SelectedItem != null))
+            {
+                this.btnFiltrar_Click(null, null);
+            }
+            else
+            {
+                LoadInformation(0);
+            }
         }
+
+        private void tbxCliente_TextChanged(object sender, EventArgs e)
+        {
+            //primero recupero la lista original
+            cbxCliente.BeginUpdate();
+            cbxCliente.Items.Clear();
+            foreach (var item in clientesList)
+            {
+                cbxCliente.Items.Add(item.nombre);
+            }
+            cbxCliente.EndUpdate();
+
+            //Si el valor no ha sido modificado por el usuario no realiza cambios
+            if (!this.tbxCliente.Focused || this.tbxCliente.Text.Length < 3)
+                return;
+            //Obtenemos valor de búsqueda  
+            string search = this.tbxCliente.Text.Trim().ToLower();
+            FiltraCliente(search);
+        }
+        private void FiltraCliente(string searchString)
+        {
+            // Filtrar los elementos del ComboBox que contengan la cadena de búsqueda
+            List<string> filteredItems = cbxCliente.Items.Cast<string>().Where(item => item.ToLower().Contains(searchString)).ToList();
+
+            // Actualizar la lista de elementos del ComboBox con los elementos filtrados
+            if (filteredItems.Count > 0)
+            {
+                cbxCliente.BeginUpdate();
+                cbxCliente.Items.Clear();
+                cbxCliente.Items.AddRange(filteredItems.ToArray());
+                cbxCliente.EndUpdate();
+
+                // Seleccionar el primer elemento del ComboBox
+                cbxCliente.SelectedIndex = 0;
+            }
+        }
+
     }
 }

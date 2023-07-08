@@ -12,7 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <PublishUrl>publish\</PublishUrl>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Proyectos\MemoryClubForms\SetupClubMemoriaII\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -22,10 +23,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -46,6 +47,21 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icono.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>00268C2219DE5E7D11C87509C3B4451DBFB0C7EA</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>MemoryClubForms_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
@@ -88,6 +104,7 @@
     <Compile Include="BusinessBO\CalendarioBO.cs" />
     <Compile Include="BusinessBO\CateringBO.cs" />
     <Compile Include="BusinessBO\ClienteBO.cs" />
+    <Compile Include="BusinessBO\CodigoBO.cs" />
     <Compile Include="BusinessBO\ColaboradorBO.cs" />
     <Compile Include="BusinessBO\LoginBO.cs" />
     <Compile Include="BusinessBO\PlanBO.cs" />
@@ -96,6 +113,7 @@
     <Compile Include="BusinessBO\ReporteCateringBO.cs" />
     <Compile Include="BusinessBO\ReporteClientePlanBO.cs" />
     <Compile Include="BusinessBO\ReporteTransporteBO.cs" />
+    <Compile Include="BusinessBO\ReporteVtaMesBO.cs" />
     <Compile Include="BusinessBO\SaludBO.cs" />
     <Compile Include="BusinessBO\TransporteBO.cs" />
     <Compile Include="BusinessBO\TransportistaBO.cs" />
@@ -131,6 +149,12 @@
     </Compile>
     <Compile Include="Forms\ClienteForm.Designer.cs">
       <DependentUpon>ClienteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CodigoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CodigoForm.Designer.cs">
+      <DependentUpon>CodigoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ColaboradorForm.cs">
       <SubType>Form</SubType>
@@ -203,6 +227,7 @@
     <Compile Include="Models\CalendarioModel.cs" />
     <Compile Include="Models\CateringModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
+    <Compile Include="Models\CodigoModel.cs" />
     <Compile Include="Models\ColaboradorModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PlanModel.cs" />
@@ -211,6 +236,8 @@
     <Compile Include="Models\ReporteCateringModel.cs" />
     <Compile Include="Models\ReporteClientePlanModel1.cs" />
     <Compile Include="Models\ReporteTransporteModel.cs" />
+    <Compile Include="Models\ReporteVentasModel.cs" />
+    <Compile Include="Models\ReporteVtaMesAntModel.cs" />
     <Compile Include="Models\SaludModel.cs" />
     <Compile Include="Models\TransporteModel.cs" />
     <Compile Include="Models\TransportistaModel.cs" />
@@ -247,6 +274,12 @@
     <Compile Include="Reports\ReporteTransporteForm.Designer.cs">
       <DependentUpon>ReporteTransporteForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\ReporteVentaPlanesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\ReporteVentaPlanesForm.Designer.cs">
+      <DependentUpon>ReporteVentaPlanesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="VariablesGlobales.cs" />
     <EmbeddedResource Include="Forms\AlimentosForm.resx">
@@ -263,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ClienteForm.resx">
       <DependentUpon>ClienteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CodigoForm.resx">
+      <DependentUpon>CodigoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ColaboradorForm.resx">
       <DependentUpon>ColaboradorForm.cs</DependentUpon>
@@ -327,6 +363,12 @@
     <EmbeddedResource Include="Reports\ReporteTransporteForm.resx">
       <DependentUpon>ReporteTransporteForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ReporteVentaPlanesForm.resx">
+      <DependentUpon>ReporteVentaPlanesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ReporteVtaMesAnt.rdlc" />
+    <EmbeddedResource Include="Reports\ReporteVentas.rdlc" />
+    <None Include="MemoryClubForms_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteAlertasModel.datasource" />
     <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteCalendarioModel.datasource" />
@@ -334,6 +376,9 @@
     <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteClientePlanModel.datasource" />
     <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteClientePlanModel1.datasource" />
     <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteTransporteModel.datasource" />
+    <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteVentasModel.datasource" />
+    <None Include="Properties\DataSources\MemoryClubForms.Models.ReporteVtaMesAntModel.datasource" />
+    <None Include="Properties\DataSources\MemoryClubForms.Reports.ReporteVentaPlanesForm.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

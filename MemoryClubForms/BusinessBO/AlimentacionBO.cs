@@ -151,12 +151,13 @@ namespace MemoryClubForms.BusinessBO
         /// </summary>
         /// <param name="PalimentacionModel"></param>
         /// <returns>true/falso</returns>
-        public bool InsertarAlimentoR(AlimentacionModel PalimentacionModel)
+        public string InsertarAlimentoR(AlimentacionModel PalimentacionModel)
         {
-            string msg = PalimentacionModel.Validate(PalimentacionModel);
+            string msg = "";
+            msg = PalimentacionModel.Validate(PalimentacionModel);
             if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
             {
-                return false;
+                return msg;
             }
             else
             {
@@ -169,16 +170,21 @@ namespace MemoryClubForms.BusinessBO
                     try
                     {
                         bool execute = SQLConexionDataBase.Execute(query);
-                        return execute;
+                        if (execute)
+                        { msg = "OK"; }
+                        return msg;
                     }
                     catch (SqlException ex)
                     {
-                        Console.WriteLine("Error al insertar Alimento Restringido", ex.Message);
-                        return false;
+                        msg = "Error al insertar alimentación restringida Plan. " + ex.Message;
+                        return msg;
                     }
                 }
                 else
-                { return false; }
+                {
+                    msg = "Error, registro duplicado. ";
+                    return msg;
+                }
             }
         }
 
@@ -187,35 +193,32 @@ namespace MemoryClubForms.BusinessBO
         /// </summary>
         /// <param name="PalimentacionModel"></param>
         /// <returns>true/false</returns>
-        public bool ActualizarAlimentoR(AlimentacionModel PalimentacionModel)
+        public string ActualizarAlimentoR(AlimentacionModel PalimentacionModel)
         {
-            string msg = PalimentacionModel.Validate(PalimentacionModel);
+            string msg = "";
+            msg = PalimentacionModel.Validate(PalimentacionModel);
             if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
             {
-                return false;
+                return msg;
             }
             else
-            {
-                bool aux = ValidaDuplicadoAlimentacion(PalimentacionModel); //valida que no se duplique el alimento para el mismo cliente
-                if (aux == true)
-                {
-                    string query = $"UPDATE Alimentacion SET  alimento_restringido = '{PalimentacionModel.Alimento_restringido}', observacion = '{PalimentacionModel.Observacion}', " +
-                                   $"usuario = '{PalimentacionModel.Usuario}', fecha_mod = '{PalimentacionModel.Fecha_mod}'" +
-                                   $"WHERE id_alimentacion = {PalimentacionModel.Id_alimentacion}";
+            {               
+                string query = $"UPDATE Alimentacion SET  alimento_restringido = '{PalimentacionModel.Alimento_restringido}', observacion = '{PalimentacionModel.Observacion}', " +
+                                $"usuario = '{PalimentacionModel.Usuario}', fecha_mod = '{PalimentacionModel.Fecha_mod}'" +
+                                $"WHERE id_alimentacion = {PalimentacionModel.Id_alimentacion}";
 
-                    try
-                    {
-                        bool execute = SQLConexionDataBase.Execute(query);
-                        return execute;
-                    }
-                    catch (SqlException ex)
-                    {
-                        Console.WriteLine("Error al actualizar alimentación restringida", ex.Message);
-                        return false;
-                    }
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    if (execute)
+                    { msg = "OK"; }
+                    return msg;
                 }
-                else
-                { return false; }
+                catch (SqlException ex)
+                {
+                    msg = "Error al actualizar alimentación restringida Plan. " + ex.Message;
+                    return msg;
+                }              
             }
         }
 

@@ -216,7 +216,8 @@ namespace MemoryClubForms.BusinessBO
 
             if (string.IsNullOrEmpty(Ptcliente)) //Cuando la consulta NO es por Tipo Cliente
             {
-                query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, L.estado, CONVERT(date, C.fecha,101) fechahora " + 
+                query = $"SET LANGUAGE us_english " +
+                        $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, L.estado, CONVERT(date, C.fecha,101) fechahora " + 
                         $"FROM Catering C LEFT JOIN Cliente L ON C.fk_id_cliente = L.id_cliente WHERE C.tipo_cliente = \'CLIENTE\' " +
                         $"{condiciones}" +
                         $"UNION " +
@@ -229,12 +230,14 @@ namespace MemoryClubForms.BusinessBO
                 switch (Ptcliente)
                 {
                     case "CLIENTE":
-                        query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, L.estado, CONVERT(date, C.fecha,101) fechahora " +
+                        query = $"SET LANGUAGE us_english " +
+                                $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, L.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, L.estado, CONVERT(date, C.fecha,101) fechahora " +
                                 $"FROM Catering C LEFT JOIN Cliente L ON C.fk_id_cliente = L.id_cliente WHERE C.id_catering >= 0 " +
                                 $"{condiciones} ORDER BY C.sucursal, C.fecha";
                         break;
                     case "COLABORADOR":
-                        query = $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, B.estado, CONVERT(date, C.fecha,101) fechahora " +
+                        query = $"SET LANGUAGE us_english " +
+                                $"SELECT DISTINCT C.id_catering, C.fk_id_cliente, B.nombre, C.tipo_cliente, C.tipo_menu, C.fecha, C.hora, C.observacion, C.sucursal, C.usuario, C.fecha_mod, B.estado, CONVERT(date, C.fecha,101) fechahora " +
                                 $"FROM Catering C LEFT JOIN Colaborador B ON C.fk_id_cliente = B.id_colaborador WHERE C.id_catering >= 0 " +
                                 $"{condiciones_aux} ORDER BY C.sucursal, C.fecha";
                         break;
@@ -270,12 +273,13 @@ namespace MemoryClubForms.BusinessBO
         /// </summary>
         /// <param name="PcateringModel"></param>
         /// <returns>bool TRUE/FALSE</returns>
-        public bool InsertarCatering(CateringModel PcateringModel)
+        public string InsertarCatering(CateringModel PcateringModel)
         {
-            string msg = PcateringModel.Validate(PcateringModel);
+            string msg = "";
+            msg = PcateringModel.Validate(PcateringModel);
             if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
             {
-                return false;
+                return msg;
             }
             else
             {
@@ -289,29 +293,35 @@ namespace MemoryClubForms.BusinessBO
                     try
                     {
                         bool execute = SQLConexionDataBase.Execute(query);
-                        return execute;
+                        if (execute)
+                        { msg = "OK"; }
                     }
                     catch (SqlException ex)
                     {
-                        Console.WriteLine("Error al insertar  catering", ex.Message);
-                        return false;
+                        msg = "error " + ex.Message;
+                        return msg;
                     }
                 }
                 else
-                { return false; }
+                {
+                    msg = "No puede ingresar catering para otra sucursal";
+                    return msg;
+                }
             }
+            return msg;
         }
         /// <summary>
         /// ACTUALIZA UN REGISTRO DE CATERING
         /// </summary>
         /// <param name="PcateringModel"></param>
         /// <returns>bool True/False</returns>
-        public bool ActualizarCatering(CateringModel PcateringModel)
+        public string ActualizarCatering(CateringModel PcateringModel)
         {
-            string msg = PcateringModel.Validate(PcateringModel);
+            string msg = "";
+            msg = PcateringModel.Validate(PcateringModel);
             if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
             {
-                return false;
+                return msg;
             }
             else
             {
@@ -324,17 +334,22 @@ namespace MemoryClubForms.BusinessBO
                     try
                     {
                         bool execute = SQLConexionDataBase.Execute(query);
-                        return execute;
+                        if (execute)
+                        { msg = "OK"; }
                     }
                     catch (SqlException ex)
                     {
-                        Console.WriteLine("Error al actualizar catering", ex.Message);
-                        return false;
+                        msg = "Error al actualizar Catering\n" + ex.Message;
+                        return msg;
                     }
                 }
                 else
-                { return false; }
+                {
+                    msg = "No puede modificar catering para otra sucursal";
+                    return msg;
+                }
             }
+            return msg;
         }
         /// <summary>
         /// ELIMINA UN REGISTRO DE CATERING
@@ -360,6 +375,37 @@ namespace MemoryClubForms.BusinessBO
             else
             { return false; }
 
+        }
+
+        /// <summary>
+        /// Recibe cadena de id's de catering para eliminar d forma masiva los registros de catering
+        /// </summary>
+        /// <param name="Pcadena"></param>
+        /// <returns></returns>
+        public string EliminarCateringMasivo(string Pcadena)
+        {
+            string msg = "";
+            if (nivel <= 1) //solo elimina catering masivamente el nivel administrador
+            {
+                string query = $"DELETE FROM Catering WHERE id_catering in {Pcadena} "; //elimina la cadena de Id's de catering
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    if (execute)
+                    { msg = "OK"; }
+                }
+                catch (SqlException ex)
+                {
+                    msg = "Error al eliminar Catering\n " + ex.Message;
+                    return msg;
+                }
+            }
+            else
+            {
+                msg = "\nUsuario no autorizado\n";
+                return msg;
+            }
+            return msg.ToString();
         }
 
         /// <summary>

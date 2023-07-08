@@ -149,7 +149,8 @@ namespace MemoryClubForms.BusinessBO
             }
 
             //armo el select con las opciones dadas
-            query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
+            query = $"SET LANGUAGE us_english " +
+                $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
             $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente " +
             $"{condiciones}";
 
@@ -186,13 +187,15 @@ namespace MemoryClubForms.BusinessBO
             //
             if (nivel <= 1) // los usuarios que pueden gestionar todas las sucursales
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
+                query = $"SET LANGUAGE us_english " +
+                        $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
                         $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE CONVERT(date, A.fecha,101) BETWEEN " +
                         $"CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) ORDER BY A.sucursal, fechahora ASC";
             }
             else
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
+                query = $"SET LANGUAGE us_english " +
+                        $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
                         $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE A.sucursal = {sucursal}" +
                         $" AND (CONVERT(date,A.fecha,101) BETWEEN CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date)) ORDER BY fechahora ASC";
             }
@@ -213,12 +216,14 @@ namespace MemoryClubForms.BusinessBO
             string query = "";
             if (nivel <= 1) // los usuarios que pueden gestionar todas las sucursales
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
+                query = $"SET LANGUAGE us_english " +
+                        $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
                         $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE A.fk_id_cliente = {pfk_id_cliente}  ORDER BY fechahora ASC";
             }
             else
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
+                query = $"SET LANGUAGE us_english " +
+                        $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
                         $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE A.sucursal = {sucursal} " +
                         $"AND A.fk_id_cliente = {pfk_id_cliente} ORDER BY fechahora ASC";
             }
@@ -255,13 +260,15 @@ namespace MemoryClubForms.BusinessBO
             }
             if (nivel <= 1) // los usuarios que pueden gestionar todas las sucursales
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
+                query = $"SET LANGUAGE us_english " +
+                        $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
                         $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE CONVERT(date, A.fecha,101) BETWEEN " +
                         $"CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) AND A.fk_id_cliente = {pfk_id_cliente}  ORDER BY A.sucursal, fechahora ASC";
             }
             else
             {
-                query = $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
+                query = $"SET LANGUAGE us_english " +
+                        $"SELECT A.id_asistencia, A.fk_id_cliente, C.nombre, A.fecha, A.hora, A.observacion, A.sucursal, A.usuario, A.fecha_mod, C.estado, CONVERT(date, A.fecha,101) fechahora " +
                         $"FROM Asistencia A JOIN Cliente C ON A.fk_id_cliente = C.id_cliente WHERE CONVERT(date, A.fecha,101) BETWEEN " +
                         $"CAST('{Pdesde}' AS date) AND CAST('{Phasta}' AS date) AND A.sucursal = {sucursal} AND A.fk_id_cliente = {pfk_id_cliente} " +
                         $"ORDER BY fechahora ASC";
@@ -300,7 +307,8 @@ namespace MemoryClubForms.BusinessBO
         /// <returns>bool True/False</returns>
         public bool ValidarDuplicadoAsis(AsistenciaModel asistenciaModel)
         {
-            string query = $"SELECT * FROM Asistencia WHERE fk_id_cliente = {asistenciaModel.Fk_id_cliente} AND CONVERT(date, fecha,101) = CAST('{asistenciaModel.Fecha}' AS date)";
+            string query = $"SET LANGUAGE us_english " +
+                           $"SELECT * FROM Asistencia WHERE fk_id_cliente = {asistenciaModel.Fk_id_cliente} AND CONVERT(date, fecha,101) = CAST('{asistenciaModel.Fecha}' AS date)";
 
             List<AsistenciaModel> nombresList = new List<AsistenciaModel>();
             //Las consultas siempre retornan el obtejo dentro de una lista.
@@ -344,7 +352,8 @@ namespace MemoryClubForms.BusinessBO
         private bool ActualizaCalendario(AsistenciaModel asistenciaModel)
         {
             //busca si hay un registro en el calendario para ese cliente, con un plan vigente y en la fecha dada
-            string query = $"SELECT id_calendario FROM Calendario C INNER JOIN Planes P ON fk_id_plan = id_plan " +
+            string query = $"SET LANGUAGE us_english " +
+                           $"SELECT id_calendario FROM Calendario C INNER JOIN Planes P ON fk_id_plan = id_plan " +
                            $"WHERE P.estado = 'VIGENTE' AND C.fk_id_cliente = {asistenciaModel.Fk_id_cliente} AND CONVERT(date, C.fecha, 101) = CAST('{asistenciaModel.Fecha}' AS date)";
 
             List<Calendarios> calendariosList = new List<Calendarios>();
@@ -382,8 +391,9 @@ namespace MemoryClubForms.BusinessBO
         /// </summary>
         /// <param name="asistenciaModel"></param>
         /// <returns>true-false</returns>
-        public bool InsertarAsistencia(AsistenciaModel asistenciaModel)
+        public string InsertarAsistencia(AsistenciaModel asistenciaModel)
         {
+            string msg = "";
             bool valida = this.ValidarDuplicadoAsis(asistenciaModel);
             if (valida)
             {
@@ -396,20 +406,28 @@ namespace MemoryClubForms.BusinessBO
                     try
                     {
                         bool execute = SQLConexionDataBase.Execute(query);
-                        ActualizaCalendario(asistenciaModel);
-                        return execute;
+                        if (execute)
+                        { msg = "OK"; }
+                        //ActualizaCalendario(asistenciaModel);
                     }
                     catch (SqlException ex)
                     {
-                        Console.WriteLine("Error al insertar Asistencia", ex.Message);
-                        return false;
+                        msg = "Error al insertar Asistencia\n " + ex.Message;
+                        return msg;                      
                     }
                 }
                 else
-                { return false; }
+                {
+                    msg = "\nNo puede ingresar asistencia para otra sucursal\n";
+                    return msg;
+                }
             }
             else
-            { return false; }
+            {
+                msg = "\nRegistro Duplicado";
+                return msg;
+            }
+            return msg;
         }
 
         /// <summary>
@@ -417,8 +435,9 @@ namespace MemoryClubForms.BusinessBO
         /// </summary>
         /// <param name="asistenciaModel"></param>
         /// <returns>true-false</returns>
-        public bool ActualizarAsistencia(AsistenciaModel asistenciaModel)
+        public string ActualizarAsistencia(AsistenciaModel asistenciaModel)
         {
+            string msg = "";
             bool aux = this.ValidaSucursalAsis(asistenciaModel); //solo modifica si es de la misma sucursal o si es de nivel administrador
             if (aux == true)
             {
@@ -427,16 +446,21 @@ namespace MemoryClubForms.BusinessBO
                 try
                 {
                     bool execute = SQLConexionDataBase.Execute(query);
-                    return execute;
+                    if (execute)
+                    { msg = "OK"; }
                 }
                 catch (SqlException ex)
                 {
-                    Console.WriteLine("Error al eliminar Asistencia ", ex.Message);
-                    return false;
+                    msg = "Error al actualizar Asistencia\n " + ex.Message;
+                    return msg;                   
                 }
             }
             else
-            { return false; }
+            {
+                msg = "\nNo puede editar asistencia para otra sucursal\n";
+                return msg;
+            }
+            return msg.ToString();
         }
 
         /// <summary>
@@ -456,13 +480,45 @@ namespace MemoryClubForms.BusinessBO
                 }
                 catch (SqlException ex)
                 {
-                    Console.WriteLine("Error al actualizar Asistencia ", ex.Message);
+                    Console.WriteLine("Error al eliminar Asistencia ", ex.Message);
                     return false;
                 }
             }
             else
             { return false; }
         }
+        /// <summary>
+        /// Recibe cadena de id's de asistencia para eliminar d forma masiva los registros de asistencia
+        /// </summary>
+        /// <param name="Pcadena"></param>
+        /// <returns></returns>
+        public string EliminarMasivo(string Pcadena)
+        {
+            string msg = "";
+            if (nivel <= 1) //solo elimina asistencia masivamente el nivel administrador
+            {
+                string query = $"DELETE FROM Asistencia WHERE id_asistencia in {Pcadena} "; //elimina la cadena de Id's
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    if (execute)
+                    { msg = "OK"; }
+                }
+                catch (SqlException ex)
+                {
+                    msg = "Error al eliminar Asistencia\n " + ex.Message;
+                    return msg;
+                }
+            }
+            else
+            {
+                msg = "\nUsuario no autorizado\n";
+                return msg;
+            }
+            return msg.ToString();
+        }
+            
+
         public class NombresClientes
         {
             public int Id_Cliente { get; set; }

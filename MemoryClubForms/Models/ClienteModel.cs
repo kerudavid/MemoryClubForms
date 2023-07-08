@@ -51,6 +51,7 @@ namespace MemoryClubForms.Models
         public string Usuario { get; set; }
         public string Fecha_mod { get; set; }
         public DateTime Fechaing { get; set; }
+        public decimal Valor_transporte { get; set; }
 
         /// <summary>
         /// Valida los campos que no pueden ser nulos
@@ -109,6 +110,11 @@ namespace MemoryClubForms.Models
             if (ldt_date > hoy)
             {
                 return "Por favor, la Fecha de Ingreso no puede ser mayor a Hoy";
+            }
+
+            if (Valor_transporte < 0)
+            {
+                Valor_transporte = 0;
             }
                                              
             return message;

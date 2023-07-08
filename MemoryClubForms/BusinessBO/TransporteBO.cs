@@ -249,7 +249,8 @@ namespace MemoryClubForms.BusinessBO
 
             if (string.IsNullOrEmpty(Ptcliente)) //Cuando la consulta NO es por Tipo Cliente
             {
-                query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre as nombre_tra, " +
+                query = $"SET LANGUAGE us_english " +
+                        $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre as nombre_tra, " +
                         $"T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, C.estado, CONVERT(date, T.fecha,101) fechahora " +
                         $"FROM Transporte T LEFT JOIN Cliente C ON T.fk_id_cliente = C.id_cliente  " +
                         $"LEFT JOIN Transportista X ON T.id_transportista = X.id_transportista WHERE tipo_cliente = 'CLIENTE' " +
@@ -266,14 +267,16 @@ namespace MemoryClubForms.BusinessBO
                 switch (Ptcliente)
                 {
                     case "CLIENTE":
-                        query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre as nombre_tra, " +
+                        query = $"SET LANGUAGE us_english " +
+                                $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, C.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre as nombre_tra, " +
                             $"T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, C.estado, CONVERT(date, T.fecha,101) fechahora " +
                                 $"FROM Transporte T LEFT JOIN Cliente C ON T.fk_id_cliente = C.id_cliente " +
                                 $"LEFT JOIN Transportista X ON T.id_transportista = X.id_transportista  WHERE id_transporte >= 0 " +
                                 $"{condiciones} ORDER BY T.sucursal";
                         break;
                     case "COLABORADOR":
-                        query = $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, B.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre as nombre_tra, " +
+                        query = $"SET LANGUAGE us_english " +
+                                $"SELECT DISTINCT T.id_transporte, T.fk_id_cliente, B.nombre, T.tipo_cliente, T.fecha, T.hora, T.id_transportista, X.nombre as nombre_tra, " +
                             $"T.entrada_salida, T.observacion, T.sucursal, T.usuario, T.fecha_mod, B.estado, CONVERT(date, T.fecha,101) fechahora " +
                                 $"FROM Transporte T LEFT JOIN Colaborador B ON T.fk_id_cliente = B.id_colaborador " +
                                 $"LEFT JOIN Transportista X ON T.id_transportista = X.id_transportista WHERE id_transporte >= 0 " +
@@ -310,12 +313,13 @@ namespace MemoryClubForms.BusinessBO
         /// </summary>
         /// <param name="PtransporteModel"></param>
         /// <returns></returns>
-        public bool InsertarTransporte(TransporteModel PtransporteModel)
+        public string InsertarTransporte(TransporteModel PtransporteModel)
         {
-            string msg = PtransporteModel.Validate(PtransporteModel);
+            string msg = "";
+            msg = PtransporteModel.Validate(PtransporteModel);
             if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
             {
-                return false;
+                return msg;
             }
             else
             {
@@ -330,17 +334,22 @@ namespace MemoryClubForms.BusinessBO
                     try
                     {
                         bool execute = SQLConexionDataBase.Execute(query);
-                        return execute;
+                        if (execute)
+                        { msg = "OK"; }
                     }
                     catch (SqlException ex)
                     {
-                        Console.WriteLine("Error al insertar  Transporte", ex.Message);
-                        return false;
+                        msg = "Error al insertar Transporte\n " + ex.Message;
+                        return msg;                       
                     }
                 }
                 else
-                { return false; }
+                {
+                    msg = "No puede ingresar transporte para otra sucursal";
+                    return msg;
+                }
             }
+            return msg;
         }
       
         /// <summary>
@@ -348,12 +357,13 @@ namespace MemoryClubForms.BusinessBO
         /// </summary>
         /// <param name="PtransporteModel"></param>
         /// <returns></returns>
-        public bool ActualizarTransporte(TransporteModel PtransporteModel)
+        public string ActualizarTransporte(TransporteModel PtransporteModel)
         {
-            string msg = PtransporteModel.Validate(PtransporteModel);
+            string msg = "";
+            msg = PtransporteModel.Validate(PtransporteModel);
             if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
             {
-                return false;
+                return msg;
             }
             else
             {
@@ -366,17 +376,22 @@ namespace MemoryClubForms.BusinessBO
                     try
                     {
                         bool execute = SQLConexionDataBase.Execute(query);
-                        return execute;
+                        if (execute)
+                        { msg = "OK"; }
                     }
                     catch (SqlException ex)
                     {
-                        Console.WriteLine("Error al actualizar Transporte", ex.Message);
-                        return false;
+                        msg = "Error al actualizar Transporte.\n" + ex.Message;                        
+                        return msg;
                     }
                 }
                 else
-                { return false; }
+                {
+                    msg = "No puede editar transporte para otra sucursal";
+                    return msg;
+                }
             }
+            return msg;
         }
 
         /// <summary>
@@ -403,6 +418,38 @@ namespace MemoryClubForms.BusinessBO
             else
             { return false;  }
         }
+
+        /// <summary>
+        /// Recibe cadena con Id's de transporte que serán eliminados de la tabla transporte
+        /// </summary>
+        /// <param name="Pcadena"></param>
+        /// <returns></returns>
+        public string EliminarMasivoTransporte(string Pcadena)
+        {
+            string msg = "";
+            if (nivel <= 1) //solo elimina transporte masivamente el nivel administrador
+            {
+                string query = $"DELETE FROM Transporte WHERE id_transporte in {Pcadena} "; //elimina la cadena de Id's de catering
+                try
+                {
+                    bool execute = SQLConexionDataBase.Execute(query);
+                    if (execute)
+                    { msg = "OK"; }
+                }
+                catch (SqlException ex)
+                {
+                    msg = "Error al eliminar Transporte\n " + ex.Message;
+                    return msg;
+                }
+            }
+            else
+            {
+                msg = "\nUsuario no autorizado\n";
+                return msg;
+            }
+            return msg.ToString();
+        }
+
 
         /// <summary>
         /// Model List para los nombres de los clientes

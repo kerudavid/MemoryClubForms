@@ -227,12 +227,13 @@ namespace MemoryClubForms.BusinessBO
             }
 
             //armo el select con las opciones dadas          
-            query = $"SELECT C.id_cliente, C.cedula, C.nombre, C.apodo, C.fecha_ingreso, C.fecha_free, C.sexo, C.estado, C.aula, " +
+            query = $"SET LANGUAGE us_english " +
+                $"SELECT C.id_cliente, C.cedula, C.nombre, C.apodo, C.fecha_ingreso, C.fecha_free, C.sexo, C.estado, C.aula, " +
                 $"C.dia_nacim, C.mes_nacim, C.anio_nacim,C.telefono, C.nombre_contacto, C.parentesco_contacto, C.telefono_contacto, " +
                 $"C.celular_contacto, C.encargado_pago, C.parentesco_pago, C.telefono_pago, C.cedula_pago, C.celular_pago, C.email_pago," +
                 $" C.medio_pago, C.frecuencia_pago, C.pariente_transp, C.direccion, C.toma_transp, C.id_transportista, T.nombre as nombre_transportista, " +
                 $"C.retirarse_solo, C.nombre_factu, C.cedula_factu, C.direccion_factu, C.email_factu, C.sucursal, C.observacion, C.usuario, " +
-                $"C.fecha_mod, CONVERT(date, C.fecha_ingreso, 101) fechaing FROM Cliente C LEFT JOIN Transportista T ON C.id_transportista = T.id_transportista " +
+                $"C.fecha_mod, C.valor_transporte, CONVERT(date, C.fecha_ingreso, 101) fechaing FROM Cliente C LEFT JOIN Transportista T ON C.id_transportista = T.id_transportista " +
                 $"WHERE C.id_cliente >= 0  {condiciones}";
 
             List<ClienteModel> clienteModelList = new List<ClienteModel>();
@@ -281,15 +282,16 @@ namespace MemoryClubForms.BusinessBO
         /// </summary>
         /// <param name="clienteModel"></param>
         /// <returns>TRUE/FALSE</returns>
-        public bool InsertarCliente(ClienteModel clienteModel)
+        public string InsertarCliente(ClienteModel clienteModel)
         {
+            string msg = "";
             bool valida = this.ValidaNivelCliente();
             if (valida == true)
             {
-                string msg = clienteModel.Validate(clienteModel);
+                msg = clienteModel.Validate(clienteModel);
                 if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
                 {
-                    return false;
+                    return msg;
                 }
                 else
                 {
@@ -299,53 +301,63 @@ namespace MemoryClubForms.BusinessBO
                         string query = $"INSERT INTO Cliente (cedula, nombre, apodo, fecha_ingreso, fecha_free, sexo, estado, aula, dia_nacim, mes_nacim, anio_nacim, " +
                                    $"telefono, nombre_contacto, parentesco_contacto, telefono_contacto, celular_contacto, encargado_pago, parentesco_pago, telefono_pago, " +
                                    $"cedula_pago, celular_pago, email_pago, medio_pago, frecuencia_pago, pariente_transp, direccion, toma_transp, id_transportista, retirarse_solo, nombre_factu, " +
-                                   $"cedula_factu, direccion_factu, email_factu, sucursal, observacion, usuario, fecha_mod) " +
+                                   $"cedula_factu, direccion_factu, email_factu, sucursal, observacion, usuario, fecha_mod, valor_transporte) " +
                                    $"VALUES ('{clienteModel.Cedula}', '{clienteModel.Nombre}', '{clienteModel.Apodo}', '{clienteModel.Fecha_ingreso}', '{clienteModel.Fecha_free}', '{clienteModel.Sexo}', " +
                                    $"'{clienteModel.Estado}', {clienteModel.Aula}, {clienteModel.Dia_nacim}, {clienteModel.Mes_nacim}, {clienteModel.Anio_nacim}, '{clienteModel.Telefono}', " +
                                    $"'{clienteModel.Nombre_contacto}', '{clienteModel.Parentesco_contacto}', '{clienteModel.Telefono_contacto}', '{clienteModel.Celular_contacto}', '{clienteModel.Encargado_pago}', " +
                                    $"'{clienteModel.Parentesco_pago}', '{clienteModel.Telefono_pago}', '{clienteModel.Cedula_pago}', '{clienteModel.Celular_pago}', '{clienteModel.Email_pago}', " +
-                                   $"'{clienteModel.Medio_pago}',  '{clienteModel.Frecuencia_pago}', '{clienteModel.Pariente_transp}', '{clienteModel.Direccion}', '{clienteModel.Toma_transp}', '{clienteModel.Id_transportista}', " +
+                                   $"'{clienteModel.Medio_pago}',  '{clienteModel.Frecuencia_pago}', '{clienteModel.Pariente_transp}', '{clienteModel.Direccion}', '{clienteModel.Toma_transp}', {clienteModel.Id_transportista}, " +
                                    $"'{clienteModel.Retirarse_solo}', '{clienteModel.Nombre_factu}', '{clienteModel.Cedula_factu}', '{clienteModel.Direccion_factu}', '{clienteModel.Email_factu}', " +
-                                   $"{clienteModel.Sucursal}, '{clienteModel.Observacion}', '{clienteModel.Usuario}', '{clienteModel.Fecha_mod}')";
+                                   $"{clienteModel.Sucursal}, '{clienteModel.Observacion}', '{clienteModel.Usuario}', '{clienteModel.Fecha_mod}', {clienteModel.Valor_transporte})";
                         try
                         {
                             bool execute = SQLConexionDataBase.Execute(query);
-                            return execute;
+                            if(execute)
+                            { msg = "OK"; }
                         }
                         catch (SqlException ex)
                         {
-                            Console.WriteLine("Error al insertar Cliente", ex.Message);
-                            return false;
+                            msg = "Error al insertar Cliente\n" + ex.Message;
+                            return msg;                            
                         }
                     }
                     else
-                    { return false; } //ya existe esa cedula
+                    {
+                        msg = "\nError, Este número de cédula ya existe";
+                        return msg;
+                    } //ya existe esa cedula
                 }
             }
             else
-            { return false; }        
+            {
+                msg = "Usuario no autorizado para insertar Cliente";
+                return msg;
+            }
+            return msg;
         }
 
         /// <summary>
         /// Actualiza Cliente (apodo, fecha_free, estado, aula, dia, mes, año nacimiento, tfono, nombre contac, parentesco contac, tfono contac,celu contac, encargado pago, ...
         /// (parentesco pago, fono pago, cedula pago, celu pago, email pago, medio pago, frecuencia pago, pariente trans, direcc, toma transporte, id transportista, retirarse solo..
-        /// (nombre factura, cedula factu, direccion factu, email factu, sucursal, observacion, usuario, fecha mod) son 33 campos que puede modificar
+        /// (nombre factura, cedula factu, direccion factu, email factu, sucursal, observacion, usuario, fecha mod, valor transp.) son 33 campos que puede modificar
         /// </summary>
         /// <param name="PclienteModel"></param>
         /// <returns></returns>
-        public bool ActualizarCliente(ClienteModel clienteModel)
+        public string ActualizarCliente(ClienteModel clienteModel)
         {
+            string msg = "";
             bool valida = this.ValidaNivelCliente();
             if (valida == true)
             {
-                string msg = clienteModel.Validate(clienteModel);
+                msg = clienteModel.Validate(clienteModel);
                 if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
                 {
-                    return false;
+                    return msg;
                 }
                 else
                 {
-                    string query = $"UPDATE Cliente SET apodo = '{clienteModel.Apodo}', fecha_free = '{clienteModel.Fecha_free}', estado = '{clienteModel.Estado}', aula = {clienteModel.Aula}, " +
+                    string query = $"SET LANGUAGE us_english " +
+                                   $"UPDATE Cliente SET nombre = '{clienteModel.Nombre}', apodo = '{clienteModel.Apodo}', fecha_free = '{clienteModel.Fecha_free}', estado = '{clienteModel.Estado}', aula = {clienteModel.Aula}, " +
                                    $"dia_nacim = {clienteModel.Dia_nacim}, mes_nacim = {clienteModel.Mes_nacim}, anio_nacim = {clienteModel.Anio_nacim}, telefono = '{clienteModel.Telefono}', " +
                                    $"nombre_contacto = '{clienteModel.Nombre_contacto}', parentesco_contacto = '{clienteModel.Parentesco_contacto}', telefono_contacto = '{clienteModel.Telefono_contacto}', " +
                                    $"celular_contacto = '{clienteModel.Celular_contacto}', encargado_pago = '{clienteModel.Encargado_pago}', parentesco_pago = '{clienteModel.Parentesco_pago}', " +
@@ -353,23 +365,28 @@ namespace MemoryClubForms.BusinessBO
                                    $"medio_pago = '{clienteModel.Medio_pago}', frecuencia_pago = '{clienteModel.Frecuencia_pago}', pariente_transp = '{clienteModel.Pariente_transp}', direccion = '{clienteModel.Direccion}', toma_transp = '{clienteModel.Toma_transp}', " +
                                    $"id_transportista = '{clienteModel.Id_transportista}', retirarse_solo = '{clienteModel.Retirarse_solo}', nombre_factu = '{clienteModel.Nombre_factu}', " +
                                    $"cedula_factu = '{clienteModel.Cedula_factu}', direccion_factu = '{clienteModel.Direccion_factu}', email_factu = '{clienteModel.Email_factu}', sucursal = {clienteModel.Sucursal}, " +
-                                   $"observacion = '{clienteModel.Observacion}', usuario = '{clienteModel.Usuario}', fecha_mod = '{clienteModel.Fecha_mod}' " +
+                                   $"observacion = '{clienteModel.Observacion}', usuario = '{clienteModel.Usuario}', fecha_mod = '{clienteModel.Fecha_mod}', valor_transporte = {clienteModel.Valor_transporte} " +
                                    $"WHERE id_cliente = {clienteModel.Id_cliente}";
 
                     try
                     {
                         bool execute = SQLConexionDataBase.Execute(query);
-                        return execute;
+                        if (execute)
+                        { msg = "OK"; }
                     }
                     catch (SqlException ex)
                     {
-                        Console.WriteLine("Error al actualizar catering", ex.Message);
-                        return false;
+                        msg = "Error al actualizar Cliente\n" + ex.Message;
+                        return msg;                       
                     }
                 }
             }
             else
-            { return false; }
+            {
+                msg = "Usuario no autorizado para editar Cliente";
+                return msg;
+            }
+            return msg;
         }
 
         /// <summary>

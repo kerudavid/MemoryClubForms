@@ -153,12 +153,13 @@ namespace MemoryClubForms.BusinessBO
         /// </summary>
         /// <param name="saludModel"></param>
         /// <returns>true/falso</returns>
-        public bool InsertarSalud(SaludModel saludModel)
+        public string InsertarSalud(SaludModel saludModel)
         {
-            string msg = saludModel.Validate(saludModel);
+            string msg = "";
+            msg = saludModel.Validate(saludModel);
             if (!(string.IsNullOrEmpty(msg)))   //si hay errores en los datos del modelo retorna falso
             {
-                return false;
+                return msg;
             }
             else
             {
@@ -172,16 +173,20 @@ namespace MemoryClubForms.BusinessBO
                     try
                     {
                         bool execute = SQLConexionDataBase.Execute(query);
-                        return execute;
+                        if (execute)
+                        { msg = "OK"; }
                     }
                     catch (SqlException ex)
                     {
-                        Console.WriteLine("Error al insertar registro", ex.Message);
-                        return false;
+                        msg = "Error " + ex.Message;
+                        return msg;
                     }
                 }
                 else
-                { return false; }
+                {
+                    msg = "Este registro ya existe, No se puede duplicar";
+                }
+                return msg;
             }
         }
 
