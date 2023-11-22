@@ -77,8 +77,8 @@ namespace MemoryClubForms.Data
 		}
 		public static SqlConnection BuildSqlConnection()
 		{
-			//SqlConnection sqlConnString = new SqlConnection(ConfigurationManager.ConnectionStrings["DBProd"].ConnectionString); //bdd de producción
-			SqlConnection sqlConnString = new SqlConnection(ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString); //bdd de pruebas
+			SqlConnection sqlConnString = new SqlConnection(ConfigurationManager.ConnectionStrings["DBProd"].ConnectionString); //bdd de producción
+			//SqlConnection sqlConnString = new SqlConnection(ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString); //bdd de pruebas
 			return sqlConnString;
 		}
 	}
