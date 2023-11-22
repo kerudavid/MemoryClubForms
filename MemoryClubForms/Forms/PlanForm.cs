@@ -465,7 +465,7 @@ namespace MemoryClubForms.Forms
             cbxTipoPlan.Items.Clear();
             cbxTipoPlan.Text = "";
             cbxTipoPlan.Enabled = true;
-            
+
             dtmFechaFin.Enabled = false;
             dtmFechaFinalizoPlan.Enabled = false;
 
@@ -496,7 +496,7 @@ namespace MemoryClubForms.Forms
             tbxCliente.Text = "";
             tbxCliente.Enabled = false;
 
-           
+
             txbclave.Visible = false;
             txbclave.Enabled = false;
             txbclave.Text = "";
@@ -633,7 +633,7 @@ namespace MemoryClubForms.Forms
                     string fefin = grdPlan.Rows[filaSeleccionada].Cells[5].Value.ToString();
                     DateTime ldt_fefin = DateTime.ParseExact(fefin, "MM/dd/yyyy", ci);
                     dtmFechaFin.Value = ldt_fefin;
-                    
+
                     tbxNumeroDiasPlan.Text = (string)grdPlan.Rows[filaSeleccionada].Cells[6].Value.ToString();
 
                     cbxEstado.Items.Clear();
@@ -706,7 +706,7 @@ namespace MemoryClubForms.Forms
             cbxNombresClientes.Enabled = false;
 
             dtmFecha.Enabled = false;
-          
+
             cbxTipoPlan.Enabled = false;
 
             dtmFechaFin.Enabled = false;
@@ -728,7 +728,7 @@ namespace MemoryClubForms.Forms
             btnInsertar.Enabled = false;
             btneditar_fechafin.Enabled = false;
             action = 2;
-        }      
+        }
         private void btnEditar_Click(object sender, EventArgs e)
         {
             try
@@ -754,7 +754,7 @@ namespace MemoryClubForms.Forms
 
                 lblAction.Text = "Editando";
 
-                
+
             }
             catch (Exception ex)
             {
@@ -885,7 +885,7 @@ namespace MemoryClubForms.Forms
 
                     planModel.Observacion = ls_obs;
                     planModel.Sucursal = li_sucursal;
-                    planModel.Usuario = VariablesGlobales.usuario.ToString();                   
+                    planModel.Usuario = VariablesGlobales.usuario.ToString();
                     planModel.Fecha_mod = planModel.Fecha_fin_plan;
 
                     string responseDB = planBO.InsertarPlan(planModel);
@@ -922,7 +922,7 @@ namespace MemoryClubForms.Forms
                         return;
                     }
 
-                   
+
 
                     //dias contratados
                     if (id_Valor2 > 0)
@@ -945,26 +945,27 @@ namespace MemoryClubForms.Forms
                     planModel.Sucursal = int.Parse(cbxSucursal.SelectedItem.ToString());
                     planModel.Usuario = VariablesGlobales.usuario.ToString();
                     //uso la fecha_mod para poner la fecha en que finalizó el plan
-                    if (cbxEstado.SelectedItem.ToString().ToLower() == "caducado" ) 
+                    if (cbxEstado.SelectedItem.ToString().ToLower() == "caducado") //cambio 17/nov/2023 si está caducado acepta lo que digite el usuario
                     {
-                        if (fecha_finalizo == fecha_fin_vig) //pone la fecha de hoy
-                        {
-                            planModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
-                        }
-                        else
-                        { planModel.Fecha_mod = fecha_finalizo.ToString("MM/dd/yyyy", ci); }  //pone la fecha digitada por el usuario que modificó
-                        
+                        /* if (fecha_finalizo == fecha_fin_vig) //pone la fecha de hoy
+                         {
+                             planModel.Fecha_mod = DateTime.Now.ToString("MM/dd/yyyy", ci);
+                         }
+                         else
+                         { */
+                        planModel.Fecha_mod = fecha_finalizo.ToString("MM/dd/yyyy", ci);// }  //pone la fecha digitada por el usuario que modificó
+
                     }
-                    else 
+                    else
                     { planModel.Fecha_mod = planModel.Fecha_fin_plan; }   //caso contrario vuelve a poner la fecha de caducidad del plan
-                                           
+
                     string responseDB = planBO.ActualizarPlan(planModel);
 
                     if (responseDB.ToLower() != "ok")
                     {
                         MessageBox.Show("No se pudo editar la información, inténtelo más tarde.\n " + responseDB, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
-                    }                     
+                    }
                     MessageBox.Show("La información se ha actualizado EXITOSAMENTE!", "Actualizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -1167,16 +1168,16 @@ namespace MemoryClubForms.Forms
                 btnInsertar.Enabled = false;
                 btnEditar.Enabled = false;
                 btnEliminar.Enabled = false;
-                btneditar_fechafin.Enabled = false; 
+                btneditar_fechafin.Enabled = false;
 
                 lblAction.Text = "Editando Fecha Fin";
-           
+
                 btnOk.Visible = true;
                 btnOk.Enabled = true;
                 txbclave.Visible = true;
                 txbclave.Enabled = true;
                 labelclave.Visible = true;
-                labelclave.Enabled = true;                        
+                labelclave.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -1233,7 +1234,7 @@ namespace MemoryClubForms.Forms
                     if (cbxEstado.SelectedItem.ToString().ToLower() != item.Estados.ToLower())
                         cbxEstado.Items.Add(item.Estados);
                 }
-               
+
             }
             else
             {
@@ -1246,7 +1247,7 @@ namespace MemoryClubForms.Forms
 
                 MessageBox.Show("Error Clave Incorrecta! ", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
-            }           
+            }
         }
 
         /// <summary>
@@ -1271,7 +1272,7 @@ namespace MemoryClubForms.Forms
 
             PlanBO planBO = new PlanBO();
 
-            string fefin = dtmFechaFin.Value.ToString("MM/dd/yyyy", ci);            
+            string fefin = dtmFechaFin.Value.ToString("MM/dd/yyyy", ci);
             string femod = fefin;   //pone la misma fecha de caducidad del plan
             string ls_sts = cbxEstado.SelectedItem.ToString();
             string ls_usuario = VariablesGlobales.usuario.ToString();
